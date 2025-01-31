@@ -1,0 +1,95 @@
+.stores-section {
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4vw 8vw;
+    background-color: #ffffff;
+    gap: 4vw;
+}
+
+.stores-content {
+    flex: 1;
+    max-width: 50%;
+}
+
+.stores-content h1 {
+    font-family: "Bodoni Moda", serif;
+    font-size: 4vw;
+    line-height: 1.2;
+    margin-bottom: 1.5vw;
+    color: #000000;
+}
+
+.stores-content p {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.2vw;
+    color: #333333;
+    margin-bottom: 2vw;
+    line-height: 1.5;
+}
+
+.store-finder-btn {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1vw;
+    color: #000000;
+    background: transparent;
+    border: 1px solid #000000;
+    padding: 1vw 2vw;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.store-finder-btn:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.store-image {
+    flex: 1;
+    max-width: 50%;
+    position: relative;
+}
+
+.store-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.store-caption {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1vw;
+    color: #333333;
+    margin-top: 1vw;
+}
+
+@media (max-width: 768px){
+        /* store section */
+        .stores-section {
+            flex-direction: column;
+            padding: 6vw 4vw;
+            gap: 6vw;
+        }
+    
+        .stores-content, .store-image {
+            max-width: 100%;
+        }
+    
+        .stores-content h1 {
+            font-size: 8vw;
+        }
+    
+        .stores-content p {
+            font-size: 3vw;
+        }
+    
+        .store-finder-btn {
+            font-size: 2.5vw;
+            padding: 2vw 4vw;
+        }
+    
+        .store-caption {
+            font-size: 2.5vw;
+        }
+}

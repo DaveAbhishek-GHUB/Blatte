@@ -1,0 +1,130 @@
+/* Your option section */
+
+.reviews-section {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.reviews-title {
+    font-family: "Bodoni Moda", serif;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.reviews-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.rating {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.stars {
+    color: #FFD700;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+.review-count {
+    color: #666;
+    font-size: 1rem;
+}
+
+.reviews-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.review-card {
+    background-color: #f8f8f8;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+}
+
+.reviewer-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.reviewer-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.verified-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.verified-badge img {
+    width: 16px;
+    height: 16px;
+}
+
+.review-text {
+    color: #444;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.more-reviews-btn {
+    background-color: transparent;
+    border: 1px solid #333;
+    color: #333;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.more-reviews-btn:hover {
+    background-color: #333;
+    color: white;
+}
+
+@media (max-width: 768px) {
+        /* your option section */
+        .reviews-section {
+            padding: 0 1rem;
+        }
+    
+        .reviews-title {
+            font-size: 2rem;
+        }
+    
+        .reviews-container {
+            grid-template-columns: 1fr;
+        }
+    
+        .reviews-stats {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .view-all-btn {
+            font-size: 2vw;
+            padding: 1.5vw 4vw;
+        }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta tags for character encoding and responsive viewport -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Dynamic title block that can be overridden by child templates -->
+    <title>{% block title %}Tea Shop{% endblock %}</title>
+    
+    <!-- Link to main stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <!-- Header section containing logo and navigation -->
+    <header>
+        <!-- Logo container -->
+        <div class="main-logo-header">
+            <img src="../static/images/clean_canvas_image-removebg.png" alt="Tea Shop Logo">
+        </div>
+
+        <!-- Navigation bar -->
+        <div class="innerNavbar">
+            <!-- Main navigation links -->
+            <div class="navlinksWrapper">
+                <a href="/">Home</a>
+                <a href="/products">Products</a>
+                <a href="/tea-blends">Tea Blends</a>
+                <a href="/gift-set">Gift set</a>
+                <a href="/tea-accessories">Tea accessories</a>
+            </div>
+
+            <!-- Navigation icons for user actions -->
+            <div class="navIcons">
+                <a href="#"><img src="../static/images/svgs/Search.svg" alt="Search"></a>
+                <a href="#"><img src="../static/images/svgs/wishlist.svg" alt="wishList"></a>
+                <a href="#"><img src="../static/images/svgs/profile.svg" alt="profileIcon"></a>
+                <a href="#"><img src="../static/images/svgs/cart.svg" alt="cartIcon"></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main content area -->
+    <main>
+        <!-- Dynamic content block that will be filled by child templates -->
+        {% block content %}{% endblock %}
+    </main>
+</body>
+
+</html>

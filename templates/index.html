@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mainBodyWrapper">
+    <!-- Hero Section - Main banner with call-to-action -->
+    <div class="heroSection">
+        <img src="../static/images/HeroSectionF.webp" alt="heroSectoin">
+        <div class="infoWrapper">
+            <span class="infoWrapperOne">Tea, sets, gift cards and more – find the perfect gift.</span>
+            <span class="infoWrapperTwo">Merry Moments</span>
+            <button class="infoWrapperBTN">
+                <p>Discover all</p>
+            </button>
+        </div>
+    </div>
+
+    <!-- Category Section - Display different tea categories -->
+    <div class="categorySection">
+        <div class="catProductInfo">
+            <a href="#">
+                <img src="../static/images/teaBlends-Category.jpg" alt="Tea Blends Category">
+                <span>Tea blends</span>
+            </a>
+        </div>
+
+        <div class="catProductInfo">
+            <a href="#">
+                <img src="../static/images/greenTea-Category.jpg" alt="Green Tea Category">
+                <span>Green tea</span>
+            </a>
+        </div>
+
+        <div class="catProductInfo">
+            <a href="#">
+                <img src="../static/images/blackTea-Category.jpg" alt="Herbal Tea Category">
+                <span>Herbal tea</span>
+            </a>
+        </div>
+
+        <div class="catProductInfo">
+            <a href="#">
+                <img src="../static/images/BlackTea.jpg" alt="Black Tea Category">
+                <span>Black tea</span>
+            </a>
+        </div>
+
+        <div class="catProductInfo">
+            <a href="#">
+                <img src="../static/images/oolongTea-Category.jpg" alt="Oolong Tea Category">
+                <span>Oolong tea</span>
+            </a>
+        </div>
+
+        <div class="catProductInfo">
+            <a href="#">
+                <img src="../static/images/fruitTea.jpg" alt="Fruit Tea Category">
+                <span>Fruit tea</span>
+            </a>
+        </div>
+
+        <div class="catProductInfo">
+            <a href="#">
+                <img src="../static/images/giftSet-Category.jpg" alt="Gift Set Category">
+                <span>Gift set</span>
+            </a>
+        </div>
+
+        <div class="catProductInfo">
+            <a href="#">
+                <img src="../static/images/Tea-accessories-Category.jpg" alt="Tea Accessories Category">
+                <span>Tea accessories</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Featured Products Section -->
+    <div class="productsWrapper">
+        <!-- Section Header -->
+        <div class="headingWrapper">
+            <h1>New Beginnings</h1>
+            <p>Let our pure teas accompany you into the year</p>
+        </div>
+
+        <!-- Product Cards -->
+        <div class="productWrapper">
+            <div class="productImage">
+                <img src="https://www.paperandtea.com/cdn/shop/files/Tea-for-Tomorrow_Product-Card_02_2000x2000_aa363a1a-5daa-4bf7-8734-58d8e20e744b.jpg?v=1730191946&width=550"
+                    alt="Tea for Tomorrow Collection Box">
+            </div>
+            <div class="productInfo">
+                <p>Gift Set</p>
+                <span>TEA FOR TOMORROW COLLECTION BOX</span>
+                <p>3 teas for cozy breaks, snuggly winter evenings & festive cheer</p>
+                <h6>₹ 1,200</h6>
+            </div>
+        </div>
+
+        <div class="productWrapper">
+            <div class="productImage">
+                <img src="https://www.paperandtea.com/cdn/shop/files/Tea-for-Tomorrow_Product-Card_02_2000x2000_aa363a1a-5daa-4bf7-8734-58d8e20e744b.jpg?v=1730191946&width=550"
+                    alt="Tea for Tomorrow Collection Box">
+            </div>
+            <div class="productInfo">
+                <p>Gift Set</p>
+                <span>TEA FOR TOMORROW COLLECTION BOX</span>
+                <p>3 teas for cozy breaks, snuggly winter evenings & festive cheer</p>
+                <h6>₹ 1,200</h6>
+            </div>
+        </div>
+
+        <div class="productWrapper">
+            <div class="productImage">
+                <img src="https://www.paperandtea.com/cdn/shop/files/Tea-for-Tomorrow_Product-Card_02_2000x2000_aa363a1a-5daa-4bf7-8734-58d8e20e744b.jpg?v=1730191946&width=550"
+                    alt="Tea for Tomorrow Collection Box">
+            </div>
+            <div class="productInfo">
+                <p>Gift Set</p>
+                <span>TEA FOR TOMORROW COLLECTION BOX</span>
+                <p>3 teas for cozy breaks, snuggly winter evenings & festive cheer</p>
+                <h6>₹ 1,200</h6>
+            </div>
+        </div>
+
+        <div class="productWrapper">
+            <div class="productImage">
+                <img src="https://www.paperandtea.com/cdn/shop/files/Tea-for-Tomorrow_Product-Card_02_2000x2000_aa363a1a-5daa-4bf7-8734-58d8e20e744b.jpg?v=1730191946&width=550"
+                    alt="Tea for Tomorrow Collection Box">
+            </div>
+            <div class="productInfo">
+                <p>Gift Set</p>
+                <span>TEA FOR TOMORROW COLLECTION BOX</span>
+                <p>3 teas for cozy breaks, snuggly winter evenings & festive cheer</p>
+                <h6>₹ 1,200</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Additional Components -->
+{% include '/components/teaShowcase.html' %}
+{% include '/components/moreAssesories.html' %}
+{% include '/components/storeSection.html' %}
+{% include '/components/yourOpinion.html' %}
+{% include '/components/footer.html' %}
+{% endblock %}
