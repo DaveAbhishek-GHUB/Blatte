@@ -9,6 +9,196 @@
     object-fit: cover;
 }
 
+/* products wrapper */
+
+.productsWrapper{
+    width: 100vw;
+    min-height: 40vw;
+    background-color: #f9f9f9;
+    padding: 4vw;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2vw;
+}
+
+.headingWrapper{
+    width: 100%;
+    margin-bottom: 3vw;
+    grid-column: 1 / -1;
+}
+
+.headingWrapper h1{
+    font-size: 2.5vw;
+    font-family: "Montserrat", sans-serif;
+    color: #333;
+    margin-bottom: 0.5vw;
+}
+
+.headingWrapper p{
+    font-size: 1.2vw;
+    color: #666;
+    font-family: "Montserrat", sans-serif;
+}
+
+.productWrapper {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background: white;
+    border: none;
+    box-shadow: none;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.productWrapper:hover {
+    opacity: 0.8;
+    transform: none;
+    box-shadow: none;
+}
+
+.productImage{
+    width: 100%;
+    height: 18vw;
+    position: relative;
+    overflow: hidden;
+}
+
+.productImage img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.productWrapper:hover .productImage img{
+    transform: scale(1.05);
+}
+
+.productInfo{
+    padding: 1.5vw;
+    text-align: left;
+}
+
+.productInfo p:first-child{
+    font-size: 1vw;
+    color: #666;
+    margin-bottom: 0.3vw;
+    font-family: "Montserrat", sans-serif;
+}
+
+.productInfo span{
+    display: block;
+    font-size: 1vw;
+    font-weight: bold;
+    color: #333;
+    margin: 0.5vw 0;
+    font-family: "Montserrat", sans-serif;
+}
+
+.productInfo p:nth-child(3){
+    font-size: 0.9vw;
+    color: #777;
+    line-height: 1.4;
+    margin: 0.5vw 0;
+    font-family: "Montserrat", sans-serif;
+}
+
+.productInfo h6{
+    font-size: 1.2vw;
+    margin-top: 0.5vw;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800;
+}
+
+.tags {
+    position: absolute;
+    top: 1vw;
+    left: 1vw;
+    z-index: 1;
+}
+
+.tag {
+    background: black;
+    color: white;
+    padding: 0.5vw 1vw;
+    border-radius: 2vw;
+    font-size: 0.9vw;
+    font-family: "Montserrat", sans-serif;
+}
+
+.wishlist-btn {
+    position: absolute;
+    top: 1vw;
+    right: 1vw;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.product-tags {
+    display: flex;
+    gap: 0.5vw;
+    margin-bottom: 1vw;
+}
+
+.ingredient-tag {
+    background: #f0f0f0;
+    padding: 0.3vw 1vw;
+    border-radius: 2vw;
+    font-size: 0.8vw;
+    color: #333;
+    font-family: "Montserrat", sans-serif;
+}
+
+.category {
+    color: #666;
+    font-size: 1vw;
+    margin-bottom: 0.5vw;
+}
+
+.product-title {
+    font-size: 1.8vw;
+    font-weight: bold;
+    margin-bottom: 0.5vw;
+}
+
+.description {
+    color: #666;
+    font-size: 1vw;
+    margin-bottom: 1vw;
+}
+
+.price-cart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-btn {
+    background: none;
+    border: 1px solid #333;
+    border-radius: 50%;
+    width: 3vw;
+    height: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cart-btn:hover {
+    background-color: #dadada;
+    color: white;
+}
+
+.cart-btn img {
+    width: 1.5vw;
+    height: 1.5vw;
+}
+
 @media screen and (max-width: 768px) {
     .mainBodyWrapper {
         margin-top: 5vw;
@@ -76,5 +266,113 @@
     
     .hero-content p {
         font-size: 0.9rem;
+    }
+}
+
+.our-blends-section {
+    display: flex;
+    align-items: center;
+    min-height: 600px;
+    background-color: white;
+    margin: 4vw 0;
+}
+
+.blends-image {
+    flex: 1;
+    height: 600px;
+}
+
+.blends-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.blends-content {
+    flex: 1;
+    padding: 4vw 6vw;
+}
+
+.blends-content h2 {
+    font-family: "Times New Roman", serif;
+    font-size: 3.5rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.blends-content h3 {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.blends-content p {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 3rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.feature img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 1rem;
+}
+
+.feature span {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.4;
+}
+
+@media screen and (max-width: 968px) {
+    .our-blends-section {
+        flex-direction: column;
+    }
+
+    .blends-image {
+        width: 100%;
+        height: 400px;
+    }
+
+    .blends-content {
+        padding: 3rem 2rem;
+    }
+
+    .blends-content h2 {
+        font-size: 2.5rem;
+    }
+
+    .blends-content h3 {
+        font-size: 1.25rem;
+    }
+
+    .blends-content p {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 }
