@@ -16,6 +16,14 @@ def index():
     """
     return render_template('index.html')
 
+@app.route('/teaBlends')
+def teaBlends():
+    """
+    Render the teaBlends.html template when user visits the teaBlends page
+    Returns: rendered teaBlends.html template
+    """
+    return render_template('teaBlends.html')
+
 # Main entry point
 if __name__ == '__main__':
     # Run the Flask application in debug mode

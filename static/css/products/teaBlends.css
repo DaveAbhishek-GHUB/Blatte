@@ -1,0 +1,80 @@
+.mainBodyWrapper {
+    width: 100%;
+    margin-top: 3.8vw;
+}
+
+.mainBodyWrapper img {
+    width: 100%;
+    height: 50vh;
+    object-fit: cover;
+}
+
+@media screen and (max-width: 768px) {
+    .mainBodyWrapper {
+        margin-top: 5vw;
+    }
+    
+    .mainBodyWrapper img {
+        height: 40vh;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .mainBodyWrapper {
+        margin-top: 7vw;
+    }
+    
+    .mainBodyWrapper img {
+        height: 30vh;
+    }
+}
+
+.hero-section {
+    position: relative;
+    width: 100%;
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    text-align: left;
+    color: white;
+    width: 90%;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+.hero-content h1 {
+    font-size: 4.5rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    font-family: "Times New Roman", serif;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    max-width: 800px;
+}
+
+@media screen and (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 3.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 0.9rem;
+    }
+}

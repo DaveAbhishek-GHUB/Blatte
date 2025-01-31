@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% include 'utilities/header.html' %}
 <div class="mainBodyWrapper">
     <!-- Hero Section - Main banner with call-to-action -->
     <div class="heroSection">
@@ -17,7 +18,7 @@
     <!-- Category Section - Display different tea categories -->
     <div class="categorySection">
         <div class="catProductInfo">
-            <a href="#">
+            <a href="/teaBlends">
                 <img src="../static/images/teaBlends-Category.jpg" alt="Tea Blends Category">
                 <span>Tea blends</span>
             </a>
@@ -141,5 +142,5 @@
 {% include '/components/moreAssesories.html' %}
 {% include '/components/storeSection.html' %}
 {% include '/components/yourOpinion.html' %}
-{% include '/components/footer.html' %}
+{% include '/utilities/footer.html' %}
 {% endblock %}
