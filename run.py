@@ -24,6 +24,14 @@ def teaBlends():
     """
     return render_template('teaBlends.html')
 
+@app.route('/giftSets')
+def giftSets():
+    """
+    Render the giftSets.html template when user visits the giftSets page
+    Returns: rendered giftSets.html template
+    """
+    return render_template('giftSets.html')
+
 # Main entry point
 if __name__ == '__main__':
     # Run the Flask application in debug mode
