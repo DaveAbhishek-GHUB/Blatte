@@ -12,6 +12,7 @@
 }
 
 .footer__title {
+    font-family: 'ScotchModern', 'Times New Roman', serif;
     font-size: 1.2rem;
     margin-bottom: 20px;
     font-weight: 500;
@@ -20,6 +21,7 @@
 .footer__list {
     list-style: none;
     padding: 0;
+    font-family: sans-serif;
 }
 
 .footer__list li {
@@ -31,6 +33,7 @@
     color: #fff;
     text-decoration: none;
     transition: opacity 0.3s;
+    font-family: sans-serif;
 }
 
 .footer__list a:hover,
@@ -43,15 +46,18 @@
     border: 1px solid #fff;
     padding: 10px 20px;
     margin: 15px 0;
+    font-family: sans-serif;
 }
 
 .business-hours {
     font-size: 0.9rem;
     opacity: 0.8;
+    font-family: sans-serif;
 }
 
 .newsletter__text {
     margin-bottom: 20px;
+    font-family: sans-serif;
 }
 
 .newsletter__form {
@@ -65,6 +71,7 @@
     padding: 12px;
     border: none;
     background: #fff;
+    font-family: sans-serif;
 }
 
 .newsletter__button {
@@ -74,6 +81,7 @@
     border: 1px solid #fff;
     cursor: pointer;
     transition: all 0.3s;
+    font-family: sans-serif;
 }
 
 .newsletter__button:hover {
@@ -84,6 +92,7 @@
 .newsletter__disclaimer {
     font-size: 0.8rem;
     opacity: 0.8;
+    font-family: sans-serif;
 }
 
 .footer__social {

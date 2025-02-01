@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'ScotchModern';
+    src: url('/static/fonts/ScotchModern__.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .mainBodyWrapper {
     width: 100%;
     margin-top: 3.8vw;
@@ -9,16 +16,12 @@
     object-fit: cover;
 }
 
-/* products wrapper */
-
 .productsWrapper {
-    width: 100vw;
-    min-height: 40vw;
-    background-color: #f9f9f9;
-    padding: 4vw;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 2vw;
+    gap: 2rem;
+    padding: 4rem;
+    background: #fff;
 }
 
 .headingWrapper {
@@ -29,7 +32,7 @@
 
 .headingWrapper h1 {
     font-size: 2.5vw;
-    font-family: "Montserrat", sans-serif;
+    font-family: 'ScotchModern', serif;
     color: #333;
     margin-bottom: 0.5vw;
 }
@@ -37,137 +40,124 @@
 .headingWrapper p {
     font-size: 1.2vw;
     color: #666;
-    font-family: "Montserrat", sans-serif;
+    font-family: sans-serif;
 }
 
 .productWrapper {
     position: relative;
     width: 100%;
-    height: auto;
     background: white;
-    border: none;
-    box-shadow: none;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease;
     cursor: pointer;
+    padding: 0;
 }
 
 .productWrapper:hover {
     opacity: 0.8;
-    transform: none;
-    box-shadow: none;
 }
 
 .productImage {
-    width: 100%;
-    height: 18vw;
     position: relative;
+    width: 100%;
+    aspect-ratio: 1;
     overflow: hidden;
 }
 
 .productImage img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
+    object-fit: contain;
+    transition: transform 0.3s ease;
 }
 
 .productWrapper:hover .productImage img {
     transform: scale(1.05);
 }
 
-.productInfo {
-    padding: 1.5vw;
-    text-align: left;
-}
-
-.productInfo p:first-child {
-    font-size: 1vw;
-    color: #666;
-    margin-bottom: 0.3vw;
-    font-family: "Montserrat", sans-serif;
-}
-
-.productInfo span {
-    display: block;
-    font-size: 1vw;
-    font-weight: bold;
-    color: #333;
-    margin: 0.5vw 0;
-    font-family: "Montserrat", sans-serif;
-}
-
-.productInfo p:nth-child(3) {
-    font-size: 0.9vw;
-    color: #777;
-    line-height: 1.4;
-    margin: 0.5vw 0;
-    font-family: "Montserrat", sans-serif;
-}
-
-.productInfo h6 {
-    font-size: 1.2vw;
-    margin-top: 0.5vw;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 800;
-}
-
 .tags {
     position: absolute;
-    top: 1vw;
-    left: 1vw;
-    z-index: 1;
+    top: 1rem;
+    left: 1rem;
+    z-index: 2;
 }
 
 .tag {
-    background: black;
+    background: #000;
     color: white;
-    padding: 0.5vw 1vw;
-    border-radius: 2vw;
-    font-size: 0.9vw;
-    font-family: "Montserrat", sans-serif;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.25rem;
+    font-size: 0.8rem;
+    font-weight: 500;
 }
 
 .wishlist-btn {
     position: absolute;
-    top: 1vw;
-    right: 1vw;
+    top: 1rem;
+    right: 1rem;
     background: none;
     border: none;
     cursor: pointer;
-    z-index: 1;
-}
-
-.product-tags {
+    z-index: 2;
     display: flex;
-    gap: 0.5vw;
-    margin-bottom: 1vw;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
 }
 
-.ingredient-tag {
-    background: #f0f0f0;
-    padding: 0.3vw 1vw;
-    border-radius: 2vw;
-    font-size: 0.8vw;
-    color: #333;
-    font-family: "Montserrat", sans-serif;
+.wishlist-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke: #000;
+    fill: none;
+    transition: fill 0.3s ease;
+}
+
+.wishlist-btn:hover svg {
+    fill: #000;
+}
+
+.productInfo {
+    padding: 1.5rem 0;
+}
+
+.flavor-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.flavor-tag {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.flavor-tag:not(:last-child):after {
+    content: "";
+    border-right: 1px solid #666;
+    margin-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 
 .category {
     color: #666;
-    font-size: 1vw;
-    margin-bottom: 0.5vw;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
 }
 
 .product-title {
-    font-size: 1.8vw;
-    font-weight: bold;
-    margin-bottom: 0.5vw;
+    font-family: 'ScotchModern', serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #000;
 }
 
 .description {
+    font-size: 0.9rem;
     color: #666;
-    font-size: 1vw;
-    margin-bottom: 1vw;
+    margin-bottom: 1rem;
+    line-height: 1.4;
 }
 
 .price-cart {
@@ -176,47 +166,39 @@
     align-items: center;
 }
 
+.price {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
 .cart-btn {
-    background: none;
-    border: 1px solid #333;
+    min-width: 40px;
+    min-height: 40px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #000;
     border-radius: 50%;
-    width: 3vw;
-    height: 3vw;
+    background: none;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    padding: 0;
 }
 
 .cart-btn:hover {
-    background-color: #dadada;
-    color: white;
+    background: #000;
+}
+
+.cart-btn:hover img {
+    filter: invert(1);
 }
 
 .cart-btn img {
-    width: 1.5vw;
-    height: 1.5vw;
-}
-
-@media screen and (max-width: 768px) {
-    .mainBodyWrapper {
-        margin-top: 5vw;
-    }
-
-    .mainBodyWrapper img {
-        height: 40vh;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .mainBodyWrapper {
-        margin-top: 7vw;
-    }
-
-    .mainBodyWrapper img {
-        height: 30vh;
-    }
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
 }
 
 .hero-section {
@@ -240,116 +222,19 @@
     font-size: 4.5rem;
     font-weight: 300;
     margin-bottom: 1rem;
-    font-family: "Times New Roman", serif;
+    font-family: 'ScotchModern', serif;
 }
 
 .hero-content p {
     font-size: 1.2rem;
     line-height: 1.5;
     max-width: 800px;
+    font-family: sans-serif;
 }
 
-@media screen and (max-width: 768px) {
-    .hero-content h1 {
-        font-size: 3.5rem;
-    }
-
-    .hero-content p {
-        font-size: 1rem;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-
-    .hero-content p {
-        font-size: 0.9rem;
-    }
-}
-
-.our-blends-section {
-    display: flex;
-    align-items: center;
-    min-height: 600px;
-    background-color: white;
-    margin: 4vw 0;
-}
-
-.blends-image {
-    flex: 1;
-    height: 600px;
-}
-
-.blends-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.blends-content {
-    flex: 1;
-    padding: 4vw 6vw;
-}
-
-.blends-content h2 {
-    font-family: "Times New Roman", serif;
-    font-size: 3.5rem;
-    font-weight: 400;
-    margin-bottom: 1rem;
-    color: #333;
-}
-
-.blends-content h3 {
-    font-family: "Montserrat", sans-serif;
-    font-size: 1.5rem;
-    font-weight: 500;
-    margin-bottom: 1.5rem;
-    color: #333;
-}
-
-.blends-content p {
-    font-family: "Montserrat", sans-serif;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #666;
-    margin-bottom: 3rem;
-}
-
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-}
-
-.feature {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.feature img {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 1rem;
-}
-
-.feature span {
-    font-family: "Montserrat", sans-serif;
-    font-size: 1rem;
-    color: #333;
-    line-height: 1.4;
-}
-
-/* .magazine */
 .magazine-section {
     padding: 4vw 0;
     background-color: rgb(208, 227, 178);
-}
-
-.magazine-section {
     text-align: left;
     padding: 40px 20px;
 }
@@ -357,16 +242,20 @@
 .magazine-section h1 {
     font-size: 2.5rem;
     margin-bottom: 10px;
+    font-family: 'ScotchModern', serif;
 }
 
 .subtitle {
     font-size: 1.2rem;
     color: #666;
+    font-family: sans-serif;
 }
 
 .magazine-grid {
-    display: flex;
+    display: grid;
     grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 30px;
 }
 
 .magazine-item {
@@ -381,199 +270,200 @@
     object-fit: cover;
 }
 
-.magazine-item :hover {
+.magazine-item:hover {
     opacity: 0.8;
-    transform: none;
-    box-shadow: none;
 }
 
 .magazine-item h3 {
     font-size: 1.2rem;
     margin-bottom: 10px;
+    font-family: 'ScotchModern', serif;
 }
 
 .magazine-item p {
     font-size: 0.9rem;
     line-height: 1.5;
     color: #555;
-}
-
-.magazine-item span {
-    font-size: 0.8rem;
-    color: #777;
-}
-
-/* about-section */
-
-.about-section {
-    background-color: #f9f9f9;
-    padding: 2vw 0;
-}
-
-.about-section {
-    padding: 40px 20px;
-}
-
-.about-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-    max-width: 1800px;
-    margin: 0 auto;
-}
-
-.about-image img {
-    width: 100%;
-    max-width: 700px;
-    height: auto;
-    border-radius: 5px;
-}
-
-.about-text {
-    max-width: 450px;
-}
-
-.about-text h1 {
-    font-size: 3rem;
-    margin-bottom: 30px;
-    font-weight: bold;
-    min-width: 550px;
-}
-
-.about-text p {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    color: #555;
-}
-
-.learn-more-button {
-    display: flex;
-    padding: 10px 20px;
-    font-size: 1rem;
-    color: #676666;
-    background-color: transparent;
-    border: 2px solid #605f5f;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.learn-more-button:hover {
-    background-color: rgb(192, 192, 192);
-    color: #fff;
-}
-
-/* benefits-section */
-
-.benefits-section {
-    background-color: #f9f9f9;
-    padding: 2vw 0;
-}
-
-.container {
-    text-align: center;
-    padding: 40px 20px;
-    background-color: rgb(208, 227, 178);
-}
-
-h1 {
-    font-size: 32px;
-    font-weight: bold;
-}
-
-.benefits {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 50px;
-    margin-top: 30px;
-}
-
-.benefit {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-align: left;
-    max-width: 250px;
-}
-
-.benefit img {
-    width: 30px;
-    height: auto;
-}
-
-.benefit-text {
-    display: flex;
-    flex-direction: column;;
-}
-
-.benefit h2 {
-    font-size: 18px;
-    margin: 0;
-}
-
-.benefit p {
-    font-size: 14px;
-    color: #333;
-    margin: 5px 0 0;
+    font-family: sans-serif;
 }
 
 @media screen and (max-width: 968px) {
-    .our-blends-section {
-        flex-direction: column;
+    .cart-btn {
+        min-width: 36px;
+        min-height: 36px;
+        width: 36px;
+        height: 36px;
     }
 
-    .blends-image {
-        width: 100%;
-        height: 400px;
+    .cart-btn img {
+        width: 18px;
+        height: 18px;
     }
 
-    .blends-content {
-        padding: 3rem 2rem;
+    .wishlist-btn {
+        width: 36px;
+        height: 36px;
     }
 
-    .blends-content h2 {
-        font-size: 2.5rem;
+    .wishlist-btn svg {
+        width: 20px;
+        height: 20px;
     }
 
-    .blends-content h3 {
-        font-size: 1.25rem;
+    .magazine-section {
+        padding: 30px 15px;
     }
 
-    .blends-content p {
+    .magazine-section h1 {
+        font-size: 2rem;
+    }
+
+    .subtitle {
         font-size: 1rem;
     }
-}
 
-@media screen and (max-width: 480px) {
-    .features-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+    .magazine-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .magazine-item {
+        padding: 15px;
+    }
+
+    .magazine-item img {
+        height: 250px;
+    }
+
+    .magazine-item h3 {
+        font-size: 1.1rem;
     }
 }
 
 @media screen and (max-width: 768px) {
+    .mainBodyWrapper {
+        margin-top: 5vw;
+    }
+
+    .mainBodyWrapper img {
+        height: 40vh;
+    }
+
+    .hero-content h1 {
+        font-size: 3.5rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
     .magazine-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .productsWrapper {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 2rem;
+    }
+
+    .cart-btn {
+        min-width: 32px;
+        min-height: 32px;
+        width: 32px;
+        height: 32px;
+    }
+
+    .cart-btn img {
+        width: 16px;
+        height: 16px;
+    }
+
+    .wishlist-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .wishlist-btn svg {
+        width: 18px;
+        height: 18px;
     }
 }
 
 @media screen and (max-width: 480px) {
+    .mainBodyWrapper {
+        margin-top: 7vw;
+    }
+
+    .mainBodyWrapper img {
+        height: 30vh;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-content p {
+        font-size: 0.9rem;
+    }
+
+    .magazine-section {
+        padding: 20px 10px;
+    }
+
+    .magazine-section h1 {
+        font-size: 1.8rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
     .magazine-grid {
         grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .about-container {
-        flex-direction: column;
-        text-align: center;
+        gap: 20px;
     }
 
-    .about-image img,
-    .about-text {
-        max-width: 100%;
+    .magazine-item {
+        padding: 10px;
+    }
+
+    .magazine-item img {
+        height: 200px;
+    }
+
+    .magazine-item h3 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+
+    .magazine-item p {
+        font-size: 0.8rem;
+    }
+
+    .productsWrapper {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+    }
+
+    .cart-btn {
+        min-width: 30px;
+        min-height: 30px;
+        width: 30px;
+        height: 30px;
+    }
+
+    .cart-btn img {
+        width: 14px;
+        height: 14px;
+    }
+
+    .wishlist-btn {
+        width: 30px;
+        height: 30px;
+    }
+
+    .wishlist-btn svg {
+        width: 16px;
+        height: 16px;
     }
 }

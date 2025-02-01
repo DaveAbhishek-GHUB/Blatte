@@ -1,0 +1,138 @@
+/* about-section */
+
+@font-face {
+    font-family: 'ScotchModern';
+    src: url('/static/fonts/ScotchModern__.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.about-section {
+    background-color: #f9f9f9;
+    padding: 2vw 0;
+}
+
+.about-section {
+    padding: 40px 20px;
+}
+
+.about-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+.about-image img {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.about-text {
+    max-width: 450px;
+}
+
+.about-text h1 {
+    font-family: "ScotchModern", "Times New Roman", serif;
+    font-size: 3rem;
+    margin-bottom: 30px;
+    font-weight: bold;
+    width: 100%;
+    word-wrap: break-word;
+}
+
+.about-text p {
+    font-family: sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.learn-more-button {
+    display: flex;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-family: sans-serif;
+    color: #676666;
+    background-color: transparent;
+    border: 2px solid #605f5f;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.learn-more-button:hover {
+    background-color: rgb(192, 192, 192);
+    color: #fff;
+}
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+    .about-container {
+        padding: 20px;
+        gap: 30px;
+    }
+
+    .about-text h1 {
+        font-size: 2.5rem;
+        min-width: auto;
+    }
+
+    .about-text {
+        max-width: 400px;
+    }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .about-section {
+        padding: 30px 15px;
+    }
+
+    .about-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .about-image img,
+    .about-text {
+        max-width: 100%;
+    }
+
+    .about-text h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .about-text p {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+
+    .learn-more-button {
+        margin: 0 auto;
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+    .about-section {
+        padding: 20px 10px;
+    }
+
+    .about-text h1 {
+        font-size: 1.8rem;
+    }
+
+    .about-text p {
+        font-size: 0.85rem;
+    }
+}
