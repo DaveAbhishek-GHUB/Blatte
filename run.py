@@ -32,7 +32,7 @@ def giftSets():
     """
     return render_template('giftSets.html')
 
-@app.route('/localhost/users/register')
+@app.route('/user/register')
 def register():
     """
     Render the register.html template when user visits the register page
@@ -40,7 +40,7 @@ def register():
     """
     return render_template('register.html')
 
-@app.route('/localhost/users/login')
+@app.route('/user/login')
 def login():
     """
     Render the login.html template when user visits the login page
