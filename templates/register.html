@@ -1,28 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link rel="stylesheet" href="../../static/css/register.css">
-</head>
+{% block content %}
+<!-- Include toast component -->
+{% include 'components/toast.html' %}
 
-<body>
-    <div class="container">
-        <h1>Register</h1>
-        <p class="subtitle">Please fill in the fields below:</p>
-        <form class="register-form">
-            <input type="text" placeholder="First name" name="first-name" required>
-            <input type="text" placeholder="Last name" name="last-name" required>
-            <input type="email" placeholder="E-mail" name="email" required>
-            <input type="password" placeholder="Password" name="password" required>
-            <button type="submit">Create account</button>
-        </form>
-        <p class="login-link">
-            Already have an account? <a href="/templates/login.html">Login</a>
-        </p>
-    </div>
-</body>
+<link rel="stylesheet" href="../static/css/register.css">
 
-</html>
+<div class="login-container">
+    <h1 class="login-title">Register</h1>
+    <p class="login-description">
+        To register for the MY DEAR CLUB, please fill in the fields below:
+    </p>
+    <form action="/user/register" method="POST" class="login-form" onsubmit="return validateForm()">
+        <input 
+            type="text"
+            class="login-input" 
+            placeholder="First name" 
+            name="firstname" 
+            pattern="[A-Za-z]{2,}" 
+            title="First name must contain at least 2 letters" 
+            required
+            id="firstname"
+        >
+        <input 
+            type="text"
+            class="login-input" 
+            placeholder="Last name" 
+            name="lastname" 
+            pattern="[A-Za-z]{2,}" 
+            title="Last name must contain at least 2 letters" 
+            required
+            id="lastname"
+        >
+        <input 
+            type="email"
+            class="login-input" 
+            placeholder="E-mail" 
+            name="email" 
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+            title="Please enter a valid email address" 
+            required
+            id="email"
+        >
+        <div>
+            <input 
+                type="password"
+                class="login-input" 
+                placeholder="Password" 
+                name="password" 
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}" 
+                title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number and one special character" 
+                required
+                id="password"
+            >
+        </div>
+        <div>
+            <input 
+                type="password"
+                class="login-input" 
+                placeholder="Confirm Password" 
+                name="confirm-password" 
+                required
+                id="confirm-password"
+            >
+        </div>
+        <button type="submit" class="login-button">Create account</button>
+    </form>
+    <p class="register-text">
+        Already have an account? <a href="/login" class="register-link">Login</a>
+    </p>
+</div>
+<script src="../static/javascripts/register.js"></script>
+{% endblock %}

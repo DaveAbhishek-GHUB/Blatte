@@ -1,31 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="../../static/css/login.css">
-</head>
+{% block content %}
+<!-- Include toast component -->
+{% include 'components/toast.html' %}
 
-<body>
-    <div class="login-container">
-        <h1 class="login-title">Login</h1>
-        <p class="login-description">
-            To register for the MY DEAR CLUB, please enter your e-mail address and password here.
-        </p>
-        <form class="login-form">
-            <input type="email" class="login-input" placeholder="E-mail" required>
-            <input type="password" class="login-input" placeholder="Password" required>
-            <div class="form-actions">
-                <a href="#" class="forgot-password">Forgot password?</a>
-            </div>
-            <button type="submit" class="login-button">Login</button>
-        </form>
-        <p class="register-link">
-            Not yet a member of the MY DEAR CLUB? <a href="templates/register.html">Create an account</a>
-        </p>
-    </div>
-</body>
+<link rel="stylesheet" href="../static/css/login.css">
 
-</html>
+<div class="login-container">
+    <h1 class="login-title">Login</h1>
+    <p class="login-description">
+        To register for the MY DEAR CLUB, please enter your e-mail address and password here.
+    </p>
+    <form action="/user/login" method="POST" class="login-form" onsubmit="return validateForm()">
+        <input 
+            type="email" 
+            class="login-input"
+            placeholder="E-mail" 
+            name="email" 
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+            title="Please enter a valid email address" 
+            required
+            id="email"
+        >
+        <div>
+            <input 
+                type="password" 
+                class="login-input"
+                placeholder="Password" 
+                name="password" 
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}" 
+                title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number and one special character" 
+                required
+                id="password"
+            >
+        </div>
+        <a href="/forgot-password" class="forgot-password">Forgot password?</a>
+        <button type="submit" class="login-button">Login</button>
+    </form>
+    <p class="register-text">
+        Not yet a member of the MY DEAR CLUB? <a href="/register" class="register-link">Create an account</a>
+    </p>
+</div>
+<script src="../static/javascripts/login.js"></script>
+{% endblock %}
