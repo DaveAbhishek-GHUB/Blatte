@@ -32,6 +32,22 @@ def giftSets():
     """
     return render_template('giftSets.html')
 
+@app.route('/localhost/users/register')
+def register():
+    """
+    Render the register.html template when user visits the register page
+    Returns: rendered register.html template
+    """
+    return render_template('register.html')
+
+@app.route('/localhost/users/login')
+def login():
+    """
+    Render the login.html template when user visits the login page
+    Returns: rendered login.html template
+    """
+    return render_template('login.html')
+
 # Main entry point
 if __name__ == '__main__':
     # Run the Flask application in debug mode

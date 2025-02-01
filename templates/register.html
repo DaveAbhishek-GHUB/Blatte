@@ -1,0 +1,29 @@
+{% include 'utilities/header.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Register</h1>
+        <p class="subtitle">Please fill in the fields below:</p>
+        <form class="register-form">
+            <input type="text" placeholder="First name" name="first-name" required>
+            <input type="text" placeholder="Last name" name="last-name" required>
+            <input type="email" placeholder="E-mail" name="email" required>
+            <input type="password" placeholder="Password" name="password" required>
+            <button type="submit">Create account</button>
+        </form>
+        <p class="login-link">
+            Already have an account? <a href="/templates/login.html">Login</a>
+        </p>
+    </div>
+</body>
+
+</html>
