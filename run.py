@@ -52,6 +52,13 @@ def giftSets():
     """
     return render_template('giftSets.html')
 
+@app.route('/greenTea')
+def greenTea():
+    """
+    Render the greenTea.html template when user visits the greenTea page
+    Returns: rendered greenTea.html template
+    """
+    return render_template('greenTea.html')
 @app.route('/auth')
 def auth():
     """

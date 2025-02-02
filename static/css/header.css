@@ -92,7 +92,9 @@ header {
 /* Mobile responsive styles */
 @media (max-width: 768px) {
     header {
-        height: 15vw;
+        height: 13vw;
+        display: flex;
+        align-items: end;
     }
 
     .main-logo-header img {
@@ -120,5 +122,60 @@ header {
 
     .navIcons img {
         width: 4vw;
+    }
+}
+
+/* Add these new styles */
+.mobile-icons {
+    display: none;
+    position: absolute;
+    width: 100%;
+    padding: 0 4vw;
+    justify-content: space-between;
+}
+
+.mobile-icons img {
+    width: 6vw;
+    cursor: pointer;
+}
+
+/* Update mobile responsive styles */
+@media (max-width: 768px) {
+    .mobile-icons {
+        display: flex;
+    }
+
+    .innerNavbar {
+        position: absolute;
+        top: 15vw;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background-color: #F5F6F3;
+        padding: 4vw;
+        display: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+    }
+
+    .innerNavbar.active {
+        display: flex;
+    }
+
+    .navlinksWrapper {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4vw;
+    }
+
+    .navIcons {
+        width: 100%;
+        padding-top: 4vw;
+        justify-content: flex-start;
+    }
+
+    .navIcons .search-icon {
+        display: none;
     }
 }
