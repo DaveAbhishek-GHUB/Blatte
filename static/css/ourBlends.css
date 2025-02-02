@@ -1,3 +1,4 @@
+/* Main section container for our blends */
 .our-blends-section {
     display: flex;
     align-items: center;
@@ -6,52 +7,60 @@
     margin: 4vw 0;
 }
 
+/* Image container styles */
 .blends-image {
     flex: 1;
     height: 600px;
 }
 
+/* Image styling */
 .blends-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
+/* Content container styles */
 .blends-content {
     flex: 1;
     padding: 4vw 6vw;
 }
 
+/* Main heading styles */
 .blends-content h2 {
     font-family: 'ScotchModern', serif;
-    font-size: 3.5rem;
+    font-size: 3.5vw;
     font-weight: 400;
-    margin-bottom: 1rem;
+    margin-bottom: 1vw;
     color: #333;
 }
 
+/* Subheading styles */
 .blends-content h3 {
     font-family: 'ScotchModern', serif;
-    font-size: 1.5rem;
+    font-size: 1.5vw;
     font-weight: 500;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.5vw;
     color: #333;
 }
 
+/* Paragraph text styles */
 .blends-content p {
     font-family: sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.1vw;
     line-height: 1.6;
     color: #666;
-    margin-bottom: 3rem;
+    margin-bottom: 3vw;
 }
 
+/* Features grid container */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    gap: 2vw;
 }
 
+/* Individual feature styles */
 .feature {
     display: flex;
     flex-direction: column;
@@ -59,20 +68,47 @@
     text-align: center;
 }
 
+/* Feature icon styles */
 .feature img {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 1rem;
+    width: 3vw;
+    height: 3vw;
+    margin-bottom: 1vw;
     object-fit: contain;
 }
 
+/* Feature text styles */
 .feature span {
     font-family: sans-serif;
-    font-size: 1rem;
+    font-size: 1vw;
     color: #333;
     line-height: 1.4;
 }
 
+/* Tablet responsive styles */
+@media screen and (max-width: 1024px) {
+    .blends-content h2 {
+        font-size: 4.5vw;
+    }
+
+    .blends-content h3 {
+        font-size: 2.5vw;
+    }
+
+    .blends-content p {
+        font-size: 2vw;
+    }
+
+    .feature img {
+        width: 4vw;
+        height: 4vw;
+    }
+
+    .feature span {
+        font-size: 1.8vw;
+    }
+}
+
+/* Mobile responsive styles */
 @media screen and (max-width: 768px) {
     .our-blends-section {
         flex-direction: column;
@@ -84,25 +120,46 @@
     }
 
     .blends-content {
-        padding: 3rem 2rem;
+        padding: 6vw 4vw;
     }
 
     .blends-content h2 {
-        font-size: 2.5rem;
+        font-size: 6vw;
     }
 
     .blends-content h3 {
-        font-size: 1.25rem;
+        font-size: 3.5vw;
     }
 
     .blends-content p {
-        font-size: 1rem;
+        font-size: 3vw;
+        margin-bottom: 5vw;
+    }
+
+    .feature img {
+        width: 6vw;
+        height: 6vw;
+        margin-bottom: 2vw;
+    }
+
+    .feature span {
+        font-size: 2.5vw;
     }
 }
 
+/* Small mobile responsive styles */
 @media screen and (max-width: 480px) {
     .features-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 4vw;
+    }
+
+    .feature img {
+        width: 8vw;
+        height: 8vw;
+    }
+
+    .feature span {
+        font-size: 3.5vw;
     }
 }
