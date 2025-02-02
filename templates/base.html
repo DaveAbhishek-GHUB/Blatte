@@ -2,26 +2,30 @@
 <html lang="en">
 
 <head>
-    <!-- Meta tags for character encoding and responsive viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Dynamic title block that can be overridden by child templates -->
+    <!-- Title Block -->
+    <!-- This block can be overridden by child templates to set custom page titles -->
     <title>{% block title %}Tea Shop{% endblock %}</title>
     
-    <!-- Link to main stylesheet -->
+    <!-- Stylesheets -->
+    <!-- Main site-wide styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Toast notification specific styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/toast.css') }}">
 </head>
 
 <body>
-    <!-- Main content area -->
+    <!-- Main Content Container -->
     <main>
-        <!-- Dynamic content block that will be filled by child templates -->
+        <!-- Content Block -->
+        <!-- This block will be populated by child templates with page-specific content -->
         {% block content %}{% endblock %}
     </main>
     
-    <!-- Add toast JavaScript at the end of body -->
+    <!-- Scripts -->
+    <!-- Toast notification JavaScript loaded at end of body for better page load performance -->
     <script src="{{ url_for('static', filename='javascripts/toast.js') }}"></script>
 </body>
 

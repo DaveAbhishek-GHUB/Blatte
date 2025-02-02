@@ -1,5 +1,4 @@
-/* about-section */
-
+/* Import custom font */
 @font-face {
     font-family: 'ScotchModern';
     src: url('/static/fonts/ScotchModern__.woff2') format('woff2');
@@ -7,24 +6,27 @@
     font-style: normal;
 }
 
+/* Main about section styles */
 .about-section {
     background-color: #f9f9f9;
     padding: 2vw 0;
 }
 
 .about-section {
-    padding: 40px 20px;
+    padding: 4vw 2vw;
 }
 
+/* Container for about content */
 .about-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 40px;
+    gap: 4vw;
     max-width: 1800px;
     margin: 0 auto;
 }
 
+/* Image styles */
 .about-image img {
     width: 100%;
     max-width: 700px;
@@ -32,31 +34,35 @@
     border-radius: 5px;
 }
 
+/* Text content styles */
 .about-text {
     max-width: 450px;
 }
 
+/* Heading styles using ScotchModern font */
 .about-text h1 {
     font-family: "ScotchModern", "Times New Roman", serif;
-    font-size: 3rem;
-    margin-bottom: 30px;
+    font-size: 3vw;
+    margin-bottom: 3vw;
     font-weight: bold;
     width: 100%;
     word-wrap: break-word;
 }
 
+/* Paragraph styles */
 .about-text p {
     font-family: sans-serif;
-    font-size: 1rem;
+    font-size: 1.2vw;
     line-height: 1.6;
-    margin-bottom: 20px;
+    margin-bottom: 2vw;
     color: #555;
 }
 
+/* Button styles */
 .learn-more-button {
     display: flex;
-    padding: 10px 20px;
-    font-size: 1rem;
+    padding: 1vw 2vw;
+    font-size: 1.2vw;
     font-family: sans-serif;
     color: #676666;
     background-color: transparent;
@@ -74,30 +80,38 @@
 /* Tablet styles */
 @media (max-width: 1024px) {
     .about-container {
-        padding: 20px;
-        gap: 30px;
+        padding: 2vw;
+        gap: 3vw;
     }
 
     .about-text h1 {
-        font-size: 2.5rem;
+        font-size: 3.5vw;
         min-width: auto;
     }
 
     .about-text {
         max-width: 400px;
     }
+
+    .about-text p {
+        font-size: 1.8vw;
+    }
+
+    .learn-more-button {
+        font-size: 1.8vw;
+    }
 }
 
 /* Mobile styles */
 @media (max-width: 768px) {
     .about-section {
-        padding: 30px 15px;
+        padding: 4vw 2vw;
     }
 
     .about-container {
         flex-direction: column;
         text-align: center;
-        gap: 20px;
+        gap: 3vw;
     }
 
     .about-image img,
@@ -106,33 +120,33 @@
     }
 
     .about-text h1 {
-        font-size: 2rem;
-        margin-bottom: 20px;
+        font-size: 5vw;
+        margin-bottom: 3vw;
     }
 
     .about-text p {
-        font-size: 0.9rem;
-        margin-bottom: 15px;
+        font-size: 2.5vw;
+        margin-bottom: 2vw;
     }
 
     .learn-more-button {
         margin: 0 auto;
-        padding: 8px 16px;
-        font-size: 0.9rem;
+        padding: 1.5vw 3vw;
+        font-size: 2.5vw;
     }
 }
 
 /* Small mobile styles */
 @media (max-width: 480px) {
     .about-section {
-        padding: 20px 10px;
+        padding: 5vw 2vw;
     }
 
     .about-text h1 {
-        font-size: 1.8rem;
+        font-size: 6vw;
     }
 
     .about-text p {
-        font-size: 0.85rem;
+        font-size: 3vw;
     }
 }

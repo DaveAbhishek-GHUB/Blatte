@@ -19,8 +19,8 @@
 .productsWrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-    padding: 4rem;
+    gap: 2vw;
+    padding: 4vw;
     background: #fff;
 }
 
@@ -76,24 +76,24 @@
 
 .tags {
     position: absolute;
-    top: 1rem;
-    left: 1rem;
+    top: 1vw;
+    left: 1vw;
     z-index: 2;
 }
 
 .tag {
     background: #000;
     color: white;
-    padding: 0.4rem 0.8rem;
-    border-radius: 0.25rem;
-    font-size: 0.8rem;
+    padding: 0.4vw 0.8vw;
+    border-radius: 0.25vw;
+    font-size: 0.8vw;
     font-weight: 500;
 }
 
 .wishlist-btn {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 1vw;
+    right: 1vw;
     background: none;
     border: none;
     cursor: pointer;
@@ -101,13 +101,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 3vw;
+    height: 3vw;
 }
 
 .wishlist-btn svg {
-    width: 24px;
-    height: 24px;
+    width: 1.8vw;
+    height: 1.8vw;
     stroke: #000;
     fill: none;
     transition: fill 0.3s ease;
@@ -118,45 +118,45 @@
 }
 
 .productInfo {
-    padding: 1.5rem 0;
+    padding: 1.5vw 0;
 }
 
 .flavor-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    gap: 0.5vw;
+    margin-bottom: 1vw;
 }
 
 .flavor-tag {
-    font-size: 0.9rem;
+    font-size: 0.9vw;
     color: #666;
 }
 
 .flavor-tag:not(:last-child):after {
     content: "";
     border-right: 1px solid #666;
-    margin-left: 0.5rem;
-    padding-right: 0.5rem;
+    margin-left: 0.5vw;
+    padding-right: 0.5vw;
 }
 
 .category {
     color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
+    font-size: 0.9vw;
+    margin-bottom: 0.5vw;
 }
 
 .product-title {
     font-family: 'ScotchModern', serif;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.5vw;
+    margin-bottom: 0.5vw;
     color: #000;
 }
 
 .description {
-    font-size: 0.9rem;
+    font-size: 0.9vw;
     color: #666;
-    margin-bottom: 1rem;
+    margin-bottom: 1vw;
     line-height: 1.4;
 }
 
@@ -167,16 +167,16 @@
 }
 
 .price {
-    font-size: 1rem;
+    font-size: 1vw;
     font-weight: 500;
 }
 
 .cart-btn {
-    min-width: 40px;
-    min-height: 40px;
-    width: 40px;
-    height: 40px;
-    border: 1px solid #000;
+    min-width: 3vw;
+    min-height: 3vw;
+    width: 3vw;
+    height: 3vw;
+    border: 0.1vw solid #000;
     border-radius: 50%;
     background: none;
     display: flex;
@@ -196,8 +196,8 @@
 }
 
 .cart-btn img {
-    width: 20px;
-    height: 20px;
+    width: 1.5vw;
+    height: 1.5vw;
     object-fit: contain;
 }
 
@@ -215,18 +215,18 @@
     color: white;
     width: 90%;
     max-width: 1200px;
-    padding: 0 20px;
+    padding: 0 1.5vw;
 }
 
 .hero-content h1 {
-    font-size: 4.5rem;
+    font-size: 4.5vw;
     font-weight: 300;
-    margin-bottom: 1rem;
+    margin-bottom: 1vw;
     font-family: 'ScotchModern', serif;
 }
 
 .hero-content p {
-    font-size: 1.2rem;
+    font-size: 1.2vw;
     line-height: 1.5;
     max-width: 800px;
     font-family: sans-serif;
@@ -236,17 +236,17 @@
     padding: 4vw 0;
     background-color: rgb(208, 227, 178);
     text-align: left;
-    padding: 40px 20px;
+    padding: 3vw 1.5vw;
 }
 
 .magazine-section h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+    font-size: 2.5vw;
+    margin-bottom: 0.8vw;
     font-family: 'ScotchModern', serif;
 }
 
 .subtitle {
-    font-size: 1.2rem;
+    font-size: 1.2vw;
     color: #666;
     font-family: sans-serif;
 }
@@ -254,19 +254,19 @@
 .magazine-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-top: 30px;
+    gap: 1.5vw;
+    margin-top: 2vw;
 }
 
 .magazine-item {
     background-color: rgb(208, 227, 178);
-    padding: 20px;
+    padding: 1.5vw;
     text-align: left;
 }
 
 .magazine-item img {
     width: 100%;
-    height: 300px;
+    height: 22vw;
     object-fit: cover;
 }
 
@@ -275,13 +275,13 @@
 }
 
 .magazine-item h3 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+    font-size: 1.2vw;
+    margin-bottom: 0.8vw;
     font-family: 'ScotchModern', serif;
 }
 
 .magazine-item p {
-    font-size: 0.9rem;
+    font-size: 0.9vw;
     line-height: 1.5;
     color: #555;
     font-family: sans-serif;
@@ -289,54 +289,74 @@
 
 @media screen and (max-width: 968px) {
     .cart-btn {
-        min-width: 36px;
-        min-height: 36px;
-        width: 36px;
-        height: 36px;
+        min-width: 4vw;
+        min-height: 4vw;
+        width: 4vw;
+        height: 4vw;
     }
 
     .cart-btn img {
-        width: 18px;
-        height: 18px;
+        width: 2vw;
+        height: 2vw;
     }
 
     .wishlist-btn {
-        width: 36px;
-        height: 36px;
+        width: 4vw;
+        height: 4vw;
     }
 
     .wishlist-btn svg {
-        width: 20px;
-        height: 20px;
+        width: 2.2vw;
+        height: 2.2vw;
     }
 
     .magazine-section {
-        padding: 30px 15px;
+        padding: 3.5vw 2vw;
     }
 
     .magazine-section h1 {
-        font-size: 2rem;
+        font-size: 3vw;
     }
 
     .subtitle {
-        font-size: 1rem;
+        font-size: 1.5vw;
     }
 
     .magazine-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+        gap: 2vw;
     }
 
     .magazine-item {
-        padding: 15px;
+        padding: 2vw;
     }
 
     .magazine-item img {
-        height: 250px;
+        height: 30vw;
     }
 
     .magazine-item h3 {
-        font-size: 1.1rem;
+        font-size: 2vw;
+    }
+
+    .magazine-item p {
+        font-size: 1.5vw;
+    }
+
+    .product-title {
+        font-size: 2.2vw;
+    }
+
+    .description {
+        font-size: 1.5vw;
+    }
+
+    .price {
+        font-size: 1.8vw;
+    }
+
+    .tag {
+        font-size: 1.4vw;
     }
 }
 
@@ -345,16 +365,12 @@
         margin-top: 5vw;
     }
 
-    .mainBodyWrapper img {
-        height: 40vh;
-    }
-
     .hero-content h1 {
-        font-size: 3.5rem;
+        font-size: 5vw;
     }
 
     .hero-content p {
-        font-size: 1rem;
+        font-size: 2vw;
     }
 
     .magazine-grid {
@@ -363,29 +379,46 @@
 
     .productsWrapper {
         grid-template-columns: repeat(2, 1fr);
-        padding: 2rem;
+        padding: 3vw;
     }
 
     .cart-btn {
-        min-width: 32px;
-        min-height: 32px;
-        width: 32px;
-        height: 32px;
+        min-width: 5vw;
+        min-height: 5vw;
+        width: 5vw;
+        height: 5vw;
     }
 
     .cart-btn img {
-        width: 16px;
-        height: 16px;
+        width: 2.5vw;
+        height: 2.5vw;
     }
 
     .wishlist-btn {
-        width: 32px;
-        height: 32px;
+        width: 5vw;
+        height: 5vw;
     }
 
     .wishlist-btn svg {
-        width: 18px;
-        height: 18px;
+        width: 2.8vw;
+        height: 2.8vw;
+    }
+
+    .product-title {
+        font-size: 3vw;
+    }
+
+    .description {
+        font-size: 2vw;
+    }
+
+    .price {
+        font-size: 2.2vw;
+    }
+
+    .tag {
+        font-size: 1.8vw;
+        padding: 0.8vw 1.2vw;
     }
 }
 
@@ -399,71 +432,88 @@
     }
 
     .hero-content h1 {
-        font-size: 2.5rem;
+        font-size: 7vw;
     }
 
     .hero-content p {
-        font-size: 0.9rem;
+        font-size: 3vw;
     }
 
     .magazine-section {
-        padding: 20px 10px;
+        padding: 5vw 3vw;
     }
 
     .magazine-section h1 {
-        font-size: 1.8rem;
+        font-size: 6vw;
     }
 
     .subtitle {
-        font-size: 0.9rem;
+        font-size: 3vw;
     }
 
     .magazine-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 4vw;
     }
 
     .magazine-item {
-        padding: 10px;
+        padding: 3vw;
     }
 
     .magazine-item img {
-        height: 200px;
+        height: 50vw;
     }
 
     .magazine-item h3 {
-        font-size: 1rem;
-        margin-bottom: 8px;
+        font-size: 4vw;
+        margin-bottom: 2vw;
     }
 
     .magazine-item p {
-        font-size: 0.8rem;
+        font-size: 3vw;
     }
 
     .productsWrapper {
         grid-template-columns: 1fr;
-        padding: 1.5rem;
+        padding: 4vw;
     }
 
     .cart-btn {
-        min-width: 30px;
-        min-height: 30px;
-        width: 30px;
-        height: 30px;
+        min-width: 8vw;
+        min-height: 8vw;
+        width: 8vw;
+        height: 8vw;
     }
 
     .cart-btn img {
-        width: 14px;
-        height: 14px;
+        width: 4vw;
+        height: 4vw;
     }
 
     .wishlist-btn {
-        width: 30px;
-        height: 30px;
+        width: 8vw;
+        height: 8vw;
     }
 
     .wishlist-btn svg {
-        width: 16px;
-        height: 16px;
+        width: 4.5vw;
+        height: 4.5vw;
+    }
+
+    .product-title {
+        font-size: 5vw;
+    }
+
+    .description {
+        font-size: 3.5vw;
+    }
+
+    .price {
+        font-size: 4vw;
+    }
+
+    .tag {
+        font-size: 3vw;
+        padding: 1vw 2vw;
     }
 }

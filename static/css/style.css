@@ -90,102 +90,299 @@ html, body {
 
 /* products wrapper */
 
-.productsWrapper{
-    width: 100vw;
-    min-height: 40vw;
-    background-color: #f9f9f9;
-    padding: 4vw;
+.productsWrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2vw;
+    padding: 4vw;
+    background: #fff;
 }
 
-.headingWrapper{
+.headingWrapper {
     width: 100%;
     margin-bottom: 3vw;
     grid-column: 1 / -1;
 }
 
-.headingWrapper h1{
+.headingWrapper h1 {
     font-size: 2.5vw;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Montserrat", serif;
     color: #333;
     margin-bottom: 0.5vw;
 }
 
-.headingWrapper p{
+.headingWrapper p {
     font-size: 1.2vw;
     color: #666;
     font-family: "Montserrat", sans-serif;
 }
 
-.productWrapper{
-    width: 100%;
-    height: auto;
-    background: white;
-    border-radius: 1vw;
-    box-shadow: 0 0.3vw 1vw rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-
-.productWrapper:hover{
-    transform: translateY(-0.3vw);
-    box-shadow: 0 0.5vw 1.5vw rgba(0,0,0,0.15);
-}
-
-.productImage{
-    width: 100%;
-    height: 18vw;
+.productWrapper {
     position: relative;
+    width: 100%;
+    background: white;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    padding: 0;
+}
+
+.productWrapper:hover {
+    opacity: 0.8;
+}
+
+.productImage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
     overflow: hidden;
 }
 
-.productImage img{
+.productImage img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
+    object-fit: contain;
+    transition: transform 0.3s ease;
 }
 
-.productWrapper:hover .productImage img{
+.productWrapper:hover .productImage img {
     transform: scale(1.05);
 }
 
-.productInfo{
-    padding: 1.5vw;
-    text-align: left;
+.tags {
+    position: absolute;
+    top: 1vw;
+    left: 1vw;
+    z-index: 2;
 }
 
-.productInfo p:first-child{
-    font-size: 1vw;
-    color: #666;
-    margin-bottom: 0.3vw;
-    font-family: "Montserrat", sans-serif;
+.tag {
+    background: #000;
+    color: white;
+    padding: 0.4vw 0.8vw;
+    border-radius: 0.25vw;
+    font-size: 0.8vw;
+    font-weight: 500;
 }
 
-.productInfo span{
-    display: block;
-    font-size: 1vw;
-    font-weight: bold;
-    color: #333;
-    margin: 0.5vw 0;
-    font-family: "Montserrat", sans-serif;
+.wishlist-btn {
+    position: absolute;
+    top: 1vw;
+    right: 1vw;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3vw;
+    height: 3vw;
 }
 
-.productInfo p:nth-child(3){
+.wishlist-btn svg {
+    width: 1.8vw;
+    height: 1.8vw;
+    stroke: #000;
+    fill: none;
+    transition: fill 0.3s ease;
+}
+
+.wishlist-btn:hover svg {
+    fill: #000;
+}
+
+.productInfo {
+    padding: 1.5vw 0;
+}
+
+.flavor-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5vw;
+    margin-bottom: 1vw;
+}
+
+.flavor-tag {
     font-size: 0.9vw;
-    color: #777;
+    color: #666;
+}
+
+.flavor-tag:not(:last-child):after {
+    content: "";
+    border-right: 0.1vw solid #666;
+    margin-left: 0.5vw;
+    padding-right: 0.5vw;
+}
+
+.category {
+    color: #666;
+    font-size: 0.9vw;
+    margin-bottom: 0.5vw;
+}
+
+.product-title {
+    font-family: "Montserrat", serif;
+    font-size: 1.5vw;
+    margin-bottom: 0.5vw;
+    color: #000;
+}
+
+.description {
+    font-size: 0.9vw;
+    color: #666;
+    margin-bottom: 1vw;
     line-height: 1.4;
-    margin: 0.5vw 0;
-    font-family: "Montserrat", sans-serif;
 }
 
-.productInfo h6{
-    font-size: 1.2vw;
-    margin-top: 0.5vw;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 800;
+.price-cart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-@media (max-width: 768px) {}
+.price {
+    font-size: 1vw;
+    font-weight: 500;
+}
+
+.cart-btn {
+    min-width: 3vw;
+    min-height: 3vw;
+    width: 3vw;
+    height: 3vw;
+    border: 0.1vw solid #000;
+    border-radius: 50%;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.cart-btn:hover {
+    background: #000;
+}
+
+.cart-btn:hover img {
+    filter: invert(1);
+}
+
+.cart-btn img {
+    width: 1.5vw;
+    height: 1.5vw;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .productsWrapper {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 4vw;
+    }
+
+    .productImage img {
+        object-fit: cover;
+    }
+
+    .cart-btn {
+        min-width: 5vw;
+        min-height: 5vw;
+        width: 5vw;
+        height: 5vw;
+    }
+
+    .cart-btn img {
+        width: 2.5vw;
+        height: 2.5vw;
+    }
+
+    .wishlist-btn {
+        width: 5vw;
+        height: 5vw;
+    }
+
+    .wishlist-btn svg {
+        width: 2.5vw;
+        height: 2.5vw;
+    }
+
+    .product-title {
+        font-size: 2.5vw;
+    }
+
+    .description {
+        font-size: 1.8vw;
+    }
+
+    .price {
+        font-size: 2vw;
+    }
+
+    .tag {
+        font-size: 1.6vw;
+        padding: 0.8vw 1.2vw;
+    }
+
+    .flavor-tag {
+        font-size: 1.8vw;
+    }
+
+    .category {
+        font-size: 1.8vw;
+    }
+}
+
+@media (max-width: 480px) {
+    .productsWrapper {
+        grid-template-columns: 1fr;
+        padding: 6vw;
+    }
+
+    .cart-btn {
+        min-width: 8vw;
+        min-height: 8vw;
+        width: 8vw;
+        height: 8vw;
+    }
+
+    .cart-btn img {
+        width: 4vw;
+        height: 4vw;
+    }
+
+    .wishlist-btn {
+        width: 8vw;
+        height: 8vw;
+    }
+
+    .wishlist-btn svg {
+        width: 4vw;
+        height: 4vw;
+    }
+
+    .product-title {
+        font-size: 4vw;
+    }
+
+    .description {
+        font-size: 3vw;
+    }
+
+    .price {
+        font-size: 3.5vw;
+    }
+
+    .tag {
+        font-size: 2.5vw;
+        padding: 1vw 2vw;
+    }
+
+    .flavor-tag {
+        font-size: 3vw;
+    }
+
+    .category {
+        font-size: 3vw;
+    }
+}

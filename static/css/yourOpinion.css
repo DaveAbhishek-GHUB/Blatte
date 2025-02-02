@@ -1,130 +1,224 @@
-/* Your option section */
+/* Import custom font */
+@font-face {
+    font-family: 'ScotchModern';
+    src: url('/static/fonts/ScotchModern__.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
+/* Main reviews section container */
 .reviews-section {
     max-width: 1200px;
-    margin: 4rem auto;
-    padding: 0 2rem;
+    margin: 4vw auto;
+    padding: 0 2vw;
     text-align: center;
 }
 
+/* Reviews section title */
 .reviews-title {
-    font-family: "Bodoni Moda", serif;
-    font-size: 2.5rem;
+    font-family: "ScotchModern", "Times New Roman", serif;
+    font-size: 3vw;
     color: #333;
-    margin-bottom: 1rem;
+    margin-bottom: 1vw;
 }
 
+/* Reviews statistics container */
 .reviews-stats {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    margin-bottom: 3rem;
+    gap: 1vw;
+    margin-bottom: 3vw;
 }
 
+/* Rating number style */
 .rating {
-    font-size: 1.5rem;
+    font-size: 1.5vw;
     font-weight: bold;
     color: #333;
+    font-family: sans-serif;
 }
 
+/* Star rating style */
 .stars {
     color: #FFD700;
-    font-size: 1.2rem;
-    letter-spacing: 2px;
+    font-size: 1.2vw;
+    letter-spacing: 0.2vw;
 }
 
+/* Review count style */
 .review-count {
     color: #666;
-    font-size: 1rem;
+    font-size: 1vw;
+    font-family: sans-serif;
 }
 
+/* Grid container for review cards */
 .reviews-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
+    gap: 2vw;
+    margin-bottom: 3vw;
 }
 
+/* Individual review card style */
 .review-card {
     background-color: #f8f8f8;
-    padding: 1.5rem;
-    border-radius: 8px;
+    padding: 1.5vw;
+    border-radius: 0.5vw;
     text-align: left;
     transition: transform 0.3s ease;
 }
 
+/* Hover effect for review cards */
 .review-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-0.5vw);
 }
 
+/* Reviewer information container */
 .reviewer-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1vw;
 }
 
+/* Reviewer name style */
 .reviewer-name {
     font-weight: 600;
     color: #333;
+    font-size: 1.2vw;
+    font-family: sans-serif;
 }
 
+/* Verified purchase badge */
 .verified-badge {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.5vw;
     color: #666;
-    font-size: 0.9rem;
+    font-size: 0.9vw;
+    font-family: sans-serif;
 }
 
+/* Verified badge icon */
 .verified-badge img {
-    width: 16px;
-    height: 16px;
+    width: 1.2vw;
+    height: 1.2vw;
 }
 
+/* Review text content */
 .review-text {
     color: #444;
     line-height: 1.6;
-    font-size: 0.95rem;
+    font-size: 1vw;
+    font-family: sans-serif;
 }
 
+/* More reviews button style */
 .more-reviews-btn {
     background-color: transparent;
-    border: 1px solid #333;
+    border: 0.1vw solid #333;
     color: #333;
-    padding: 0.8rem 2rem;
-    font-size: 1rem;
+    padding: 0.8vw 2vw;
+    font-size: 1vw;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-family: sans-serif;
 }
 
+/* Button hover effect */
 .more-reviews-btn:hover {
     background-color: #333;
     color: white;
 }
 
+/* Tablet styles */
+@media (max-width: 1024px) {
+    .reviews-title {
+        font-size: 4vw;
+    }
+
+    .rating {
+        font-size: 2.5vw;
+    }
+
+    .stars {
+        font-size: 2vw;
+    }
+
+    .review-count {
+        font-size: 1.8vw;
+    }
+
+    .reviewer-name {
+        font-size: 2vw;
+    }
+
+    .verified-badge {
+        font-size: 1.6vw;
+    }
+
+    .review-text {
+        font-size: 1.8vw;
+    }
+
+    .more-reviews-btn {
+        font-size: 1.8vw;
+        padding: 1.2vw 3vw;
+    }
+}
+
+/* Mobile styles */
 @media (max-width: 768px) {
-        /* your option section */
-        .reviews-section {
-            padding: 0 1rem;
-        }
-    
-        .reviews-title {
-            font-size: 2rem;
-        }
-    
-        .reviews-container {
-            grid-template-columns: 1fr;
-        }
-    
-        .reviews-stats {
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        
-        .view-all-btn {
-            font-size: 2vw;
-            padding: 1.5vw 4vw;
-        }
+    .reviews-section {
+        padding: 0 4vw;
+    }
+
+    .reviews-title {
+        font-size: 6vw;
+    }
+
+    .reviews-container {
+        grid-template-columns: 1fr;
+    }
+
+    .reviews-stats {
+        flex-direction: column;
+        gap: 2vw;
+    }
+
+    .rating {
+        font-size: 4vw;
+    }
+
+    .stars {
+        font-size: 3.5vw;
+    }
+
+    .review-count {
+        font-size: 3vw;
+    }
+
+    .reviewer-name {
+        font-size: 3.5vw;
+    }
+
+    .verified-badge {
+        font-size: 3vw;
+    }
+
+    .review-text {
+        font-size: 3vw;
+    }
+
+    .more-reviews-btn {
+        font-size: 3vw;
+        padding: 2vw 5vw;
+    }
+
+    .view-all-btn {
+        font-size: 3vw;
+        padding: 2vw 5vw;
+    }
 }

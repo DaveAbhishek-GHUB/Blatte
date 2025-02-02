@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
+{# Include header component #}
 {% include 'utilities/header.html' %}
-<!-- Include toast component -->
+
+{# Include toast notification component #}
 {% include 'components/toast.html' %}
+
 <div class="mainBodyWrapper">
-    <!-- Hero Section - Main banner with call-to-action -->
+    {# Hero Section - Main banner with call-to-action #}
     <div class="heroSection">
         <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Banners/FinalHomepage.png?updatedAt=1738420363800" alt="heroSectoin">
         <div class="infoWrapper">
@@ -17,8 +20,9 @@
         </div>
     </div>
 
-    <!-- Category Section - Display different tea categories -->
+    {# Category Section - Display different tea categories #}
     <div class="categorySection">
+        {# Tea Blends Category #}
         <div class="catProductInfo">
             <a href="/teaBlends">
                 <img src="../static/images/teaBlends-Category.jpg" alt="Tea Blends Category">
@@ -26,6 +30,7 @@
             </a>
         </div>
 
+        {# Green Tea Category #}
         <div class="catProductInfo">
             <a href="#">
                 <img src="../static/images/greenTea-Category.jpg" alt="Green Tea Category">
@@ -33,6 +38,7 @@
             </a>
         </div>
 
+        {# Herbal Tea Category #}
         <div class="catProductInfo">
             <a href="#">
                 <img src="../static/images/blackTea-Category.jpg" alt="Herbal Tea Category">
@@ -40,6 +46,7 @@
             </a>
         </div>
 
+        {# Black Tea Category #}
         <div class="catProductInfo">
             <a href="#">
                 <img src="../static/images/BlackTea.jpg" alt="Black Tea Category">
@@ -47,6 +54,7 @@
             </a>
         </div>
 
+        {# Oolong Tea Category #}
         <div class="catProductInfo">
             <a href="#">
                 <img src="../static/images/oolongTea-Category.jpg" alt="Oolong Tea Category">
@@ -54,6 +62,7 @@
             </a>
         </div>
 
+        {# Fruit Tea Category #}
         <div class="catProductInfo">
             <a href="#">
                 <img src="../static/images/fruitTea.jpg" alt="Fruit Tea Category">
@@ -61,6 +70,7 @@
             </a>
         </div>
 
+        {# Gift Set Category #}
         <div class="catProductInfo">
             <a href="/giftSets">
                 <img src="../static/images/giftSet-Category.jpg" alt="Gift Set Category">
@@ -68,6 +78,7 @@
             </a>
         </div>
 
+        {# Tea Accessories Category #}
         <div class="catProductInfo">
             <a href="#">
                 <img src="../static/images/Tea-accessories-Category.jpg" alt="Tea Accessories Category">
@@ -76,73 +87,145 @@
         </div>
     </div>
 
-    <!-- Featured Products Section -->
+    {# Featured Products Section #}
     <div class="productsWrapper">
-        <!-- Section Header -->
+        {# Section Header #}
         <div class="headingWrapper">
             <h1>New Beginnings</h1>
             <p>Let our pure teas accompany you into the year</p>
         </div>
 
-        <!-- Product Cards -->
+        {# Product Card 1 - Blue Earl Tea #}
         <div class="productWrapper">
             <div class="productImage">
-                <img src="https://www.paperandtea.com/cdn/shop/files/Tea-for-Tomorrow_Product-Card_02_2000x2000_aa363a1a-5daa-4bf7-8734-58d8e20e744b.jpg?v=1730191946&width=550"
-                    alt="Tea for Tomorrow Collection Box">
+                <div class="tags">
+                    <span class="tag">Neu</span>
+                </div>
+                <img src="https://www.paperandtea.com/cdn/shop/files/Blue_20Earl_Caddy_2000x2000_e449f7a4-eacf-4b31-ae08-168c4868de8d.webp?v=1737522125&width=600" alt="Blue Earl Tea">
+                <button class="wishlist-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </button>
             </div>
             <div class="productInfo">
-                <p>Gift Set</p>
-                <span>TEA FOR TOMORROW COLLECTION BOX</span>
-                <p>3 teas for cozy breaks, snuggly winter evenings & festive cheer</p>
-                <h6>₹ 1,200</h6>
+                <div class="flavor-tags">
+                    <span class="flavor-tag">Bergamot</span>
+                    <span class="flavor-tag">Orange Zest</span>
+                    <span class="flavor-tag">Lilac</span>
+                </div>
+                <p class="category">Black Tea</p>
+                <h2 class="product-title">BLUE EARL</h2>
+                <p class="description">Indian organic black tea with bergamot oil and cornflower petals</p>
+                <div class="price-cart">
+                    <span class="price">From € 22,00</span>
+                    <button class="cart-btn">
+                        <img src="../static/images/svgs/shopping-cart-add-02-stroke-rounded.svg" alt="cart">
+                    </button>
+                </div>
             </div>
         </div>
 
+        {# Product Card 2 - Praise of Shadows Tea #}
         <div class="productWrapper">
             <div class="productImage">
-                <img src="https://www.paperandtea.com/cdn/shop/files/Tea-for-Tomorrow_Product-Card_02_2000x2000_aa363a1a-5daa-4bf7-8734-58d8e20e744b.jpg?v=1730191946&width=550"
-                    alt="Tea for Tomorrow Collection Box">
+                <div class="tags">
+                    <span class="tag">Neu</span>
+                </div>
+                <img src="https://www.paperandtea.com/cdn/shop/files/Praise_20of_20Shadows_Caddy_2000x2000_5ee3e51b-7c17-43f5-a2c8-8ffeb1a295ec.webp?v=1734510854&width=600" alt="Blue Earl Tea">
+                <button class="wishlist-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </button>
             </div>
             <div class="productInfo">
-                <p>Gift Set</p>
-                <span>TEA FOR TOMORROW COLLECTION BOX</span>
-                <p>3 teas for cozy breaks, snuggly winter evenings & festive cheer</p>
-                <h6>₹ 1,200</h6>
+                <div class="flavor-tags">
+                    <span class="flavor-tag">Bergamot</span>
+                    <span class="flavor-tag">Orange Zest</span>
+                    <span class="flavor-tag">Lilac</span>
+                </div>
+                <p class="category">Black Tea</p>
+                <h2 class="product-title">BLUE EARL</h2>
+                <p class="description">Indian organic black tea with bergamot oil and cornflower petals</p>
+                <div class="price-cart">
+                    <span class="price">From € 22,00</span>
+                    <button class="cart-btn">
+                        <img src="../static/images/svgs/shopping-cart-add-02-stroke-rounded.svg" alt="cart">
+                    </button>
+                </div>
             </div>
         </div>
 
+        {# Product Card 3 - Golden Earl Tea #}
         <div class="productWrapper">
             <div class="productImage">
-                <img src="https://www.paperandtea.com/cdn/shop/files/Tea-for-Tomorrow_Product-Card_02_2000x2000_aa363a1a-5daa-4bf7-8734-58d8e20e744b.jpg?v=1730191946&width=550"
-                    alt="Tea for Tomorrow Collection Box">
+                <div class="tags">
+                    <span class="tag">Neu</span>
+                </div>
+                <img src="https://www.paperandtea.com/cdn/shop/files/Golden-Earl_20_20_1.webp?v=1732169077&width=600" alt="Blue Earl Tea">
+                <button class="wishlist-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </button>
             </div>
             <div class="productInfo">
-                <p>Gift Set</p>
-                <span>TEA FOR TOMORROW COLLECTION BOX</span>
-                <p>3 teas for cozy breaks, snuggly winter evenings & festive cheer</p>
-                <h6>₹ 1,200</h6>
+                <div class="flavor-tags">
+                    <span class="flavor-tag">Bergamot</span>
+                    <span class="flavor-tag">Orange Zest</span>
+                    <span class="flavor-tag">Lilac</span>
+                </div>
+                <p class="category">Black Tea</p>
+                <h2 class="product-title">BLUE EARL</h2>
+                <p class="description">Indian organic black tea with bergamot oil and cornflower petals</p>
+                <div class="price-cart">
+                    <span class="price">From € 22,00</span>
+                    <button class="cart-btn">
+                        <img src="../static/images/svgs/shopping-cart-add-02-stroke-rounded.svg" alt="cart">
+                    </button>
+                </div>
             </div>
         </div>
 
+        {# Product Card 4 - Mighty Green Tea #}
         <div class="productWrapper">
             <div class="productImage">
-                <img src="https://www.paperandtea.com/cdn/shop/files/Tea-for-Tomorrow_Product-Card_02_2000x2000_aa363a1a-5daa-4bf7-8734-58d8e20e744b.jpg?v=1730191946&width=550"
-                    alt="Tea for Tomorrow Collection Box">
+                <div class="tags">
+                    <span class="tag">Neu</span>
+                </div>
+                <img src="https://www.paperandtea.com/cdn/shop/files/Mighty_20Green_20N319_11187_20.png?v=1718334128&width=600" alt="Blue Earl Tea">
+                <button class="wishlist-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </button>
             </div>
             <div class="productInfo">
-                <p>Gift Set</p>
-                <span>TEA FOR TOMORROW COLLECTION BOX</span>
-                <p>3 teas for cozy breaks, snuggly winter evenings & festive cheer</p>
-                <h6>₹ 1,200</h6>
+                <div class="flavor-tags">
+                    <span class="flavor-tag">Bergamot</span>
+                    <span class="flavor-tag">Orange Zest</span>
+                    <span class="flavor-tag">Lilac</span>
+                </div>
+                <p class="category">Black Tea</p>
+                <h2 class="product-title">BLUE EARL</h2>
+                <p class="description">Indian organic black tea with bergamot oil and cornflower petals</p>
+                <div class="price-cart">
+                    <span class="price">From € 22,00</span>
+                    <button class="cart-btn">
+                        <img src="../static/images/svgs/shopping-cart-add-02-stroke-rounded.svg" alt="cart">
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Include Additional Components -->
+{# Include Additional Components #}
 {% include '/components/teaShowcase.html' %}
 {% include '/components/moreAssesories.html' %}
 {% include '/components/storeSection.html' %}
 {% include '/components/yourOpinion.html' %}
+{% include '/components/yourBenefits.html' %}
 {% include '/utilities/footer.html' %}
 {% endblock %}

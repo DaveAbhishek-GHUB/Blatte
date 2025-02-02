@@ -1,17 +1,24 @@
+{# Extend base template #}
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Include toast component -->
+{# Include toast notification component #}
 {% include 'components/toast.html' %}
 
+{# Include register page specific styles #}
 <link rel="stylesheet" href="../static/css/register.css">
 
+{# Main registration container #}
 <div class="login-container">
+    {# Registration header section #}
     <h1 class="login-title">Register</h1>
     <p class="login-description">
         To register for the MY DEAR CLUB, please fill in the fields below:
     </p>
+
+    {# Registration form #}
     <form action="/user/register" method="POST" class="login-form" onsubmit="return validateForm()">
+        {# First name input field #}
         <input 
             type="text"
             class="login-input" 
@@ -22,6 +29,8 @@
             required
             id="firstname"
         >
+
+        {# Last name input field #}
         <input 
             type="text"
             class="login-input" 
@@ -32,6 +41,8 @@
             required
             id="lastname"
         >
+
+        {# Email input field #}
         <input 
             type="email"
             class="login-input" 
@@ -42,6 +53,8 @@
             required
             id="email"
         >
+
+        {# Password input field wrapper #}
         <div>
             <input 
                 type="password"
@@ -54,6 +67,8 @@
                 id="password"
             >
         </div>
+
+        {# Confirm password input field wrapper #}
         <div>
             <input 
                 type="password"
@@ -64,11 +79,17 @@
                 id="confirm-password"
             >
         </div>
+
+        {# Submit button #}
         <button type="submit" class="login-button">Create account</button>
     </form>
+
+    {# Login prompt for existing users #}
     <p class="register-text">
         Already have an account? <a href="/login" class="register-link">Login</a>
     </p>
 </div>
+
+{# Include register page specific JavaScript #}
 <script src="../static/javascripts/register.js"></script>
 {% endblock %}

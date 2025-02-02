@@ -1,3 +1,4 @@
+/* Main stores section container */
 .stores-section {
     width: 100vw;
     display: flex;
@@ -8,29 +9,33 @@
     gap: 4vw;
 }
 
+/* Content container for text and button */
 .stores-content {
     flex: 1;
     max-width: 50%;
 }
 
+/* Main heading style */
 .stores-content h1 {
-    font-family: "Bodoni Moda", serif;
+    font-family: "ScotchModern", serif;
     font-size: 4vw;
     line-height: 1.2;
     margin-bottom: 1.5vw;
     color: #000000;
 }
 
+/* Paragraph text style */
 .stores-content p {
-    font-family: "Montserrat", sans-serif;
+    font-family: sans-serif;
     font-size: 1.2vw;
     color: #333333;
     margin-bottom: 2vw;
     line-height: 1.5;
 }
 
+/* Store finder button style */
 .store-finder-btn {
-    font-family: "Montserrat", sans-serif;
+    font-family: sans-serif;
     font-size: 1vw;
     color: #000000;
     background: transparent;
@@ -40,56 +45,86 @@
     transition: all 0.3s ease;
 }
 
+/* Button hover effect */
 .store-finder-btn:hover {
     background-color: #000000;
     color: #ffffff;
 }
 
+/* Store image container */
 .store-image {
     flex: 1;
     max-width: 50%;
     position: relative;
 }
 
+/* Store image style */
 .store-image img {
     width: 100%;
     height: auto;
     display: block;
 }
 
+/* Image caption style */
 .store-caption {
-    font-family: "Montserrat", sans-serif;
+    font-family: sans-serif;
     font-size: 1vw;
     color: #333333;
     margin-top: 1vw;
 }
 
-@media (max-width: 768px){
-        /* store section */
-        .stores-section {
-            flex-direction: column;
-            padding: 6vw 4vw;
-            gap: 6vw;
-        }
-    
-        .stores-content, .store-image {
-            max-width: 100%;
-        }
-    
-        .stores-content h1 {
-            font-size: 8vw;
-        }
-    
-        .stores-content p {
-            font-size: 3vw;
-        }
-    
-        .store-finder-btn {
-            font-size: 2.5vw;
-            padding: 2vw 4vw;
-        }
-    
-        .store-caption {
-            font-size: 2.5vw;
-        }
+/* Tablet styles */
+@media (max-width: 1024px) {
+    .stores-section {
+        padding: 5vw 6vw;
+        gap: 5vw;
+    }
+
+    .stores-content h1 {
+        font-size: 5vw;
+    }
+
+    .stores-content p {
+        font-size: 2vw;
+    }
+
+    .store-finder-btn {
+        font-size: 1.8vw;
+        padding: 1.5vw 3vw;
+    }
+
+    .store-caption {
+        font-size: 1.8vw;
+    }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .stores-section {
+        flex-direction: column;
+        padding: 6vw 4vw;
+        gap: 6vw;
+    }
+
+    .stores-content, 
+    .store-image {
+        max-width: 100%;
+    }
+
+    .stores-content h1 {
+        font-size: 8vw;
+    }
+
+    .stores-content p {
+        font-size: 3vw;
+    }
+
+    .store-finder-btn {
+        font-size: 2.5vw;
+        padding: 2vw 4vw;
+    }
+
+    .store-caption {
+        font-size: 2.5vw;
+    }
 }

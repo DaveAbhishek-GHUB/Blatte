@@ -1,135 +1,271 @@
+/* Main footer container styles */
 .footer {
     background-color: #000;
     color: #fff;
-    padding: 60px 40px;
+    padding: 4vw 3vw;
 }
 
+/* Grid layout for footer content */
 .footer__content {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-    margin-bottom: 40px;
+    gap: 3vw;
+    margin-bottom: 3vw;
 }
 
+/* Footer section titles */
 .footer__title {
     font-family: 'ScotchModern', 'Times New Roman', serif;
-    font-size: 1.2rem;
-    margin-bottom: 20px;
+    font-size: 1.8vw;
+    margin-bottom: 1.5vw;
     font-weight: 500;
 }
 
+/* Footer list container */
 .footer__list {
     list-style: none;
     padding: 0;
     font-family: sans-serif;
 }
 
+/* Footer list items */
 .footer__list li {
-    margin-bottom: 10px;
+    margin-bottom: 0.8vw;
+    font-size: 1.2vw;
 }
 
+/* Footer links styling */
 .footer__list a,
 .footer a {
     color: #fff;
     text-decoration: none;
     transition: opacity 0.3s;
     font-family: sans-serif;
+    font-size: 1.2vw;
 }
 
+/* Hover effect for footer links */
 .footer__list a:hover,
 .footer a:hover {
     opacity: 0.8;
 }
 
+/* Contact button styling */
 .contact-button {
     display: inline-block;
     border: 1px solid #fff;
-    padding: 10px 20px;
-    margin: 15px 0;
+    padding: 0.8vw 1.5vw;
+    margin: 1.2vw 0;
     font-family: sans-serif;
+    font-size: 1.2vw;
 }
 
+/* Business hours text styling */
 .business-hours {
-    font-size: 0.9rem;
+    font-size: 1.1vw;
     opacity: 0.8;
     font-family: sans-serif;
 }
 
+/* Newsletter description text */
 .newsletter__text {
-    margin-bottom: 20px;
+    margin-bottom: 1.5vw;
     font-family: sans-serif;
+    font-size: 1.2vw;
 }
 
+/* Newsletter form container */
 .newsletter__form {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 0.8vw;
+    margin-bottom: 1.5vw;
 }
 
+/* Newsletter input field */
 .newsletter__input {
     flex: 1;
-    padding: 12px;
+    padding: 1vw;
     border: none;
     background: #fff;
     font-family: sans-serif;
+    font-size: 1.2vw;
 }
 
+/* Newsletter submit button */
 .newsletter__button {
-    padding: 12px 24px;
+    padding: 1vw 2vw;
     background: #000;
     color: #fff;
     border: 1px solid #fff;
     cursor: pointer;
     transition: all 0.3s;
     font-family: sans-serif;
+    font-size: 1.2vw;
 }
 
+/* Newsletter button hover effect */
 .newsletter__button:hover {
     background: #fff;
     color: #000;
 }
 
+/* Newsletter disclaimer text */
 .newsletter__disclaimer {
-    font-size: 0.8rem;
+    font-size: 1vw;
     opacity: 0.8;
     font-family: sans-serif;
 }
 
+/* Social media section container */
 .footer__social {
-    margin-bottom: 40px;
+    margin-bottom: 3vw;
 }
 
+/* Social media icons container */
 .social-icons {
     display: flex;
-    gap: 20px;
+    gap: 1.5vw;
+    flex-wrap: wrap;
 }
 
+/* Individual social media icon */
 .social-icon {
-    font-size: 0;
-    width: 24px;
-    height: 24px;
+    font-size: 1.2vw;
+    width: 2vw;
+    height: 2vw;
     background-size: contain;
     background-repeat: no-repeat;
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
 }
 
+/* Payment methods icons container */
 .payment-icons {
     display: flex;
-    gap: 10px;
+    gap: 0.8vw;
     align-items: center;
+    flex-wrap: wrap;
 }
 
+/* Individual payment method icon */
 .payment-icons img {
-    height: 24px;
+    height: 2vw;
     width: auto;
 }
 
+/* Responsive design for tablet devices */
+@media (max-width: 1024px) {
+    .footer {
+        padding: 6vw 4vw;
+    }
+
+    .footer__content {
+        gap: 4vw;
+    }
+
+    .footer__title {
+        font-size: 2.8vw;
+        margin-bottom: 2vw;
+    }
+    
+    .footer__list li,
+    .footer__list a,
+    .footer a,
+    .contact-button,
+    .newsletter__text,
+    .newsletter__input,
+    .newsletter__button {
+        font-size: 2vw;
+    }
+    
+    .business-hours {
+        font-size: 1.8vw;
+    }
+    
+    .newsletter__disclaimer {
+        font-size: 1.6vw;
+    }
+    
+    .social-icon {
+        font-size: 1.8vw;
+        width: 3.5vw;
+        height: 3.5vw;
+    }
+
+    .payment-icons img {
+        height: 3.5vw;
+    }
+
+    .newsletter__form {
+        gap: 1.2vw;
+    }
+
+    .newsletter__input,
+    .newsletter__button {
+        padding: 1.5vw;
+    }
+}
+
+/* Responsive design for mobile devices */
 @media (max-width: 768px) {
+    .footer {
+        padding: 8vw 5vw;
+    }
+
     .footer__content {
         grid-template-columns: 1fr;
+        gap: 6vw;
     }
 
     .newsletter__form {
         flex-direction: column;
+        gap: 2vw;
+    }
+    
+    .footer__title {
+        font-size: 5vw;
+        margin-bottom: 3vw;
+    }
+    
+    .footer__list li,
+    .footer__list a,
+    .footer a,
+    .contact-button,
+    .newsletter__text,
+    .newsletter__input,
+    .newsletter__button {
+        font-size: 3.8vw;
+    }
+    
+    .business-hours {
+        font-size: 3.5vw;
+    }
+    
+    .newsletter__disclaimer {
+        font-size: 3.2vw;
+    }
+    
+    .social-icon {
+        font-size: 3.5vw;
+        width: 8vw;
+        height: 8vw;
+    }
+
+    .payment-icons img {
+        height: 8vw;
+    }
+
+    .newsletter__input,
+    .newsletter__button {
+        padding: 3vw;
+        width: 100%;
+    }
+
+    .social-icons,
+    .payment-icons {
+        gap: 3vw;
+        justify-content: center;
     }
 }

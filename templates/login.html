@@ -1,17 +1,24 @@
+{# Extend base template #}
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Include toast component -->
+{# Include toast notification component #}
 {% include 'components/toast.html' %}
 
+{# Include login page specific styles #}
 <link rel="stylesheet" href="../static/css/login.css">
 
+{# Main login container #}
 <div class="login-container">
+    {# Login header section #}
     <h1 class="login-title">Login</h1>
     <p class="login-description">
         To register for the MY DEAR CLUB, please enter your e-mail address and password here.
     </p>
+
+    {# Login form #}
     <form action="/user/login" method="POST" class="login-form" onsubmit="return validateForm()">
+        {# Email input field #}
         <input 
             type="email" 
             class="login-input"
@@ -22,6 +29,8 @@
             required
             id="email"
         >
+        
+        {# Password input field wrapper #}
         <div>
             <input 
                 type="password" 
@@ -34,12 +43,20 @@
                 id="password"
             >
         </div>
+
+        {# Password recovery link #}
         <a href="/forgot-password" class="forgot-password">Forgot password?</a>
+
+        {# Submit button #}
         <button type="submit" class="login-button">Login</button>
     </form>
+
+    {# Registration prompt #}
     <p class="register-text">
         Not yet a member of the MY DEAR CLUB? <a href="/register" class="register-link">Create an account</a>
     </p>
 </div>
+
+{# Include login page specific JavaScript #}
 <script src="../static/javascripts/login.js"></script>
 {% endblock %}
