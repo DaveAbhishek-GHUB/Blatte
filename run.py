@@ -52,13 +52,25 @@ def giftSets():
     """
     return render_template('giftSets.html')
 
+@app.route('/auth')
+def auth():
+    """
+    Render the auth.html template when user visits the auth page
+    Returns: rendered auth.html template
+    """
+    return render_template('auth.html')
+
 @app.route('/register')
 def register():
     """
     Render the register.html template when user visits the register page
-    Returns: rendered register.html template
+    Returns: rendered register.html template if not logged in, redirects to index if logged in
     """
-    return render_template('register.html')
+    if request.cookies.get('user_email'):
+        flash('You are already registered and logged in', 'error')
+        return redirect(url_for('index'))
+    return render_template('utilities/register.html')
+
 
 @app.route('/user/register', methods=['POST'])
 def register_user():
@@ -107,14 +119,6 @@ def register_user():
             flash('An error occurred during registration', 'error')
             return redirect(url_for('index'))
 
-@app.route('/login')
-def login():
-    """
-    Render the login.html template when user visits the login page
-    Returns: rendered login.html template
-    """
-    return render_template('login.html')
-
 @app.route('/user/login', methods=['POST'])
 def login_user():
     """
@@ -144,6 +148,17 @@ def login_user():
             print(f"Login error: {e}")
             flash('An error occurred during login', 'error')
             return redirect(url_for('login'))
+
+@app.route('/user/logout')
+def logout_user():
+    """
+    Handle user logout
+    Returns: redirect to index page
+    """
+    response = make_response(redirect(url_for('index')))
+    response.delete_cookie('user_email')
+    flash('Successfully logged out!', 'success')
+    return response
 
 # Main entry point
 if __name__ == '__main__':

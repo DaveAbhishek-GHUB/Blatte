@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {# Include login page specific styles #}
+    <link rel="stylesheet" href="../static/css/login.css">
+</head>
+<body>
+    {# Include toast notification component #}
+    {% include 'components/toast.html' %}
+
+    {# Main login container #}
+    <div class="login-container">
+        {# Login header section #}
+        <h1 class="login-title">Login</h1>
+        <p class="login-description">
+            To register for the MY DEAR CLUB, please enter your e-mail address and password here.
+        </p>
+
+        {# Login form #}
+        <form action="/user/login" method="POST" class="login-form" onsubmit="return validateForm()">
+            {# Email input field #}
+            <input 
+                type="email" 
+                class="login-input"
+                placeholder="E-mail" 
+                name="email" 
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+                title="Please enter a valid email address" 
+                required
+                id="email"
+            >
+            
+            {# Password input field wrapper #}
+            <div>
+                <input 
+                    type="password" 
+                    class="login-input"
+                    placeholder="Password" 
+                    name="password" 
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}" 
+                    title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number and one special character" 
+                    required
+                    id="password"
+                >
+            </div>
+
+            {# Password recovery link #}
+            <a href="/forgot-password" class="forgot-password">Forgot password?</a>
+
+            {# Submit button #}
+            <button type="submit" class="login-button">Login</button>
+        </form>
+
+        {# Registration prompt #}
+        <p class="register-text">
+            Not yet a member of the MY DEAR CLUB? <a href="/register" class="register-link">Create an account</a>
+        </p>
+    </div>
+
+    {# Include login page specific JavaScript #}
+    <script src="../static/javascripts/login.js"></script>
+</body>
+</html>
