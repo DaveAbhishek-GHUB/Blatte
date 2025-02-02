@@ -276,6 +276,14 @@ html, body {
 }
 
 @media (max-width: 768px) {
+    .heroSection {
+        height: 50vw;
+    }
+
+    .heroSection img {
+        object-fit: cover;
+    }
+
     .productsWrapper {
         grid-template-columns: repeat(2, 1fr);
         padding: 4vw;
@@ -334,6 +342,10 @@ html, body {
 }
 
 @media (max-width: 480px) {
+    .heroSection {
+        height: 40vw;
+    }
+
     .productsWrapper {
         grid-template-columns: 1fr;
         padding: 6vw;

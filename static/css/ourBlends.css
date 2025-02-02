@@ -2,15 +2,17 @@
 .our-blends-section {
     display: flex;
     align-items: center;
-    min-height: 600px;
+    min-height: 500px;
     background-color: white;
     margin: 4vw 0;
+    padding: 2vw;
 }
 
 /* Image container styles */
 .blends-image {
     flex: 1;
-    height: 600px;
+    height: 500px;
+    padding: 1vw;
 }
 
 /* Image styling */
@@ -18,6 +20,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 1vw;
 }
 
 /* Content container styles */
@@ -70,8 +73,8 @@
 
 /* Feature icon styles */
 .feature img {
-    width: 3vw;
-    height: 3vw;
+    width: 2.5vw;
+    height: 2.5vw;
     margin-bottom: 1vw;
     object-fit: contain;
 }
@@ -86,6 +89,16 @@
 
 /* Tablet responsive styles */
 @media screen and (max-width: 1024px) {
+    .our-blends-section {
+        min-height: 400px;
+        padding: 3vw;
+    }
+
+    .blends-image {
+        height: 400px;
+        padding: 1.5vw;
+    }
+
     .blends-content h2 {
         font-size: 4.5vw;
     }
@@ -99,8 +112,8 @@
     }
 
     .feature img {
-        width: 4vw;
-        height: 4vw;
+        width: 3.5vw;
+        height: 3.5vw;
     }
 
     .feature span {
@@ -112,11 +125,14 @@
 @media screen and (max-width: 768px) {
     .our-blends-section {
         flex-direction: column;
+        min-height: auto;
+        padding: 4vw;
     }
 
     .blends-image {
         width: 100%;
-        height: 400px;
+        height: 200px;
+        padding: 2vw;
     }
 
     .blends-content {
@@ -137,8 +153,8 @@
     }
 
     .feature img {
-        width: 6vw;
-        height: 6vw;
+        width: 5vw;
+        height: 5vw;
         margin-bottom: 2vw;
     }
 
@@ -149,14 +165,23 @@
 
 /* Small mobile responsive styles */
 @media screen and (max-width: 480px) {
+    .our-blends-section {
+        padding: 5vw;
+    }
+
+    .blends-image {
+        height: 150px;
+        padding: 2.5vw;
+    }
+
     .features-grid {
         grid-template-columns: 1fr;
         gap: 4vw;
     }
 
     .feature img {
-        width: 8vw;
-        height: 8vw;
+        width: 7vw;
+        height: 7vw;
     }
 
     .feature span {

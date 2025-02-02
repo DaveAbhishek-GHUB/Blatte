@@ -6,12 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Link to header-specific stylesheet -->
     <link rel="stylesheet" href="../static/css/header.css"> 
+    <!-- Add JavaScript file -->
+    <script src="../static/javascripts/header.js" defer></script>
 </head>
 <body>
     <!-- Main header section -->
     <header>
         <!-- Logo container with company branding -->
         <div class="main-logo-header">
+            <!-- Add mobile menu icons -->
+            <div class="mobile-icons">
+                <img src="../static/images/svgs/Search.svg" alt="Search" class="mobile-search">
+                <img src="../static/images/svgs/hamburger.svg" alt="Menu" class="hamburger-menu">
+            </div>
+            <!-- Existing logo -->
             <img src="../static/images/clean_canvas_image-removebg.png" alt="Tea Shop Logo">
         </div>
 
@@ -29,7 +37,7 @@
             <!-- Secondary navigation with user interaction icons -->
             <div class="navIcons">
                 <!-- Search functionality -->
-                <a href="#"><img src="../static/images/svgs/Search.svg" alt="Search"></a>
+                <a class="search-icon" href="#"><img src="../static/images/svgs/Search.svg" alt="Search"></a>
                 <!-- Wishlist access -->
                 <a href="#"><img src="../static/images/svgs/wishlist.svg" alt="wishList"></a>
                 <!-- User profile/account access -->
