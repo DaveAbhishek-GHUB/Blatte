@@ -1,0 +1,108 @@
+.enjoy-exclusive-benefits {
+    max-width: 930px;
+    margin: 0 auto;
+}
+
+.benefits-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: serif;
+}
+
+.benefits-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.benefits-description {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+}
+
+.benefits-table {
+    width: 100%;
+    border-left: 1px solid #e0e0e0;
+    margin-bottom: 30px;
+}
+
+.table-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.table-row.header {
+    text-align: center;
+    font-weight: bold;
+}
+
+.benefit-name {
+    padding-right: 20px;
+}
+
+.check {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.check::before {
+    content: "•";
+    font-size: 24px;
+}
+
+.check.purple::before {
+    color: #B19CD9;
+}
+
+.check.blue::before {
+    color: #ADD8E6;
+}
+
+.check.gold::before {
+    color: #FFD700;
+}
+
+.check.empty::before {
+    content: "";
+}
+
+.footnotes {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.4;
+    font-style: italic;
+    text-align: center;
+}
+
+.footnotes p {
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .table-row {
+        grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    }
+
+    .benefit-name {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .benefits-title {
+        font-size: 2rem;
+    }
+
+    .benefits-description {
+        font-size: 0.9rem;
+    }
+}
+
+
+
