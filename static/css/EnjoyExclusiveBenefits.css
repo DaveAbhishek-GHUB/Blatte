@@ -12,37 +12,42 @@
 
 .benefits-title {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 3.5rem;
     margin-bottom: 30px;
+    font-family: 'Times New Roman', serif;
+    font-weight: normal;
 }
 
 .benefits-description {
     text-align: center;
     max-width: 900px;
-    margin: 0 auto 40px;
-    line-height: 1.6;
+    margin: 0 auto 60px;
+    line-height: 1.8;
+    font-size: 1.1rem;
 }
 
 .benefits-table {
     width: 100%;
-    border-left: 1px solid #e0e0e0;
-    margin-bottom: 30px;
+    max-width: 1000px;
+    margin: 0 auto 40px;
 }
 
 .table-row {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: 2.5fr 1fr 1fr 1fr;
     align-items: center;
-    padding: 15px 0;
 }
 
 .table-row.header {
     text-align: center;
     font-weight: bold;
+    padding-bottom: 15px;
 }
 
 .benefit-name {
-    padding-right: 20px;
+    padding-right: 40px;
+    font-size: 1.1rem;
+    line-height: 1.4;
 }
 
 .check {
@@ -53,19 +58,19 @@
 
 .check::before {
     content: "•";
-    font-size: 24px;
+    font-size: 3vw;
 }
 
 .check.purple::before {
-    color: #B19CD9;
+    color: #E6E6FA;
 }
 
 .check.blue::before {
-    color: #ADD8E6;
+    color: #B0E0E6;
 }
 
 .check.gold::before {
-    color: #FFD700;
+    color: #FFE5B4;
 }
 
 .check.empty::before {
@@ -73,11 +78,14 @@
 }
 
 .footnotes {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #666;
-    line-height: 1.4;
-    font-style: italic;
-    text-align: center;
+    line-height: 1.6;
+    font-style: normal;
+    text-align: left;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .footnotes p {
@@ -103,6 +111,3 @@
         font-size: 0.9rem;
     }
 }
-
-
-

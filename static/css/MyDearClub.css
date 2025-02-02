@@ -15,7 +15,7 @@ body {
 
 .my-dear-club {
     text-align: center;
-    padding: 20px;  /* Reduced padding */
+    padding: 60px 20px;  /* Increased padding */
     max-width: 1200px;
     margin: auto;
     position: relative;
@@ -23,34 +23,38 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 3vw;
 }
 
 .club-title {
-    font-size: 2.5rem;
-    font-family: "Times New Roman", serif;
-    margin: 20px 0 30px 0;  /* Adjusted margin */
+    font-size: 3.5rem;  /* Increased font size */
+    font-family: "Old Standard TT", "Times New Roman", serif;  /* Changed font */
+    margin: 0 0 40px 0;  /* Adjusted margin */
     color: #000;
     display: block;
     font-weight: normal;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.02em;
 }
 
 .butterfly-divider {
-    width: 60px;
-    margin: 20px auto;
+    width: 100px;  /* Increased width */
+    margin: 0 auto 40px;  /* Adjusted margin */
 }
 
 .club-description {
-    max-width: 930px;
+    max-width: 800px;  /* Adjusted max-width */
     margin: 0 auto;
-    line-height: 1.6;
+    line-height: 1.8;  /* Increased line height */
+    font-size: 1.1rem;  /* Added font size */
+    color: #333;  /* Added text color */
 }
 
 .highlight {
-    font-weight: bold;
+    font-weight: 600;  /* Adjusted font weight */
 }
 
 .membership-link {
     color: #000;
     text-decoration: underline;
+    font-weight: 600;  /* Added font weight */
 }

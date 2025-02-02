@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/auth.css">
 </head>
+
 <body>
-    {% include 'components/toast.html' %}
     <div class="auth-container">
+        {% include 'utilities/header.html' %}
         {% if request.cookies.get('user_email') %}
         {% include 'utilities/myAccount.html' %}
         {% else %}
-        
-            {% include 'components/MyDearClub.html' %}
-            {% include 'utilities/login.html' %}
-            {% include 'components/EnjoyExclusiveBenefits.html' %}
-            {% include 'components/CollectPreciousTeaLeaves.html' %}
+        {% include 'components/MyDearClub.html' %}
+        {% include 'utilities/login.html' %}
         {% endif %}
+        {% include 'components/EnjoyExclusiveBenefits.html' %}
+        {% include 'components/weLovewhatWeDo.html' %}
+        {% include 'utilities/footer.html' %}
     </div>
 </body>
 
