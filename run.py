@@ -167,6 +167,14 @@ def logout_user():
     flash('Successfully logged out!', 'success')
     return response
 
+@app.route('/about')
+def about():
+    """
+    Render the about.html template when user visits the about page
+    Returns: rendered about.html template
+    """
+    return render_template('about.html')
+
 # Main entry point
 if __name__ == '__main__':
     # Run the Flask application in debug mode

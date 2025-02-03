@@ -10,7 +10,7 @@
         {% if request.cookies.get('user_email') %}
         {% include 'utilities/myAccount.html' %}
         {% else %}
-        
+                
             {% include 'components/MyDearClub.html' %}
             {% include 'utilities/login.html' %}
             {% include 'components/EnjoyExclusiveBenefits.html' %}
