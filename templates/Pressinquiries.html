@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/Pressinquiries.css">
+</head>
+<body>
+    {% include 'utilities/header.html' %}
+    <header class="hero-section">
+        <img src="https://www.paperandtea.com/cdn/shop/files/nomadblackIMG_1167_84cd357a-0b91-45ec-9857-69c0603f4c0f.jpg?v=1722958550&width=1400" 
+            alt="Press Hero Image">
+        <div class="hero-content">
+            <h1>Press</h1>
+            <p>BLATTÉ offers journalists around the world exciting stories about its fine teas and the 
+                so-called modern tea culture with all its facets.</p>
+        </div>
+    </header>
+    
+    <section class="press-inquiry">
+        <div class="text-content">
+            <h2>For press inquiries</h2>
+            <p class="contact-name">Claudia Link</p>
+            <p class="contact-email">Mail: <a href="mailto:press@paperandtea.com">press@paperandtea.com</a></p>
+        </div>
+        <div class="image-content">
+            <img src="https://www.paperandtea.com/cdn/shop/files/kintoIMG_0765_2b7f3d8d-d527-4738-9cb6-0541cb2a26ea.jpg?v=1722958634&width=800" 
+            alt="Dark ceramic tea cup on wooden board">
+        </div>
+    </section>
+    {% include 'components/weLoveWhatWeDo.html' %}
+    {% include 'components/yourBenefits.html' %}
+    {% include 'utilities/footer.html' %}
+</body>
+</html>

@@ -183,6 +183,29 @@ def store():
     """
     return render_template('store.html')
 
+@app.route('/career')
+def career():
+    """
+    Render the career.html template when user visits the career page
+    Returns: rendered career.html template
+    """
+    return render_template('career.html')
+
+@app.route('/blatteforcompanies')
+def blatteforcompanies():
+    """
+    Render the blatteforcompanies.html template when user visits the blatteforcompanies page
+    Returns: rendered blatteforcompanies.html template
+    """
+    return render_template('blatteforcompanies.html')
+
+@app.route('/Pressinquiries')
+def Pressinquiries():
+    """
+    Render the Pressinquiries.html template when user visits the Pressinquiries page
+    Returns: rendered Pressinquiries.html template
+    """
+    return render_template('Pressinquiries.html')
 
 # Main entry point
 if __name__ == '__main__':

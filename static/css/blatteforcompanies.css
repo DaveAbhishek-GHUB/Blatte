@@ -1,0 +1,140 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 80px); /* Subtract header height from viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-top: 80px; /* Space for header */
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Dark overlay for better text visibility */
+    z-index: 1;
+}
+
+.hero-section img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.hero-section h1, 
+.hero-section p {
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin: 15px 0;
+    padding: 0 20px;
+    max-width: 800px;
+    width: 100%;
+}
+
+.hero-section h1 {
+    font-size: 48px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.hero-section p {
+    font-size: 24px;
+    line-height: 1.6;
+}
+
+.section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    gap: 40px;
+}
+
+.section img {
+    width: 40%;
+    height: auto;
+}
+
+.section .text {
+    width: 40%;
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    color: black;
+    text-decoration: underline;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.green-section {
+    background: #c8e0a4;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.process {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    text-align: center;
+    gap: 20px;
+}
+
+.process div {
+    width: 30%;
+}
+
+.contact {
+    padding: 50px;
+    background: #f8f8f8;
+}
+
+.contact-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.contact-text {
+    flex: 1;
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+.contact-image {
+    flex: 1;
+}
+
+.contact img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
