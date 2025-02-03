@@ -175,6 +175,15 @@ def about():
     """
     return render_template('about.html')
 
+@app.route('/store')
+def store():
+    """
+    Render the store.html template when user visits the store page
+    Returns: rendered store.html template
+    """
+    return render_template('store.html')
+
+
 # Main entry point
 if __name__ == '__main__':
     # Run the Flask application in debug mode
