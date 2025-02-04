@@ -32,7 +32,7 @@ html, body {
     top: 5vw;
     display: flex;
     flex-direction: column;
-    color: #FFFFFF;
+    color: #ffffff;
     margin-left: 3vw;
 }
 
@@ -50,6 +50,8 @@ html, body {
     margin-top: 1vw;
     width: 18vw;
     padding: 1vw;
+    background-color: #000000;
+    color: #ffffff;
 }
 
 .infoWrapperBTN p{
