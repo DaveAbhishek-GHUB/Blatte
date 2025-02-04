@@ -223,6 +223,15 @@ def Trackandtrace():
     """
     return render_template('Trackandtrace.html')
 
+@app.route('/ShippingPayment')
+def ShippingPayment():
+    """
+    Render the ShippingPayment.html template when user visits the ShippingPayment page
+    Returns: rendered ShippingPayment.html template
+    """
+    return render_template('ShippingPayment.html')
+
+
 # Main entry point
 if __name__ == '__main__':
     # Run the Flask application in debug mode
