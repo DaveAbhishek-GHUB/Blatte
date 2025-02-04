@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/Trackandtrace.css">
+</head>
+<body>
+    {% include 'utilities/header.html' %}
+    <div class="breadcrumb"><a href="/">Home</a> / Track and Trace</div>
+    <h1>Track and Trace</h1>
+    <div class="track-container">
+        <div class="track-header">Track your order</div>
+        <div class="tabs">
+            <div class="tab active" id="tracking-tab">Tracking Number</div>
+            <div class="tab" id="order-tab">Order Reference</div>
+        </div>
+        
+        <!-- Tracking Number Form -->
+        <div id="tracking-form" class="form-content">
+            <div class="form-group">
+                <label for="tracking-number">Tracking Number</label>
+                <input type="text" id="tracking-number" placeholder="Tracking Number">
+            </div>
+            <button class="btn">TRACK NOW</button>
+        </div>
+
+        <!-- Order Reference Form -->
+        <div id="order-form" class="form-content" style="display: none;">
+            <div class="form-group">
+                <label for="order-reference">Order Reference</label>
+                <input type="text" id="order-reference" placeholder="Order Reference">
+            </div>
+            <div class="form-group">
+                <label for="postal-code">Postal Code</label>
+                <input type="text" id="postal-code" placeholder="Postal Code">
+            </div>
+            <button class="btn">TRACK NOW</button>
+        </div>
+    </div>
+
+    {% include 'components/weLoveWhatWeDo.html' %}
+    {% include 'components/yourBenefits.html' %}
+    {% include 'utilities/footer.html' %}
+
+    <script>
+        document.getElementById('tracking-tab').addEventListener('click', function() {
+            this.classList.add('active');
+            document.getElementById('order-tab').classList.remove('active');
+            document.getElementById('tracking-form').style.display = 'block';
+            document.getElementById('order-form').style.display = 'none';
+        });
+
+        document.getElementById('order-tab').addEventListener('click', function() {
+            this.classList.add('active');
+            document.getElementById('tracking-tab').classList.remove('active');
+            document.getElementById('tracking-form').style.display = 'none';
+            document.getElementById('order-form').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

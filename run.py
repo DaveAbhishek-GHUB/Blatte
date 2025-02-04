@@ -207,6 +207,22 @@ def Pressinquiries():
     """
     return render_template('Pressinquiries.html')
 
+@app.route('/Contact')
+def Contact():
+    """
+    Render the Contact.html template when user visits the Contact page
+    Returns: rendered Contact.html template
+    """
+    return render_template('Contact.html')
+
+@app.route('/Trackandtrace')
+def Trackandtrace():
+    """
+    Render the Trackandtrace.html template when user visits the Trackandtrace page
+    Returns: rendered Trackandtrace.html template
+    """
+    return render_template('Trackandtrace.html')
+
 # Main entry point
 if __name__ == '__main__':
     # Run the Flask application in debug mode

@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    line-height: 1.4;
+}
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-top: 80px;
+    text-align: left;
+}
+
+
+h1 {
+    text-align: left;
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: normal;
+}
+
+
+.intro {
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.contact-section {
+    margin-bottom: 30px;
+}
+
+
+.contact-section p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.phone-numbers {
+    margin: 10px 0;
+}
+
+.phone-numbers p {
+    margin: 3px 0;
+}
+
+.whatsapp-section {
+    margin: 20px 0;
+}
+
+.whatsapp-section img {
+    width: 150px;
+    height: 150px;
+    margin: 10px 0;
+}
+
+a {
+    color: #000;
+    text-decoration: underline;
+}
+
+.form-container {
+    margin-top: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background-color: #f0f0f0;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 15px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+button:hover {
+    background-color: #333;
+}
