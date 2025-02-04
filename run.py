@@ -231,6 +231,13 @@ def ShippingPayment():
     """
     return render_template('ShippingPayment.html')
 
+@app.route('/wishlist')
+def wishlist():
+    """
+    Render the wishlist.html template when user visits the wishlist page
+    Returns: rendered wishlist.html template
+    """
+    return render_template('wishlist.html')
 
 # Main entry point
 if __name__ == '__main__':

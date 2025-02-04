@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/wishlist.css">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <header>
+            {% include 'utilities/header.html' %}
+        </header>
+
+        <main>
+            <div class="wishlist-container">
+                <h1 class="wishlist-title">Wishlist</h1>
+                <div class="empty-wishlist">
+                    <p class="empty-text">Your wishlist is empty</p>
+                    <a href="#"><button class="discover-btn">Discover more</button></a>
+                </div>
+            </div>
+
+            <div class="additional-sections">
+                <div class="section">
+                    {% include 'components/yourBenefits.html' %}
+                </div>
+                <div class="section">
+                    {% include 'components/weLoveWhatWeDo.html' %}
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            {% include 'utilities/footer.html' %}
+        </footer>
+    </div>
+</body>
+
+</html>
