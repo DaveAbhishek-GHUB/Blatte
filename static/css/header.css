@@ -9,6 +9,7 @@
 html, body {
     width: 100vw;
     min-height: 100vh;
+    scroll-behavior: smooth;
 }
 
 /* Header container styles */
@@ -17,6 +18,7 @@ header {
     height: 7vw;
     margin-top: 1vw;
     z-index: 1000;
+    transition: all 0.3s ease;
 }
 
 /* Logo container styles */
@@ -31,6 +33,11 @@ header {
 /* Logo image styles */
 .main-logo-header img {
     width: 12vw;
+    transition: transform 0.3s ease;
+}
+
+.main-logo-header img:hover {
+    transform: scale(1.05);
 }
 
 /* Navigation bar container */
@@ -57,6 +64,27 @@ header {
     color: black;
     font-size: 1.2vw;
     font-family: sans-serif;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.navlinksWrapper a:hover {
+    color: #666;
+}
+
+.navlinksWrapper a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -0.5vw;
+    left: 0;
+    background-color: #333;
+    transition: width 0.3s ease;
+}
+
+.navlinksWrapper a:hover::after {
+    width: 100%;
 }
 
 /* Navigation icons container */
@@ -70,6 +98,11 @@ header {
 /* Navigation icon image styles */
 .navIcons img {
     width: 1.5vw;
+    transition: all 0.3s ease;
+}
+
+.navIcons img:hover {
+    transform: scale(1.15);
 }
 
 /* Tablet responsive styles */
@@ -139,6 +172,11 @@ header {
 .mobile-icons img {
     width: 6vw;
     cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.mobile-icons img:active {
+    transform: scale(0.95);
 }
 
 /* Update mobile responsive styles */
@@ -158,6 +196,18 @@ header {
         display: none;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         z-index: 999;
+        animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+        from {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
     }
 
     .innerNavbar.active {

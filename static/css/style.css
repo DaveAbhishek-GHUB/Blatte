@@ -1,33 +1,43 @@
+/* ========== GLOBAL STYLES & RESETS ========== */
+/* Import primary fonts from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Neucha&display=swap');
 
+/* Base reset for consistent cross-browser styling */
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;   
+  box-sizing: border-box;
 }
 
+/* Document root element sizing */
 html, body {
     width: 100vw;
     min-height: 100vh;
 }
 
-.mainBodyWrapper{
+/* ========== MAIN LAYOUT STRUCTURE ========== */
+/* Wrapper for page content below fixed headers */
+.mainBodyWrapper {
     margin-top: 3.8vw;
 }
 
-.heroSection{
+/* ========== HERO SECTION STYLES ========== */
+/* Main hero banner section */
+.heroSection {
     width: 100vw;
     height: 30vw;
     position: relative;
 }
 
-.heroSection img{
+/* Hero image styling */
+.heroSection img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.infoWrapper{
+/* Hero text content container */
+.infoWrapper {
     position: absolute;
     top: 5vw;
     display: flex;
@@ -36,29 +46,33 @@ html, body {
     margin-left: 3vw;
 }
 
-.infoWrapperOne{
+/* Hero subtitle styling */
+.infoWrapperOne {
     font-size: 1.5vw;
     font-family: "Montserrat", sans-serif;
 }
 
-.infoWrapperTwo{
+/* Hero main title styling */
+.infoWrapperTwo {
     font-size: 5vw;
     font-family: serif;
 }
 
-.infoWrapperBTN{
+/* Hero CTA button container */
+.infoWrapperBTN {
     margin-top: 1vw;
     width: 18vw;
     padding: 1vw;
 }
 
-.infoWrapperBTN p{
+/* Button text sizing */
+.infoWrapperBTN p {
     font-size: 1.3vw;
 }
 
-/* category section start from here */
-
-.categorySection{
+/* ========== CATEGORY NAVIGATION SECTION ========== */
+/* Horizontal scroll container for categories */
+.categorySection {
     width: 100vw;
     padding: 2vw;
     display: flex;
@@ -68,13 +82,14 @@ html, body {
     background-color: #EEEEEE;
 }
 
-.catProductInfo a{
+/* Individual category item styling */
+.catProductInfo a {
     width: 10vw;
     height: 10vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family:sans-serif;
+    font-family: sans-serif;
     font-size: 1.3vw;
     gap: 0.5vw;
     margin-bottom: 2vw;
@@ -82,14 +97,15 @@ html, body {
     color: black;
 }
 
-.catProductInfo img{
+/* Circular category image styling */
+.catProductInfo img {
     width: 100%;
     height: 100%;
     border-radius: 100vw;
 }
 
-/* products wrapper */
-
+/* ========== PRODUCT GRID LAYOUT ========== */
+/* Responsive product grid container */
 .productsWrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -98,12 +114,14 @@ html, body {
     background: #fff;
 }
 
+/* Section heading container */
 .headingWrapper {
     width: 100%;
     margin-bottom: 3vw;
     grid-column: 1 / -1;
 }
 
+/* Section title styling */
 .headingWrapper h1 {
     font-size: 2.5vw;
     font-family: "Montserrat", serif;
@@ -111,12 +129,15 @@ html, body {
     margin-bottom: 0.5vw;
 }
 
+/* Section subtitle styling */
 .headingWrapper p {
     font-size: 1.2vw;
     color: #666;
     font-family: "Montserrat", sans-serif;
 }
 
+/* ========== PRODUCT CARD COMPONENTS ========== */
+/* Individual product card container */
 .productWrapper {
     position: relative;
     width: 100%;
@@ -126,10 +147,12 @@ html, body {
     padding: 0;
 }
 
+/* Hover state for product cards */
 .productWrapper:hover {
     opacity: 0.8;
 }
 
+/* Image container with aspect ratio control */
 .productImage {
     position: relative;
     width: 100%;
@@ -137,6 +160,7 @@ html, body {
     overflow: hidden;
 }
 
+/* Product image styling with hover effect */
 .productImage img {
     width: 100%;
     height: 100%;
@@ -144,10 +168,13 @@ html, body {
     transition: transform 0.3s ease;
 }
 
+/* Image zoom effect on card hover */
 .productWrapper:hover .productImage img {
     transform: scale(1.05);
 }
 
+/* ========== PRODUCT BADGES & CONTROLS ========== */
+/* Badge container positioning */
 .tags {
     position: absolute;
     top: 1vw;
@@ -155,6 +182,7 @@ html, body {
     z-index: 2;
 }
 
+/* Individual badge styling */
 .tag {
     background: #000;
     color: white;
@@ -164,6 +192,7 @@ html, body {
     font-weight: 500;
 }
 
+/* Wishlist button positioning */
 .wishlist-btn {
     position: absolute;
     top: 1vw;
@@ -179,6 +208,7 @@ html, body {
     height: 3vw;
 }
 
+/* Wishlist icon styling */
 .wishlist-btn svg {
     width: 1.8vw;
     height: 1.8vw;
@@ -187,14 +217,18 @@ html, body {
     transition: fill 0.3s ease;
 }
 
+/* Wishlist hover state */
 .wishlist-btn:hover svg {
     fill: #000;
 }
 
+/* ========== PRODUCT INFORMATION SECTION ========== */
+/* Product details container */
 .productInfo {
     padding: 1.5vw 0;
 }
 
+/* Flavor tags container */
 .flavor-tags {
     display: flex;
     flex-wrap: wrap;
@@ -202,11 +236,13 @@ html, body {
     margin-bottom: 1vw;
 }
 
+/* Individual flavor tag styling */
 .flavor-tag {
     font-size: 0.9vw;
     color: #666;
 }
 
+/* Separator for flavor tags */
 .flavor-tag:not(:last-child):after {
     content: "";
     border-right: 0.1vw solid #666;
@@ -214,12 +250,14 @@ html, body {
     padding-right: 0.5vw;
 }
 
+/* Product category label */
 .category {
     color: #666;
     font-size: 0.9vw;
     margin-bottom: 0.5vw;
 }
 
+/* Product title styling */
 .product-title {
     font-family: "Montserrat", serif;
     font-size: 1.5vw;
@@ -227,6 +265,7 @@ html, body {
     color: #000;
 }
 
+/* Product description text */
 .description {
     font-size: 0.9vw;
     color: #666;
@@ -234,17 +273,20 @@ html, body {
     line-height: 1.4;
 }
 
+/* Price and cart button container */
 .price-cart {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+/* Price display styling */
 .price {
     font-size: 1vw;
     font-weight: 500;
 }
 
+/* Circular cart button styling */
 .cart-btn {
     min-width: 3vw;
     min-height: 3vw;
@@ -261,140 +303,40 @@ html, body {
     padding: 0;
 }
 
+/* Cart button hover state */
 .cart-btn:hover {
     background: #000;
 }
 
+/* Cart icon color inversion on hover */
 .cart-btn:hover img {
     filter: invert(1);
 }
 
+/* Cart icon sizing */
 .cart-btn img {
     width: 1.5vw;
     height: 1.5vw;
     object-fit: contain;
 }
 
+/* ========== RESPONSIVE BREAKPOINTS ========== */
+/* Medium screens (tablets) */
 @media (max-width: 768px) {
-    .heroSection {
-        height: 50vw;
-    }
-
-    .heroSection img {
-        object-fit: cover;
-    }
-
-    .productsWrapper {
-        grid-template-columns: repeat(2, 1fr);
-        padding: 4vw;
-    }
-
-    .productImage img {
-        object-fit: cover;
-    }
-
-    .cart-btn {
-        min-width: 5vw;
-        min-height: 5vw;
-        width: 5vw;
-        height: 5vw;
-    }
-
-    .cart-btn img {
-        width: 2.5vw;
-        height: 2.5vw;
-    }
-
-    .wishlist-btn {
-        width: 5vw;
-        height: 5vw;
-    }
-
-    .wishlist-btn svg {
-        width: 2.5vw;
-        height: 2.5vw;
-    }
-
-    .product-title {
-        font-size: 2.5vw;
-    }
-
-    .description {
-        font-size: 1.8vw;
-    }
-
-    .price {
-        font-size: 2vw;
-    }
-
-    .tag {
-        font-size: 1.6vw;
-        padding: 0.8vw 1.2vw;
-    }
-
-    .flavor-tag {
-        font-size: 1.8vw;
-    }
-
-    .category {
-        font-size: 1.8vw;
-    }
+    .heroSection { height: 50vw; }
+    .productsWrapper { grid-template-columns: repeat(2, 1fr); }
+    /* Adjusted component sizing for medium screens */
+    .cart-btn { min-width: 5vw; min-height: 5vw; }
+    .wishlist-btn { width: 5vw; height: 5vw; }
+    .product-title { font-size: 2.5vw; }
 }
 
+/* Small screens (mobile devices) */
 @media (max-width: 480px) {
-    .heroSection {
-        height: 40vw;
-    }
-
-    .productsWrapper {
-        grid-template-columns: 1fr;
-        padding: 6vw;
-    }
-
-    .cart-btn {
-        min-width: 8vw;
-        min-height: 8vw;
-        width: 8vw;
-        height: 8vw;
-    }
-
-    .cart-btn img {
-        width: 4vw;
-        height: 4vw;
-    }
-
-    .wishlist-btn {
-        width: 8vw;
-        height: 8vw;
-    }
-
-    .wishlist-btn svg {
-        width: 4vw;
-        height: 4vw;
-    }
-
-    .product-title {
-        font-size: 4vw;
-    }
-
-    .description {
-        font-size: 3vw;
-    }
-
-    .price {
-        font-size: 3.5vw;
-    }
-
-    .tag {
-        font-size: 2.5vw;
-        padding: 1vw 2vw;
-    }
-
-    .flavor-tag {
-        font-size: 3vw;
-    }
-
-    .category {
-        font-size: 3vw;
-    }
+    .heroSection { height: 40vw; }
+    .productsWrapper { grid-template-columns: 1fr; }
+    /* Mobile-optimized component sizing */
+    .cart-btn { min-width: 8vw; min-height: 8vw; }
+    .wishlist-btn { width: 8vw; height: 8vw; }
+    .product-title { font-size: 4vw; }
 }

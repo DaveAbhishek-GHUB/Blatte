@@ -1,92 +1,147 @@
+/* ========== CORE LAYOUT ========== */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #fff;
-    margin: 0;
-    padding: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    /* padding: 2rem 1rem; */
+    background-color: #FFFFFF;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
 }
 
 .login-container {
-    text-align: center;
-    max-width: 600px;
     width: 100%;
-    margin: auto;
-    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    box-sizing: border-box;
 }
 
+/* ========== HEADER FIX ========== */
+.auth-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* ========== TYPOGRAPHY ========== */
 .login-title {
-    font-size: 48px;
-    font-weight: normal;
     font-family: 'Times New Roman', Times, serif;
-    margin-bottom: 20px;
+    font-size: clamp(1.75rem, 5vw, 3rem);
+    font-weight: 400;
+    margin-bottom: 1rem;
+    width: 100%;
 }
 
 .login-description {
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 40px;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+    font-size: clamp(0.9rem, 3vw, 1rem);
+    color: #333333;
+    margin: 0 auto 2rem;
+    max-width: 100%;
+    line-height: 1.4;
+    padding: 0 1rem;
 }
 
+.register-text {
+    font-size: 0.9rem;
+    color: #333333;
+    margin-top: 2rem;
+}
+
+.register-link {
+    color: #333333;
+    text-decoration: underline;
+    font-weight: 400;
+    display: inline-block;
+    margin-top: 0.5rem;
+}
+
+/* ========== FORM COMPONENTS ========== */
 .login-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    max-width: 500px;
+    gap: 1.2rem;
+    max-width: 100%;
     margin: 0 auto;
+    margin-top: 2rem; 
 }
 
 .login-input {
     width: 100%;
-    padding: 15px;
-    font-size: 16px;
+    padding: 1rem;
+    font-size: 1rem;
+    background-color: #F2F2F2;
     border: none;
-    background-color: #f2f2f2;
     border-radius: 0;
-}
-
-.login-input::placeholder {
-    color: #333;
-}
-
-.form-actions {
-    text-align: right;
-    margin-bottom: 10px;
+    box-sizing: border-box;
 }
 
 .forgot-password {
-    font-size: 14px;
-    color: #333;
+    display: block;
+    text-align: right;
+    font-size: 0.875rem;
+    color: #333333;
     text-decoration: none;
-    float: right;
-    margin-top: -10px;
-    margin-bottom: 20px;
+    margin: 0.5rem 0 1rem;
 }
 
 .login-button {
-    padding: 15px 20px;
-    font-size: 16px;
-    background-color: #000;
-    color: #fff;
-    border: none;
     width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    background-color: #000000;
+    color: #FFFFFF;
+    border: none;
     cursor: pointer;
-    margin-top: 20px;
+    transition: opacity 0.2s ease;
 }
 
-.register-text {
-    margin-top: 30px;
-    color: #333;
-    font-size: 16px;
-}
+/* ========== MOBILE OPTIMIZATIONS ========== */
+@media (max-width: 480px) {
+    body {
+        padding: 1rem;
+        align-items: center;
+    }
 
-.register-link {
-    color: #333;
-    text-decoration: underline;
-    font-weight: normal;
+    .login-container {
+        padding: 1rem;
+    }
+
+    .auth-header {
+        text-align: center;
+    }
+
+    .login-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .login-description {
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+        padding: 0;
+        width: 100%;
+    }
+
+    .login-form {
+        gap: 1rem;
+    }
+
+    .login-input {
+        padding: 0.8rem;
+    }
+
+    .login-button {
+        padding: 0.8rem;
+        margin-top: 0.5rem;
+    }
+
+    .register-text {
+        margin-top: 1.5rem;
+        font-size: 0.8rem;
+    }
 }

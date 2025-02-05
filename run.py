@@ -1,245 +1,235 @@
-# Import required modules from Flask
-from flask import Flask, render_template, request, redirect, url_for, flash, make_response
+"""
+BLATTÉ Web Application Main Module
+Version: 1.0
+Maintainer: DevOps Team
+"""
+
+# ========== STANDARD LIBRARY IMPORTS ==========
 from datetime import datetime
+
+# ========== THIRD-PARTY LIBRARY IMPORTS ==========
+from flask import Flask, render_template, request, redirect, url_for, flash, make_response
 import mysql.connector
 
-# Initialize Flask application
+# ========== FLASK APPLICATION INITIALIZATION ==========
 app = Flask(__name__)
+app.secret_key = 'BlatteADP'  # In production, use environment variable for secret key
 
-# Set secret key for session management and security
-app.secret_key = 'BlatteADP'
-
-# Database configuration
-db_config = {
+# ========== DATABASE CONFIGURATION ==========
+DB_CONFIG = {
     'host': 'localhost',
     'user': 'root',
     'password': '',
     'database': 'blatte',
-    'port': 3308
+    'port': 3308,
+    'autocommit': True  # Ensure automatic commit for transactions
 }
 
-# Create database connection
+# Initialize database connection pool
 try:
-    conn = mysql.connector.connect(**db_config)
+    conn = mysql.connector.connect(**DB_CONFIG)
     if conn.is_connected():
-        print("Successfully connected to database")
+        print("Database connection established successfully")
 except mysql.connector.Error as err:
-    print(f"Error connecting to database: {err}")
-    print("Please ensure MySQL server is running")
+    print(f"Database connection error: {err}")
+    print("Action required: Verify MySQL service status and connection parameters")
 
-# Define route for homepage
+# ========== PRODUCT CATALOG ROUTES ==========
 @app.route('/')
 def index():
-    """
-    Render the index.html template when user visits homepage
-    Returns: rendered index.html template
-    """
+    """Serve the main landing page template."""
     return render_template('index.html')
 
 @app.route('/teaBlends')
-def teaBlends():
-    """
-    Render the teaBlends.html template when user visits the teaBlends page
-    Returns: rendered teaBlends.html template
-    """
+def tea_blends():
+    """Display tea blends product category page."""
     return render_template('teaBlends.html')
 
 @app.route('/giftSets')
-def giftSets():
-    """
-    Render the giftSets.html template when user visits the giftSets page
-    Returns: rendered giftSets.html template
-    """
+def gift_sets():
+    """Render gift sets collection page."""
     return render_template('giftSets.html')
 
+# ========== TEA CATEGORY ROUTES ==========
 @app.route('/greenTea')
-def greenTea():
-    """
-    Render the greenTea.html template when user visits the greenTea page
-    Returns: rendered greenTea.html template
-    """
+def green_tea():
+    """Green tea product category page."""
     return render_template('greenTea.html')
+
+@app.route('/herbalTea')
+def herbal_tea():
+    """Herbal tea product category page."""
+    return render_template('herbalTea.html')
+
+@app.route('/blackTea')
+def black_tea():
+    """Black tea product category page."""
+    return render_template('blackTea.html')
+
+@app.route('/oolongTea')
+def oolong_tea():
+    """Oolong tea product category page."""
+    return render_template('oolongTea.html')
+
+@app.route('/fruitTea')
+def fruit_tea():
+    """Fruit-infused tea products page."""
+    return render_template('fruitTea.html')
+
+@app.route('/teaAccessories')
+def tea_accessories():
+    """Tea-related accessories and equipment page."""
+    return render_template('teaAccessories.html')
+
+# ========== USER AUTHENTICATION ROUTES ==========
 @app.route('/auth')
 def auth():
-    """
-    Render the auth.html template when user visits the auth page
-    Returns: rendered auth.html template
-    """
+    """Authentication gateway page (login/registration)."""
     return render_template('auth.html')
 
 @app.route('/register')
 def register():
-    """
-    Render the register.html template when user visits the register page
-    Returns: rendered register.html template if not logged in, redirects to index if logged in
-    """
+    """User registration page with validation checks."""
     if request.cookies.get('user_email'):
-        flash('You are already registered and logged in', 'error')
+        flash('Authentication conflict: User already logged in', 'error')
         return redirect(url_for('index'))
     return render_template('utilities/register.html')
 
-
 @app.route('/user/register', methods=['POST'])
 def register_user():
-    """
-    Handle user registration form submission
-    Returns: redirect to login page on success or back to register on failure
-    """
-    if request.method == 'POST':
-        firstname = request.form['firstname']
-        lastname = request.form['lastname']
-        email = request.form['email']
-        password = request.form['password']
-        confirm_password = request.form['confirm-password']
+    """Handle new user registration with data validation."""
+    form_data = {
+        'firstname': request.form['firstname'],
+        'lastname': request.form['lastname'],
+        'email': request.form['email'],
+        'password': request.form['password'],
+        'confirm_password': request.form['confirm-password']
+    }
 
-        # Validate if passwords match
-        if password != confirm_password:
-            flash('Passwords do not match', 'error')
-            return redirect(url_for('register'))
+    if form_data['password'] != form_data['confirm_password']:
+        flash('Password validation failed: Mismatched credentials', 'error')
+        return redirect(url_for('register'))
 
-        try:
-            cursor = conn.cursor()
-            
-            # Check if email already exists
-            cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+    try:
+        with conn.cursor() as cursor:
+            # Check existing user conflict
+            cursor.execute("SELECT email FROM users WHERE email = %s", (form_data['email'],))
             if cursor.fetchone():
-                flash('Email already registered', 'error')
+                flash('Account conflict: Email already registered', 'error')
                 return redirect(url_for('register'))
 
-            # Insert new user into database with current timestamp
-            sql = "INSERT INTO users (firstname, lastname, email, password, createdat) VALUES (%s, %s, %s, %s, %s)"
-            current_time = datetime.now()
-            cursor.execute(sql, (firstname, lastname, email, password, current_time))
-            conn.commit()
-            cursor.close()
+            # Insert new user record
+            insert_query = """
+                INSERT INTO users 
+                (firstname, lastname, email, password, createdat)
+                VALUES (%s, %s, %s, %s, %s)
+            """
+            cursor.execute(insert_query, (
+                form_data['firstname'],
+                form_data['lastname'],
+                form_data['email'],
+                form_data['password'],
+                datetime.now()
+            ))
 
-            # Create response object with redirect to index page
             response = make_response(redirect(url_for('index')))
-            # Set cookie with user's email
-            response.set_cookie('user_email', email)
-
-            flash('Registration successful!', 'success')
+            response.set_cookie('user_email', form_data['email'], httponly=True)
+            flash('Registration successful: Welcome to BLATTÉ', 'success')
             return response
 
-        except mysql.connector.Error as err:
-            print(f"Database error: {err}")
-            flash('An error occurred during registration', 'error')
-            return redirect(url_for('index'))
+    except mysql.connector.Error as db_error:
+        print(f"Database operation failed: {db_error}")
+        flash('System error: Registration temporarily unavailable', 'error')
+        return redirect(url_for('index'))
 
 @app.route('/user/login', methods=['POST'])
 def login_user():
-    """
-    Handle user login form submission
-    Returns: redirect to index page on success or back to login on failure
-    """
-    if request.method == 'POST':
-        try:
-            email = request.form['email']
-            password = request.form['password']
+    """Authenticate existing users with credential validation."""
+    try:
+        credentials = {
+            'email': request.form['email'],
+            'password': request.form['password']
+        }
 
-            cursor = conn.cursor()
-            cursor.execute("SELECT email FROM users WHERE email = %s AND password = %s", (email, password))
-            user = cursor.fetchone()
-            cursor.close()
-
-            if user:
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                SELECT email FROM users 
+                WHERE email = %s AND password = %s
+            """, (credentials['email'], credentials['password']))
+            
+            if cursor.fetchone():
                 response = make_response(redirect(url_for('index')))
-                response.set_cookie('user_email', email)
-                flash('Successfully logged in!', 'success')
+                response.set_cookie('user_email', credentials['email'], httponly=True)
+                flash('Authentication successful: Welcome back', 'success')
                 return response
-            else:
-                flash('Invalid email or password', 'error')
-                return redirect(url_for('login'))
-                
-        except Exception as e:
-            print(f"Login error: {e}")
-            flash('An error occurred during login', 'error')
-            return redirect(url_for('login'))
+            
+            flash('Authentication failed: Invalid credentials', 'error')
+            return redirect(url_for('auth'))
+
+    except Exception as auth_error:
+        print(f"Authentication system error: {auth_error}")
+        flash('System error: Login temporarily unavailable', 'error')
+        return redirect(url_for('auth'))
 
 @app.route('/user/logout')
 def logout_user():
-    """
-    Handle user logout
-    Returns: redirect to index page
-    """
+    """Terminate user session and clear authentication cookies."""
     response = make_response(redirect(url_for('index')))
     response.delete_cookie('user_email')
-    flash('Successfully logged out!', 'success')
+    flash('Session terminated: Successfully logged out', 'success')
     return response
 
+# ========== SUPPORTING PAGES ROUTES ==========
 @app.route('/about')
 def about():
-    """
-    Render the about.html template when user visits the about page
-    Returns: rendered about.html template
-    """
+    """Company information and brand story page."""
     return render_template('about.html')
 
 @app.route('/store')
 def store():
-    """
-    Render the store.html template when user visits the store page
-    Returns: rendered store.html template
-    """
+    """Physical store locator and information page."""
     return render_template('store.html')
 
 @app.route('/career')
 def career():
-    """
-    Render the career.html template when user visits the career page
-    Returns: rendered career.html template
-    """
+    """Career opportunities and job listings page."""
     return render_template('career.html')
 
 @app.route('/blatteforcompanies')
-def blatteforcompanies():
-    """
-    Render the blatteforcompanies.html template when user visits the blatteforcompanies page
-    Returns: rendered blatteforcompanies.html template
-    """
+def corporate_services():
+    """B2B and corporate gifting solutions page."""
     return render_template('blatteforcompanies.html')
 
+# ========== CUSTOMER SUPPORT ROUTES ==========
 @app.route('/Pressinquiries')
-def Pressinquiries():
-    """
-    Render the Pressinquiries.html template when user visits the Pressinquiries page
-    Returns: rendered Pressinquiries.html template
-    """
+def press_inquiries():
+    """Media and press relations contact page."""
     return render_template('Pressinquiries.html')
 
 @app.route('/Contact')
-def Contact():
-    """
-    Render the Contact.html template when user visits the Contact page
-    Returns: rendered Contact.html template
-    """
+def contact():
+    """General customer support contact page."""
     return render_template('Contact.html')
 
 @app.route('/Trackandtrace')
-def Trackandtrace():
-    """
-    Render the Trackandtrace.html template when user visits the Trackandtrace page
-    Returns: rendered Trackandtrace.html template
-    """
+def order_tracking():
+    """Order tracking and shipment status page."""
     return render_template('Trackandtrace.html')
 
 @app.route('/ShippingPayment')
-def ShippingPayment():
-    """
-    Render the ShippingPayment.html template when user visits the ShippingPayment page
-    Returns: rendered ShippingPayment.html template
-    """
+def shipping_info():
+    """Shipping options and payment methods information page."""
     return render_template('ShippingPayment.html')
 
 @app.route('/wishlist')
 def wishlist():
-    """
-    Render the wishlist.html template when user visits the wishlist page
-    Returns: rendered wishlist.html template
-    """
+    """User-curated product wishlist management page."""
     return render_template('wishlist.html')
 
-# Main entry point
+# ========== APPLICATION ENTRY POINT ==========
 if __name__ == '__main__':
-    # Run the Flask application in debug mode
-    app.run(debug=True)
+    app.run(
+        debug=True,  # Disable in production environment
+        host='0.0.0.0',
+        port=5000
+    )

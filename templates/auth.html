@@ -1,33 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    {# ========== ESSENTIAL META TAGS ========== #}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {# ========== PAGE-SPECIFIC STYLESHEET ========== #}
     <link rel="stylesheet" href="../static/css/auth.css">
 </head>
 
 <body>
+    {# ========== AUTHENTICATION CONTAINER ========== #}
     <div class="auth-container">
+        {# ------ Global Header Inclusion ------ #}
         {% include 'utilities/header.html' %}
+        
+        {# ========== CONDITIONAL CONTENT RENDERING ========== #}
         {% if request.cookies.get('user_email') %}
-        {% include 'utilities/myAccount.html' %}
+            {# ------ Authenticated User View ------ #}
+            {% include 'utilities/myAccount.html' %}
         {% else %}
-<<<<<<< HEAD
-                
+            {# ------ Guest User View ------ #}
+            {# Membership promotion component #}
             {% include 'components/MyDearClub.html' %}
+            
+            {# Authentication form container #}
             {% include 'utilities/login.html' %}
-            {% include 'components/EnjoyExclusiveBenefits.html' %}
-            {% include 'components/CollectPreciousTeaLeaves.html' %}
-=======
-        {% include 'components/MyDearClub.html' %}
-        {% include 'utilities/login.html' %}
->>>>>>> f02da9572e208a5bf102ea2574d4740032e8b26b
         {% endif %}
+        
+        {# ========== COMMON MARKETING COMPONENTS ========== #}
+        {# Benefits promotion section #}
         {% include 'components/EnjoyExclusiveBenefits.html' %}
+        
+        {# Brand ethos display #}
         {% include 'components/weLovewhatWeDo.html' %}
+        
+        {# ------ Global Footer Inclusion ------ #}
         {% include 'utilities/footer.html' %}
     </div>
 </body>
-
 </html>

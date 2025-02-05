@@ -3,63 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {# Include login page specific styles #}
+    
+    {# ========== HEAD SECTION CONFIGURATION ========== #}
+    {# Set dynamic page title using centralized header names #}
+    <script type="module">
+        import { headersName } from '../static/javascripts/headersName.js';
+        document.title = headersName.auth;
+    </script>
+    
+    {# Login page specific stylesheet #}
     <link rel="stylesheet" href="../static/css/login.css">
 </head>
+
 <body>
-    {# Include toast notification component #}
+    {# ========== NOTIFICATION SYSTEM ========== #}
     {% include 'components/toast.html' %}
 
-    {# Main login container #}
+    {# ========== AUTHENTICATION INTERFACE ========== #}
     <div class="login-container">
-        {# Login header section #}
-        <h1 class="login-title">Login</h1>
-        <p class="login-description">
-            To register for the MY DEAR CLUB, please enter your e-mail address and password here.
-        </p>
+        {# ------ Authentication Header ------ #}
+        <header class="auth-header">
+            <h1 class="login-title">Login</h1>
+            <p class="login-description">
+                To register for the BLATTÉ, please enter your e-mail address and password here.
+            </p>
+        </header>
 
-        {# Login form #}
+        {# ------ Authentication Form ------ #}
         <form action="/user/login" method="POST" class="login-form" onsubmit="return validateForm()">
-            {# Email input field #}
+            {# Email input with built-in validation #}
             <input 
-                type="email" 
+                type="email"
                 class="login-input"
-                placeholder="E-mail" 
-                name="email" 
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
-                title="Please enter a valid email address" 
-                required
+                placeholder="E-mail"
+                name="email"
                 id="email"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                title="Please enter a valid email address"
+                required
             >
-            
-            {# Password input field wrapper #}
-            <div>
+
+            {# Password input with complexity requirements #}
+            <div class="password-input-wrapper">
                 <input 
-                    type="password" 
+                    type="password"
                     class="login-input"
-                    placeholder="Password" 
-                    name="password" 
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}" 
-                    title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number and one special character" 
-                    required
+                    placeholder="Password"
+                    name="password"
                     id="password"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}"
+                    title="Must contain: 8+ characters, 1 uppercase, 1 lowercase, 1 number, 1 special character"
+                    required
                 >
             </div>
 
-            {# Password recovery link #}
-            <a href="/forgot-password" class="forgot-password">Forgot password?</a>
+            {# ------ Form Utilities ------ #}
+            <a href="/forgot-password" class="forgot-password" aria-label="Password recovery">
+                Forgot password?
+            </a>
 
-            {# Submit button #}
-            <button type="submit" class="login-button">Login</button>
+            {# Primary form submission control #}
+            <button type="submit" class="login-button">
+                Login
+            </button>
         </form>
 
-        {# Registration prompt #}
+        {# ------ Registration CTA ------ #}
         <p class="register-text">
-            Not yet a member of the MY DEAR CLUB? <a href="/register" class="register-link">Create an account</a>
+            Not yet a member of the BLATTÉ?
+            <a href="/register" class="register-link" aria-label="Account creation">
+                Create an account
+            </a>
         </p>
     </div>
 
-    {# Include login page specific JavaScript #}
+    {# ========== CLIENT-SIDE VALIDATION ========== #}
     <script src="../static/javascripts/login.js"></script>
 </body>
 </html>
