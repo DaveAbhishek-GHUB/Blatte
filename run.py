@@ -1,19 +1,33 @@
 """
 BLATTÉ Web Application Main Module
+
+A Flask-based web application for an e-commerce tea shop.
+Handles routing, database operations, and user authentication.
+
 Version: 1.0
 Maintainer: DevOps Team
 """
 
 # ========== STANDARD LIBRARY IMPORTS ==========
 from datetime import datetime
+import json
 
 # ========== THIRD-PARTY LIBRARY IMPORTS ==========
-from flask import Flask, render_template, request, redirect, url_for, flash, make_response
+from flask import (
+    Flask,
+    render_template,
+    request,
+    redirect,
+    url_for,
+    flash,
+    make_response
+)
 import mysql.connector
 
 # ========== FLASK APPLICATION INITIALIZATION ==========
 app = Flask(__name__)
-app.secret_key = 'BlatteADP'  # In production, use environment variable for secret key
+# TODO: Move secret key to environment variable in production
+app.secret_key = 'BlatteADP'
 
 # ========== DATABASE CONFIGURATION ==========
 DB_CONFIG = {
@@ -22,7 +36,7 @@ DB_CONFIG = {
     'password': '',
     'database': 'blatte',
     'port': 3308,
-    'autocommit': True  # Ensure automatic commit for transactions
+    'autocommit': True  # Ensures automatic transaction commits
 }
 
 # Initialize database connection pool
@@ -63,8 +77,34 @@ def herbal_tea():
 
 @app.route('/blackTea')
 def black_tea():
-    """Black tea product category page."""
-    return render_template('blackTea.html')
+    """
+    Black tea product category page.
+    
+    Fetches black tea products from database and parses JSON fields.
+    Returns rendered template with product data.
+    """
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Fetch all black tea products, sorted by creation date
+            cursor.execute("""
+                SELECT * FROM products 
+                WHERE product_category = 'Black Tea'
+                ORDER BY created_at DESC
+            """)
+            products = cursor.fetchall()
+            
+            # Parse JSON strings to Python objects with null checks
+            for product in products:
+                product['description'] = json.loads(product['description']) if product['description'] else []
+                product['additional_images'] = json.loads(product['additional_images']) if product['additional_images'] else []
+                product['ingredients'] = json.loads(product['ingredients']) if product['ingredients'] else []
+                product['brewing_notes'] = json.loads(product['brewing_notes']) if product['brewing_notes'] else []
+                
+            return render_template('blackTea.html', products=products)
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error loading products', 'error')
+        return render_template('blackTea.html', products=[])
 
 @app.route('/oolongTea')
 def oolong_tea():
@@ -89,7 +129,11 @@ def auth():
 
 @app.route('/register')
 def register():
-    """User registration page with validation checks."""
+    """
+    User registration page with validation checks.
+    
+    Redirects to index if user is already logged in.
+    """
     if request.cookies.get('user_email'):
         flash('Authentication conflict: User already logged in', 'error')
         return redirect(url_for('index'))
@@ -97,7 +141,12 @@ def register():
 
 @app.route('/user/register', methods=['POST'])
 def register_user():
-    """Handle new user registration with data validation."""
+    """
+    Handle new user registration with data validation.
+    
+    Validates form data, checks for existing users,
+    and creates new user record in database.
+    """
     form_data = {
         'firstname': request.form['firstname'],
         'lastname': request.form['lastname'],
@@ -106,19 +155,20 @@ def register_user():
         'confirm_password': request.form['confirm-password']
     }
 
+    # Validate password match
     if form_data['password'] != form_data['confirm_password']:
         flash('Password validation failed: Mismatched credentials', 'error')
         return redirect(url_for('register'))
 
     try:
         with conn.cursor() as cursor:
-            # Check existing user conflict
+            # Check for existing user
             cursor.execute("SELECT email FROM users WHERE email = %s", (form_data['email'],))
             if cursor.fetchone():
                 flash('Account conflict: Email already registered', 'error')
                 return redirect(url_for('register'))
 
-            # Insert new user record
+            # Create new user record
             insert_query = """
                 INSERT INTO users 
                 (firstname, lastname, email, password, createdat)
@@ -132,6 +182,7 @@ def register_user():
                 datetime.now()
             ))
 
+            # Set authentication cookie and redirect
             response = make_response(redirect(url_for('index')))
             response.set_cookie('user_email', form_data['email'], httponly=True)
             flash('Registration successful: Welcome to BLATTÉ', 'success')
@@ -144,7 +195,11 @@ def register_user():
 
 @app.route('/user/login', methods=['POST'])
 def login_user():
-    """Authenticate existing users with credential validation."""
+    """
+    Authenticate existing users with credential validation.
+    
+    Verifies user credentials against database and sets auth cookie.
+    """
     try:
         credentials = {
             'email': request.form['email'],
@@ -229,7 +284,7 @@ def wishlist():
 # ========== APPLICATION ENTRY POINT ==========
 if __name__ == '__main__':
     app.run(
-        debug=True,  # Disable in production environment
+        debug=True,  # TODO: Disable in production environment
         host='0.0.0.0',
         port=5000
     )
