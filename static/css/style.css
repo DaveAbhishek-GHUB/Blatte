@@ -63,8 +63,8 @@ html, body {
     margin-top: 1vw;
     width: 18vw;
     padding: 1vw;
-    background-color: #000000;
-    color: #ffffff;
+    /* background-color: #ffffff; */
+    color: #000000;
 }
 
 /* Button text sizing */
