@@ -226,8 +226,14 @@ def wishlist():
     """User-curated product wishlist management page."""
     return render_template('wishlist.html')
 
+@app.route('/cart')
+def cart():
+    """Shopping cart management page."""
+    return render_template('cart.html')
+
 # ========== APPLICATION ENTRY POINT ==========
 if __name__ == '__main__':
+
     app.run(
         debug=True,  # Disable in production environment
         host='0.0.0.0',
