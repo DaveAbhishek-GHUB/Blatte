@@ -320,9 +320,6 @@ def on_the_go():
 # ========== APPLICATION ENTRY POINT ==========
 if __name__ == '__main__':
 
-
-
-
     app.run(
         debug=True,  # TODO: Disable in production environment
         host='0.0.0.0',
