@@ -286,8 +286,42 @@ def cart():
     """Shopping cart management page."""
     return render_template('cart.html')
 
+@app.route('/Teapots')
+def teapots():
+    """Tea pot product category page."""
+    return render_template('Teapots.html')
+
+@app.route('/Cups-and-Mugs')
+def cups_and_mugs():
+    """Cups and mugs product category page."""
+    return render_template('Cups-and-Mugs.html')
+
+@app.route('/Preparation')
+def preparation():
+    """Preparation product category page."""
+    return render_template('Preparation.html')
+
+@app.route('/Kettles')
+def kettles():
+    """Kettles product category page."""
+    return render_template('Kettles.html')
+
+@app.route('/MatchaAccessories')
+def matcha_accessories():
+    """Matcha accessories product category page."""
+    return render_template('MatchaAccessories.html')
+
+@app.route('/OnTheGo')
+def on_the_go():
+    """On the go product category page."""
+    return render_template('OnTheGo.html')
+    
+
 # ========== APPLICATION ENTRY POINT ==========
 if __name__ == '__main__':
+
+
+
 
     app.run(
         debug=True,  # TODO: Disable in production environment
