@@ -22,9 +22,14 @@
         </div>
 
         <!-- Featured Products Section -->
-        {% include 'utilities/productShowcase.html' %}
-        {% with image_url="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Blends/GreenTeaBlend.webp?updatedAt=1738516637323" %}
-            {% include 'components/ourBlends.html' %}
+        {% with
+        image_url="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Blends/GreenTeaBlend.webp?updatedAt=1738516637323",
+        heading="Origins Collection",
+        subheading="Premium whole leaf and herbal teas",
+        description="Our Origins bring the variety of our handcrafted premium whole-leaf teas and herbs. A flavorful journey through the
+        world’s best tea-growing regions."
+        %}
+        {% include 'components/ourBlends.html' %}
         {% endwith %}
         
         <section class="magazine-section">
