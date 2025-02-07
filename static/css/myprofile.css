@@ -1,0 +1,177 @@
+:root {
+    --primary-color: #ffffff;
+    --secondary-color: #ffffff;
+    --accent-color: #000000;
+    --text-color: #000000;
+    --text-secondary: #a0a0a0;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Profile Section */
+.profile-section {
+    display: flex;
+    margin-bottom: 30px;
+    margin-top: 100px;
+}
+
+.profile-info h3 {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+}
+
+.profile-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* Stats Section */
+.stats-section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: var(--secondary-color);
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.stat-icon {
+    font-size: 24px;
+}
+
+.stat-info h4 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.stat-info p {
+    margin: 5px 0 0 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* Attendance Section */
+.attendance-section {
+    background: var(--secondary-color);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.attendance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.attendance-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.attendance-actions button {
+    background: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.attendance-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.attendance-card {
+    background: var(--primary-color);
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.date-status {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.status.on-time {
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--accent-color);
+}
+
+.time-details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.check-time {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.check-time span {
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination button {
+    background: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.pagination button.active {
+    background: var(--accent-color);
+    color: var(--primary-color);
+}

@@ -18,7 +18,7 @@
         {# ========== CONDITIONAL CONTENT RENDERING ========== #}
         {% if request.cookies.get('user_email') %}
             {# ------ Authenticated User View ------ #}
-            {% include 'utilities/myAccount.html' %}
+            {% include 'utilities/myprofile.html' %}
         {% else %}
             {# ------ Guest User View ------ #}
             {# Membership promotion component #}
