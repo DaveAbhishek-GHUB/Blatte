@@ -39,14 +39,18 @@ DB_CONFIG = {
     'autocommit': True  # Ensures automatic transaction commits
 }
 
-# Initialize database connection pool
-try:
-    conn = mysql.connector.connect(**DB_CONFIG)
-    if conn.is_connected():
-        print("Database connection established successfully")
-except mysql.connector.Error as err:
-    print(f"Database connection error: {err}")
-    print("Action required: Verify MySQL service status and connection parameters")
+# ========== DATABASE CONNECTION FUNCTION ==========
+def get_db_connection():
+    """Create and return a new database connection"""
+    try:
+        connection = mysql.connector.connect(**DB_CONFIG)
+        if connection.is_connected():
+            print("Database connection established successfully")
+        return connection
+    except mysql.connector.Error as err:
+        print(f"Database connection error: {err}")
+        print("Action required: Verify MySQL service status and connection parameters")
+        return None
 
 # ========== PRODUCT CATALOG ROUTES ==========
 @app.route('/')
@@ -56,33 +60,146 @@ def index():
 
 @app.route('/teaBlends')
 def tea_blends():
-    """Display tea blends product category page."""
-    return render_template('teaBlends.html')
+    conn = get_db_connection()
+    if not conn:
+        flash('Error connecting to database', 'error')
+        return render_template('teaBlends.html', products=[])
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Fetch all products, sorted by creation date
+            cursor.execute("""
+                SELECT * FROM products 
+                WHERE product_category = 'Tea Blends'
+                ORDER BY created_at DESC
+            """)
+            products = cursor.fetchall()
+
+            # Parse JSON strings to Python objects with null checks
+            for product in products:
+                product['description'] = json.loads(product['description']) if product['description'] else []
+                product['additional_images'] = json.loads(product['additional_images']) if product['additional_images'] else []
+                product['ingredients'] = json.loads(product['ingredients']) if product['ingredients'] else []
+                product['brewing_notes'] = json.loads(product['brewing_notes']) if product['brewing_notes'] else []
+
+            return render_template('teaBlends.html', products=products)
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error loading products', 'error')
+        return render_template('teaBlends.html', products=[])   
+    finally:
+        if conn:
+            conn.close()
 
 @app.route('/giftSets')
 def gift_sets():
-    """Render gift sets collection page."""
-    return render_template('giftSets.html')
+    conn = get_db_connection()
+    if not conn:
+        flash('Error connecting to database', 'error')
+        return render_template('giftSets.html', products=[])
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Fetch all products, sorted by creation date
+            cursor.execute("""
+                SELECT * FROM products 
+                WHERE product_category = 'Gift Sets'
+                ORDER BY created_at DESC
+            """)
+            products = cursor.fetchall()
+
+            # Parse JSON strings to Python objects with null checks
+            for product in products:
+                product['description'] = json.loads(product['description']) if product['description'] else []
+                product['additional_images'] = json.loads(product['additional_images']) if product['additional_images'] else []
+                product['ingredients'] = json.loads(product['ingredients']) if product['ingredients'] else []
+                product['brewing_notes'] = json.loads(product['brewing_notes']) if product['brewing_notes'] else [] 
+
+            return render_template('giftSets.html', products=products)
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error loading products', 'error')
+        return render_template('giftSets.html', products=[])
+    finally:
+        if conn:
+            conn.close()
 
 # ========== TEA CATEGORY ROUTES ==========
 @app.route('/greenTea')
 def green_tea():
     """Green tea product category page."""
-    return render_template('greenTea.html')
+    conn = get_db_connection()
+    if not conn:
+        flash('Error connecting to database', 'error')
+        return render_template('greenTea.html', products=[])
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Fetch all products, sorted by creation date
+            cursor.execute("""
+                SELECT * FROM products 
+                WHERE product_category = 'Green Tea'
+                ORDER BY created_at DESC    
+            """)
+            products = cursor.fetchall()
+            
+            # Parse JSON strings to Python objects with null checks
+            for product in products:
+                product['description'] = json.loads(product['description']) if product['description'] else []   
+                product['additional_images'] = json.loads(product['additional_images']) if product['additional_images'] else []
+                product['ingredients'] = json.loads(product['ingredients']) if product['ingredients'] else []
+                product['brewing_notes'] = json.loads(product['brewing_notes']) if product['brewing_notes'] else []
+
+            return render_template('greenTea.html', products=products)
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error loading products', 'error')
+        return render_template('greenTea.html', products=[])
+    finally:
+        if conn:
+            conn.close()
 
 @app.route('/herbalTea')
 def herbal_tea():
-    """Herbal tea product category page."""
-    return render_template('herbalTea.html')
+    conn = get_db_connection()
+    if not conn:
+        flash('Error connecting to database', 'error')
+        return render_template('herbalTea.html', products=[])
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Fetch all products, sorted by creation date
+            cursor.execute("""
+                SELECT * FROM products 
+                WHERE product_category = 'Herbal Tea'
+                ORDER BY created_at DESC
+            """)
+            products = cursor.fetchall()
+            
+            # Parse JSON strings to Python objects with null checks
+            for product in products:
+                product['description'] = json.loads(product['description']) if product['description'] else []
+                product['additional_images'] = json.loads(product['additional_images']) if product['additional_images'] else []
+                product['ingredients'] = json.loads(product['ingredients']) if product['ingredients'] else []
+                product['brewing_notes'] = json.loads(product['brewing_notes']) if product['brewing_notes'] else []
+
+            return render_template('herbalTea.html', products=products)
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error loading products', 'error')
+        return render_template('herbalTea.html', products=[])
+    finally:
+        if conn:
+            conn.close()
 
 @app.route('/blackTea')
 def black_tea():
-    """
-    Black tea product category page.
-    
-    Fetches black tea products from database and parses JSON fields.
-    Returns rendered template with product data.
-    """
+    """Black tea product category page."""
+    conn = get_db_connection()
+    if not conn:
+        flash('Error connecting to database', 'error')
+        return render_template('blackTea.html', products=[])
+        
     try:
         with conn.cursor(dictionary=True) as cursor:
             # Fetch all black tea products, sorted by creation date
@@ -105,21 +222,111 @@ def black_tea():
         print(f"Database error: {err}")
         flash('Error loading products', 'error')
         return render_template('blackTea.html', products=[])
+    finally:
+        if conn:
+            conn.close()
 
 @app.route('/oolongTea')
 def oolong_tea():
     """Oolong tea product category page."""
-    return render_template('oolongTea.html')
+    conn = get_db_connection()
+    if not conn:
+        flash('Error connecting to database', 'error')
+        return render_template('oolongTea.html', products=[])
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Fetch all products, sorted by creation date
+            cursor.execute("""
+                SELECT * FROM products 
+                WHERE product_category = 'Oolong Tea'
+                ORDER BY created_at DESC
+            """)
+            products = cursor.fetchall()
+            
+            # Parse JSON strings to Python objects with null checks
+            for product in products:
+                product['description'] = json.loads(product['description']) if product['description'] else []
+                product['additional_images'] = json.loads(product['additional_images']) if product['additional_images'] else [] 
+                product['ingredients'] = json.loads(product['ingredients']) if product['ingredients'] else []
+                product['brewing_notes'] = json.loads(product['brewing_notes']) if product['brewing_notes'] else []
+
+            return render_template('oolongTea.html', products=products)
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error loading products', 'error')
+        return render_template('oolongTea.html', products=[])
+    finally:
+        if conn:
+            conn.close()    
 
 @app.route('/fruitTea')
 def fruit_tea():
     """Fruit-infused tea products page."""
-    return render_template('fruitTea.html')
+    conn = get_db_connection()
+    if not conn:
+        flash('Error connecting to database', 'error')
+        return render_template('fruitTea.html', products=[])
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Fetch all products, sorted by creation date
+            cursor.execute("""
+                SELECT * FROM products 
+                WHERE product_category = 'Fruit Tea'
+                ORDER BY created_at DESC
+            """)    
+            products = cursor.fetchall()
+            
+            # Parse JSON strings to Python objects with null checks
+            for product in products:
+                product['description'] = json.loads(product['description']) if product['description'] else []
+                product['additional_images'] = json.loads(product['additional_images']) if product['additional_images'] else []
+                product['ingredients'] = json.loads(product['ingredients']) if product['ingredients'] else []
+                product['brewing_notes'] = json.loads(product['brewing_notes']) if product['brewing_notes'] else []
+
+            return render_template('fruitTea.html', products=products)
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error loading products', 'error')
+        return render_template('fruitTea.html', products=[])
+    finally:
+        if conn:
+            conn.close()
 
 @app.route('/teaAccessories')
 def tea_accessories():
-    """Tea-related accessories and equipment page."""
-    return render_template('teaAccessories.html')
+
+    conn = get_db_connection()
+    if not conn:
+        flash('Error connecting to database', 'error')
+        return render_template('teaAccessories.html', products=[])
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Fetch all products, sorted by creation date
+            cursor.execute("""
+                SELECT * FROM products 
+                WHERE product_category = 'Tea Accessories'
+                ORDER BY created_at DESC
+            """)    
+            products = cursor.fetchall()
+            
+            # Parse JSON strings to Python objects with null checks
+            for product in products:
+                product['description'] = json.loads(product['description']) if product['description'] else []
+                product['additional_images'] = json.loads(product['additional_images']) if product['additional_images'] else []
+                product['ingredients'] = json.loads(product['ingredients']) if product['ingredients'] else []
+                product['brewing_notes'] = json.loads(product['brewing_notes']) if product['brewing_notes'] else []
+
+            return render_template('teaAccessories.html', products=products)
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error loading products', 'error')    
+        return render_template('teaAccessories.html', products=[])
+    finally:
+        if conn:
+            conn.close()
 
 # ========== USER AUTHENTICATION ROUTES ==========
 @app.route('/auth')
@@ -160,6 +367,11 @@ def register_user():
         flash('Password validation failed: Mismatched credentials', 'error')
         return redirect(url_for('register'))
 
+    conn = get_db_connection()
+    if not conn:
+        flash('System error: Registration temporarily unavailable', 'error')
+        return redirect(url_for('register'))
+
     try:
         with conn.cursor() as cursor:
             # Check for existing user
@@ -192,6 +404,9 @@ def register_user():
         print(f"Database operation failed: {db_error}")
         flash('System error: Registration temporarily unavailable', 'error')
         return redirect(url_for('index'))
+    finally:
+        if conn:
+            conn.close()
 
 @app.route('/user/login', methods=['POST'])
 def login_user():
@@ -200,6 +415,11 @@ def login_user():
     
     Verifies user credentials against database and sets auth cookie.
     """
+    conn = get_db_connection()
+    if not conn:
+        flash('System error: Login temporarily unavailable', 'error')
+        return redirect(url_for('auth'))
+
     try:
         credentials = {
             'email': request.form['email'],
@@ -225,6 +445,9 @@ def login_user():
         print(f"Authentication system error: {auth_error}")
         flash('System error: Login temporarily unavailable', 'error')
         return redirect(url_for('auth'))
+    finally:
+        if conn:
+            conn.close()
 
 @app.route('/user/logout')
 def logout_user():

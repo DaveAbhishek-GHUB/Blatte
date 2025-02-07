@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+            <!-- Featured Products Section -->
+            <div class="productsWrapper">
+                <!-- Section Header -->
+                <div class="headingWrapper">
+                    <h1>New Beginnings</h1>
+                    <p>Let our pure teas accompany you into the year</p>
+                </div>
+    
+                <!-- Product Cards -->
+                {% if products %}
+                {% for product in products %}
+                <div class="productWrapper">
+                    <div class="productImage">
+                        <div class="tags">
+                            {% if product.discount_percentage is defined and product.discount_percentage and product.discount_percentage > 0 %}
+                                <span class="tag">-{{ product.discount_percentage }}%</span>
+                            {% endif %}
+                            {% if product.availability_status is defined and product.availability_status and product.availability_status != 'In Stock' %}
+                                <span class="tag">{{ product.availability_status }}</span>
+                            {% endif %}
+                        </div>
+                        {% if product.main_product_image %}
+                            <img src="{{ product.main_product_image }}" alt="{{ product.product_name|default('Product Image') }}">
+                        {% endif %}
+                        <button class="wishlist-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="productInfo">
+                        <div class="flavor-tags">
+                            {% if product.ingredients is defined and product.ingredients %}
+                                {% for ingredient in product.ingredients[:3] %}
+                                    <span class="flavor-tag">{{ ingredient }}</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        {% if product.product_category %}
+                            <p class="category">{{ product.product_category }}</p>
+                        {% endif %}
+                        {% if product.product_name %}
+                            <h2 class="product-title">{{ product.product_name }}</h2>
+                        {% endif %}
+                        {% if product.description is defined and product.description and product.description[0] %}
+                            <p class="description">{{ product.description[0] }}</p>
+                        {% endif %}
+                        <div class="price-cart">
+                            {% if product.price is defined and product.price %}
+                                <span class="price">From € {{ "%.2f"|format(product.price) }}</span>
+                            {% endif %}
+                            <button class="cart-btn">
+                                <img src="../static/images/svgs/shopping-cart-add-02-stroke-rounded.svg" alt="cart">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="no-products">
+                    <p>No products are available</p>
+                </div>
+                {% endif %}
+            </div>
+</body>
+</html>
