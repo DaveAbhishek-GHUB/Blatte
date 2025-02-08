@@ -538,7 +538,11 @@ def matcha_accessories():
 def on_the_go():
     """On the go product category page."""
     return render_template('OnTheGo.html')
-    
+
+@app.route('/products')
+def products():
+    """Product showcase page."""
+    return render_template('products.html')
 
 # ========== APPLICATION ENTRY POINT ==========
 if __name__ == '__main__':
