@@ -538,6 +538,72 @@ def matcha_accessories():
 def on_the_go():
     """On the go product category page."""
     return render_template('OnTheGo.html')
+
+@app.route('/admins/dashboard', methods=['GET', 'POST'])
+def dashboard():
+    if request.method == 'POST':
+        try:
+            # Get form data
+            product_data = {
+                'product_name': request.form['product_name'],
+                'price': float(request.form['price']),
+                'product_category': request.form['product_category'],
+                'description': json.dumps(request.form.getlist('description[]')),
+                'ingredients': json.dumps(request.form.getlist('ingredients[]')),
+                'brewing_notes': json.dumps(request.form.getlist('brewing_notes[]')),
+                'main_product_image': request.form['main_product_image'],
+                'additional_images': json.dumps(request.form.getlist('additional_images[]')),
+                'weight': request.form['weight'],
+                'dimensions': request.form['dimensions'],
+                'availability_status': request.form['availability_status'],
+                'discount_percentage': int(request.form['discount_percentage'] or 0)
+            }
+
+            conn = get_db_connection()
+            if not conn:
+                flash('Database connection error', 'error')
+                return redirect(url_for('dashboard'))
+
+            with conn.cursor() as cursor:
+                insert_query = """
+                    INSERT INTO products (
+                        product_name, price, product_category, description,
+                        ingredients, brewing_notes, main_product_image,
+                        additional_images, weight, dimensions,
+                        availability_status, discount_percentage
+                    ) VALUES (
+                        %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+                    )
+                """
+                cursor.execute(insert_query, (
+                    product_data['product_name'],
+                    product_data['price'],
+                    product_data['product_category'],
+                    product_data['description'],
+                    product_data['ingredients'],
+                    product_data['brewing_notes'],
+                    product_data['main_product_image'],
+                    product_data['additional_images'],
+                    product_data['weight'],
+                    product_data['dimensions'],
+                    product_data['availability_status'],
+                    product_data['discount_percentage']
+                ))
+                conn.commit()
+
+            flash(f"Product '{product_data['product_name']}' has been added successfully!", 'success')
+            return redirect(url_for('dashboard'))
+
+        except Exception as e:
+            print(f"Error adding product: {e}")
+            flash(f'Error adding product: {str(e)}', 'error')
+            return redirect(url_for('dashboard'))
+        finally:
+            if conn:
+                conn.close()
+    else:
+        # Render the dashboard template
+        return render_template('admins/dashboard.html')
     
 
 # ========== APPLICATION ENTRY POINT ==========

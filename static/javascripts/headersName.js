@@ -11,4 +11,6 @@ export const headersName = {
     auth: "BLATTÉ | Auth",
     register: "BLATTÉ | Register",
     wishlist: "BLATTÉ | Wishlist",
+    dashboard: "BLATTÉ | Admin Dashboard",
+    insertProducts: "BLATTÉ | Insert Products",
 };

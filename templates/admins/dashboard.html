@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module">
+        import { headersName } from '../../static/javascripts/headersName.js';
+        document.title = headersName.dashboard;
+    </script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admins/dashboard.css') }}">
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/LOGO/clean_canvas_image-removebg.png?updatedAt=1738715178516" alt="Logo">
+        </div>
+        
+        <nav class="nav-menu">
+            <a href="#" class="nav-item active" onclick="showContent('dashboard')">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+            
+            <a href="#" class="nav-item" onclick="showContent('insertProducts')">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Add Products</span>
+            </a>
+        
+        <a href="#" class="logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Log Out</span>
+        </a>
+    </div>
+
+    <div class="main-content">
+        <header class="header">
+            <h1 class="header-title">Dashboard</h1>
+            <div class="header-actions">
+                <nav class="top-nav">
+                    <a href="/" class="nav-link">Home</a>
+                    <a href="/shop" class="nav-link">Shop</a>
+                    <a href="/about" class="nav-link">About</a>
+                    <a href="/contact" class="nav-link">Contact</a>
+                </nav>
+            </div>
+        </header>
+        <div id="dashboard-content">
+            <!-- Dashboard content goes here -->
+        </div>
+        <div id="insertProducts-content" style="display: none;">
+            {% include 'components/admins/insertProducts.html' %}
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='javascripts/admins/dashboard.js') }}"></script>
+</body>
+</html>

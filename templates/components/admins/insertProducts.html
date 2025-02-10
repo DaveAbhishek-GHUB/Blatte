@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admins/insertProducts.css') }}">
+    <script src="{{ url_for('static', filename='javascripts/admins/insertProducts.js') }}"></script>
+</head>
+<body>
+    <div class="insert-products-container">
+        <h2>Add New Product</h2>
+        <form id="productForm" class="product-form" enctype="multipart/form-data" method="post" action="/admins/dashboard">
+            <!-- Basic Information -->
+            <div class="form-section">
+                <h3>Basic Information</h3>
+                <div class="form-group">
+                    <label for="product_name">Product Name*</label>
+                    <input type="text" id="product_name" name="product_name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="price">Price (€)*</label>
+                    <input type="number" id="price" name="price" step="0.01" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="product_category">Category*</label>
+                    <select id="product_category" name="product_category" required>
+                        <option value="">Select a category</option>
+                        <option value="Tea Blends">Tea Blends</option>
+                        <option value="Green Tea">Green Tea</option>
+                        <option value="Black Tea">Black Tea</option>
+                        <option value="Herbal Tea">Herbal Tea</option>
+                        <option value="Oolong Tea">Oolong Tea</option>
+                        <option value="Fruit Tea">Fruit Tea</option>
+                        <option value="Gift set">Gift set</option>
+                        <option value="Tea accessories">Tea accessories</option>
+                    </select>
+                </div>
+            </div>
+    
+            <!-- Product Details -->
+            <div class="form-section">
+                <h3>Product Details</h3>
+                <div class="form-group">
+                    <label for="description">Description*</label>
+                    <div class="dynamic-inputs" id="description-container">
+                        <div class="input-group">
+                            <textarea name="description[]" class="description-input" required></textarea>
+                            <button type="button" class="remove-btn" onclick="removeInput(this)">×</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addInput('description-container', 'description')">+ Add Line</button>
+                </div>
+    
+                <div class="form-group">
+                    <label for="ingredients">Ingredients</label>
+                    <div class="dynamic-inputs" id="ingredients-container">
+                        <div class="input-group">
+                            <input type="text" name="ingredients[]" class="ingredient-input">
+                            <button type="button" class="remove-btn" onclick="removeInput(this)">×</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addInput('ingredients-container', 'ingredients')">+ Add Ingredient</button>
+                </div>
+    
+                <div class="form-group">
+                    <label for="brewing_notes">Brewing Notes</label>
+                    <div class="dynamic-inputs" id="brewing-notes-container">
+                        <div class="input-group">
+                            <input type="text" name="brewing_notes[]" class="brewing-note-input">
+                            <button type="button" class="remove-btn" onclick="removeInput(this)">×</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addInput('brewing-notes-container', 'brewing_notes')">+ Add Note</button>
+                </div>
+            </div>
+    
+            <!-- Product Specifications -->
+            <div class="form-section">
+                <h3>Specifications</h3>
+                <div class="form-group">
+                    <label for="weight">Weight</label>
+                    <input type="text" id="weight" name="weight">
+                </div>
+    
+                <div class="form-group">
+                    <label for="dimensions">Dimensions</label>
+                    <input type="text" id="dimensions" name="dimensions" placeholder="L x W x H">
+                </div>
+    
+                <div class="form-group">
+                    <label for="availability_status">Availability Status</label>
+                    <select id="availability_status" name="availability_status">
+                        <option value="In Stock">In Stock</option>
+                        <option value="Out of Stock">Out of Stock</option>
+                        <option value="Pre-order">Pre-order</option>
+                    </select>
+                </div>
+    
+                <div class="form-group">
+                    <label for="discount_percentage">Discount (%)</label>
+                    <input type="number" id="discount_percentage" name="discount_percentage" min="0" max="100" value="0">
+                </div>
+            </div>
+    
+            <!-- Images -->
+            <div class="form-section">
+                <h3>Product Images</h3>
+                <div class="form-group">
+                    <label for="main_product_image">Main Product Image URL*</label>
+                    <input type="url" id="main_product_image" name="main_product_image" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="additional_images">Additional Image URLs</label>
+                    <div class="dynamic-inputs" id="additional-images-container">
+                        <div class="input-group">
+                            <input type="url" name="additional_images[]" class="additional-image-input">
+                            <button type="button" class="remove-btn" onclick="removeInput(this)">×</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addInput('additional-images-container', 'additional_images')">+ Add Image URL</button>
+                </div>
+            </div>
+    
+            <div class="form-actions">
+                <button type="submit" class="submit-btn">Add Product</button>
+                <button type="reset" class="reset-btn">Reset Form</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
