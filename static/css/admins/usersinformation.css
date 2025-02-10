@@ -1,0 +1,166 @@
+.users-dashboard {
+    padding: 24px;
+    background: #ffffff;
+}
+
+/* Stats Cards Styling */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.stat-card h3 {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.stat-value .number {
+    font-size: 24px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.change {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    margin-left: 8px;
+}
+
+/* Table Section Styling */
+.users-table-section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.table-header {
+    padding: 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.table-header h2 {
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+.table-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.view-filters {
+    display: flex;
+    gap: 12px;
+}
+
+.view-filters button {
+    padding: 8px 16px;
+    border: none;
+    background: none;
+    color: #6b7280;
+    cursor: pointer;
+}
+
+.view-filters button.active {
+    color: #111827;
+    border-bottom: 2px solid #111827;
+}
+
+.right-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.search-box input {
+    padding: 8px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    width: 200px;
+}
+
+.filters-btn {
+    padding: 8px 16px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Table Styling */
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.users-table th,
+.users-table td {
+    padding: 12px 20px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.user-name {
+    display: block;
+    font-weight: 500;
+}
+
+.user-handle {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.role {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.role.general {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.role.admin {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.role.creator {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+.more-options {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #6b7280;
+    font-size: 20px;
+}

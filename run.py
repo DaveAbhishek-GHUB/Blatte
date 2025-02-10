@@ -539,6 +539,11 @@ def on_the_go():
     """On the go product category page."""
     return render_template('OnTheGo.html')
 
+@app.route('/products')
+def products():
+    """products category page."""
+    return render_template('products.html')
+
 @app.route('/admins/dashboard', methods=['GET', 'POST'])
 def dashboard():
     if request.method == 'POST':

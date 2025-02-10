@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/admins/usersinformation.css">
+</head>
+<body>
+    <div class="users-dashboard">
+        <!-- Stats Cards -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>General customers</h3>
+                <div class="stat-value">
+                    <span class="number">11,450</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Admins</h3>
+                <div class="stat-value">
+                    <span class="number">812</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Creators</h3>
+                <div class="stat-value">
+                    <span class="number">83</span>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Users Table Section -->
+        <div class="users-table-section">
+            <div class="table-header">
+                <h2>All customers (12,345)</h2>
+                <div class="table-actions">
+                    <div class="view-filters">
+                        <button class="active">View all</button>
+                        <button>General</button>
+                        <button>Admin</button>
+                        <button>Creator</button>
+                    </div>
+                    <div class="right-actions">
+                        <div class="search-box">
+                            <input type="text" placeholder="Search">
+                        </div>
+                        <button class="filters-btn">Filters</button>
+                    </div>
+                </div>
+            </div>
+    
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox"></th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Projects</th>
+                        <th>Status</th>
+                        <th>Enrolled</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example row -->
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td class="user-info">
+                            <img src="path/to/avatar" alt="User avatar">
+                            <div>
+                                <span class="user-name">Arlene McCoy</span>
+                                <span class="user-handle">@arlenem</span>
+                            </div>
+                        </td>
+                        <td><span class="role general">General</span></td>
+                        <td>12/25</td>
+                        <td>Active</td>
+                        <td>May 12, 2019</td>
+                        <td><button class="more-options">⋮</button></td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -5,12 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/products/teaAccessories.css">
-    <title>Tea Blends</title>
 </head>
 
 <body>
     {% include 'utilities/header.html' %}
-    <div class="mainBodyWrapper">
+    <!-- <div class="mainBodyWrapper">
         <div class="category-navigation">
             <a href="/Teapots" class="category-item">
                 <div class="category-icon">
@@ -48,7 +47,17 @@
                 </div>
                 <span>On the Go</span>
             </a>
-        </div>
+        </div> -->
+
+        <div class="mainBodyWrapper">
+            <div class="hero-section">
+                <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Banners/content-pixie-m-gqDRzbJLQ-unsplash.jpg?updatedAt=1739167881106"
+                    alt="Tea Accessories Header Image">
+                <div class="hero-content">
+                    <h1>Tea Accessories</h1>
+                    <p>It is all about the little things: Here you can find all the accessories you need to prepare your cup of tea at home.</p>
+                </div>
+            </div>
 
         <!-- Featured Products Section -->
         {% include 'utilities/productShowcase.html' %}
