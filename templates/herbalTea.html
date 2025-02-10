@@ -21,15 +21,20 @@
         </div>
 
         <!-- Featured Products Section -->
-        {% include 'utilities/productShowcase.html' %}
-
-        {% with image_url="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Banners/Untitled%20design%20(1).png?updatedAt=1738519827164" %}
-            {% include 'components/ourBlends.html' %}
+        {% with
+        image_url="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Blends/Untitled%20design%20(2).png?updatedAt=1738694788819",
+        heading="Our Blends",
+        subheading="Extraordinary tea blends for you",
+        description="Our Blends are a highlight in your cup – carefully crafted tea blends you must try. Let each cup guide you
+        to a new
+        world of flavors!"
+        %}
+        {% include 'components/ourBlends.html' %}
         {% endwith %}
         
         <section class="magazine-section">
             <h1>BLATTÉ Magazine</h1>
-            <p class="subtitle">Tea Blends & more</p>
+            <p class="subtitle">Herbal Tea & more</p>
             <div class="magazine-grid">
                 <div class="magazine-item">
                     <img src="../static/images/magazines/herbalTea/01.webp"

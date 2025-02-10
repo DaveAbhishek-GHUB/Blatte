@@ -27,11 +27,15 @@
         </div>
 
         <!-- Featured Products Section -->
-        {% include 'utilities/productShowcase.html' %}
-
-        {# Include Our Blends component with dynamic image URL #}
-        {% with image_url="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Blends/GiftBlend.png?updatedAt=1738518382323" %}
-            {% include 'components/ourBlends.html' %}
+        {% with
+        image_url="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Blends/GiftBlend.png?updatedAt=1738518382323",
+        heading="Happiness in a box",
+        subheading="Gift sets from BLATTÉ",
+        description="Our exclusive BLATTÉ gift sets are thoughtfully curated and packed with love. Tea blends and pure teas come
+        together with the perfect accessories – for you, for them, for everyone.
+"
+        %}
+        {% include 'components/ourBlends.html' %}
         {% endwith %}
 
         {# Magazine Section #}
