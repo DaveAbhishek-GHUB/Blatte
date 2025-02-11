@@ -8,60 +8,71 @@
 
 body {
     margin: 0;
-    padding: 20px;
+    padding: 0;
     font-family: Arial, sans-serif;
     background-color: var(--primary-color);
     color: var(--text-color);
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 0;
 }
 
 /* Profile Section */
 .profile-section {
     display: flex;
-    margin-bottom: 30px;
-    margin-top: 100px;
+    margin-bottom: 50px; /* Increased from 30px */
+    margin-top: 120px; /* Increased from 100px */
+    padding: 0 40px; /* Increased from 20px */
 }
 
 .profile-info h3 {
-    margin: 0 0 10px 0;
+    margin: 0 0 20px 0; /* Increased bottom margin from 10px */
     font-size: 20px;
 }
 
 .profile-details {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px; /* Increased from 20px */
 }
 
 .detail-item {
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px; /* Added spacing between items */
 }
 
 .label {
     color: var(--text-secondary);
     font-size: 14px;
+    margin-bottom: 8px; /* Added spacing between label and content */
+}
+
+/* Add media query for smaller screens */
+@media screen and (max-width: 768px) {
+    .profile-details {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px; /* Increased from 15px */
+    }
 }
 
 /* Stats Section */
 .stats-section {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-bottom: 30px;
+    gap: 30px; /* Increased from 20px */
+    margin-bottom: 50px; /* Increased from 30px */
 }
 
 .stat-card {
     background: var(--secondary-color);
-    padding: 20px;
+    padding: 30px; /* Increased from 20px */
     border-radius: 12px;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 20px; /* Increased from 15px */
 }
 
 .stat-icon {
@@ -74,7 +85,7 @@ body {
 }
 
 .stat-info p {
-    margin: 5px 0 0 0;
+    margin: 10px 0 0 0; /* Increased top margin from 5px */
     color: var(--text-secondary);
     font-size: 14px;
 }
@@ -83,26 +94,26 @@ body {
 .attendance-section {
     background: var(--secondary-color);
     border-radius: 12px;
-    padding: 20px;
+    padding: 30px; /* Increased from 20px */
 }
 
 .attendance-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px; /* Increased from 20px */
 }
 
 .attendance-actions {
     display: flex;
-    gap: 10px;
+    gap: 15px; /* Increased from 10px */
 }
 
 .attendance-actions button {
     background: var(--primary-color);
     color: var(--text-color);
     border: none;
-    padding: 8px 15px;
+    padding: 12px 20px; /* Increased from 8px 15px */
     border-radius: 8px;
     cursor: pointer;
 }
@@ -110,24 +121,24 @@ body {
 .attendance-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-bottom: 20px;
+    gap: 30px; /* Increased from 20px */
+    margin-bottom: 30px; /* Increased from 20px */
 }
 
 .attendance-card {
     background: var(--primary-color);
-    padding: 15px;
+    padding: 25px; /* Increased from 15px */
     border-radius: 12px;
 }
 
 .date-status {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
+    margin-bottom: 25px; /* Increased from 15px */
 }
 
 .status {
-    padding: 4px 8px;
+    padding: 6px 12px; /* Increased from 4px 8px */
     border-radius: 4px;
     font-size: 12px;
 }
@@ -145,7 +156,7 @@ body {
 .check-time {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px; /* Increased from 5px */
 }
 
 .check-time span {
@@ -157,16 +168,16 @@ body {
 .pagination {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
+    gap: 15px; /* Increased from 10px */
+    margin-top: 30px; /* Increased from 20px */
 }
 
 .pagination button {
     background: var(--primary-color);
     color: var(--text-color);
     border: none;
-    width: 30px;
-    height: 30px;
+    width: 40px; /* Increased from 30px */
+    height: 40px; /* Increased from 30px */
     border-radius: 6px;
     cursor: pointer;
 }

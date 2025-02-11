@@ -10,67 +10,33 @@
         <!-- Profile Section -->
         <div class="profile-section">
             <div class="profile-info">
-                <h3>Shrenik Shah</h3>
-                <div class="profile-details">
-                    <div class="detail-item">
-                        <span class="label">Role</span>
-
-                        <span class="value">Head of UX Design</span>
+                {% if user %}
+                    <h3>{{ user.name }}</h3>
+                    <div class="profile-details">
+                        <div class="detail-item">
+                            <span class="label">Email Address</span>
+                            <span class="value">{{ user.email }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Total Ordered</span>
+                            <span class="value">{{ user.ordered_count }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Carted Items</span>
+                            <span class="value">{{ user.carted_count }}</span>
+                        </div>
                     </div>
-                    <div class="detail-item">
-                        <span class="label">Phone Number</span>
-                        <span class="value">+91 9173535894</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="label">Email Adress</span>
-                        <span class="value">Shrenik2870@gmail.com</span>
-                    </div>
-                </div>
+                {% else %}
+                    <p>Please log in to view your profile information.</p>
+                {% endif %}
             </div>
         </div>
 
-        <!-- Stats Section -->
-        <div class="stats-section">
-            <div class="stat-card">
-                <div class="stat-icon">⟳</div>
-                <div class="stat-info">
-                    <h4>309</h4>
-                    <p>Total Ordered</p>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">⟳</div>
-                <div class="stat-info">
-                    <h4>08:46</h4>
-                    <p>Any Time</p>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">⟳</div>
-                <div class="stat-info">
-                    <h4>17:04</h4>
-                    <p>Ordered Complete</p>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">👤</div>
-                <div class="stat-info">
-                    <h4>Role Model</h4>
-                    <p>Employee Predicate</p>
-                </div>
-            </div>
-        </div>
 
         <!-- Attendance History -->
         <div class="attendance-section">
             <div class="attendance-header">
                 <h2>Attendance History</h2>
-                <div class="attendance-actions">
-                    <button class="grid-view">⊞</button>
-                    <button class="list-view">≡</button>
-                    <button class="sort-btn">Sort</button>
-                    <button class="filter-btn">Filter</button>
-                </div>
             </div>
 
             <div class="attendance-grid">

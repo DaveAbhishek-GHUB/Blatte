@@ -23,6 +23,7 @@ from flask import (
     make_response
 )
 import mysql.connector
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # ========== FLASK APPLICATION INITIALIZATION ==========
 app = Flask(__name__)
@@ -332,15 +333,55 @@ def tea_accessories():
 @app.route('/auth')
 def auth():
     """Authentication gateway page (login/registration)."""
+    # Check if user is logged in
+    user_email = request.cookies.get('user_email')
+    if user_email:
+        # Fetch user data similar to my_profile route
+        conn = get_db_connection()
+        if not conn:
+            flash('System error: Unable to load profile', 'error')
+            return redirect(url_for('index'))
+            
+        try:
+            with conn.cursor(dictionary=True) as cursor:
+                cursor.execute("""
+                    SELECT firstname, lastname, email, carted, ordered 
+                    FROM users 
+                    WHERE email = %s
+                """, (user_email,))
+                user = cursor.fetchone()
+                
+                if not user:
+                    flash('User not found', 'error')
+                    return redirect(url_for('index'))
+                
+                # Parse JSON arrays and get counts
+                carted_items = json.loads(user['carted']) if user['carted'] else []
+                ordered_items = json.loads(user['ordered']) if user['ordered'] else []
+                
+                user_data = {
+                    'name': f"{user['firstname']} {user['lastname']}",
+                    'email': user['email'],
+                    'carted_count': len(carted_items),
+                    'ordered_count': len(ordered_items)
+                }
+                
+                return render_template('auth.html', user=user_data)
+                
+        except mysql.connector.Error as err:
+            print(f"Database error: {err}")
+            flash('Error loading profile data', 'error')
+            return redirect(url_for('index'))
+        finally:
+            if conn:
+                conn.close()
+    
+    # If user is not logged in, render auth page normally
     return render_template('auth.html')
 
 @app.route('/register')
 def register():
-    """
-    User registration page with validation checks.
-    
-    Redirects to index if user is already logged in.
-    """
+    """User registration page with validation checks."""
     if request.cookies.get('user_email'):
         flash('Authentication conflict: User already logged in', 'error')
         return redirect(url_for('index'))
@@ -348,12 +389,7 @@ def register():
 
 @app.route('/user/register', methods=['POST'])
 def register_user():
-    """
-    Handle new user registration with data validation.
-    
-    Validates form data, checks for existing users,
-    and creates new user record in database.
-    """
+    """Handle new user registration with data validation."""
     form_data = {
         'firstname': request.form['firstname'],
         'lastname': request.form['lastname'],
@@ -380,18 +416,20 @@ def register_user():
                 flash('Account conflict: Email already registered', 'error')
                 return redirect(url_for('register'))
 
-            # Create new user record
+            # Create new user record with hashed password and initialized JSON fields
             insert_query = """
                 INSERT INTO users 
-                (firstname, lastname, email, password, createdat)
-                VALUES (%s, %s, %s, %s, %s)
+                (firstname, lastname, email, password, wishlist, carted, ordered)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
             """
             cursor.execute(insert_query, (
                 form_data['firstname'],
                 form_data['lastname'],
                 form_data['email'],
-                form_data['password'],
-                datetime.now()
+                generate_password_hash(form_data['password']),
+                '[]',  # Empty JSON array for wishlist
+                '[]',  # Empty JSON array for carted
+                '[]'   # Empty JSON array for ordered
             ))
 
             # Set authentication cookie and redirect
@@ -403,18 +441,14 @@ def register_user():
     except mysql.connector.Error as db_error:
         print(f"Database operation failed: {db_error}")
         flash('System error: Registration temporarily unavailable', 'error')
-        return redirect(url_for('index'))
+        return redirect(url_for('register'))
     finally:
         if conn:
             conn.close()
 
 @app.route('/user/login', methods=['POST'])
 def login_user():
-    """
-    Authenticate existing users with credential validation.
-    
-    Verifies user credentials against database and sets auth cookie.
-    """
+    """Authenticate existing users with credential validation."""
     conn = get_db_connection()
     if not conn:
         flash('System error: Login temporarily unavailable', 'error')
@@ -426,13 +460,14 @@ def login_user():
             'password': request.form['password']
         }
 
-        with conn.cursor() as cursor:
+        with conn.cursor(dictionary=True) as cursor:
             cursor.execute("""
-                SELECT email FROM users 
-                WHERE email = %s AND password = %s
-            """, (credentials['email'], credentials['password']))
+                SELECT email, password FROM users 
+                WHERE email = %s
+            """, (credentials['email'],))
             
-            if cursor.fetchone():
+            user = cursor.fetchone()
+            if user and check_password_hash(user['password'], credentials['password']):
                 response = make_response(redirect(url_for('index')))
                 response.set_cookie('user_email', credentials['email'], httponly=True)
                 flash('Authentication successful: Welcome back', 'success')
@@ -508,41 +543,6 @@ def wishlist():
 def cart():
     """Shopping cart management page."""
     return render_template('cart.html')
-
-@app.route('/Teapots')
-def teapots():
-    """Tea pot product category page."""
-    return render_template('Teapots.html')
-
-@app.route('/Cups-and-Mugs')
-def cups_and_mugs():
-    """Cups and mugs product category page."""
-    return render_template('Cups-and-Mugs.html')
-
-@app.route('/Preparation')
-def preparation():
-    """Preparation product category page."""
-    return render_template('Preparation.html')
-
-@app.route('/Kettles')
-def kettles():
-    """Kettles product category page."""
-    return render_template('Kettles.html')
-
-@app.route('/MatchaAccessories')
-def matcha_accessories():
-    """Matcha accessories product category page."""
-    return render_template('MatchaAccessories.html')
-
-@app.route('/OnTheGo')
-def on_the_go():
-    """On the go product category page."""
-    return render_template('OnTheGo.html')
-
-@app.route('/products')
-def products():
-    """products category page."""
-    return render_template('products.html')
 
 @app.route('/admins/dashboard', methods=['GET', 'POST'])
 def dashboard():
