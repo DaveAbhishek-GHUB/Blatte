@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/thejourneyofourteaintoyourcup.css">
+</head>
+<body>
+    <div class="journey-container">
+        <div class="text-content">
+            <h1>The journey of our<br>tea into your cup</h1>
+            
+            <section class="processing">
+                <h2>The processing</h2>
+                <p>Blending high-quality organic ingredients like tea leaves, herbs, blossoms, and fruits, we create exceptional recipes that you can only find at PAPER & TEA. Each cup celebrates the creative vision and masterful craftmanship of our tea experts with a modern twist.</p>
+            </section>
+
+            <section class="origin">
+                <h2>The origin of the tea</h2>
+                <p>We carefully select tea leaves, fruits, herbs, and spices from various places in the world. Each carries exciting stories from its origin, bringing them into our irresistible tea blends. As diverse as our ingredients are, the flavors in each colorful blend are equally versatile. We prioritize organic quality and use only natural flavors – resulting in a true burst of taste for your palate.</p>
+            </section>
+        </div>
+
+        <div class="image-slider">
+            <button class="prev-arrow" aria-label="Previous slide">&#8249;</button>
+            <button class="next-arrow" aria-label="Next slide">&#8250;</button>
+            
+            <div class="slider-container">
+                <img src="https://www.paperandtea.com/cdn/shop/files/PaperTea_09_202413604.jpg?v=1728552450&width=800" 
+                    alt="PAPER & TEA product lineup showing Zingy Red, Pink Mandarin, and Minty Green tea packages">
+                <img src="https://www.paperandtea.com/cdn/shop/files/C_Footer_Story_2_Farmer_1.jpg?v=1727869771&width=800" 
+                    alt="Green tea field">
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sliderContainer = document.querySelector('.slider-container');
+            const slides = sliderContainer.querySelectorAll('img');
+            let currentSlide = 0;
+
+            // Hide all slides except the first one
+            slides.forEach((slide, index) => {
+                if (index !== 0) slide.style.display = 'none';
+            });
+
+            // Previous button click handler
+            document.querySelector('.prev-arrow').addEventListener('click', function() {
+                slides[currentSlide].style.display = 'none';
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                slides[currentSlide].style.display = 'block';
+            });
+
+            // Next button click handler
+            document.querySelector('.next-arrow').addEventListener('click', function() {
+                slides[currentSlide].style.display = 'none';
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
