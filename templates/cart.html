@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/cart.css">
 </head>
+
 <body>
     {% include 'utilities/header.html' %}
     <div class="container">
         <div class="header">My Cart</div>
-    
+
         <div class="cart-item">
-            <img src="https://www.paperandtea.com/cdn/shop/files/webHunkyDoryBreakfastCupLeavesCaddy_c0f7fade-742f-4238-8c17-cd13768945b2.jpg?v=1738386179&width=400" 
-            alt="Product">
+            <img src="https://www.paperandtea.com/cdn/shop/files/webHunkyDoryBreakfastCupLeavesCaddy_c0f7fade-742f-4238-8c17-cd13768945b2.jpg?v=1738386179&width=400"
+                alt="Product">
             <div class="item-details">
                 <h2>Plaid Shirt & Buttoned Skirt Set</h2>
                 <p>Color: OLIVE/MULTI</p>
@@ -34,10 +36,13 @@
                 </select>
             </div>
         </div>
-    
+
         <div class="checkout">
-            <button>Checkout</button>
+            <a href="/Checkout">
+                <button>Checkout</button>
+            </a>
         </div>
     </div>
 </body>
+    {% include 'utilities/footer.html' %}
 </html>

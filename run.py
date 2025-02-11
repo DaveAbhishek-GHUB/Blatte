@@ -544,6 +544,21 @@ def products():
     """products category page."""
     return render_template('products.html')
 
+@app.route('/Checkout')
+def Checkout():
+    """Checkout page"""
+    return render_template('Checkout.html')
+
+@app.route('/thejourneyofourteaintoyourcup')
+def thejourneyofourteaintoyourcup():
+    """thejourneyofourteaintoyourcup page"""
+    return render_template('thejourneyofourteaintoyourcup.html')
+
+@app.route('/order')
+def order():
+    """order page"""
+    return render_template('order.html')
+
 @app.route('/admins/dashboard', methods=['GET', 'POST'])
 def dashboard():
     if request.method == 'POST':

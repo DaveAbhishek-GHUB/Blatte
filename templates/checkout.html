@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/Checkout.css">
+</head>
+<body>
+    {% include 'utilities/header.html' %}
+    <div class="checkout-container">
+      <!-- Summary Order Section -->
+      <div class="summary-section">
+        <h2>Summary Order</h2>
+        <p class="subtitle">Check your item and select your shipping for better experience order item.</p>
+        
+        <div class="order-items">
+          <!-- Item 1 -->
+          <div class="order-item">
+            <img src="/static/images/nb-grey.jpg" alt="New Balance Sneaker">
+            <div class="item-details">
+              <h3>New Balance 57/40 Men's Sneakers - Mindful Grey</h3>
+              <div class="size">42 EU - 8.5 US</div>
+              <div class="price">$ 129.00</div>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="order-item">
+            <img src="/static/images/nb-grey-997.jpg" alt="New Balance Sneaker">
+            <div class="item-details">
+              <h3>New Balance 997H Men's Sneakers - Grey</h3>
+              <div class="size">42.5 EU - 9 US</div>
+              <div class="price">$ 119.00</div>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="order-item">
+            <img src="/static/images/nb-pink.jpg" alt="New Balance Sneaker">
+            <div class="item-details">
+              <h3>New Balance 57/40 Women's - Oyster Pink</h3>
+              <div class="size">41.5 EU - 8 US</div>
+              <div class="price">$ 149.00</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shipping Method -->
+        <div class="shipping-method">
+          <h3>Available Shipping Method</h3>
+          <div class="shipping-options">
+            <div class="shipping-option selected">
+              <img src="/static/images/fedex-logo.png" alt="FedEx">
+              <div class="shipping-details">
+                <h4>Fedex Delivery</h4>
+                <p>Delivery: 2-3 days work</p>
+              </div>
+              <div class="shipping-price">Free</div>
+            </div>
+
+            <div class="shipping-option">
+              <img src="/static/images/dhl-logo.png" alt="DHL">
+              <div class="shipping-details">
+                <h4>DHL Delivery</h4>
+                <p>Delivery: 1-3 days work</p>
+              </div>
+              <div class="shipping-price">$ 12.00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Details Section -->
+      <div class="payment-section">
+        <h2>Payment Details</h2>
+        <p class="subtitle">Complete your purchase item by providing your payment details order.</p>
+
+        <form class="payment-form" action="/order">
+          <div class="form-group">
+            <label>Email Address</label>
+            <div class="input-with-icon">
+              <input type="email" value="barlyvallenditio@gmail.com" readonly>
+              <span class="check-icon">✓</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Card Detail</label>
+            <div class="card-inputs">
+              <input type="text" placeholder="Card Number">
+              <input type="text" placeholder="MM / YY">
+              <input type="text" placeholder="CVC">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Card Holder</label>
+            <input type="text" value="Barly Vallendil" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Billing Address</label>
+            <div class="input-with-icon">
+              <input type="text" value="7851 Garfield Ave, Huntington Beach" readonly>
+              <span class="check-icon">✓</span>
+            </div>
+            <div class="address-details">
+              <input type="text" value="California(CA)" readonly>
+              <input type="text" value="92648" readonly>
+            </div>
+          </div>
+
+          <div class="price-summary">
+            <div class="subtotal">
+              <span>Subtotal</span>
+              <span>$ 397.00</span>
+            </div>
+            <div class="vat">
+              <span>Vat (20%)</span>
+              <span>$ 2.89</span>
+            </div>
+            <div class="total">
+              <span>Total</span>
+              <span>$ 399.89</span>
+            </div>
+          </div>
+
+          <button type="submit" class="pay-button">Pay $ 399.89</button>
+        </form>
+      </div>
+    </div>
+    {% include 'utilities/footer.html' %}
+</body>
+</html>
