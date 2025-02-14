@@ -480,7 +480,6 @@ def login_user():
         print(f"Authentication system error: {auth_error}")
         flash('System error: Login temporarily unavailable', 'error')
         return redirect(url_for('auth'))
-    finally:
         if conn:
             conn.close()
 
@@ -610,6 +609,57 @@ def dashboard():
         # Render the dashboard template
         return render_template('admins/dashboard.html')
     
+@app.route('/productDetails/<int:id>')
+def product_details(id):
+    """Product details page with dynamic product loading."""
+    conn = get_db_connection()
+    if not conn:
+        flash('Error connecting to database', 'error')
+        return render_template('productDetails.html', product=None)
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Add print statement for debugging
+            print(f"Fetching product with ID: {id}")
+            
+            cursor.execute("""
+                SELECT * FROM products 
+                WHERE id = %s
+            """, (id,))
+            product = cursor.fetchone()
+            
+            # Add debug print
+            print(f"Found product: {product}")
+            
+            if not product:
+                flash('Product not found', 'error')
+                return redirect(url_for('index'))
+            
+            # Parse JSON strings to Python objects with null checks
+            product['description'] = json.loads(product['description']) if product['description'] else []
+            product['additional_images'] = json.loads(product['additional_images']) if product['additional_images'] else []
+            product['ingredients'] = json.loads(product['ingredients']) if product['ingredients'] else []
+            product['brewing_notes'] = json.loads(product['brewing_notes']) if product['brewing_notes'] else []
+
+            return render_template('productDetails.html', product=product)
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error loading product details', 'error')
+        return render_template('productDetails.html', product=None)
+    finally:
+        if conn:
+            conn.close()
+
+@app.template_filter('price_per_kg')
+def price_per_kg_filter(price, weight):
+    """Calculate price per kg, handling invalid inputs gracefully"""
+    try:
+        weight_float = float(weight)
+        if weight_float <= 0:
+            return None
+        return float(price) / weight_float * 1000
+    except (ValueError, TypeError, ZeroDivisionError):
+        return None
 
 # ========== APPLICATION ENTRY POINT ==========
 if __name__ == '__main__':

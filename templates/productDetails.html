@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.product_name }} - Product Details</title>
+    <link rel="stylesheet" href="/static/css/productDetails.css">
+    <script src="/static/javascripts/productDetails.js"></script>
+</head>
+<body>
+    {% include 'utilities/header.html' %}
+    
+    {% if product %}
+    <div class="product-container">
+        <div class="product-gallery">
+            <div class="thumbnail-list">
+                {% if product.main_product_image %}
+                    <img src="{{ product.main_product_image }}" alt="{{ product.product_name }} Main Image">
+                {% endif %}
+                {% if product.additional_images %}
+                    {% for image in product.additional_images %}
+                        <img src="{{ image }}" alt="{{ product.product_name }} Image {{ loop.index + 1 }}">
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="main-image">
+                <img src="{{ product.main_product_image }}" alt="{{ product.product_name }} Main Image">
+            </div>
+        </div>
+        
+        <div class="product-info">
+            <div class="badges">
+                {% if product.availability_status != 'In Stock' %}
+                    <span class="badge limited">{{ product.availability_status }}</span>
+                {% endif %}
+                {% if product.discount_percentage > 0 %}
+                    <span class="badge new">-{{ product.discount_percentage }}%</span>
+                {% endif %}
+            </div>
+            
+            <h1>{{ product.product_name }}</h1>
+            
+            <div class="product-type">{{ product.product_category }}</div>
+            
+            {% if product.average_rating %}
+            <div class="rating">
+                <span class="stars">★★★★★</span>
+                <span class="rating-score">{{ "%.2f"|format(product.average_rating) }}</span>
+                <span class="review-count">({{ product.reviews_count }})</span>
+            </div>
+            {% endif %}
+            
+            {% if product.brewing_notes %}
+            <div class="flavor-tags">
+                {% for note in product.brewing_notes[:3] %}
+                    <span class="tag">{{ note }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            {% if product.description %}
+            <ul class="features">
+                {% for desc in product.description %}
+                    <li>{{ desc }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            
+            <div class="product-form">
+                <div class="price-section">
+                    <div class="main-price">€ {{ "%.2f"|format(product.price) }}</div>
+                    <div class="weight">{{ product.weight }}</div>
+                    {% set price_per_kg = product.price|price_per_kg(product.weight) %}
+                    {% if price_per_kg is not none %}
+                        <div class="price-details">€ {{ "%.2f"|format(price_per_kg) }} / kg</div>
+                    {% endif %}
+                    <div class="shipping">incl. VAT, plus shipping</div>
+                </div>
+                
+                <div class="availability">
+                    {% if product.availability_status == 'In Stock' %}
+                        Available, with you in 2 – 5 days
+                    {% else %}
+                        {{ product.availability_status }}
+                    {% endif %}
+                </div>
+                
+                <div class="add-to-cart">
+                    <input type="number" value="1" min="1" class="quantity">
+                    <button class="add-to-cart-btn">Add to cart</button>
+                </div>
+                
+                <div class="payment-methods">
+                    <!-- Payment method icons will go here -->
+                </div>
+            </div>
+            
+            {% if product.ingredients %}
+            <div class="ingredients-dropdown">
+                <button class="dropdown-btn">
+                    Ingredients
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="dropdown-content">
+                    
+                    <h3 class="ingredient-title">{{ product.product_name }}</h3>
+                    
+                    <p class="ingredient-list">
+                        {{ product.ingredients|join(', ') }}
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% else %}
+    <div class="error-message">
+        <p>Product not found</p>
+    </div>
+    {% endif %}
+
+    {% include 'components/weLoveWhatWeDo.html' %}
+    {% include 'components/yourBenefits.html' %}
+    {% include 'utilities/footer.html' %}
+</body>
+</html>
