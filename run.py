@@ -543,6 +543,16 @@ def cart():
     """Shopping cart management page."""
     return render_template('cart.html')
 
+@app.route('/checkout')
+def checkout():
+    """Shopping checkout page."""
+    return render_template('checkout.html')
+
+@app.route('/order')
+def order():
+    """Shopping order management page."""
+    return render_template('order.html')
+
 @app.route('/admins/dashboard', methods=['GET', 'POST'])
 def dashboard():
     if request.method == 'POST':
