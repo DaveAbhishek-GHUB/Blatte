@@ -543,6 +543,11 @@ def cart():
     """Shopping cart management page."""
     return render_template('cart.html')
 
+@app.route('/products')
+def products():
+    """Shopping products page."""
+    return render_template('products.html')
+
 @app.route('/checkout')
 def checkout():
     """Shopping checkout page."""
