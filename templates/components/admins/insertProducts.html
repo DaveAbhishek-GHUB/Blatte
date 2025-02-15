@@ -52,7 +52,18 @@
                     </div>
                     <button type="button" class="add-btn" onclick="addInput('description-container', 'description')">+ Add Line</button>
                 </div>
-    
+                
+                <div class="form-group">
+                    <label for="brewing_notes">Brewing Notes</label>
+                    <div class="dynamic-inputs" id="brewing-notes-container">
+                        <div class="input-group">
+                            <input type="text" name="brewing_notes[]" class="brewing-note-input">
+                            <button type="button" class="remove-btn" onclick="removeInput(this)">×</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addInput('brewing-notes-container', 'brewing_notes')">+ Add Note</button>
+                </div>
+                
                 <div class="form-group">
                     <label for="ingredients">Ingredients</label>
                     <div class="dynamic-inputs" id="ingredients-container">
@@ -64,16 +75,6 @@
                     <button type="button" class="add-btn" onclick="addInput('ingredients-container', 'ingredients')">+ Add Ingredient</button>
                 </div>
     
-                <div class="form-group">
-                    <label for="brewing_notes">Brewing Notes</label>
-                    <div class="dynamic-inputs" id="brewing-notes-container">
-                        <div class="input-group">
-                            <input type="text" name="brewing_notes[]" class="brewing-note-input">
-                            <button type="button" class="remove-btn" onclick="removeInput(this)">×</button>
-                        </div>
-                    </div>
-                    <button type="button" class="add-btn" onclick="addInput('brewing-notes-container', 'brewing_notes')">+ Add Note</button>
-                </div>
             </div>
     
             <!-- Product Specifications -->
