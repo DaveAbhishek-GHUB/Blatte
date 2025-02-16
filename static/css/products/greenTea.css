@@ -1,3 +1,6 @@
+/* ==========================================================================
+   Font Declarations
+   ========================================================================== */
 @font-face {
     font-family: 'ScotchModern';
     src: url('/static/fonts/ScotchModern__.woff2') format('woff2');
@@ -5,9 +8,14 @@
     font-style: normal;
 }
 
+/* ==========================================================================
+   Base Layout & Typography
+   ========================================================================== */
 .mainBodyWrapper {
     width: 100%;
     margin-top: 3.8vw;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
 .mainBodyWrapper img {
@@ -16,6 +24,9 @@
     object-fit: cover;
 }
 
+/* ==========================================================================
+   Products Grid Layout
+   ========================================================================== */
 .productsWrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -24,6 +35,9 @@
     background: #fff;
 }
 
+/* ==========================================================================
+   Heading Section
+   ========================================================================== */
 .headingWrapper {
     width: 100%;
     margin-bottom: 3vw;
@@ -32,7 +46,8 @@
 
 .headingWrapper h1 {
     font-size: 2.5vw;
-    font-family: 'ScotchModern', serif;
+    font-family: 'serif-400', serif;
+    font-weight: 400;
     color: #333;
     margin-bottom: 0.5vw;
 }
@@ -40,9 +55,11 @@
 .headingWrapper p {
     font-size: 1.2vw;
     color: #666;
-    font-family: sans-serif;
 }
 
+/* ==========================================================================
+   Product Card Styles
+   ========================================================================== */
 .productWrapper {
     position: relative;
     width: 100%;
@@ -74,6 +91,7 @@
     transform: scale(1.05);
 }
 
+/* Product Tags */
 .tags {
     position: absolute;
     top: 1vw;
@@ -90,6 +108,7 @@
     font-weight: 500;
 }
 
+/* Wishlist Button */
 .wishlist-btn {
     position: absolute;
     top: 1vw;
@@ -117,6 +136,7 @@
     fill: #000;
 }
 
+/* Product Information */
 .productInfo {
     padding: 1.5vw 0;
 }
@@ -147,7 +167,8 @@
 }
 
 .product-title {
-    font-family: 'ScotchModern', serif;
+    font-family: 'serif-400', serif;
+    font-weight: 400;
     font-size: 1.5vw;
     margin-bottom: 0.5vw;
     color: #000;
@@ -160,6 +181,7 @@
     line-height: 1.4;
 }
 
+/* Price and Cart Section */
 .price-cart {
     display: flex;
     justify-content: space-between;
@@ -201,6 +223,9 @@
     object-fit: contain;
 }
 
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
 .hero-section {
     position: relative;
     width: 100%;
@@ -220,35 +245,36 @@
 
 .hero-content h1 {
     font-size: 4.5vw;
-    font-weight: 300;
+    font-family: 'serif-400', serif;
+    font-weight: 400;
     margin-bottom: 1vw;
-    font-family: 'ScotchModern', serif;
 }
 
 .hero-content p {
     font-size: 1.2vw;
     line-height: 1.5;
     max-width: 800px;
-    font-family: sans-serif;
 }
 
+/* ==========================================================================
+   Magazine Section
+   ========================================================================== */
 .magazine-section {
-    padding: 4vw 0;
+    padding: 3vw 1.5vw;
     background-color: rgb(208, 227, 178);
     text-align: left;
-    padding: 3vw 1.5vw;
 }
 
 .magazine-section h1 {
     font-size: 2.5vw;
     margin-bottom: 0.8vw;
-    font-family: 'ScotchModern', serif;
+    font-family: 'serif-400', serif;
+    font-weight: 400;
 }
 
 .subtitle {
     font-size: 1.2vw;
     color: #666;
-    font-family: sans-serif;
 }
 
 .magazine-grid {
@@ -277,16 +303,19 @@
 .magazine-item h3 {
     font-size: 1.2vw;
     margin-bottom: 0.8vw;
-    font-family: 'ScotchModern', serif;
+    font-family: 'serif-400', serif;
+    font-weight: 400;
 }
 
 .magazine-item p {
     font-size: 0.9vw;
     line-height: 1.5;
     color: #555;
-    font-family: sans-serif;
 }
 
+/* ==========================================================================
+   Responsive Design - Tablet (max-width: 968px)
+   ========================================================================== */
 @media screen and (max-width: 968px) {
     .cart-btn {
         min-width: 4vw;
@@ -364,6 +393,9 @@
     }
 }
 
+/* ==========================================================================
+   Responsive Design - Mobile Large (max-width: 768px)
+   ========================================================================== */
 @media screen and (max-width: 768px) {
     .mainBodyWrapper {
         margin-top: 5vw;
@@ -409,6 +441,9 @@
     }
 }
 
+/* ==========================================================================
+   Responsive Design - Mobile Small (max-width: 480px)
+   ========================================================================== */
 @media screen and (max-width: 480px) {
     .mainBodyWrapper {
         margin-top: 7vw;

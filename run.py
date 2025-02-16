@@ -20,7 +20,8 @@ from flask import (
     redirect,
     url_for,
     flash,
-    make_response
+    make_response,
+    jsonify
 )
 import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -536,7 +537,58 @@ def shipping_info():
 @app.route('/wishlist')
 def wishlist():
     """User-curated product wishlist management page."""
-    return render_template('wishlist.html')
+    # Check if user is logged in
+    user_email = request.cookies.get('user_email')
+    if not user_email:
+        flash('Please login to view your wishlist', 'error')
+        return redirect(url_for('auth'))
+        
+    conn = get_db_connection()
+    if not conn:
+        flash('Error connecting to database', 'error')
+        return render_template('wishlist.html', products=[])
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # First get user's wishlist
+            cursor.execute("SELECT wishlist FROM users WHERE email = %s", (user_email,))
+            user = cursor.fetchone()
+            
+            if not user or not user['wishlist']:
+                return render_template('wishlist.html', products=[])
+                
+            # Parse wishlist JSON array
+            wishlist_ids = json.loads(user['wishlist'])
+            
+            if not wishlist_ids:
+                return render_template('wishlist.html', products=[])
+            
+            # Fetch products that are in the wishlist
+            placeholders = ', '.join(['%s'] * len(wishlist_ids))
+            cursor.execute(f"""
+                SELECT * FROM products 
+                WHERE id IN ({placeholders})
+                ORDER BY FIELD(id, {placeholders})
+            """, wishlist_ids + wishlist_ids)  # Pass IDs twice for IN and FIELD
+            
+            products = cursor.fetchall()
+            
+            # Parse JSON fields for each product
+            for product in products:
+                product['description'] = json.loads(product['description']) if product['description'] else []
+                product['additional_images'] = json.loads(product['additional_images']) if product['additional_images'] else []
+                product['ingredients'] = json.loads(product['ingredients']) if product['ingredients'] else []
+                product['brewing_notes'] = json.loads(product['brewing_notes']) if product['brewing_notes'] else []
+            
+            return render_template('wishlist.html', products=products)
+            
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error loading wishlist', 'error')
+        return render_template('wishlist.html', products=[])
+    finally:
+        if conn:
+            conn.close()
 
 @app.route('/cart')
 def cart():
@@ -558,72 +610,58 @@ def order():
     """Shopping order management page."""
     return render_template('order.html')
 
-@app.route('/admins/dashboard', methods=['GET', 'POST'])
+@app.route('/admins/dashboard')
 def dashboard():
-    if request.method == 'POST':
-        try:
-            # Get form data
-            product_data = {
-                'product_name': request.form['product_name'],
-                'price': float(request.form['price']),
-                'product_category': request.form['product_category'],
-                'description': json.dumps(request.form.getlist('description[]')),
-                'ingredients': json.dumps(request.form.getlist('ingredients[]')),
-                'brewing_notes': json.dumps(request.form.getlist('brewing_notes[]')),
-                'main_product_image': request.form['main_product_image'],
-                'additional_images': json.dumps(request.form.getlist('additional_images[]')),
-                'weight': request.form['weight'],
-                'dimensions': request.form['dimensions'],
-                'availability_status': request.form['availability_status'],
-                'discount_percentage': int(request.form['discount_percentage'] or 0)
-            }
-
-            conn = get_db_connection()
-            if not conn:
-                flash('Database connection error', 'error')
-                return redirect(url_for('dashboard'))
-
-            with conn.cursor() as cursor:
-                insert_query = """
-                    INSERT INTO products (
-                        product_name, price, product_category, description,
-                        ingredients, brewing_notes, main_product_image,
-                        additional_images, weight, dimensions,
-                        availability_status, discount_percentage
-                    ) VALUES (
-                        %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
-                    )
-                """
-                cursor.execute(insert_query, (
-                    product_data['product_name'],
-                    product_data['price'],
-                    product_data['product_category'],
-                    product_data['description'],
-                    product_data['ingredients'],
-                    product_data['brewing_notes'],
-                    product_data['main_product_image'],
-                    product_data['additional_images'],
-                    product_data['weight'],
-                    product_data['dimensions'],
-                    product_data['availability_status'],
-                    product_data['discount_percentage']
-                ))
-                conn.commit()
-
-            flash(f"Product '{product_data['product_name']}' has been added successfully!", 'success')
-            return redirect(url_for('dashboard'))
-
-        except Exception as e:
-            print(f"Error adding product: {e}")
-            flash(f'Error adding product: {str(e)}', 'error')
-            return redirect(url_for('dashboard'))
-        finally:
-            if conn:
-                conn.close()
-    else:
-        # Render the dashboard template
+    """Admin dashboard with user management."""
+    conn = get_db_connection()
+    if not conn:
+        flash('Database connection error', 'error')
         return render_template('admins/dashboard.html')
-    
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Get total users count
+            cursor.execute("SELECT COUNT(*) as total FROM users")
+            total_users = cursor.fetchone()['total']
+            
+            # Get users with cart items count
+            cursor.execute("SELECT COUNT(*) as active FROM users WHERE JSON_LENGTH(carted) > 0")
+            active_carts = cursor.fetchone()['active']
+            
+            # Get total orders count
+            cursor.execute("SELECT SUM(JSON_LENGTH(ordered)) as total FROM users")
+            total_orders = cursor.fetchone()['total'] or 0
+            
+            # Fetch all users with their data
+            cursor.execute("""
+                SELECT 
+                    id, 
+                    firstname, 
+                    lastname, 
+                    email, 
+                    JSON_LENGTH(wishlist) as wishlist_count,
+                    JSON_LENGTH(carted) as cart_count,
+                    JSON_LENGTH(ordered) as order_count,
+                    created_at
+                FROM users
+                ORDER BY created_at DESC
+            """)
+            users = cursor.fetchall()
+            
+            return render_template('admins/dashboard.html', 
+                                 users=users,
+                                 total_users=total_users,
+                                 active_carts=active_carts,
+                                 total_orders=total_orders)
+                                 
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error loading user data', 'error')
+        return render_template('admins/dashboard.html')
+    finally:
+        if conn:
+            conn.close()
+
 @app.route('/productDetails/<int:id>')
 def product_details(id):
     """Product details page with dynamic product loading."""
@@ -675,6 +713,106 @@ def price_per_kg_filter(price, weight):
         return float(price) / weight_float * 1000
     except (ValueError, TypeError, ZeroDivisionError):
         return None
+
+@app.route('/admin/delete-user/<int:user_id>', methods=['DELETE'])
+def delete_user(user_id):
+    """Delete a user and return JSON response."""
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({'success': False, 'message': 'Database connection error'}), 500
+        
+    try:
+        with conn.cursor() as cursor:
+            # Check if user exists
+            cursor.execute("SELECT id FROM users WHERE id = %s", (user_id,))
+            if not cursor.fetchone():
+                return jsonify({'success': False, 'message': 'User not found'}), 404
+                
+            # Delete the user
+            cursor.execute("DELETE FROM users WHERE id = %s", (user_id,))
+            conn.commit()
+            
+            return jsonify({'success': True, 'message': 'User deleted successfully'})
+            
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        return jsonify({'success': False, 'message': 'Database error occurred'}), 500
+    finally:
+        if conn:
+            conn.close()
+
+@app.route('/api/wishlist/<int:product_id>', methods=['GET', 'POST'])
+def toggle_wishlist(product_id):
+    """Add or remove product from user's wishlist."""
+    print(f"Received {request.method} request for product ID: {product_id}")  # Debug log
+    
+    user_email = request.cookies.get('user_email')
+    if not user_email:
+        print("No user email found in cookies")  # Debug log
+        return jsonify({'success': False, 'message': 'Please login first'}), 401
+        
+    print(f"User email: {user_email}")  # Debug log
+    
+    conn = get_db_connection()
+    if not conn:
+        print("Database connection failed")  # Debug log
+        return jsonify({'success': False, 'message': 'Database connection error'}), 500
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Get current wishlist
+            cursor.execute("SELECT wishlist FROM users WHERE email = %s", (user_email,))
+            user = cursor.fetchone()
+            
+            if not user:
+                print(f"No user found for email: {user_email}")  # Debug log
+                return jsonify({'success': False, 'message': 'User not found'}), 404
+                
+            # Initialize empty wishlist if None
+            current_wishlist = user['wishlist'] if user['wishlist'] else '[]'
+            wishlist = json.loads(current_wishlist)
+            print(f"Current wishlist: {wishlist}")  # Debug log
+            
+            if request.method == 'POST':
+                # Toggle product in wishlist
+                if product_id in wishlist:
+                    wishlist.remove(product_id)
+                    message = 'Product removed from wishlist'
+                    in_wishlist = False
+                else:
+                    wishlist.append(product_id)
+                    message = 'Product added to wishlist'
+                    in_wishlist = True
+                
+                print(f"Updated wishlist: {wishlist}")  # Debug log
+                
+                # Update wishlist in database
+                cursor.execute("""
+                    UPDATE users 
+                    SET wishlist = %s 
+                    WHERE email = %s
+                """, (json.dumps(wishlist), user_email))
+                conn.commit()
+                
+                print(f"Database updated. Message: {message}")  # Debug log
+            else:  # GET request
+                in_wishlist = product_id in wishlist
+                message = 'Wishlist status checked'
+            
+            response_data = {
+                'success': True, 
+                'message': message,
+                'in_wishlist': in_wishlist
+            }
+            print(f"Sending response: {response_data}")  # Debug log
+            return jsonify(response_data)
+            
+    except Exception as e:
+        print(f"Error in wishlist operation: {e}")  # Debug log
+        return jsonify({'success': False, 'message': str(e)}), 500
+    finally:
+        if conn:
+            conn.close()
 
 # ========== APPLICATION ENTRY POINT ==========
 if __name__ == '__main__':

@@ -1,6 +1,5 @@
 .users-dashboard {
     padding: 24px;
-    background: #ffffff;
 }
 
 /* Stats Cards Styling */
@@ -13,44 +12,45 @@
 
 .stat-card {
     background: white;
-    padding: 20px;
-    border-radius: 8px;
+    padding: 24px;
+    border-radius: 12px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
 }
 
 .stat-card h3 {
-    color: #6b7280;
-    font-size: 14px;
-    margin-bottom: 8px;
+    color: #4b5563;
+    font-size: 0.875rem;
+    margin-bottom: 12px;
+    font-weight: 500;
 }
 
 .stat-value .number {
-    font-size: 24px;
+    font-size: 1.875rem;
     font-weight: 600;
-    color: #111827;
-}
-
-.change {
-    font-size: 12px;
-    padding: 4px 8px;
-    border-radius: 12px;
-    margin-left: 8px;
+    color: #1f2937;
 }
 
 /* Table Section Styling */
 .users-table-section {
     background: white;
-    border-radius: 8px;
+    border-radius: 12px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
 .table-header {
-    padding: 20px;
+    padding: 24px;
     border-bottom: 1px solid #e5e7eb;
 }
 
 .table-header h2 {
-    font-size: 18px;
+    font-size: 1.25rem;
+    color: #1f2937;
     margin-bottom: 16px;
 }
 
@@ -60,45 +60,27 @@
     align-items: center;
 }
 
-.view-filters {
-    display: flex;
-    gap: 12px;
-}
-
-.view-filters button {
-    padding: 8px 16px;
-    border: none;
-    background: none;
-    color: #6b7280;
-    cursor: pointer;
-}
-
-.view-filters button.active {
-    color: #111827;
-    border-bottom: 2px solid #111827;
-}
-
-.right-actions {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-}
-
 .search-box input {
-    padding: 8px 12px;
-    border: 1px solid #e5e7eb;
+    padding: 8px 16px;
+    border: 1px solid the #e5e7eb;
     border-radius: 6px;
-    width: 200px;
+    width: 300px;
+    font-size: 0.875rem;
 }
 
-.filters-btn {
+.export-btn {
     padding: 8px 16px;
-    background: white;
-    border: 1px solid #e5e7eb;
+    background: #6c5ce7;
+    color: white;
+    border: none;
     border-radius: 6px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: background-color 0.2s;
+}
+
+.export-btn:hover {
+    background: #5849c4;
 }
 
 /* Table Styling */
@@ -109,58 +91,89 @@
 
 .users-table th,
 .users-table td {
-    padding: 12px 20px;
+    padding: 16px 24px;
     text-align: left;
     border-bottom: 1px solid #e5e7eb;
+}
+
+/* Add specific styling for the ID column */
+.users-table th:first-child,
+.users-table td:first-child {
+    width: 80px;
+    text-align: center;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.users-table th {
+    background: #f9fafb;
+    color: #4b5563;
+    font-weight: 500;
+    font-size: 0.875rem;
 }
 
 .user-info {
     display: flex;
     align-items: center;
-    gap: 12px;
-}
-
-.user-info img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
 }
 
 .user-name {
-    display: block;
+    color: #1f2937;
     font-weight: 500;
 }
 
-.user-handle {
-    color: #6b7280;
-    font-size: 14px;
+.action-buttons {
+    display: flex;
+    gap: 8px;
 }
 
-.role {
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-size: 14px;
-}
-
-.role.general {
-    background: #f3f4f6;
-    color: #374151;
-}
-
-.role.admin {
-    background: #fef2f2;
-    color: #dc2626;
-}
-
-.role.creator {
-    background: #fff7ed;
-    color: #c2410c;
-}
-
-.more-options {
+.view-btn, .delete-btn {
+    padding: 6px 12px;
     border: none;
-    background: none;
+    border-radius: 4px;
     cursor: pointer;
-    color: #6b7280;
-    font-size: 20px;
+    font-size: 0.75rem;
+    transition: background-color 0.2s;
+}
+
+.view-btn {
+    background: #6c5ce7;
+    color: white;
+}
+
+.view-btn:hover {
+    background: #5849c4;
+}
+
+.delete-btn {
+    background: none;
+    color: red;
+    padding: 0;
+}
+
+.delete-btn:hover {
+    background: none;
+    color: black;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .search-box input {
+        width: 200px;
+    }
+    
+    .users-table th,
+    .users-table td {
+        padding: 12px 16px;
+    }
 }

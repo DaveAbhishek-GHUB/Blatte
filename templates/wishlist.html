@@ -16,9 +16,29 @@
         <main>
             <div class="wishlist-container">
                 <h1 class="wishlist-title">Wishlist</h1>
-                <div class="empty-wishlist">
-                    <p class="empty-text">Your wishlist is empty</p>
-                    <a href="#"><button class="discover-btn">Discover more</button></a>
+                <div class="wishlist-items">
+                    {% if products %}
+                        {% for product in products %}
+                        <div class="wishlist-item" data-product-id="{{ product.id }}">
+                            <a href="{{ url_for('product_details', id=product.id) }}" class="product-link">
+                                <img src="{{ product.main_product_image }}" alt="{{ product.product_name }}" class="product-image">
+                            </a>
+                            <div class="product-details">
+                                <h3 class="product-name">{{ product.product_name }}</h3>
+                                <p class="product-price">€{{ "%.2f"|format(product.price) }}</p>
+                                <button class="add-to-cart-btn">Add to Cart</button>
+                                <button class="remove-btn" onclick="removeFromWishlist({{ product.id }})">Remove</button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-wishlist">
+                            <p class="empty-text">Your wishlist is empty</p>
+                            <a href="/products">
+                                <button class="discover-btn">Discover Products</button>
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
 
@@ -36,6 +56,35 @@
             {% include 'utilities/footer.html' %}
         </footer>
     </div>
+
+    <script>
+    function removeFromWishlist(productId) {
+        fetch(`/api/wishlist/${productId}`, {
+            method: 'POST',
+            credentials: 'same-origin'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Remove product from DOM
+                const item = document.querySelector(`.wishlist-item[data-product-id="${productId}"]`);
+                item.remove();
+                
+                // Check if wishlist is empty
+                const items = document.querySelectorAll('.wishlist-item');
+                if (items.length === 0) {
+                    location.reload(); // Reload to show empty state
+                }
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error updating wishlist');
+        });
+    }
+    </script>
 </body>
 
 </html>

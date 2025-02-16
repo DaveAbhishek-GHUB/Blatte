@@ -25,17 +25,86 @@ main {
 .wishlist-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding: 2rem;
     min-height: 60vh;
-    text-align: center;
 }
 
 .wishlist-title {
     margin-bottom: 40px;
     font-family: 'Times New Roman', serif;
     letter-spacing: 1px;
-    padding-right: 1100px;
+}
+
+.wishlist-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    width: 100%;
+}
+
+.wishlist-item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e0e0e0;
+    padding: 1rem;
+    background-color: white;
+    transition: box-shadow 0.3s ease;
+}
+
+.wishlist-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.product-name {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.product-price {
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+}
+
+.add-to-cart-btn {
+    padding: 10px 20px;
+    background-color: #000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #333;
+}
+
+.remove-btn {
+    padding: 8px 20px;
+    background-color: white;
+    color: #000;
+    border: 1px solid #000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.remove-btn:hover {
+    background-color: #f0f0f0;
 }
 
 .empty-wishlist {
@@ -86,4 +155,46 @@ footer {
     .additional-sections {
         flex-direction: column;
     }
+    
+    .wishlist-items {
+        grid-template-columns: 1fr;
+    }
+    
+    .wishlist-container {
+        padding: 1rem;
+    }
+}
+
+.wishlist-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 100; /* Increased z-index */
+    padding: 0.5rem;
+    pointer-events: auto; /* Ensure clicks are captured */
+}
+
+.product-link {
+    position: relative;
+    z-index: 1;
+}
+
+.wishlist-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke: #000;
+    transition: fill 0.3s ease;
+    pointer-events: none; /* Prevent SVG from capturing clicks */
+}
+
+.wishlist-btn:hover svg {
+    fill: rgba(0, 0, 0, 0.1);
+}
+
+/* Add this to prevent click events on parent elements from interfering */
+.productImage {
+    position: relative;
 }

@@ -32,7 +32,7 @@
                             {% if product.main_product_image %}
                                 <img src="{{ product.main_product_image }}" alt="{{ product.product_name|default('Product Image') }}">
                             {% endif %}
-                            <button class="wishlist-btn">
+                            <button class="wishlist-btn" data-product-id="{{ product.id }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                                 </svg>
@@ -73,5 +73,89 @@
                 </div>
                 {% endif %}
             </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add click event listeners to all wishlist buttons
+    const wishlistButtons = document.querySelectorAll('.wishlist-btn');
+    
+    wishlistButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const productId = this.dataset.productId;
+            console.log('Clicked wishlist button for product:', productId);  // Debug log
+            
+            fetch(`/api/wishlist/${productId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                credentials: 'same-origin'
+            })
+            .then(response => {
+                console.log('Response status:', response.status);  // Debug log
+                console.log('Response headers:', response.headers);  // Debug log
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response data:', data);  // Debug log
+                
+                if (data.success) {
+                    const svg = this.querySelector('svg');
+                    const newFillColor = data.in_wishlist ? '#000' : 'none';
+                    console.log(`Setting SVG fill to: ${newFillColor}`);  // Debug log
+                    svg.style.fill = newFillColor;
+                    
+                    // Show a temporary success message
+                    const message = data.in_wishlist ? 'Added to wishlist' : 'Removed from wishlist';
+                    const toast = document.createElement('div');
+                    toast.className = 'toast-message';
+                    toast.textContent = message;
+                    document.body.appendChild(toast);
+                    setTimeout(() => toast.remove(), 2000);
+                } else {
+                    console.log('Operation failed:', data.message);  // Debug log
+                    if (data.message === 'Please login first') {
+                        window.location.href = '/auth';
+                    } else {
+                        alert(data.message);
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error details:', error);  // Debug log
+                alert('Error updating wishlist. Please try again.');
+            });
+        });
+    });
+});
+</script>
+
+<style>
+.toast-message {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    z-index: 1000;
+    animation: fadeIn 0.3s, fadeOut 0.3s 1.7s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+</style>
 </body>
 </html>

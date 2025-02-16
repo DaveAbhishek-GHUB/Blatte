@@ -1,49 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags for proper character encoding and responsive viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Dynamic title using JavaScript module -->
     <script type="module">
         import { headersName } from '../../static/javascripts/headersName.js';
         document.title = headersName.dashboard;
     </script>
 
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admins/dashboard.css') }}">
-    <!-- Include Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Feather Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 </head>
 <body>
+    <!-- Sidebar Navigation -->
     <div class="sidebar">
+        <!-- Logo Container -->
         <div class="logo">
-            <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/LOGO/clean_canvas_image-removebg.png?updatedAt=1738715178516" alt="Logo">
+            <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/LOGO/clean_canvas_image-removebg.png?updatedAt=1738715178516" alt="Logo">    
         </div>
         
+        <!-- Main Navigation Menu -->
         <nav class="nav-menu">
             <a href="#" class="nav-item active" onclick="showContent('dashboard')">
-                <i class="fas fa-chart-line"></i>
+                <i data-feather="activity"></i>
                 <span>Dashboard</span>
             </a>
             
             <a href="#" class="nav-item" onclick="showContent('insertProducts')">
-                <i class="fas fa-shopping-cart"></i>
+                <i data-feather="shopping-bag"></i>
                 <span>Add Products</span>
             </a>
 
             <a href="#" class="nav-item" onclick="showContent('usersInformation')">
-                <i class="fas fa-shopping-cart"></i>
+                <i data-feather="users"></i>
                 <span>users information</span>
             </a>
+        </nav>
         
+        <!-- Logout Button -->
         <a href="#" class="logout">
-            <i class="fas fa-sign-out-alt"></i>
+            <i data-feather="log-out"></i>
             <span>Log Out</span>
         </a>
     </div>
 
+    <!-- Main Content Area -->
     <div class="main-content">
+        <!-- Header Section -->
         <header class="header">
             <h1 class="header-title">Dashboard</h1>
             <div class="header-actions">
+                <!-- Top Navigation -->
                 <nav class="top-nav">
                     <a href="/" class="nav-link">Home</a>
                     <a href="/products" class="nav-link">products</a>
@@ -52,6 +65,8 @@
                 </nav>
             </div>
         </header>
+
+        <!-- Dynamic Content Sections -->
         <div id="dashboard-content">
             {% include 'components/admins/dashboard.html' %}
         </div>
@@ -62,6 +77,12 @@
             {% include 'components/admins/usersinformation.html' %}
         </div>
     </div>
+
+    <!-- JavaScript Files -->
     <script src="{{ url_for('static', filename='javascripts/admins/dashboard.js') }}"></script>
+    <script>
+        // Initialize Feather Icons
+        feather.replace();
+    </script>
 </body>
 </html>
