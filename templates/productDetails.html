@@ -85,11 +85,13 @@
                     {% endif %}
                 </div>
                 
+                <a href="/cart">
                 <div class="add-to-cart">
                     <input type="number" value="1" min="1" class="quantity">
                     <button class="add-to-cart-btn">Add to cart</button>
                 </div>
-                
+                </a>
+
                 <div class="payment-methods">
                     <!-- Payment method icons will go here -->
                 </div>
@@ -119,6 +121,7 @@
     </div>
     {% endif %}
 
+    {% include 'components/thejourneyofourteaintoyourcup.html' %}
     {% include 'components/weLoveWhatWeDo.html' %}
     {% include 'components/yourBenefits.html' %}
     {% include 'utilities/footer.html' %}
