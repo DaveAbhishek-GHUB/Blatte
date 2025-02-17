@@ -26,8 +26,8 @@
                             <div class="product-details">
                                 <h3 class="product-name">{{ product.product_name }}</h3>
                                 <p class="product-price">€{{ "%.2f"|format(product.price) }}</p>
-                                <button class="add-to-cart-btn">Add to Cart</button>
-                                <button class="remove-btn" onclick="removeFromWishlist({{ product.id }})">Remove</button>
+                                <button class="add-to-cart-btn" onclick="addToCart('{{ product.id }}')">Add to Cart</button>
+                                <button class="remove-btn" onclick="removeFromWishlist('{{ product.id }}')">Remove</button>
                             </div>
                         </div>
                         {% endfor %}
