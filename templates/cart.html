@@ -5,12 +5,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/cart.css">
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 
 <body>
     {% include 'utilities/header.html' %}
     <div class="container">
         <div class="header">My Cart</div>
+
+        <!-- Progress Bar -->
+        <div class="checkout-progress">
+            <div class="progress-step active">
+                <div class="step-icon">
+                    <i data-feather="shopping-cart"></i>
+                </div>
+                <span>Cart</span>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step">
+                <div class="step-icon">
+                    <i data-feather="credit-card"></i>
+                </div>
+                <span>Payment</span>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step">
+                <div class="step-icon">
+                    <i data-feather="check-circle"></i>
+                </div>
+                <span>Confirmation</span>
+            </div>
+        </div>
 
         {% if products %}
             {% for product in products %}
@@ -111,6 +136,11 @@
                     console.error('Fetch error:', error);
                 });
         }
+
+        // Initialize Feather Icons after DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            feather.replace();
+        });
     </script>
 </body>
 </html>
