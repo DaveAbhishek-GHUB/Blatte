@@ -58,6 +58,26 @@
     </div>
 
     <script>
+    function addToCart(productId) {
+        fetch(`/api/cart/${productId}`, {
+            method: 'POST',
+            credentials: 'same-origin'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Remove product from wishlist
+                removeFromWishlist(productId);
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error adding to cart');
+        });
+    }
+
     function removeFromWishlist(productId) {
         fetch(`/api/wishlist/${productId}`, {
             method: 'POST',

@@ -45,7 +45,7 @@ h2 {
   padding: 1rem;
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .order-item img {
@@ -71,6 +71,10 @@ h2 {
 }
 
 /* Shipping Method Styling */
+.shipping-method {
+  margin-top: 2rem;
+}
+
 .shipping-options {
   margin-top: 1rem;
 }
