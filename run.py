@@ -590,10 +590,139 @@ def wishlist():
         if conn:
             conn.close()
 
+@app.route('/api/cart/<int:product_id>', methods=['GET', 'POST', 'DELETE'])
+def toggle_cart(product_id):
+    """Add, remove, or check product in user's cart."""
+    user_email = request.cookies.get('user_email')
+    if not user_email:
+        return jsonify({'success': False, 'message': 'Please login first'}), 401
+        
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({'success': False, 'message': 'Database connection error'}), 500
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Get current cart
+            cursor.execute("SELECT carted FROM users WHERE email = %s", (user_email,))
+            user = cursor.fetchone()
+            
+            if not user:
+                return jsonify({'success': False, 'message': 'User not found'}), 404
+                
+            # Initialize empty cart if None
+            current_cart = user['carted'] if user['carted'] else '[]'
+            cart = json.loads(current_cart)
+            
+            if request.method == 'DELETE':
+                # Remove product from cart
+                if product_id in cart:
+                    cart.remove(product_id)
+                    message = 'Product removed from cart'
+                else:
+                    message = 'Product not in cart'
+                
+                # Update cart in database
+                cursor.execute("""
+                    UPDATE users 
+                    SET carted = %s 
+                    WHERE email = %s
+                """, (json.dumps(cart), user_email))
+                conn.commit()
+                
+                return jsonify({
+                    'success': True,
+                    'message': message
+                })
+            
+            elif request.method == 'POST':
+                # Add product to cart if not already present
+                if product_id not in cart:
+                    cart.append(product_id)
+                    message = 'Product added to cart'
+                    in_cart = True
+                    
+                    # Update cart in database
+                    cursor.execute("""
+                        UPDATE users 
+                        SET carted = %s 
+                        WHERE email = %s
+                    """, (json.dumps(cart), user_email))
+                    conn.commit()
+                else:
+                    message = 'Product already in cart'
+                    in_cart = True
+            else:  # GET request
+                in_cart = product_id in cart
+                message = 'Cart status checked'
+            
+            return jsonify({
+                'success': True, 
+                'message': message,
+                'in_cart': in_cart
+            })
+            
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+    finally:
+        if conn:
+            conn.close()
+
 @app.route('/cart')
 def cart():
     """Shopping cart management page."""
-    return render_template('cart.html')
+    # Check if user is logged in
+    user_email = request.cookies.get('user_email')
+    if not user_email:
+        flash('Please login to view your cart', 'error')
+        return redirect(url_for('auth'))
+        
+    conn = get_db_connection()
+    if not conn:
+        flash('Error connecting to database', 'error')
+        return render_template('cart.html', products=[])
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # First get user's cart
+            cursor.execute("SELECT carted FROM users WHERE email = %s", (user_email,))
+            user = cursor.fetchone()
+            
+            if not user or not user['carted']:
+                return render_template('cart.html', products=[])
+                
+            # Parse cart JSON array
+            cart_ids = json.loads(user['carted'])
+            
+            if not cart_ids:
+                return render_template('cart.html', products=[])
+            
+            # Fetch products that are in the cart
+            placeholders = ', '.join(['%s'] * len(cart_ids))
+            cursor.execute(f"""
+                SELECT * FROM products 
+                WHERE id IN ({placeholders})
+                ORDER BY FIELD(id, {placeholders})
+            """, cart_ids + cart_ids)  # Pass IDs twice for IN and FIELD
+            
+            products = cursor.fetchall()
+            
+            # Parse JSON fields for each product
+            for product in products:
+                product['description'] = json.loads(product['description']) if product['description'] else []
+                product['additional_images'] = json.loads(product['additional_images']) if product['additional_images'] else []
+                product['ingredients'] = json.loads(product['ingredients']) if product['ingredients'] else []
+                product['brewing_notes'] = json.loads(product['brewing_notes']) if product['brewing_notes'] else []
+            
+            return render_template('cart.html', products=products)
+            
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error loading cart', 'error')
+        return render_template('cart.html', products=[])
+    finally:
+        if conn:
+            conn.close()
 
 @app.route('/products')
 def products():

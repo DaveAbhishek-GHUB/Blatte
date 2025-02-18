@@ -61,7 +61,7 @@
                                 {% if product.price is defined and product.price %}
                                     <span class="price">From € {{ "%.2f"|format(product.price) }}</span>
                                 {% endif %}
-                                <button class="cart-btn">
+                                <button class="cart-btn" onclick="addToCart('{{ product.id }}', event)">
                                     <img src="../static/images/svgs/shopping-cart-add-02-stroke-rounded.svg" alt="cart">
                                 </button>
                             </div>
@@ -75,5 +75,31 @@
                 </div>
                 {% endif %}
             </div>
+
+<script>
+function addToCart(productId, event) {
+    event.preventDefault(); // Prevent the link from being followed
+    
+    fetch(`/api/cart/${productId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Show toast message
+        const toast = document.createElement('div');
+        toast.className = 'toast-message';
+        toast.textContent = data.message;
+        document.body.appendChild(toast);
+        
+        // Remove toast after 2 seconds
+        setTimeout(() => {
+            toast.remove();
+        }, 2000);
+    });
+}
+</script>
 </body>
 </html>

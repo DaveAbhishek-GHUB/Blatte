@@ -12,37 +12,80 @@
     <div class="container">
         <div class="header">My Cart</div>
 
-        <div class="cart-item">
-            <img src="https://www.paperandtea.com/cdn/shop/files/webHunkyDoryBreakfastCupLeavesCaddy_c0f7fade-742f-4238-8c17-cd13768945b2.jpg?v=1738386179&width=400"
-                alt="Product">
-            <div class="item-details">
-                <h2>Plaid Shirt & Buttoned Skirt Set</h2>
-                <p>Color: OLIVE/MULTI</p>
-                <p>Size: S</p>
-                <p>In Stock</p>
-                <div class="item-actions">
-                    <button>Edit</button>
-                    <button>Remove</button>
-                    <button>Move to Wishlist</button>
-                    <button>Save for Later</button>
+        {% if products %}
+            {% for product in products %}
+            <div class="cart-item" data-product-id="{{ product.id }}">
+                <img src="{{ product.main_product_image }}" alt="{{ product.product_name }}">
+                <div class="item-details">
+                    <h2>{{ product.product_name }}</h2>
+                    {% if product.ingredients %}
+                        <p>{{ product.ingredients|join(', ') }}</p>
+                    {% endif %}
+                    <p>{{ product.product_category }}</p>
+                    <p>{{ product.availability_status }}</p>
+                    <div class="item-actions">
+                        <a href="{{ url_for('product_details', id=product.id) }}" class="button">View Details</a>
+                        <button type="button" onclick="removeFromCart('{{ product.id }}')">Remove</button>
+                        <button type="button" onclick="addToWishlist('{{ product.id }}')">Move to Wishlist</button>
+                    </div>
+                </div>
+                <div class="price-section">
+                    <p>€{{ "%.2f"|format(product.price) }}</p>
+                    <select onchange="updateQuantity('{{ product.id }}', this.value)">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
                 </div>
             </div>
-            <div class="price-section">
-                <p>$39.99</p>
-                <select>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-            </div>
-        </div>
+            {% endfor %}
 
-        <div class="checkout">
-            <a href="/checkout">
-                <button>Checkout</button>
-            </a>
-        </div>
+            <div class="checkout">
+                <a href="/checkout">
+                    <button type="button">Proceed to Checkout</button>
+                </a>
+            </div>
+        {% else %}
+            <div class="empty-cart">
+                <p>Your cart is empty</p>
+                <a href="/" class="continue-shopping">Continue Shopping</a>
+            </div>
+        {% endif %}
     </div>
-</body>
     {% include 'utilities/footer.html' %}
+
+    <script>
+        function removeFromCart(productId) {
+            fetch(`/api/cart/${productId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                }
+            });
+        }
+
+        function addToWishlist(productId) {
+            fetch(`/api/wishlist/${productId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    removeFromCart(productId);
+                }
+            });
+        }
+    </script>
+</body>
 </html>
