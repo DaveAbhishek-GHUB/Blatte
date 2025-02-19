@@ -274,4 +274,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     setupAutocomplete();
+
+    // Update all pay button amounts with the total from the server
+    const totalAmount = document.querySelector('.price-row.total span:last-child').textContent;
+    document.querySelectorAll('.button-amount').forEach(amount => {
+        amount.textContent = totalAmount;
+    });
 });

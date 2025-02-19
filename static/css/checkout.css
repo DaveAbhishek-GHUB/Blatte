@@ -110,7 +110,7 @@ body {
   border: 2px solid var(--border-color);
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .payment-method:hover {
@@ -119,8 +119,8 @@ body {
 }
 
 .payment-method.selected {
-  background-color: #f5f5f5;
-  border-color: #007bff;
+  border-color: var(--primary-color);
+  background: var(--background-light);
 }
 
 .method-icon {
@@ -156,19 +156,9 @@ body {
   opacity: 1;
 }
 
-.payment-method .method-check i {
-  display: none;
-  color: #007bff;
-}
-
-.payment-method.selected .method-check i {
-  display: block;
-}
-
 /* Payment Details Forms */
 .payment-details {
   display: none;
-  transition: all 0.3s ease;
   margin-top: 2rem;
   background: var(--background-light);
   border-radius: 12px;
@@ -178,6 +168,12 @@ body {
 
 .payment-details.active {
   display: block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .payment-form {
@@ -187,6 +183,7 @@ body {
 }
 
 .form-group {
+  position: relative;
   margin-bottom: 1rem;
 }
 
@@ -201,9 +198,9 @@ body {
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
   transition: all 0.2s ease;
   font-size: 1rem;
   color: var(--text-primary);
@@ -277,9 +274,10 @@ textarea {
 }
 
 .error-message {
-  color: #dc3545;
+  color: var(--error-color);
   font-size: 0.875rem;
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
+  min-height: 1.25rem;
 }
 
 /* Success state */
@@ -299,6 +297,15 @@ textarea {
   border-radius: 12px;
   padding: 2rem;
   box-shadow: var(--shadow-md);
+  height: 1000px;
+  display: flex;
+  flex-direction: column;
+}
+
+.order-items {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 1rem;
 }
 
 .order-item {
@@ -376,6 +383,7 @@ textarea {
   
   .order-summary {
     order: -1;
+    height: 800px;
   }
 }
 
@@ -391,6 +399,10 @@ textarea {
   
   .method-info {
     margin: 1rem 0;
+  }
+
+  .order-summary {
+    height: 600px;
   }
 }
 
