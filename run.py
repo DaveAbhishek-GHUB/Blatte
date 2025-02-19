@@ -996,8 +996,8 @@ def toggle_wishlist(product_id):
 
 @app.route('/process_checkout', methods=['POST'])
 def process_checkout():
-    """Handle checkout form submission and save user details"""
-    print("Form data received:", request.form)  # Debug print
+    """Handle checkout form submission with the new user table structure"""
+    print("Starting checkout process...")  # Debug log
     
     user_email = request.cookies.get('user_email')
     if not user_email:
@@ -1005,62 +1005,10 @@ def process_checkout():
         return redirect(url_for('auth'))
         
     try:
-        # Get form data based on payment method
         payment_method = request.form.get('payment_method', 'card')
+        print(f"Payment method: {payment_method}")  # Debug log
+        print(f"Form data: {request.form}")  # Debug log
         
-        # Initialize update fields dictionary with common fields
-        update_data = {
-            'preferred_payment_method': payment_method,
-            'phone_number': request.form.get('phone'),
-            'alt_phone_number': request.form.get('altPhone'),
-            'house_number': request.form.get('houseNo'),
-            'street_address': request.form.get('street'),
-            'pincode': request.form.get('pincode'),
-            'city': request.form.get('city'),
-            'state': request.form.get('state'),
-            'country': request.form.get('country')
-        }
-
-        # Add payment method specific fields
-        if payment_method == 'card':
-            card_fields = {
-                'card_number': request.form.get('cardNumber'),
-                'card_expiry': request.form.get('expiryDate'),
-                'card_cvv': request.form.get('cvv'),
-                # Set other payment fields to NULL
-                'bank_name': None,
-                'account_number': None,
-                'ifsc_code': None,
-                'account_holder': None
-            }
-            update_data.update(card_fields)
-            print("Card payment data:", card_fields)  # Debug print
-            
-        elif payment_method == 'bank':
-            bank_fields = {
-                'bank_name': request.form.get('bankName'),
-                'account_number': request.form.get('accountNumber'),
-                'ifsc_code': request.form.get('ifscCode'),
-                'account_holder': request.form.get('accountHolder'),
-                # Set other payment fields to NULL
-                'card_number': None,
-                'card_expiry': None,
-                'card_cvv': None
-            }
-            update_data.update(bank_fields)
-        else:  # COD
-            # Set all payment fields to NULL for COD
-            payment_fields = {
-                'card_number': None,
-                'card_expiry': None,
-                'card_cvv': None,
-                'bank_name': None,
-                'account_number': None,
-                'ifsc_code': None,
-                'account_holder': None
-            }
-            update_data.update(payment_fields)
-
         conn = get_db_connection()
         if not conn:
             flash('Database connection error', 'error')
@@ -1068,9 +1016,9 @@ def process_checkout():
             
         try:
             with conn.cursor(dictionary=True) as cursor:
-                # Get current cart and ordered items
+                # Get current user data
                 cursor.execute("""
-                    SELECT ordered, carted 
+                    SELECT carted, payment_methods, addresses, ordered 
                     FROM users 
                     WHERE email = %s
                 """, (user_email,))
@@ -1079,45 +1027,115 @@ def process_checkout():
                 if not user_data:
                     flash('User not found', 'error')
                     return redirect(url_for('checkout'))
-                
-                # Process ordered items
-                current_ordered = json.loads(user_data['ordered']) if user_data['ordered'] else []
+
+                # Parse existing JSON data
+                payment_methods = json.loads(user_data['payment_methods']) if user_data['payment_methods'] else []
+                addresses = json.loads(user_data['addresses']) if user_data['addresses'] else []
                 cart_items = json.loads(user_data['carted']) if user_data['carted'] else []
-                current_ordered.extend(cart_items)
-                
-                # Add ordered and carted to update data
-                update_data['ordered'] = json.dumps(current_ordered)
-                update_data['carted'] = '[]'  # Empty the cart
-                
-                # Build SQL query dynamically
-                fields = []
-                values = []
-                for field, value in update_data.items():
-                    fields.append(f"{field} = %s")
-                    values.append(value)
-                
-                # Add WHERE clause value
-                values.append(user_email)
-                
-                # Construct and execute final update query
-                sql = f"""
-                    UPDATE users 
-                    SET {', '.join(fields)}
-                    WHERE email = %s
-                """
-                
-                # Debug prints
-                print("SQL Query:", sql)
-                print("Values:", values)
-                
-                cursor.execute(sql, values)
-                conn.commit()
-                
-                flash('Order placed successfully!', 'success')
-                return redirect(url_for('order'))
+                ordered_items = json.loads(user_data['ordered']) if user_data['ordered'] else []
+
+                print(f"Current cart items: {cart_items}")  # Debug log
+
+                # Create new payment method
+                new_payment_method = {
+                    "id": len(payment_methods) + 1,
+                    "type": payment_method
+                }
+
+                if payment_method == 'card':
+                    new_payment_method.update({
+                        "card_number": request.form.get('cardNumber', ''),
+                        "expiry": request.form.get('expiryDate', ''),
+                        "cvv": request.form.get('cvv', '')
+                    })
+                elif payment_method == 'bank':
+                    new_payment_method.update({
+                        "bank_name": request.form.get('bankName', ''),
+                        "account_number": request.form.get('accountNumber', ''),
+                        "ifsc": request.form.get('ifscCode', '')
+                    })
+
+                # Create new address
+                new_address = {
+                    "id": len(addresses) + 1,
+                    "house_number": request.form.get('houseNo', ''),
+                    "street": request.form.get('street', ''),
+                    "city": request.form.get('city', ''),
+                    "state": request.form.get('state', ''),
+                    "pincode": request.form.get('pincode', ''),
+                    "country": request.form.get('country', ''),
+                    "phone": request.form.get('phone', ''),
+                    "alt_phone": request.form.get('altPhone', '')
+                }
+
+                # Fetch cart items details from products table
+                if cart_items:
+                    placeholders = ', '.join(['%s'] * len(cart_items))
+                    cursor.execute(f"""
+                        SELECT id, product_name, price 
+                        FROM products 
+                        WHERE id IN ({placeholders})
+                    """, cart_items)
+                    products = cursor.fetchall()
+
+                    print(f"Found products: {products}")  # Debug log
+
+                    # Create new order
+                    new_order = {
+                        "order_id": len(ordered_items) + 1001,  # Start from 1001
+                        "products": [{
+                            "product_id": product['id'],
+                            "name": product['product_name'],
+                            "price": str(product['price']),
+                            "quantity": 1  # Add quantity handling if needed
+                        } for product in products],
+                        "total_amount": str(sum(product['price'] for product in products)),
+                        "payment": {
+                            "method_id": new_payment_method['id'],
+                            "type": payment_method,
+                            "details": new_payment_method
+                        },
+                        "payment_status": True,
+                        "shipping_address": new_address,
+                        "order_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    }
+
+                    print(f"New order data: {new_order}")  # Debug log
+
+                    # Update user data
+                    payment_methods.append(new_payment_method)
+                    addresses.append(new_address)
+                    ordered_items.append(new_order)
+
+                    # Update database
+                    update_query = """
+                        UPDATE users 
+                        SET payment_methods = %s,
+                            addresses = %s,
+                            ordered = %s,
+                            carted = '[]'
+                        WHERE email = %s
+                    """
+                    update_values = (
+                        json.dumps(payment_methods),
+                        json.dumps(addresses),
+                        json.dumps(ordered_items),
+                        user_email
+                    )
                     
+                    print(f"Executing update with values: {update_values}")  # Debug log
+                    
+                    cursor.execute(update_query, update_values)
+                    conn.commit()
+
+                    flash('Order placed successfully!', 'success')
+                    return redirect(url_for('order'))
+                else:
+                    flash('Your cart is empty', 'error')
+                    return redirect(url_for('cart'))
+
         except mysql.connector.Error as err:
-            print(f"Database error: {err}")
+            print(f"Database error: {err}")  # Debug log
             flash('Error processing order', 'error')
             return redirect(url_for('checkout'))
         finally:
@@ -1125,7 +1143,7 @@ def process_checkout():
                 conn.close()
                 
     except Exception as e:
-        print(f"Checkout error: {e}")
+        print(f"Checkout error: {e}")  # Debug log
         flash('Error processing checkout', 'error')
         return redirect(url_for('checkout'))
 

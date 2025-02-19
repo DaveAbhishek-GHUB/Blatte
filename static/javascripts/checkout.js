@@ -280,4 +280,89 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.button-amount').forEach(amount => {
         amount.textContent = totalAmount;
     });
+
+    loadSavedData();
 });
+
+function loadSavedData() {
+    fetch('/api/user/saved-data')
+        .then(response => response.json())
+        .then(data => {
+            populateSavedAddresses(data.addresses);
+            populateSavedPaymentMethods(data.payment_methods);
+        })
+        .catch(error => console.error('Error loading saved data:', error));
+}
+
+function populateSavedAddresses(addresses) {
+    const container = document.querySelector('.saved-addresses-list');
+    container.innerHTML = addresses.map(address => `
+        <div class="saved-item" data-address-id="${address.id}">
+            <div class="saved-item-header">
+                <span class="saved-item-title">${address.house_number}, ${address.street}</span>
+                <i data-feather="check-circle" class="check-icon"></i>
+            </div>
+            <div class="saved-item-details">
+                ${address.city}, ${address.state} ${address.pincode}<br>
+                ${address.country}
+            </div>
+        </div>
+    `).join('');
+    
+    // Initialize Feather icons
+    feather.replace();
+    
+    // Add click handlers
+    container.querySelectorAll('.saved-item').forEach(item => {
+        item.addEventListener('click', () => selectSavedAddress(item));
+    });
+}
+
+function populateSavedPaymentMethods(methods) {
+    const container = document.querySelector('.saved-payment-methods-list');
+    container.innerHTML = methods.map(method => `
+        <div class="saved-item" data-method-id="${method.id}">
+            <div class="saved-item-header">
+                <span class="saved-item-title">${method.type === 'card' ? 'Card' : 'Bank Account'}</span>
+                <i data-feather="check-circle" class="check-icon"></i>
+            </div>
+            <div class="saved-item-details">
+                ${method.type === 'card' 
+                    ? `${method.card_number}<br>Expires: ${method.expiry}`
+                    : `${method.bank_name}<br>Account: ${method.account_number}<br>IFSC: ${method.ifsc}`}
+            </div>
+        </div>
+    `).join('');
+    
+    // Initialize Feather icons
+    feather.replace();
+    
+    // Add click handlers
+    container.querySelectorAll('.saved-item').forEach(item => {
+        item.addEventListener('click', () => selectSavedPaymentMethod(item));
+    });
+}
+
+function selectSavedAddress(item) {
+    // Remove selection from other addresses
+    item.closest('.saved-addresses-list')
+        .querySelectorAll('.saved-item')
+        .forEach(i => i.classList.remove('selected'));
+    
+    // Select this address
+    item.classList.add('selected');
+    
+    // You can add logic here to populate the address form with the selected address
+}
+
+function selectSavedPaymentMethod(item) {
+    // Remove selection from other payment methods
+    item.closest('.saved-payment-methods-list')
+        .querySelectorAll('.saved-item')
+        .forEach(i => i.classList.remove('selected'));
+    
+    // Select this payment method
+    item.classList.add('selected');
+    
+    // You can add logic here to handle the selected payment method
+}
