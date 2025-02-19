@@ -39,7 +39,7 @@
             <p class="subtitle">Complete your purchase securely with your preferred payment method.</p>
           </div>
 
-          <!-- Payment Methods with Card Design -->
+          <!-- Payment Methods Section -->
           <div class="payment-methods">
             <div class="payment-method" data-method="card">
               <div class="method-icon">
@@ -81,9 +81,9 @@
             </div>
           </div>
 
-          <!-- Add payment detail forms -->
+          <!-- Payment Details Forms -->
           <div class="payment-details card-details">
-            <form class="payment-form" action="/order" id="paymentForm">
+            <form class="payment-form" action="/process_checkout" method="POST">
               <div class="form-group">
                 <label>Card Number</label>
                 <div class="input-with-icon">
@@ -124,7 +124,7 @@
           </div>
 
           <div class="payment-details bank-details">
-            <form class="payment-form" action="/order" id="bankTransferForm" novalidate>
+            <form class="payment-form" action="/process_checkout" method="POST">
               <div class="form-group">
                 <label>Bank Name</label>
                 <input type="text" 
@@ -179,7 +179,7 @@
           </div>
 
           <div class="payment-details cod-details">
-            <form class="payment-form" action="/order" id="codForm" novalidate>
+            <form class="payment-form" action="/process_checkout" method="POST">
               <div class="form-group">
                 <label>Full Name</label>
                 <input type="text" 

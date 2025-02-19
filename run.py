@@ -943,6 +943,163 @@ def toggle_wishlist(product_id):
         if conn:
             conn.close()
 
+@app.route('/process_checkout', methods=['POST'])
+def process_checkout():
+    """Handle checkout form submission and save user details"""
+    print("Form data received:", request.form)  # Debug print
+    
+    user_email = request.cookies.get('user_email')
+    if not user_email:
+        flash('Please login to complete checkout', 'error')
+        return redirect(url_for('auth'))
+        
+    try:
+        # Get form data based on payment method
+        payment_method = request.form.get('payment_method')
+        if not payment_method:
+            flash('Payment method is required', 'error')
+            return redirect(url_for('checkout'))
+        
+        # Initialize update query components
+        update_fields = []
+        update_values = []
+        
+        # Common address and contact details for all payment methods
+        address_fields = {
+            'phone_number': request.form.get('phone'),
+            'alt_phone_number': request.form.get('altPhone'),
+            'house_number': request.form.get('houseNo'),
+            'street_address': request.form.get('street'),
+            'pincode': request.form.get('pincode'),
+            'city': request.form.get('city'),
+            'state': request.form.get('state'),
+            'country': request.form.get('country')
+        }
+        
+        # Add address fields to update query
+        for field, value in address_fields.items():
+            if value:  # Only add non-empty values
+                update_fields.append(f"{field} = %s")
+                update_values.append(value)
+        
+        # Handle payment method specific fields
+        update_fields.append("preferred_payment_method = %s")
+        update_values.append(payment_method)
+        
+        if payment_method == 'card':
+            card_fields = {
+                'card_number': request.form.get('card_number'),
+                'card_expiry': request.form.get('card_expiry'),
+                'card_cvv': request.form.get('card_cvv')
+            }
+            # Clear bank fields
+            bank_fields = {
+                'bank_name': None,
+                'account_number': None,
+                'ifsc_code': None,
+                'account_holder': None
+            }
+            # Add all fields to update query
+            for field, value in {**card_fields, **bank_fields}.items():
+                update_fields.append(f"{field} = %s")
+                update_values.append(value)
+                
+        elif payment_method == 'bank':
+            bank_fields = {
+                'bank_name': request.form.get('bank_name'),
+                'account_number': request.form.get('account_number'),
+                'ifsc_code': request.form.get('ifsc_code'),
+                'account_holder': request.form.get('account_holder')
+            }
+            # Clear card fields
+            card_fields = {
+                'card_number': None,
+                'card_expiry': None,
+                'card_cvv': None
+            }
+            # Add all fields to update query
+            for field, value in {**bank_fields, **card_fields}.items():
+                update_fields.append(f"{field} = %s")
+                update_values.append(value)
+                
+        elif payment_method == 'cod':
+            # Clear all payment fields
+            payment_fields = {
+                'card_number': None,
+                'card_expiry': None,
+                'card_cvv': None,
+                'bank_name': None,
+                'account_number': None,
+                'ifsc_code': None,
+                'account_holder': None
+            }
+            for field, value in payment_fields.items():
+                update_fields.append(f"{field} = %s")
+                update_values.append(value)
+        
+        # Update database
+        conn = get_db_connection()
+        if not conn:
+            flash('Database connection error', 'error')
+            return redirect(url_for('checkout'))
+            
+        try:
+            with conn.cursor(dictionary=True) as cursor:
+                # Get current cart and ordered items
+                cursor.execute("""
+                    SELECT ordered, carted 
+                    FROM users 
+                    WHERE email = %s
+                """, (user_email,))
+                user_data = cursor.fetchone()
+                
+                if not user_data:
+                    flash('User not found', 'error')
+                    return redirect(url_for('checkout'))
+                
+                # Process ordered items
+                current_ordered = json.loads(user_data['ordered']) if user_data['ordered'] else []
+                cart_items = json.loads(user_data['carted']) if user_data['carted'] else []
+                current_ordered.extend(cart_items)
+                
+                # Add ordered and carted fields to update query
+                update_fields.extend(['ordered = %s', 'carted = %s'])
+                update_values.extend([json.dumps(current_ordered), '[]'])
+                
+                # Build and execute final update query
+                sql = f"""
+                    UPDATE users 
+                    SET {', '.join(update_fields)}
+                    WHERE email = %s
+                """
+                update_values.append(user_email)
+                
+                # Debug prints
+                print("SQL Query:", sql)
+                print("Values:", update_values)
+                
+                cursor.execute(sql, update_values)
+                conn.commit()
+                
+                flash('Order placed successfully!', 'success')
+                return redirect(url_for('order'))
+                    
+        except mysql.connector.Error as err:
+            print(f"Database error: {err}")
+            flash('Error processing order', 'error')
+            return redirect(url_for('checkout'))
+        finally:
+            if conn:
+                conn.close()
+                
+    except Exception as e:
+        print(f"Checkout error: {e}")
+        flash('Error processing checkout', 'error')
+        return redirect(url_for('checkout'))
+
+    flash('Error processing checkout', 'error')
+    return redirect(url_for('checkout'))
+
 # ========== APPLICATION ENTRY POINT ==========
 if __name__ == '__main__':
 

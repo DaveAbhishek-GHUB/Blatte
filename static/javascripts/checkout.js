@@ -2,73 +2,98 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize Feather icons
     feather.replace();
 
+    // Get all payment methods and details
     const paymentMethods = document.querySelectorAll('.payment-method');
     const paymentDetails = document.querySelectorAll('.payment-details');
-    const paymentForm = document.getElementById('paymentForm');
 
-    // Initialize first payment method
+    // Initially hide all payment details except the first one
     paymentDetails.forEach((detail, index) => {
         if (index === 0) {
-            detail.classList.add('active');
-            paymentMethods[0].classList.add('selected');
+            detail.style.display = 'block';
+            const method = paymentMethods[0];
+            method.classList.add('selected');
+            const methodCheck = method.querySelector('.method-check i');
+            if (methodCheck) methodCheck.style.display = 'block';
         } else {
-            detail.classList.remove('active');
+            detail.style.display = 'none';
         }
     });
 
-    // Payment method selection
+    // Add click event listeners to payment methods
     paymentMethods.forEach(method => {
-        method.addEventListener('click', () => {
-            // Remove selected class from all methods
-            paymentMethods.forEach(m => m.classList.remove('selected'));
-            // Add selected class to clicked method
-            method.classList.add('selected');
-
-            // Hide all payment details
-            document.querySelectorAll('.payment-details').forEach(detail => {
-                detail.classList.remove('active');
+        method.addEventListener('click', function() {
+            // Remove selected class and hide check icons from all methods
+            paymentMethods.forEach(m => {
+                m.classList.remove('selected');
+                const checkIcon = m.querySelector('.method-check i');
+                if (checkIcon) checkIcon.style.display = 'none';
             });
 
-            // Show selected payment method details
-            const selectedMethod = method.dataset.method;
-            const selectedDetails = document.querySelector(`.${selectedMethod}-details`);
+            // Add selected class and show check icon for clicked method
+            this.classList.add('selected');
+            const checkIcon = this.querySelector('.method-check i');
+            if (checkIcon) checkIcon.style.display = 'block';
+
+            // Hide all payment details
+            paymentDetails.forEach(detail => {
+                detail.style.display = 'none';
+            });
+
+            // Show the selected payment details
+            const methodType = this.getAttribute('data-method');
+            const selectedDetails = document.querySelector(`.${methodType}-details`);
             if (selectedDetails) {
-                selectedDetails.classList.add('active');
+                selectedDetails.style.display = 'block';
             }
+
+            // Update hidden payment method input in all forms
+            document.querySelectorAll('input[name="payment_method"]').forEach(input => {
+                input.value = methodType;
+            });
+        });
+    });
+
+    // Add hidden payment method input to all forms if not exists
+    document.querySelectorAll('.payment-form').forEach(form => {
+        if (!form.querySelector('input[name="payment_method"]')) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'payment_method';
+            input.value = 'card'; // Default value
+            form.appendChild(input);
+        }
+    });
+
+    // Form submission handling
+    document.querySelectorAll('.payment-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const button = this.querySelector('.pay-button');
+            const buttonContent = button.querySelector('.button-content');
+            const buttonLoader = button.querySelector('.button-loader');
+            
+            // Show loading state
+            if (buttonContent && buttonLoader) {
+                buttonContent.style.display = 'none';
+                buttonLoader.style.display = 'block';
+                button.disabled = true;
+            }
+
+            // Submit the form
+            this.submit();
         });
     });
 
     // Initialize phone inputs
     const phoneInputs = document.querySelectorAll('.phone-input');
-    const phoneInstances = [];
-
     phoneInputs.forEach(input => {
-        const iti = window.intlTelInput(input, {
+        window.intlTelInput(input, {
             utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
             preferredCountries: ['in', 'us', 'gb'],
             separateDialCode: true
         });
-        phoneInstances.push(iti);
-
-        // Validate on input
-        input.addEventListener('input', () => {
-            validatePhoneNumber(input, iti);
-        });
     });
-
-    // Validation functions
-    function validatePhoneNumber(input, iti) {
-        const errorMsg = input.closest('.form-group').querySelector('.error-message');
-        if (!iti.isValidNumber()) {
-            input.classList.add('error');
-            errorMsg.textContent = 'Please enter a valid phone number';
-            return false;
-        } else {
-            input.classList.remove('error');
-            errorMsg.textContent = '';
-            return true;
-        }
-    }
 
     // Add this after the existing validation functions
     let countryList = [];
@@ -216,66 +241,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         return isValid;
-    }
-
-    // Form submission handlers
-    const bankTransferForm = document.getElementById('bankTransferForm');
-    const codForm = document.getElementById('codForm');
-
-    bankTransferForm?.addEventListener('submit', function(e) {
-        e.preventDefault();
-        let isValid = true;
-
-        // Validate all inputs
-        this.querySelectorAll('input').forEach(input => {
-            if (!validateInput(input)) {
-                isValid = false;
-            }
-        });
-
-        if (isValid) {
-            // Proceed with form submission
-            handleFormSubmission(this);
-        }
-    });
-
-    codForm?.addEventListener('submit', function(e) {
-        e.preventDefault();
-        let isValid = true;
-
-        // Validate all inputs
-        this.querySelectorAll('input').forEach(input => {
-            if (input.classList.contains('phone-input')) {
-                const iti = phoneInstances.find(instance => instance.inputElement === input);
-                if (input.required && !validatePhoneNumber(input, iti)) {
-                    isValid = false;
-                }
-            } else if (!validateInput(input)) {
-                isValid = false;
-            }
-        });
-
-        if (isValid) {
-            // Proceed with form submission
-            handleFormSubmission(this);
-        }
-    });
-
-    function handleFormSubmission(form) {
-        const button = form.querySelector('.pay-button');
-        const buttonContent = button.querySelector('.button-content');
-        const buttonLoader = button.querySelector('.button-loader');
-        
-        // Show loading state
-        buttonContent.style.display = 'none';
-        buttonLoader.style.display = 'block';
-        button.disabled = true;
-
-        // Simulate payment processing
-        setTimeout(() => {
-            // Here you would normally handle the actual form submission
-            window.location.href = '/confirmation';
-        }, 2000);
     }
 
     // Real-time validation
