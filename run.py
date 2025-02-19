@@ -420,8 +420,8 @@ def register_user():
             # Create new user record with hashed password and initialized JSON fields
             insert_query = """
                 INSERT INTO users 
-                (firstname, lastname, email, password, wishlist, carted, ordered)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                (firstname, lastname, email, password, wishlist, carted, ordered, payment_methods, addresses)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
             cursor.execute(insert_query, (
                 form_data['firstname'],
@@ -430,7 +430,9 @@ def register_user():
                 generate_password_hash(form_data['password']),
                 '[]',  # Empty JSON array for wishlist
                 '[]',  # Empty JSON array for carted
-                '[]'   # Empty JSON array for ordered
+                '[]',  # Empty JSON array for ordered
+                '[]',  # Empty JSON array for payment_methods
+                '[]'   # Empty JSON array for addresses
             ))
 
             # Set authentication cookie and redirect
@@ -443,6 +445,43 @@ def register_user():
         print(f"Database operation failed: {db_error}")
         flash('System error: Registration temporarily unavailable', 'error')
         return redirect(url_for('register'))
+    finally:
+        if conn:
+            conn.close()
+
+# Add new route to fetch saved user data
+@app.route('/api/user/saved-data')
+def get_saved_user_data():
+    """Fetch saved addresses and payment methods for the logged-in user."""
+    user_email = request.cookies.get('user_email')
+    if not user_email:
+        return jsonify({'success': False, 'message': 'Not logged in'}), 401
+
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({'success': False, 'message': 'Database connection error'}), 500
+
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            cursor.execute("""
+                SELECT addresses, payment_methods 
+                FROM users 
+                WHERE email = %s
+            """, (user_email,))
+            user_data = cursor.fetchone()
+
+            if not user_data:
+                return jsonify({'success': False, 'message': 'User not found'}), 404
+
+            return jsonify({
+                'success': True,
+                'addresses': json.loads(user_data['addresses']) if user_data['addresses'] else [],
+                'payment_methods': json.loads(user_data['payment_methods']) if user_data['payment_methods'] else []
+            })
+
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        return jsonify({'success': False, 'message': 'Database error'}), 500
     finally:
         if conn:
             conn.close()
@@ -785,6 +824,150 @@ def checkout():
         if conn:
             conn.close()
 
+@app.route('/process_checkout', methods=['POST'])
+def process_checkout():
+    """Handle checkout form submission with the new user table structure"""
+    user_email = request.cookies.get('user_email')
+    if not user_email:
+        flash('Please login to complete checkout', 'error')
+        return redirect(url_for('auth'))
+
+    conn = get_db_connection()
+    if not conn:
+        flash('Database connection error', 'error')
+        return redirect(url_for('checkout'))
+
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Get current user data
+            cursor.execute("""
+                SELECT carted, payment_methods, addresses, ordered 
+                FROM users 
+                WHERE email = %s
+            """, (user_email,))
+            user_data = cursor.fetchone()
+
+            if not user_data:
+                flash('User not found', 'error')
+                return redirect(url_for('checkout'))
+
+            # Parse existing JSON data
+            payment_methods = json.loads(user_data['payment_methods']) if user_data['payment_methods'] else []
+            addresses = json.loads(user_data['addresses']) if user_data['addresses'] else []
+            cart_items = json.loads(user_data['carted']) if user_data['carted'] else []
+            ordered_items = json.loads(user_data['ordered']) if user_data['ordered'] else []
+
+            # Create new payment method and address from form data
+            payment_method = request.form.get('payment_method', 'card')
+            new_payment_method = create_payment_method(request.form, payment_method, len(payment_methods))
+            new_address = create_address(request.form, len(addresses))
+
+            # Get cart items details
+            if not cart_items:
+                flash('Your cart is empty', 'error')
+                return redirect(url_for('cart'))
+
+            # Create new order with fetched product details
+            new_order = create_order(cart_items, new_payment_method, new_address, cursor)
+
+            # Update user data
+            payment_methods.append(new_payment_method)
+            addresses.append(new_address)
+            ordered_items.append(new_order)
+
+            # Update database
+            cursor.execute("""
+                UPDATE users 
+                SET payment_methods = %s,
+                    addresses = %s,
+                    ordered = %s,
+                    carted = '[]'
+                WHERE email = %s
+            """, (
+                json.dumps(payment_methods),
+                json.dumps(addresses),
+                json.dumps(ordered_items),
+                user_email
+            ))
+            conn.commit()
+
+            flash('Order placed successfully!', 'success')
+            return redirect(url_for('order'))
+
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error processing order', 'error')
+        return redirect(url_for('checkout'))
+    finally:
+        if conn:
+            conn.close()
+
+# Helper functions for checkout process
+def create_payment_method(form_data, payment_type, method_id):
+    """Create a payment method object from form data"""
+    payment_method = {
+        "id": method_id + 1,
+        "type": payment_type
+    }
+
+    if payment_type == 'card':
+        payment_method.update({
+            "card_number": form_data.get('cardNumber', ''),
+            "expiry": form_data.get('expiryDate', ''),
+            "cvv": form_data.get('cvv', '')
+        })
+    elif payment_type == 'bank':
+        payment_method.update({
+            "bank_name": form_data.get('bankName', ''),
+            "account_number": form_data.get('accountNumber', ''),
+            "ifsc": form_data.get('ifscCode', '')
+        })
+
+    return payment_method
+
+def create_address(form_data, address_id):
+    """Create an address object from form data"""
+    return {
+        "id": address_id + 1,
+        "house_number": form_data.get('houseNo', ''),
+        "street": form_data.get('street', ''),
+        "city": form_data.get('city', ''),
+        "state": form_data.get('state', ''),
+        "pincode": form_data.get('pincode', ''),
+        "country": form_data.get('country', ''),
+        "phone": form_data.get('phone', ''),
+        "alt_phone": form_data.get('altPhone', '')
+    }
+
+def create_order(cart_items, payment_method, shipping_address, cursor):
+    """Create an order object with product details"""
+    placeholders = ', '.join(['%s'] * len(cart_items))
+    cursor.execute(f"""
+        SELECT id, product_name, price 
+        FROM products 
+        WHERE id IN ({placeholders})
+    """, cart_items)
+    products = cursor.fetchall()
+
+    return {
+        "order_id": datetime.now().strftime('%Y%m%d%H%M%S'),
+        "products": [{
+            "product_id": product['id'],
+            "name": product['product_name'],
+            "price": str(product['price']),
+            "quantity": 1
+        } for product in products],
+        "total_amount": str(sum(product['price'] for product in products)),
+        "payment": {
+            "method_id": payment_method['id'],
+            "type": payment_method['type'],
+            "details": payment_method
+        },
+        "payment_status": True,
+        "shipping_address": shipping_address,
+        "order_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
+
 @app.route('/order')
 def order():
     """Shopping order management page."""
@@ -993,159 +1176,6 @@ def toggle_wishlist(product_id):
     finally:
         if conn:
             conn.close()
-
-@app.route('/process_checkout', methods=['POST'])
-def process_checkout():
-    """Handle checkout form submission with the new user table structure"""
-    print("Starting checkout process...")  # Debug log
-    
-    user_email = request.cookies.get('user_email')
-    if not user_email:
-        flash('Please login to complete checkout', 'error')
-        return redirect(url_for('auth'))
-        
-    try:
-        payment_method = request.form.get('payment_method', 'card')
-        print(f"Payment method: {payment_method}")  # Debug log
-        print(f"Form data: {request.form}")  # Debug log
-        
-        conn = get_db_connection()
-        if not conn:
-            flash('Database connection error', 'error')
-            return redirect(url_for('checkout'))
-            
-        try:
-            with conn.cursor(dictionary=True) as cursor:
-                # Get current user data
-                cursor.execute("""
-                    SELECT carted, payment_methods, addresses, ordered 
-                    FROM users 
-                    WHERE email = %s
-                """, (user_email,))
-                user_data = cursor.fetchone()
-                
-                if not user_data:
-                    flash('User not found', 'error')
-                    return redirect(url_for('checkout'))
-
-                # Parse existing JSON data
-                payment_methods = json.loads(user_data['payment_methods']) if user_data['payment_methods'] else []
-                addresses = json.loads(user_data['addresses']) if user_data['addresses'] else []
-                cart_items = json.loads(user_data['carted']) if user_data['carted'] else []
-                ordered_items = json.loads(user_data['ordered']) if user_data['ordered'] else []
-
-                print(f"Current cart items: {cart_items}")  # Debug log
-
-                # Create new payment method
-                new_payment_method = {
-                    "id": len(payment_methods) + 1,
-                    "type": payment_method
-                }
-
-                if payment_method == 'card':
-                    new_payment_method.update({
-                        "card_number": request.form.get('cardNumber', ''),
-                        "expiry": request.form.get('expiryDate', ''),
-                        "cvv": request.form.get('cvv', '')
-                    })
-                elif payment_method == 'bank':
-                    new_payment_method.update({
-                        "bank_name": request.form.get('bankName', ''),
-                        "account_number": request.form.get('accountNumber', ''),
-                        "ifsc": request.form.get('ifscCode', '')
-                    })
-
-                # Create new address
-                new_address = {
-                    "id": len(addresses) + 1,
-                    "house_number": request.form.get('houseNo', ''),
-                    "street": request.form.get('street', ''),
-                    "city": request.form.get('city', ''),
-                    "state": request.form.get('state', ''),
-                    "pincode": request.form.get('pincode', ''),
-                    "country": request.form.get('country', ''),
-                    "phone": request.form.get('phone', ''),
-                    "alt_phone": request.form.get('altPhone', '')
-                }
-
-                # Fetch cart items details from products table
-                if cart_items:
-                    placeholders = ', '.join(['%s'] * len(cart_items))
-                    cursor.execute(f"""
-                        SELECT id, product_name, price 
-                        FROM products 
-                        WHERE id IN ({placeholders})
-                    """, cart_items)
-                    products = cursor.fetchall()
-
-                    print(f"Found products: {products}")  # Debug log
-
-                    # Create new order
-                    new_order = {
-                        "order_id": len(ordered_items) + 1001,  # Start from 1001
-                        "products": [{
-                            "product_id": product['id'],
-                            "name": product['product_name'],
-                            "price": str(product['price']),
-                            "quantity": 1  # Add quantity handling if needed
-                        } for product in products],
-                        "total_amount": str(sum(product['price'] for product in products)),
-                        "payment": {
-                            "method_id": new_payment_method['id'],
-                            "type": payment_method,
-                            "details": new_payment_method
-                        },
-                        "payment_status": True,
-                        "shipping_address": new_address,
-                        "order_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    }
-
-                    print(f"New order data: {new_order}")  # Debug log
-
-                    # Update user data
-                    payment_methods.append(new_payment_method)
-                    addresses.append(new_address)
-                    ordered_items.append(new_order)
-
-                    # Update database
-                    update_query = """
-                        UPDATE users 
-                        SET payment_methods = %s,
-                            addresses = %s,
-                            ordered = %s,
-                            carted = '[]'
-                        WHERE email = %s
-                    """
-                    update_values = (
-                        json.dumps(payment_methods),
-                        json.dumps(addresses),
-                        json.dumps(ordered_items),
-                        user_email
-                    )
-                    
-                    print(f"Executing update with values: {update_values}")  # Debug log
-                    
-                    cursor.execute(update_query, update_values)
-                    conn.commit()
-
-                    flash('Order placed successfully!', 'success')
-                    return redirect(url_for('order'))
-                else:
-                    flash('Your cart is empty', 'error')
-                    return redirect(url_for('cart'))
-
-        except mysql.connector.Error as err:
-            print(f"Database error: {err}")  # Debug log
-            flash('Error processing order', 'error')
-            return redirect(url_for('checkout'))
-        finally:
-            if conn:
-                conn.close()
-                
-    except Exception as e:
-        print(f"Checkout error: {e}")  # Debug log
-        flash('Error processing checkout', 'error')
-        return redirect(url_for('checkout'))
 
 # ========== APPLICATION ENTRY POINT ==========
 if __name__ == '__main__':
