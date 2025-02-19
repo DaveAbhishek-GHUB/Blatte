@@ -111,30 +111,8 @@
         }
 
         function proceedToCheckout() {
-            const productIds = Array.from(document.querySelectorAll('.cart-item')).map(item => item.dataset.productId);
-            const removePromises = productIds.map(id => {
-                return fetch(`/api/cart/${id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-            });
-
-            Promise.all(removePromises)
-                .then(responses => {
-                    // Check if all removals were successful
-                    if (responses.every(response => response.ok)) {
-                        window.location.href = '/checkout'; // Redirect to checkout page
-                    } else {
-                        alert('Error removing items from cart. Please try again.');
-                        console.error('Error responses:', responses);
-                    }
-                })
-                .catch(error => {
-                    alert('An error occurred while processing your request. Please try again.');
-                    console.error('Fetch error:', error);
-                });
+            // Redirect to the checkout page without removing items from the cart
+            window.location.href = '/checkout'; // Redirect to checkout page
         }
 
         // Initialize Feather Icons after DOM is loaded
