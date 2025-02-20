@@ -93,7 +93,8 @@
     align-items: center;
 }
 
-.toast-message {
+/* Remove or comment out the old toast-message styles */
+/* .toast-message {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -103,9 +104,10 @@
     border-radius: 4px;
     z-index: 1000;
     animation: fadeIn 0.3s, fadeOut 0.3s 1.7s;
-}
+} */
 
-@keyframes fadeIn {
+/* Remove old animations if present */
+/* @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
@@ -113,4 +115,4 @@
 @keyframes fadeOut {
     from { opacity: 1; }
     to { opacity: 0; }
-}
+} */

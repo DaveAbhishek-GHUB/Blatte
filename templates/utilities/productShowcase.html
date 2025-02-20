@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/productShowcase.css') }}">
     <script src="{{ url_for('static', filename='javascripts/productShowcase.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/toast.css') }}">
+    <script src="{{ url_for('static', filename='javascripts/toast.js') }}"></script>
 </head>
 <body>
             <!-- Featured Products Section -->
@@ -75,31 +77,5 @@
                 </div>
                 {% endif %}
             </div>
-
-<script>
-function addToCart(productId, event) {
-    event.preventDefault(); // Prevent the link from being followed
-    
-    fetch(`/api/cart/${productId}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Show toast message
-        const toast = document.createElement('div');
-        toast.className = 'toast-message';
-        toast.textContent = data.message;
-        document.body.appendChild(toast);
-        
-        // Remove toast after 2 seconds
-        setTimeout(() => {
-            toast.remove();
-        }, 2000);
-    });
-}
-</script>
 </body>
 </html>

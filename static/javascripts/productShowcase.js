@@ -1,3 +1,34 @@
+// Move showToast and createToastContainer functions to global scope
+function showToast(message, category = 'success') {
+    const toastContainer = document.querySelector('.toast-container') || createToastContainer();
+    
+    const toast = document.createElement('div');
+    toast.className = `toast ${category}`;
+    toast.setAttribute('role', 'alert');
+    
+    const messageElement = document.createElement('p');
+    messageElement.className = 'toast-message';
+    messageElement.textContent = message;
+    
+    toast.appendChild(messageElement);
+    toastContainer.appendChild(toast);
+    
+    // Remove toast after 3 seconds
+    setTimeout(() => {
+        toast.style.animation = 'fadeOut 0.3s ease-in-out forwards';
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
+    }, 3000);
+}
+
+function createToastContainer() {
+    const container = document.createElement('div');
+    container.className = 'toast-container';
+    document.body.appendChild(container);
+    return container;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const wishlistButtons = document.querySelectorAll('.wishlist-btn');
     
@@ -46,25 +77,44 @@ document.addEventListener('DOMContentLoaded', function() {
                     const newFillColor = data.in_wishlist ? '#000' : 'none';
                     svg.style.fill = newFillColor;
                     
-                    // Show a temporary success message
                     const message = data.in_wishlist ? 'Added to wishlist' : 'Removed from wishlist';
-                    const toast = document.createElement('div');
-                    toast.className = 'toast-message';
-                    toast.textContent = message;
-                    document.body.appendChild(toast);
-                    setTimeout(() => toast.remove(), 2000);
+                    showToast(message);
                 } else {
                     if (data.message === 'Please login first') {
                         window.location.href = '/auth';
                     } else {
-                        alert(data.message);
+                        showToast(data.message, 'error');
                     }
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Error updating wishlist. Please try again.');
+                showToast('Error updating wishlist. Please try again.', 'error');
             });
         });
     });
 });
+
+// Add to cart function
+function addToCart(productId, event) {
+    event.preventDefault();
+    event.stopPropagation(); // Add this to prevent event bubbling
+    
+    fetch(`/api/cart/${productId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        const category = data.success ? 'success' : 'error';
+        showToast(data.message || 'Added to cart successfully', category);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('Error adding to cart. Please try again.', 'error');
+    });
+}
