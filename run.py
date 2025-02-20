@@ -57,8 +57,65 @@ def get_db_connection():
 # ========== PRODUCT CATALOG ROUTES ==========
 @app.route('/')
 def index():
-    """Serve the main landing page template."""
-    return render_template('index.html')
+    """Serve the main landing page template with different product categories."""
+    conn = get_db_connection()
+    if not conn:
+        flash('Error connecting to database', 'error')
+        return render_template('index.html', 
+                             random_products=[],
+                             gift_sets=[],
+                             accessories=[])
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Fetch random products
+            cursor.execute("""
+                SELECT * FROM products 
+                ORDER BY RAND() 
+                LIMIT 4
+            """)
+            random_products = cursor.fetchall()
+
+            # Fetch gift sets
+            cursor.execute("""
+                SELECT * FROM products 
+                WHERE product_category = 'Gift Sets'
+                ORDER BY created_at DESC 
+                LIMIT 4
+            """)
+            gift_sets = cursor.fetchall()
+
+            # Fetch tea accessories
+            cursor.execute("""
+                SELECT * FROM products 
+                WHERE product_category = 'Tea Accessories'
+                ORDER BY created_at DESC 
+                LIMIT 4
+            """)
+            accessories = cursor.fetchall()
+
+            # Parse JSON strings to Python objects for all product sets
+            for products in [random_products, gift_sets, accessories]:
+                for product in products:
+                    product['description'] = json.loads(product['description']) if product['description'] else []
+                    product['additional_images'] = json.loads(product['additional_images']) if product['additional_images'] else []
+                    product['ingredients'] = json.loads(product['ingredients']) if product['ingredients'] else []
+                    product['brewing_notes'] = json.loads(product['brewing_notes']) if product['brewing_notes'] else []
+
+            return render_template('index.html', 
+                                random_products=random_products,
+                                gift_sets=gift_sets,
+                                accessories=accessories)
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error loading products', 'error')
+        return render_template('index.html', 
+                             random_products=[],
+                             gift_sets=[],
+                             accessories=[])
+    finally:
+        if conn:
+            conn.close()
 
 @app.route('/teaBlends')
 def tea_blends():

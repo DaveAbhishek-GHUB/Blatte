@@ -91,57 +91,35 @@
     </section>
 
     {# ------ FEATURED PRODUCTS SECTION ------ #}
-    <section class="productsWrapper" aria-label="Featured products">
-        <header class="headingWrapper">
-            <h1>New Beginnings</h1>
-            <p>Let our pure teas accompany you into the year</p>
-        </header>
+    {% with 
+        heading="New Beginnings",
+        subheading="Let our pure teas accompany you into the year",
+        products=random_products|default([])
+    %}
+    {% include 'utilities/productShowcase.html' %}
+    {% endwith %}
 
-        {# Product Card 1 - Blue Earl Tea #}
-        <article class="productWrapper" itemscope itemtype="https://schema.org/Product">
-            <div class="productImage">
-                <div class="tags">
-                    <span class="tag" itemprop="availability">Neu</span>
-                </div>
-                <img src="https://www.paperandtea.com/cdn/shop/files/Blue_20Earl_Caddy_2000x2000_e449f7a4-eacf-4b31-ae08-168c4868de8d.webp?v=1737522125&width=600" 
-                     alt="Blue Earl Tea" 
-                     itemprop="image">
-                <button class="wishlist-btn" aria-label="Add to wishlist">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                    </svg>
-                </button>
-            </div>
-            <div class="productInfo">
-                <div class="flavor-tags" itemprop="keywords">
-                    <span class="flavor-tag">Bergamot</span>
-                    <span class="flavor-tag">Orange Zest</span>
-                    <span class="flavor-tag">Lilac</span>
-                </div>
-                <p class="category" itemprop="category">Black Tea</p>
-                <h2 class="product-title" itemprop="name">BLUE EARL</h2>
-                <p class="description" itemprop="description">Indian organic black tea with bergamot oil and cornflower petals</p>
-                <div class="price-cart">
-                    <span class="price" itemprop="price">From € 22,00</span>
-                    <button class="cart-btn" aria-label="Add to cart">
-                        <img src="../static/images/svgs/shopping-cart-add-02-stroke-rounded.svg" alt="cart">
-                    </button>
-                </div>
-            <!-- </div> -->
-        </article>
-
-        {# Repeat product card pattern for other items #}
-        {# Product Cards 2-4 maintain identical structure with appropriate content #}
-        <!-- PRODUCT CARD 2: Praise of Shadows Tea -->
-        <!-- PRODUCT CARD 3: Golden Earl Tea -->
-        <!-- PRODUCT CARD 4: Mighty Green Tea -->
-        
-    </section>
+    {# ------ GIFT SETS SECTION ------ #}
+    {% with 
+        heading="Cozy moments – the new winter teas",
+        subheading="Enjoy the winter with aromatic blends that will warm you up",
+        products=gift_sets|default([])
+    %}
+    {% include 'utilities/productShowcase.html' %}
+    {% endwith %}
 </div>
 
 {# ========== MARKETING COMPONENTS ========== #}
 {% include '/components/teaShowcase.html' %}    {# Product showcase carousel #}
 {% include '/components/moreAssesories.html' %} {# Accessories promotion #}
+{# ------ TEA ACCESSORIES SECTION ------ #}
+{% with 
+    heading="Our new Stoneware",
+    subheading="Handmade new design line from Portugal exclusively at blatee",
+    products=accessories|default([])
+%}
+{% include 'utilities/productShowcase.html' %}
+{% endwith %}
 {% include '/components/storeSection.html' %}   {# Physical store information #}
 {% include '/components/yourOpinion.html' %}   {# Testimonials section #}
 {% include '/components/yourBenefits.html' %}  {# Membership benefits #}
