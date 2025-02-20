@@ -9,7 +9,7 @@
 <body>
     <div class="insert-products-container">
         <h2>Add New Product</h2>
-        <form id="productForm" class="product-form" enctype="multipart/form-data" method="post" action="/admins/dashboard">
+        <form id="productForm" class="product-form" enctype="multipart/form-data" method="POST" action="{{ url_for('add_product') }}">
             <!-- Basic Information -->
             <div class="form-section">
                 <h3>Basic Information</h3>

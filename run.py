@@ -1234,6 +1234,67 @@ def toggle_wishlist(product_id):
         if conn:
             conn.close()
 
+@app.route('/admins/add-product', methods=['POST'])
+def add_product():
+    """Handle new product submission from admin dashboard."""
+    conn = None  # Initialize conn before try block
+    try:
+        # Get form data
+        product_data = {
+            'product_name': request.form['product_name'],
+            'price': float(request.form['price']),  # This should remain float
+            'weight': request.form.get('weight', ''),  # Make weight optional
+            'product_category': request.form['product_category'],
+            'description': json.dumps(request.form.getlist('description[]')),
+            'ingredients': json.dumps(request.form.getlist('ingredients[]')),
+            'brewing_notes': json.dumps(request.form.getlist('brewing_notes[]')),
+            'main_product_image': request.form['main_product_image'],
+            'additional_images': json.dumps(request.form.getlist('additional_images[]')),
+            'availability_status': request.form['availability_status']
+        }
+
+        conn = get_db_connection()
+        if not conn:
+            flash('Database connection error', 'error')
+            return redirect(url_for('dashboard'))
+
+        with conn.cursor() as cursor:
+            # Insert new product
+            insert_query = """
+                INSERT INTO products (
+                    product_name, price, weight, product_category,
+                    description, ingredients, brewing_notes,
+                    main_product_image, additional_images,
+                    availability_status, created_at
+                ) VALUES (
+                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW()
+                )
+            """
+            cursor.execute(insert_query, (
+                product_data['product_name'],
+                product_data['price'],
+                product_data['weight'] or None,  # Handle empty weight
+                product_data['product_category'],
+                product_data['description'],
+                product_data['ingredients'],
+                product_data['brewing_notes'],
+                product_data['main_product_image'],
+                product_data['additional_images'],
+                product_data['availability_status']
+            ))
+            conn.commit()
+
+        flash('Product added successfully', 'success')
+        return redirect(url_for('dashboard'))
+
+    except Exception as e:
+        print(f"Error adding product: {e}")
+        flash('Error adding product', 'error')
+        return redirect(url_for('dashboard'))
+    finally:
+        if conn:
+            conn.close()
+
 # ========== APPLICATION ENTRY POINT ==========
 if __name__ == '__main__':
 

@@ -27,6 +27,7 @@ html, body {
     width: 100vw;
     height: 30vw;
     position: relative;
+    overflow: hidden;  /* Prevent image overflow */
 }
 
 /* Hero image styling */
@@ -34,6 +35,7 @@ html, body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.8s ease;  /* Subtle zoom effect */
 }
 
 /* Hero text content container */
@@ -44,6 +46,8 @@ html, body {
     flex-direction: column;
     color: #ffffff;
     margin-left: 3vw;
+    opacity: 0;  /* Start hidden */
+    animation: fadeInSlide 1s ease forwards;  /* Fade in and slide animation */
 }
 
 /* Hero subtitle styling */
@@ -63,8 +67,21 @@ html, body {
     margin-top: 1vw;
     width: 18vw;
     padding: 1vw;
-    /* background-color: #ffffff; */
+    background-color: rgba(255, 255, 255, 0.9);
     color: #000000;
+    border: none;
+    border-radius: 0.4vw;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.infoWrapperBTN:hover {
+    background-color: #000000;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Button text sizing */
@@ -80,8 +97,14 @@ html, body {
     display: flex;
     justify-content: center;
     gap: 2vw;
-    overflow-x: scroll;
+    overflow-x: auto;
     background-color: #EEEEEE;
+    scrollbar-width: none;  /* Hide scrollbar Firefox */
+    -ms-overflow-style: none;  /* Hide scrollbar IE/Edge */
+}
+
+.categorySection::-webkit-scrollbar {
+    display: none;  /* Hide scrollbar Chrome/Safari */
 }
 
 /* Individual category item styling */
@@ -91,12 +114,17 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-size: 1.3vw;
     gap: 0.5vw;
     margin-bottom: 2vw;
     text-decoration: none;
     color: black;
+    transition: transform 0.3s ease;
+}
+
+.catProductInfo a:hover {
+    transform: translateY(-5px);
 }
 
 /* Circular category image styling */
@@ -104,6 +132,13 @@ html, body {
     width: 100%;
     height: 100%;
     border-radius: 100vw;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.catProductInfo:hover img {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 /* ========== PRODUCT GRID LAYOUT ========== */
@@ -147,11 +182,13 @@ html, body {
     transition: all 0.3s ease;
     cursor: pointer;
     padding: 0;
+    border-radius: 0.8vw;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
-/* Hover state for product cards */
 .productWrapper:hover {
-    opacity: 0.8;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
 /* Image container with aspect ratio control */
@@ -303,23 +340,48 @@ html, body {
     cursor: pointer;
     transition: all 0.3s ease;
     padding: 0;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Cart button hover state */
-.cart-btn:hover {
+.cart-btn::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
     background: #000;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.3s ease;
 }
 
-/* Cart icon color inversion on hover */
-.cart-btn:hover img {
-    filter: invert(1);
+.cart-btn:hover::before {
+    transform: scale(1);
 }
 
-/* Cart icon sizing */
 .cart-btn img {
     width: 1.5vw;
     height: 1.5vw;
     object-fit: contain;
+    position: relative;
+    z-index: 1;
+    transition: filter 0.3s ease;
+}
+
+.cart-btn:hover img {
+    filter: invert(1);
+}
+
+/* Animations */
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ========== RESPONSIVE BREAKPOINTS ========== */
