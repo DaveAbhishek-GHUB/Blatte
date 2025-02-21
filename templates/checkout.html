@@ -81,23 +81,6 @@
             </div>
           </div>
 
-          <!-- Add this after the payment methods section -->
-          <div class="saved-data-section">
-            <div class="saved-addresses">
-              <h3>Saved Addresses</h3>
-              <div class="saved-addresses-list">
-                <!-- Will be populated by JavaScript -->
-              </div>
-            </div>
-            
-            <div class="saved-payment-methods">
-              <h3>Saved Payment Methods</h3>
-              <div class="saved-payment-methods-list">
-                <!-- Will be populated by JavaScript -->
-              </div>
-            </div>
-          </div>
-
           <!-- Payment Details Forms -->
           <div class="payment-details card-details">
             <form class="payment-form" action="/process_checkout" method="POST">
@@ -134,6 +117,71 @@
                     <i data-feather="help-circle" class="input-icon"></i>
                   </div>
                   <div class="error-message"></div>
+                </div>
+              </div>
+              <!-- Address Fields -->
+              <div class="address-section">
+                <div class="form-group">
+                  <label>House/Flat No.</label>
+                  <input type="text" 
+                         name="houseNo" 
+                         placeholder="Enter house/flat/apartment number" 
+                         required>
+                  <div class="error-message"></div>
+                </div>
+                <div class="form-group">
+                  <label>Street Address</label>
+                  <input type="text" 
+                         name="street" 
+                         placeholder="Enter street address" 
+                         required>
+                  <div class="error-message"></div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Pincode</label>
+                    <input type="text" 
+                           name="pincode" 
+                           placeholder="Enter pincode" 
+                           pattern="[0-9]{6}" 
+                           required>
+                    <div class="error-message"></div>
+                  </div>
+                  <div class="form-group">
+                    <label>City</label>
+                    <input type="text" 
+                           name="city" 
+                           class="autocomplete-input"
+                           data-type="city"
+                           placeholder="Enter city" 
+                           required>
+                    <div class="suggestions-container"></div>
+                    <div class="error-message"></div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Country</label>
+                    <input type="text" 
+                           name="country" 
+                           class="autocomplete-input"
+                           data-type="country"
+                           placeholder="Enter country" 
+                           required>
+                    <div class="suggestions-container"></div>
+                    <div class="error-message"></div>
+                  </div>
+                  <div class="form-group">
+                    <label>State</label>
+                    <input type="text" 
+                           name="state" 
+                           class="autocomplete-input"
+                           data-type="state"
+                           placeholder="Enter state" 
+                           required>
+                    <div class="suggestions-container"></div>
+                    <div class="error-message"></div>
+                  </div>
                 </div>
               </div>
               <button type="submit" class="pay-button">
@@ -191,6 +239,71 @@
                        required>
                 <div class="error-message"></div>
               </div>
+              <!-- Address Fields -->
+              <div class="address-section">
+                <div class="form-group">
+                  <label>House/Flat No.</label>
+                  <input type="text" 
+                         name="houseNo" 
+                         placeholder="Enter house/flat/apartment number" 
+                         required>
+                  <div class="error-message"></div>
+                </div>
+                <div class="form-group">
+                  <label>Street Address</label>
+                  <input type="text" 
+                         name="street" 
+                         placeholder="Enter street address" 
+                         required>
+                  <div class="error-message"></div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Pincode</label>
+                    <input type="text" 
+                           name="pincode" 
+                           placeholder="Enter pincode" 
+                           pattern="[0-9]{6}" 
+                           required>
+                    <div class="error-message"></div>
+                  </div>
+                  <div class="form-group">
+                    <label>City</label>
+                    <input type="text" 
+                           name="city" 
+                           class="autocomplete-input"
+                           data-type="city"
+                           placeholder="Enter city" 
+                           required>
+                    <div class="suggestions-container"></div>
+                    <div class="error-message"></div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Country</label>
+                    <input type="text" 
+                           name="country" 
+                           class="autocomplete-input"
+                           data-type="country"
+                           placeholder="Enter country" 
+                           required>
+                    <div class="suggestions-container"></div>
+                    <div class="error-message"></div>
+                  </div>
+                  <div class="form-group">
+                    <label>State</label>
+                    <input type="text" 
+                           name="state" 
+                           class="autocomplete-input"
+                           data-type="state"
+                           placeholder="Enter state" 
+                           required>
+                    <div class="suggestions-container"></div>
+                    <div class="error-message"></div>
+                  </div>
+                </div>
+              </div>
               <button type="submit" class="pay-button">
                 <span class="button-content">
                   <i data-feather="lock" class="button-icon"></i>
@@ -232,6 +345,7 @@
                   <div class="error-message"></div>
                 </div>
               </div>
+              <!-- Address Fields -->
               <div class="address-section">
                 <div class="form-group">
                   <label>House/Flat No.</label>
