@@ -39,7 +39,7 @@
 
         {% if products %}
             {% for product in products %}
-            <div class="cart-item" data-product-id="{{ product.id }}">
+            <div class="cart-item" data-product-id="{{ product.id }}" class="fade-in">
                 <img src="{{ product.main_product_image }}" alt="{{ product.product_name }}">
                 <div class="item-details">
                     <h2>{{ product.product_name }}</h2>
@@ -68,7 +68,7 @@
             {% endfor %}
 
             <div class="checkout">
-                <button type="button" onclick="proceedToCheckout()">Proceed to Checkout</button>
+                <button type="button" class="animated-button" onclick="proceedToCheckout()">Proceed to Checkout</button>
             </div>
         {% else %}
             <div class="empty-cart">
