@@ -969,6 +969,9 @@ def process_checkout():
             # Create new order with fetched product details
             new_order = create_order(cart_items, new_payment_method, new_address, cursor)
 
+            # Add order status
+            new_order['status'] = 'inProgress'  # Set the order status to "inProgress"
+
             # Update user data
             payment_methods.append(new_payment_method)
             addresses.append(new_address)
