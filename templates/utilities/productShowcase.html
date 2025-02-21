@@ -13,9 +13,10 @@
             <div class="productsWrapper">
                 <!-- Section Header -->
                 <div class="headingWrapper">
-                    <h1>New Beginnings</h1>
-                    <p>Let our pure teas accompany you into the year</p>
+                    <h1>{{ heading|default("New Beginnings") }}</h1>
+                    <p>{{ subheading|default("Let our pure teas accompany you into the year") }}</p>
                 </div>
+
     
                 <!-- Product Cards -->
                 {% if products %}

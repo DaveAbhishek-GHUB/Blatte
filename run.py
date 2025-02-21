@@ -559,7 +559,7 @@ def login_user():
 
         with conn.cursor(dictionary=True) as cursor:
             cursor.execute("""
-                SELECT email, password FROM users 
+                SELECT email, password, firstname, lastname FROM users 
                 WHERE email = %s
             """, (credentials['email'],))
             
@@ -567,6 +567,10 @@ def login_user():
             if user and check_password_hash(user['password'], credentials['password']):
                 response = make_response(redirect(url_for('index')))
                 response.set_cookie('user_email', credentials['email'], httponly=True)
+                # Set user's full name in a cookie and add debug print
+                full_name = f"{user['firstname']} {user['lastname']}"
+                print(f"Setting user_name cookie to: {full_name}")  # Debug print
+                response.set_cookie('user_name', full_name, httponly=True)
                 flash('Authentication successful: Welcome back', 'success')
                 return response
             
@@ -577,6 +581,7 @@ def login_user():
         print(f"Authentication system error: {auth_error}")
         flash('System error: Login temporarily unavailable', 'error')
         return redirect(url_for('auth'))
+    finally:
         if conn:
             conn.close()
 
@@ -585,6 +590,7 @@ def logout_user():
     """Terminate user session and clear authentication cookies."""
     response = make_response(redirect(url_for('index')))
     response.delete_cookie('user_email')
+    response.delete_cookie('user_name')  # Also delete the name cookie
     flash('Session terminated: Successfully logged out', 'success')
     return response
 
@@ -1066,6 +1072,11 @@ def order():
     """Shopping order management page."""
     return render_template('order.html')
 
+@app.route('/myorders')
+def myorders():
+    """Track & trace order management page."""
+    return render_template('myorders.html')
+
 @app.route('/admins/dashboard')
 def dashboard():
     """Admin dashboard with user management."""
@@ -1327,6 +1338,61 @@ def add_product():
         print(f"Error adding product: {e}")
         flash('Error adding product', 'error')
         return redirect(url_for('dashboard'))
+    finally:
+        if conn:
+            conn.close()
+
+@app.route('/debug/cookies')
+def debug_cookies():
+    """Debug route to check cookies"""
+    return jsonify({
+        'user_email': request.cookies.get('user_email'),
+        'user_name': request.cookies.get('user_name')
+    })
+
+@app.route('/my_profile')
+def my_profile():
+    """User profile page with personalized data."""
+    user_email = request.cookies.get('user_email')
+    if not user_email:
+        flash('Please login to view your profile', 'error')
+        return redirect(url_for('auth'))
+        
+    conn = get_db_connection()
+    if not conn:
+        flash('System error: Unable to load profile', 'error')
+        return redirect(url_for('index'))
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            cursor.execute("""
+                SELECT firstname, lastname, email, carted, ordered 
+                FROM users 
+                WHERE email = %s
+            """, (user_email,))
+            user = cursor.fetchone()
+            
+            if not user:
+                flash('User not found', 'error')
+                return redirect(url_for('index'))
+            
+            # Parse JSON arrays and get counts
+            carted_items = json.loads(user['carted']) if user['carted'] else []
+            ordered_items = json.loads(user['ordered']) if user['ordered'] else []
+            
+            user_data = {
+                'name': f"{user['firstname']} {user['lastname']}",
+                'email': user['email'],
+                'carted_count': len(carted_items),
+                'ordered_count': len(ordered_items)
+            }
+            
+            return render_template('utilities/myprofile.html', user=user_data)
+            
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error loading profile data', 'error')
+        return redirect(url_for('index'))
     finally:
         if conn:
             conn.close()
