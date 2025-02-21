@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/myorders.css">
+</head>
+<body>
+    {% include 'utilities/header.html' %}
+    <div class="orders-container">
+        <!-- Order Status Filter -->
+        <div class="status-filter">
+            <div class="filter-buttons">
+                <button class="filter-btn active">All</button>
+                <button class="filter-btn">In Progress</button>
+                <button class="filter-btn">Delivered</button>
+                <button class="filter-btn">Cancelled</button>
+            </div>
+        </div>
+
+        <!-- Order Items -->
+        <div class="order-list">
+            <!-- In Progress Order -->
+            <div class="order-item">
+                <div class="order-header">
+                    <div class="status-badge in-progress">In progress</div>
+                    <div class="order-date">10 May 2021</div>
+                </div>
+                <div class="order-content">
+                    <div class="product-image-container">
+                        <img src="path/to/product-image.jpg" alt="Product" class="product-image">
+                        <span class="item-count">+4</span>
+                    </div>
+                    <div class="order-details">
+                        <div class="order-id">Order ID: ABC-6457325</div>
+                        <div class="product-name">Blue & pink Silk Saree | Linen Kurta | Printed black & white short kurti & 2 more items</div>
+                        <div class="price">₹ 12,500</div>
+                    </div>
+                    <div class="arrow">›</div>
+                </div>
+            </div>
+
+            <!-- Delivered Orders -->
+            <div class="order-item">
+                <div class="order-header">
+                    <div class="status-badge delivered">Delivered</div>
+                    <div class="order-date">10 May 2021</div>
+                </div>
+                <div class="order-content">
+                    <img src="path/to/table-image.jpg" alt="Table" class="product-image">
+                    <div class="order-details">
+                        <div class="order-id">Order ID: ABC-6457325</div>
+                        <div class="product-name">Two-seater wooden polished dinning table</div>
+                        <div class="price">₹ 8,999</div>
+                    </div>
+                    <div class="arrow">›</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'components/yourBenefits.html' %}
+</body>
+    {% include '/utilities/footer.html' %}
+</html>
