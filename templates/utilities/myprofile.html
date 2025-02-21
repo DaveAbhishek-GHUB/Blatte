@@ -3,76 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/myprofile.css">
+    <title>My Profile - My Dear Club</title>
+    <link rel="stylesheet" href="/static/css/myprofile.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Profile Section -->
-        <div class="profile-section">
-            <div class="profile-info">
-                {% if user %}
-                    <h3>{{ user.name }}</h3>
-                    <div class="profile-details">
-                        <div class="detail-item">
-                            <span class="label">Email Address</span>
-                            <span class="value">{{ user.email }}</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="label">Total Ordered</span>
-                            <span class="value">{{ user.ordered_count }}</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="label">Carted Items</span>
-                            <span class="value">{{ user.carted_count }}</span>
-                        </div>
-                    </div>
-                {% else %}
-                    <p>Please log in to view your profile information.</p>
-                {% endif %}
-            </div>
-        </div>
-
-
-        <!-- Attendance History -->
-        <div class="attendance-section">
-            <div class="attendance-header">
-                <h2>Attendance History</h2>
-            </div>
-
-            <div class="attendance-grid">
-                <!-- Attendance Cards -->
-                <!-- You can repeat this structure for each attendance record -->
-                <div class="attendance-card">
-                    <div class="date-status">
-                        <span class="date">March 08 2023</span>
-                        <span class="status on-time">On Time</span>
-                    </div>
-                    <div class="time-details">
-                        <div class="check-time">
-                            <span>Check In Time</span>
-                            <strong>08:53</strong>
-                        </div>
-                        <div class="check-time">
-                            <span>Check Out Time</span>
-                            <strong>17:15</strong>
-                        </div>
-                    </div>
-                </div>
-                <!-- More attendance cards... -->
-            </div>
-
-            <!-- Pagination -->
-            <div class="pagination">
-                <button class="active">1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>4</button>
-                <button>...</button>
-                <button>8</button>
-                <button>9</button>
-                <button>10</button>
-            </div>
-        </div>
+    <div class="profile-container">
+        <h1 class="club-title">My Dear Club</h1>
+        
+        <img src="/static/images/tea-leaves-logo.svg" alt="Tea Leaves Logo" class="logo-image">
+        
+        <p class="welcome-message">Welcome back Temp!</p>
+        
+        <p class="tea-leaves-info">
+            You have already collected 25 tea leaves. Learn below how you can redeem your tea leaves.
+        </p>
+        
+        <a href="/user/logout" class="logout-link">Logout</a>
     </div>
 </body>
 </html>

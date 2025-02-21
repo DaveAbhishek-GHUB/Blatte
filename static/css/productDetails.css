@@ -6,6 +6,7 @@
     font-size: 14px;
     line-height: 1.6;
     position: relative;
+    animation: fadeIn 0.6s ease-out;
 }
 
 .product-gallery {
@@ -34,12 +35,21 @@
     object-fit: cover;
     border: 1px solid #eaeaea;
     cursor: pointer;
-    transition: border-color 0.2s;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+.thumbnail-list img:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .thumbnail-list img.active {
-    border-color: #2c7873;
+    border-color: #000;
     border-width: 2px;
+    opacity: 1;
+    transform: translateY(-2px);
 }
 
 .main-image {
@@ -57,6 +67,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    transition: opacity 0.4s ease;
 }
 
 .product-info {
@@ -91,7 +102,7 @@
 }
 
 .badge.new {
-    background: #2c7873;
+    background: #000;
     color: #fff;
 }
 
@@ -108,11 +119,13 @@
     border-radius: 20px;
     font-size: 0.85rem;
     color: #4a4a4a;
-    transition: background-color 0.2s;
+    transition: all 0.3s ease;
 }
 
 .tag:hover {
-    background: #f0f0f0;
+    background: #000;
+    color: #fff;
+    transform: translateY(-2px);
 }
 
 .features {
@@ -133,7 +146,7 @@
     content: "✓";
     position: absolute;
     left: 0;
-    color: #2c7873;
+    color: #000;
 }
 
 .product-tabs {
@@ -170,7 +183,7 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: #2c7873;
+    background: #000;
 }
 
 .ingredients-dropdown {
@@ -194,18 +207,28 @@
 }
 
 .dropdown-btn:hover {
-    color: #2c7873;
+    color: #000;
 }
 
 .dropdown-content {
     padding: 1.5rem 0;
-    display: none;
-    font-size: 0.9rem;
-    color: #4a4a4a;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    opacity: 0;
 }
 
 .dropdown-btn.active + .dropdown-content {
-    display: block;
+    max-height: 500px;
+    opacity: 1;
+}
+
+.dropdown-btn .arrow {
+    transition: transform 0.3s ease;
+}
+
+.dropdown-btn.active .arrow {
+    transform: rotate(180deg);
 }
 
 .add-to-cart {
@@ -220,23 +243,38 @@
     border: 1px solid #eaeaea;
     border-radius: 4px;
     font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.quantity:focus {
+    border-color: #000;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+    outline: none;
 }
 
 .add-to-cart-btn {
     flex: 1;
     padding: 1rem;
-    background: #2c7873;
+    background: #000;
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: 500;
-    transition: background-color 0.2s;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .add-to-cart-btn:hover {
-    background: #236561;
+    background: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.add-to-cart-btn:active {
+    transform: translateY(0);
 }
 
 /* Add responsive styles */
@@ -329,5 +367,16 @@
 
     .features li {
         font-size: 0.85rem;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

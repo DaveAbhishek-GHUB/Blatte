@@ -1,188 +1,40 @@
-:root {
-    --primary-color: #ffffff;
-    --secondary-color: #ffffff;
-    --accent-color: #000000;
-    --text-color: #000000;
-    --text-secondary: #a0a0a0;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: var(--primary-color);
-    color: var(--text-color);
-}
-
-.container {
-    max-width: 100%;
-    margin: 0;
-}
-
-/* Profile Section */
-.profile-section {
-    display: flex;
-    margin-bottom: 50px; /* Increased from 30px */
-    margin-top: 120px; /* Increased from 100px */
-    padding: 0 40px; /* Increased from 20px */
-}
-
-.profile-info h3 {
-    margin: 0 0 20px 0; /* Increased bottom margin from 10px */
-    font-size: 20px;
-}
-
-.profile-details {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px; /* Increased from 20px */
-}
-
-.detail-item {
+.profile-container {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px; /* Added spacing between items */
-}
-
-.label {
-    color: var(--text-secondary);
-    font-size: 14px;
-    margin-bottom: 8px; /* Added spacing between label and content */
-}
-
-/* Add media query for smaller screens */
-@media screen and (max-width: 768px) {
-    .profile-details {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 25px; /* Increased from 15px */
-    }
-}
-
-/* Stats Section */
-.stats-section {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px; /* Increased from 20px */
-    margin-bottom: 50px; /* Increased from 30px */
-}
-
-.stat-card {
-    background: var(--secondary-color);
-    padding: 30px; /* Increased from 20px */
-    border-radius: 12px;
-    display: flex;
     align-items: center;
-    gap: 20px; /* Increased from 15px */
+    padding: 40px 20px;
+    text-align: center;
 }
 
-.stat-icon {
+.logout-link {
+    margin-top: 40px;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+}
+
+.club-title {
+    font-family: 'Bodoni MT', 'Times New Roman', serif;
+    font-size: 48px;
+    margin: 30px 0;
+    letter-spacing: 1px;
+}
+
+.logo-image {
+    width: 100px;
+    margin: 30px 0;
+}
+
+.welcome-message {
     font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
 }
 
-.stat-info h4 {
-    margin: 0;
+.tea-leaves-info {
     font-size: 18px;
-}
-
-.stat-info p {
-    margin: 10px 0 0 0; /* Increased top margin from 5px */
-    color: var(--text-secondary);
-    font-size: 14px;
-}
-
-/* Attendance Section */
-.attendance-section {
-    background: var(--secondary-color);
-    border-radius: 12px;
-    padding: 30px; /* Increased from 20px */
-}
-
-.attendance-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px; /* Increased from 20px */
-}
-
-.attendance-actions {
-    display: flex;
-    gap: 15px; /* Increased from 10px */
-}
-
-.attendance-actions button {
-    background: var(--primary-color);
-    color: var(--text-color);
-    border: none;
-    padding: 12px 20px; /* Increased from 8px 15px */
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.attendance-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px; /* Increased from 20px */
-    margin-bottom: 30px; /* Increased from 20px */
-}
-
-.attendance-card {
-    background: var(--primary-color);
-    padding: 25px; /* Increased from 15px */
-    border-radius: 12px;
-}
-
-.date-status {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 25px; /* Increased from 15px */
-}
-
-.status {
-    padding: 6px 12px; /* Increased from 4px 8px */
-    border-radius: 4px;
-    font-size: 12px;
-}
-
-.status.on-time {
-    background: rgba(0, 0, 0, 0.2);
-    color: var(--accent-color);
-}
-
-.time-details {
-    display: flex;
-    justify-content: space-between;
-}
-
-.check-time {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Increased from 5px */
-}
-
-.check-time span {
-    color: var(--text-secondary);
-    font-size: 12px;
-}
-
-/* Pagination */
-.pagination {
-    display: flex;
-    justify-content: center;
-    gap: 15px; /* Increased from 10px */
-    margin-top: 30px; /* Increased from 20px */
-}
-
-.pagination button {
-    background: var(--primary-color);
-    color: var(--text-color);
-    border: none;
-    width: 40px; /* Increased from 30px */
-    height: 40px; /* Increased from 30px */
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.pagination button.active {
-    background: var(--accent-color);
-    color: var(--primary-color);
+    color: #555;
+    max-width: 600px;
+    line-height: 1.5;
+    margin: 0 auto;
 }

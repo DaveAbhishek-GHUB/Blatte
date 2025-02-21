@@ -68,7 +68,8 @@
             
             <div class="product-form">
                 <div class="price-section">
-                    <div class="main-price">€ {{ "%.2f"|format(product.price) }}</div>
+                    <div class="main-price">₹
+                        {{ "%.2f"|format(product.price) }}</div>
                     <div class="weight">{{ product.weight }}</div>
                     {% set price_per_kg = product.price|price_per_kg(product.weight) %}
                     {% if price_per_kg is not none %}

@@ -79,7 +79,7 @@ def index():
             # Fetch gift sets
             cursor.execute("""
                 SELECT * FROM products 
-                WHERE product_category = 'Gift Sets'
+                WHERE product_category = 'Gift Set'
                 ORDER BY created_at DESC 
                 LIMIT 4
             """)
@@ -162,7 +162,7 @@ def gift_sets():
             # Fetch all products, sorted by creation date
             cursor.execute("""
                 SELECT * FROM products 
-                WHERE product_category = 'Gift Sets'
+                WHERE product_category = 'Gift Set'
                 ORDER BY created_at DESC
             """)
             products = cursor.fetchall()
@@ -822,8 +822,44 @@ def cart():
 
 @app.route('/products')
 def products():
-    """Shopping products page."""
-    return render_template('products.html')
+    """Shopping products page with showcase of 16 products from all categories."""
+    conn = get_db_connection()
+    if not conn:
+        flash('Error connecting to database', 'error')
+        return render_template('products.html', products=[])
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Fetch 2 products from each category (8 categories × 2 = 16 products)
+            cursor.execute("""
+                SELECT p.*
+                FROM (
+                    SELECT *,
+                           ROW_NUMBER() OVER (PARTITION BY product_category ORDER BY created_at DESC) as rn
+                    FROM products
+                ) p
+                WHERE p.rn <= 2
+                ORDER BY p.product_category, p.created_at DESC
+            """)
+            
+            products = cursor.fetchall()
+            
+            # Parse JSON fields for each product
+            for product in products:
+                product['description'] = json.loads(product['description']) if product['description'] else []
+                product['additional_images'] = json.loads(product['additional_images']) if product['additional_images'] else []
+                product['ingredients'] = json.loads(product['ingredients']) if product['ingredients'] else []
+                product['brewing_notes'] = json.loads(product['brewing_notes']) if product['brewing_notes'] else []
+            
+            return render_template('products.html', products=products)
+            
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error loading products', 'error')
+        return render_template('products.html', products=[])
+    finally:
+        if conn:
+            conn.close()
 
 @app.route('/checkout')
 def checkout():

@@ -61,7 +61,8 @@
                             {% endif %}
                             <div class="price-cart">
                                 {% if product.price is defined and product.price %}
-                                    <span class="price">From € {{ "%.2f"|format(product.price) }}</span>
+                                    <span class="price">From ₹
+                                        {{ "%.2f"|format(product.price) }}</span>
                                 {% endif %}
                                 <button class="cart-btn" onclick="addToCart('{{ product.id }}', event)">
                                     <img src="../static/images/svgs/shopping-cart-add-02-stroke-rounded.svg" alt="cart">
