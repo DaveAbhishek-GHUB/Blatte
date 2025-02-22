@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admins/order.css') }}">
+</head>
+
+<body>
+    <div class="orders-dashboard">
+        <!-- Stats Cards -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Total Orders</h3>
+                <div class="stat-value">
+                    <span class="number">{{ total_orders }}</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Pending Orders</h3>
+                <div class="stat-value">
+                    <span class="number">{{ pending_orders }}</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Completed Orders</h3>
+                <div class="stat-value">
+                    <span class="number">{{ completed_orders }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Table Section -->
+        <div class="orders-table-section">
+            <div class="table-header">
+                <h2>Order Management</h2>
+                <div class="table-actions">
+                    <div class="search-box">
+                        <input type="text" id="orderSearch" placeholder="Search orders..." oninput="searchOrders()">
+                    </div>
+                    <button class="export-btn" onclick="exportOrderData()">Export Data</button>
+                </div>
+            </div>
+
+            <table class="orders-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Customer Email</th>
+                        <th>Total Amount</th>
+                        <th>Payment Method</th>
+                        <th>Transaction ID</th>
+                        <th>Status</th>
+                        <th>Shipping Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.order_id }}</td>
+                        <td>{{ order.firstname }} {{ order.lastname }}</td>
+                        <td>{{ order.email }}</td>
+                        <td>${{ order.total_amount }}</td>
+                        <td>{{ order.payment_method }}</td>
+                        <td>{{ order.transaction_id }}</td>
+                        <td>{{ order.status }}</td>
+                        <td>{{ order.shipping_address.house_number }}, {{ order.shipping_address.street }}, {{ order.shipping_address.city }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+    function searchOrders() {
+        const searchInput = document.getElementById('orderSearch');
+        const filter = searchInput.value.toLowerCase();
+        const rows = document.getElementsByClassName('order-row');
+
+        for (let row of rows) {
+            const name = row.querySelector('.user-name').textContent.toLowerCase();
+            const email = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+            const shouldShow = name.includes(filter) || email.includes(filter);
+            row.style.display = shouldShow ? '' : 'none';
+        }
+    }
+
+    function deleteOrder(orderId, button) {
+        if (confirm('Are you sure you want to delete this order?')) {
+            fetch(`/admin/delete-order/${orderId}`, {
+                method: 'DELETE',
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Remove the row from the table
+                    button.closest('tr').remove();
+                    // Update the total orders count
+                    const totalOrdersElement = document.querySelector('.stat-card:first-child .number');
+                    const currentCount = parseInt(totalOrdersElement.textContent);
+                    totalOrdersElement.textContent = currentCount - 1;
+                } else {
+                    alert('Error deleting order: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error deleting order. Please try again.');
+            });
+        }
+    }
+
+    function updateOrderStatus(orderId, newStatus) {
+        fetch(`/admin/update-order-status/${orderId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ status: newStatus })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.success) {
+                alert('Error updating order status: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error updating order status. Please try again.');
+        });
+    }
+
+    function exportOrderData() {
+        // Get table data
+        const table = document.querySelector('.orders-table');
+        const rows = Array.from(table.querySelectorAll('tr'));
+        
+        // Prepare CSV content
+        const csvContent = rows.map(row => {
+            const cells = Array.from(row.querySelectorAll('th, td'));
+            return cells.map(cell => {
+                // Get text content and remove any commas to avoid CSV issues
+                let text = cell.textContent.trim().replace(/,/g, '');
+                // Skip the action buttons cell
+                if (!cell.querySelector('.action-buttons') && !cell.querySelector('.status-select')) {
+                    return `"${text}"`;
+                }
+                return '';
+            }).join(',');
+        }).join('\n');
+
+        // Create blob and download link
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        
+        // Set download attributes
+        link.setAttribute('href', url);
+        link.setAttribute('download', `orders_data_${new Date().toISOString().split('T')[0]}.csv`);
+        link.style.visibility = 'hidden';
+        
+        // Trigger download
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    function viewOrder(orderId) {
+        window.location.href = `/admin/order/${orderId}`;
+    }
+    </script>
+</body>
+
+</html>
