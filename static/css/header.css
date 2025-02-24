@@ -181,8 +181,23 @@ header {
 
 /* Update mobile responsive styles */
 @media (max-width: 768px) {
+    /* Hide search elements on mobile */
+    .mobile-search,
+    .search-container,
+    .search-input,
+    .search-results {
+        display: none !important;
+    }
+
+    /* Adjust mobile icons container to only show hamburger */
     .mobile-icons {
         display: flex;
+        justify-content: flex-end; /* Align hamburger to the right */
+        padding-right: 4vw;
+    }
+
+    .navIcons .search-icon {
+        display: none;
     }
 
     .innerNavbar {
@@ -225,10 +240,6 @@ header {
         width: 100%;
         padding-top: 4vw;
         justify-content: flex-start;
-    }
-
-    .navIcons .search-icon {
-        display: none;
     }
 }
 
