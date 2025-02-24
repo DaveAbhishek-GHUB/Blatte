@@ -998,7 +998,8 @@ def process_checkout():
                     "type": payment_method
                 },
                 "payment_status": True,
-                "shipping_address": shipping_address
+                "shipping_address": shipping_address,
+                "order_status": "In Progress"
             }
 
             # Update user's ordered field
