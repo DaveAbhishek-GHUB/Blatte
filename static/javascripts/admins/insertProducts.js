@@ -66,11 +66,11 @@ document.getElementById('productForm').addEventListener('submit', function(e) {
     
     const formData = new FormData(this);
     
-    // Convert array inputs to JSON arrays
-    const description = Array.from(formData.getAll('description[]'));
-    const ingredients = Array.from(formData.getAll('ingredients[]')).filter(item => item);
-    const brewingNotes = Array.from(formData.getAll('brewing_notes[]')).filter(item => item);
-    const additionalImages = Array.from(formData.getAll('additional_images[]')).filter(item => item);
+    // Convert array inputs to JSON arrays and filter out empty values
+    const description = Array.from(formData.getAll('description[]')).filter(item => item.trim());
+    const ingredients = Array.from(formData.getAll('ingredients[]')).filter(item => item.trim());
+    const brewingNotes = Array.from(formData.getAll('brewing_notes[]')).filter(item => item.trim());
+    const additionalImages = Array.from(formData.getAll('additional_images[]')).filter(item => item.trim());
     
     // Remove the array inputs and add the JSON strings
     formData.delete('description[]');
@@ -82,8 +82,32 @@ document.getElementById('productForm').addEventListener('submit', function(e) {
     formData.append('ingredients', JSON.stringify(ingredients));
     formData.append('brewing_notes', JSON.stringify(brewingNotes));
     formData.append('additional_images', JSON.stringify(additionalImages));
+
+    // Add discount percentage if it exists
+    const discountPercentage = formData.get('discount_percentage');
+    if (discountPercentage) {
+        formData.append('discount_percentage', discountPercentage);
+    }
+
+    // Add dimensions if it exists
+    const dimensions = formData.get('dimensions');
+    if (dimensions) {
+        formData.append('dimensions', dimensions);
+    }
     
-    // Send the form data to your backend
-    // Add your fetch or AJAX call here
-    console.log(Object.fromEntries(formData));
+    // Submit the form
+    fetch('/admins/add-product', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        window.location.href = '/admins/dashboard';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error adding product. Please try again.');
+    });
 });

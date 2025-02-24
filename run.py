@@ -1223,6 +1223,7 @@ def dashboard():
         flash('Database connection error', 'error')
         return render_template('admins/dashboard.html', 
                              users=[], 
+                             products=[],
                              total_users=0,
                              active_carts=0,
                              total_orders=0,
@@ -1259,6 +1260,21 @@ def dashboard():
                 ORDER BY created_at DESC
             """)
             users = cursor.fetchall()
+
+            # Fetch all products for the delete products page
+            cursor.execute("""
+                SELECT 
+                    id,
+                    product_name,
+                    price,
+                    main_product_image,
+                    product_category,
+                    availability_status,
+                    created_at
+                FROM products
+                ORDER BY created_at DESC
+            """)
+            products = cursor.fetchall()
 
             # Get orders data
             cursor.execute("""
@@ -1308,6 +1324,7 @@ def dashboard():
 
             return render_template('admins/dashboard.html', 
                                 users=users,
+                                products=products,
                                 total_users=total_users,
                                 active_carts=active_carts,
                                 total_orders=total_orders,
@@ -1320,6 +1337,7 @@ def dashboard():
         flash('Error loading dashboard data', 'error')
         return render_template('admins/dashboard.html', 
                              users=[], 
+                             products=[],
                              total_users=0,
                              active_carts=0,
                              total_orders=0,
@@ -1780,6 +1798,33 @@ def search_products():
     except mysql.connector.Error as err:
         print(f"Database error: {err}")
         return jsonify({'success': False, 'message': 'Database error'}), 500
+    finally:
+        if conn:
+            conn.close()
+
+@app.route('/admin/delete-product/<int:product_id>', methods=['DELETE'])
+def delete_product(product_id):
+    """Delete a product and return JSON response."""
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({'success': False, 'message': 'Database connection error'}), 500
+        
+    try:
+        with conn.cursor() as cursor:
+            # Check if product exists
+            cursor.execute("SELECT id FROM products WHERE id = %s", (product_id,))
+            if not cursor.fetchone():
+                return jsonify({'success': False, 'message': 'Product not found'}), 404
+                
+            # Delete the product
+            cursor.execute("DELETE FROM products WHERE id = %s", (product_id,))
+            conn.commit()
+            
+            return jsonify({'success': True, 'message': 'Product deleted successfully'})
+            
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        return jsonify({'success': False, 'message': 'Database error occurred'}), 500
     finally:
         if conn:
             conn.close()

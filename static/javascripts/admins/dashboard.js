@@ -4,6 +4,7 @@ function showContent(contentId) {
     document.getElementById('insertProducts-content').style.display = 'none';
     document.getElementById('usersInformation-content').style.display = 'none';
     document.getElementById('order-content').style.display = 'none';
+    document.getElementById('deleteProducts-content').style.display = 'none';
     
     // Show the selected content section
     document.getElementById(contentId + '-content').style.display = 'block';

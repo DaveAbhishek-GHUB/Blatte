@@ -46,6 +46,11 @@
                 <i data-feather="users"></i>
                 <span>order</span>
             </a>
+
+            <a href="#" class="nav-item" onclick="showContent('deleteProducts')">
+                <i data-feather="trash-2"></i>
+                <span>Delete Products</span>
+            </a>
         </nav>
         
         <!-- Logout Button -->
@@ -83,6 +88,9 @@
         </div>
         <div id="order-content" style="display: none;">
             {% include 'components/admins/order.html' %}
+        </div>
+        <div id="deleteProducts-content" style="display: none;">
+            {% include 'components/admins/deleteProducts.html' %}
         </div>
     </div>
 
