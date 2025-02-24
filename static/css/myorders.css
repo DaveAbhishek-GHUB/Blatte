@@ -48,19 +48,30 @@ body {
     border-color: #999;
 }
 
+/* Active state styles for filter buttons */
 .filter-btn.active {
-    background-color: #4CAF50;
-    border-color: #4CAF50;
     color: white;
+    border-color: transparent;
 }
 
-.date-range {
-    padding: 8px 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background: white;
-    cursor: pointer;
-    color: #666;
+/* "All" button - same as "In Progress" (orange) */
+.filter-btn.active[href*="status=all"] {
+    background-color: #ff9800; /* Orange color */
+}
+
+/* "In Progress" button - orange */
+.filter-btn.active[href*="status=in progress"] {
+    background-color: #ff9800; /* Orange color */
+}
+
+/* "Delivered" button - green */
+.filter-btn.active[href*="status=delivered"] {
+    background-color: #4CAF50; /* Green color */
+}
+
+/* "Cancelled" button - red */
+.filter-btn.active[href*="status=cancelled"] {
+    background-color: #f44336; /* Red color */
 }
 
 /* Order Item Styles */
@@ -110,126 +121,10 @@ body {
 
 .order-content {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 15px;
 }
 
-.product-image-container {
-    position: relative;
-}
-
-.product-image {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 4px;
-}
-
-.item-count {
-    position: absolute;
-    bottom: -5px;
-    right: -5px;
-    background: rgba(0,0,0,0.6);
-    color: white;
-    padding: 2px 6px;
-    border-radius: 10px;
-    font-size: 12px;
-}
-
-.order-details {
-    flex-grow: 1;
-}
-
-.order-id {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 5px;
-}
-
-.product-name {
-    font-size: 16px;
-    margin-bottom: 5px;
-    color: #333;
-}
-
-.price {
-    font-weight: bold;
-    font-size: 16px;
-    color: #333;
-}
-
-.arrow {
-    font-size: 24px;
-    color: #666;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .orders-container {
-        margin-top: 60px;
-        padding: 10px;
-    }
-
-    .status-filter {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .filter-buttons {
-        overflow-x: auto;
-        padding-bottom: 10px;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .date-selector {
-        width: 100%;
-    }
-
-    .date-range {
-        width: 100%;
-        text-align: center;
-    }
-
-    .order-content {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .product-image {
-        width: 100%;
-        height: 200px;
-        margin-bottom: 10px;
-    }
-
-    .order-details {
-        width: 100%;
-    }
-
-    .arrow {
-        display: none;
-    }
-}
-
-@media (max-width: 480px) {
-    .filter-btn {
-        padding: 6px 12px;
-        font-size: 13px;
-    }
-
-    .product-name {
-        font-size: 14px;
-    }
-
-    .order-id, .order-date {
-        font-size: 12px;
-    }
-
-    .price {
-        font-size: 15px;
-    }
-}
-
-/* Add this to your existing CSS file */
 .product-item {
     display: flex;
     align-items: center;
@@ -246,8 +141,8 @@ body {
 }
 
 .product-image {
-    width: 80px; /* Adjust size as needed */
-    height: 80px; /* Adjust size as needed */
+    width: 80px;
+    height: 80px;
     object-fit: cover;
     border-radius: 4px;
 }
@@ -279,7 +174,68 @@ body {
     color: #333;
 }
 
-/* Add these new styles */
+.total-amount {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-align: right;
+    margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .orders-container {
+        margin-top: 60px;
+        padding: 10px;
+    }
+
+    .status-filter {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-buttons {
+        overflow-x: auto;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .order-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 200px;
+        margin-bottom: 10px;
+    }
+
+    .order-details {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-btn {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+
+    .product-name {
+        font-size: 14px;
+    }
+
+    .order-id, .order-date {
+        font-size: 12px;
+    }
+
+    .price {
+        font-size: 15px;
+    }
+}
+
+/* No Orders Message */
 .no-orders {
     text-align: center;
     padding: 40px;
@@ -289,7 +245,7 @@ body {
     color: #666;
 }
 
-/* Add these new styles */
+/* Product Item Link */
 .product-item-link {
     text-decoration: none;
     color: inherit;
