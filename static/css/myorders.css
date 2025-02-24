@@ -217,3 +217,53 @@ body {
         font-size: 15px;
     }
 }
+
+/* Add this to your existing CSS file */
+.product-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.product-image-container {
+    position: relative;
+    margin-right: 15px;
+}
+
+.product-image {
+    width: 80px; /* Adjust size as needed */
+    height: 80px; /* Adjust size as needed */
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.item-count {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.product-info {
+    flex-grow: 1;
+}
+
+.product-name {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}

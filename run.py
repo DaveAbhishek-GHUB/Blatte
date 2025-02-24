@@ -1045,7 +1045,7 @@ def create_order(cart_items, payment_method, shipping_address, cursor):
     """Create an order object with product details"""
     placeholders = ', '.join(['%s'] * len(cart_items))
     cursor.execute(f"""
-        SELECT id, product_name, price 
+        SELECT id, product_name, price, main_product_image 
         FROM products 
         WHERE id IN ({placeholders})
     """, cart_items)
@@ -1057,9 +1057,10 @@ def create_order(cart_items, payment_method, shipping_address, cursor):
             "product_id": product['id'],
             "name": product['product_name'],
             "price": str(product['price']),
-            "quantity": 1
+            "quantity": 1,
+            "image_url": product['main_product_image']
         } for product in products],
-        "total_amount": str(sum(product['price'] for product in products)),
+        "total_amount": str(sum(float(product['price']) for product in products)),
         "payment": {
             "method_id": payment_method['id'],
             "type": payment_method['type'],
@@ -1078,7 +1079,38 @@ def order():
 @app.route('/myorders')
 def myorders():
     """Track & trace order management page."""
-    return render_template('myorders.html')
+    user_email = request.cookies.get('user_email')
+    if not user_email:
+        flash('Please login to view your orders', 'error')
+        return redirect(url_for('auth'))
+
+    conn = get_db_connection()
+    if not conn:
+        flash('Error connecting to database', 'error')
+        return render_template('myorders.html', orders=[])
+
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Fetch user's orders from the database
+            cursor.execute("""
+                SELECT ordered FROM users WHERE email = %s
+            """, (user_email,))
+            user = cursor.fetchone()
+
+            if not user or not user['ordered']:
+                return render_template('myorders.html', orders=[])
+
+            # Parse the ordered JSON data
+            orders = json.loads(user['ordered']) if user['ordered'] else []
+
+            return render_template('myorders.html', orders=orders)
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error loading orders', 'error')
+        return render_template('myorders.html', orders=[])
+    finally:
+        if conn:
+            conn.close()
 
 @app.route('/admins/dashboard')
 def dashboard():

@@ -19,46 +19,33 @@
         </div>
 
         <!-- Order Items -->
-        <div class="order-list">
-            <!-- In Progress Order -->
+        {% for order in orders %}
             <div class="order-item">
                 <div class="order-header">
-                    <div class="status-badge in-progress">In progress</div>
-                    <div class="order-date">10 May 2021</div>
+                    <div class="status-badge {{ order.status }}">{{ order.status }}</div>
+                    <div class="order-date">{{ order.order_date }}</div>
                 </div>
                 <div class="order-content">
-                    <div class="product-image-container">
-                        <img src="path/to/product-image.jpg" alt="Product" class="product-image">
-                        <span class="item-count">+4</span>
-                    </div>
                     <div class="order-details">
-                        <div class="order-id">Order ID: ABC-6457325</div>
-                        <div class="product-name">Blue & pink Silk Saree | Linen Kurta | Printed black & white short kurti & 2 more items</div>
-                        <div class="price">₹ 12,500</div>
+                        {% for product in order.products %}
+                            <div class="product-item">
+                                <div class="product-image-container">
+                                    <img src="{{ product.image_url }}" alt="{{ product.name }}" class="product-image">
+                                    <div class="item-count">x{{ product.quantity }}</div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">{{ product.name }}</div>
+                                    <div class="price">₹ {{ product.price }}</div>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
-                    <div class="arrow">›</div>
+                    <div class="total-amount">Total: ₹ {{ order.total_amount }}</div>
                 </div>
             </div>
-
-            <!-- Delivered Orders -->
-            <div class="order-item">
-                <div class="order-header">
-                    <div class="status-badge delivered">Delivered</div>
-                    <div class="order-date">10 May 2021</div>
-                </div>
-                <div class="order-content">
-                    <img src="path/to/table-image.jpg" alt="Table" class="product-image">
-                    <div class="order-details">
-                        <div class="order-id">Order ID: ABC-6457325</div>
-                        <div class="product-name">Two-seater wooden polished dinning table</div>
-                        <div class="price">₹ 8,999</div>
-                    </div>
-                    <div class="arrow">›</div>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
     {% include 'components/yourBenefits.html' %}
+    {% include 'utilities/footer.html' %}
 </body>
-    {% include '/utilities/footer.html' %}
 </html>
