@@ -13,7 +13,7 @@ from datetime import datetime
 import json
 from decimal import Decimal
 
-# ========== THIRD-PARTY LIBRARY IMPORTS ==========
+# ========== THIRD-PARTY LIBRARY IMPORTS ========== 
 from flask import (
     Flask,
     render_template,
@@ -38,22 +38,51 @@ DB_CONFIG = {
     'user': 'root',
     'password': '',
     'database': 'blatte',
-    'port': 3308,
-    'autocommit': True  # Ensures automatic transaction commits
+    'port': 3308,  # Changed from 3308 to default MySQL port
+    'autocommit': True,
+    'charset': 'utf8mb4',  # Added for better character encoding support
+    'use_unicode': True,   # Added for better Unicode support
+    'buffered': True       # Added for cursor stability
 }
 
 # ========== DATABASE CONNECTION FUNCTION ==========
 def get_db_connection():
-    """Create and return a new database connection"""
+    """Create and return a new database connection with fallback options"""
+    connection = None
+    errors = []
+    
+    # Try primary configuration
     try:
         connection = mysql.connector.connect(**DB_CONFIG)
         if connection.is_connected():
             print("Database connection established successfully")
-        return connection
+            return connection
     except mysql.connector.Error as err:
-        print(f"Database connection error: {err}")
-        print("Action required: Verify MySQL service status and connection parameters")
-        return None
+        errors.append(f"Primary connection attempt failed: {err}")
+        
+        # Try alternate ports if primary fails
+        alternate_ports = [3307, 3306, 3309]
+        for port in alternate_ports:
+            try:
+                temp_config = DB_CONFIG.copy()
+                temp_config['port'] = port
+                connection = mysql.connector.connect(**temp_config)
+                if connection.is_connected():
+                    print(f"Database connection established successfully on port {port}")
+                    return connection
+            except mysql.connector.Error as err:
+                errors.append(f"Connection attempt on port {port} failed: {err}")
+    
+    # If all connection attempts fail
+    print("Database connection attempts failed:")
+    for error in errors:
+        print(error)
+    print("Action required: Please verify:")
+    print("1. MySQL service is running")
+    print("2. Database 'blatte' exists")
+    print("3. User credentials are correct")
+    print("4. MySQL port is correctly configured in XAMPP/WAMP")
+    return None
 
 # ========== PRODUCT CATALOG ROUTES ==========
 @app.route('/')
