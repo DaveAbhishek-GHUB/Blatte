@@ -1746,6 +1746,44 @@ def update_order_status(order_id):
         if conn:
             conn.close()
 
+@app.route('/api/search-products')
+def search_products():
+    """API endpoint to search all products"""
+    search_term = request.args.get('term', '').lower()
+    
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({'success': False, 'message': 'Database connection error'}), 500
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Search across multiple fields using LIKE
+            cursor.execute("""
+                SELECT * FROM products 
+                WHERE LOWER(product_name) LIKE %s 
+                OR LOWER(product_category) LIKE %s
+                OR LOWER(description) LIKE %s
+                ORDER BY created_at DESC
+            """, (f'%{search_term}%', f'%{search_term}%', f'%{search_term}%'))
+            
+            products = cursor.fetchall()
+            
+            # Parse JSON fields for each product
+            for product in products:
+                product['description'] = json.loads(product['description']) if product['description'] else []
+                product['additional_images'] = json.loads(product['additional_images']) if product['additional_images'] else []
+                product['ingredients'] = json.loads(product['ingredients']) if product['ingredients'] else []
+                product['brewing_notes'] = json.loads(product['brewing_notes']) if product['brewing_notes'] else []
+            
+            return jsonify({'success': True, 'products': products})
+            
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        return jsonify({'success': False, 'message': 'Database error'}), 500
+    finally:
+        if conn:
+            conn.close()
+
 # ========== APPLICATION ENTRY POINT ==========
 if __name__ == '__main__':
 

@@ -24,7 +24,9 @@
             </div>
             
             <!-- Main logo -->
-            <img src="../static/images/clean_canvas_image-removebg.png" alt="Tea Shop Logo">
+             <a href="/">
+                <img src="../static/images/clean_canvas_image-removebg.png" alt="Tea Shop Logo">
+             </a>
         </div>
 
         <!-- Main navigation container -->
@@ -41,9 +43,13 @@
             <!-- Secondary navigation icons -->
             <div class="navIcons">
                 <!-- Search -->
-                <a class="search-icon" href="#">
-                    <img src="../static/images/svgs/Search.svg" alt="Search">
-                </a>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search products...">
+                    <a class="search-icon" href="#">
+                        <img src="../static/images/svgs/Search.svg" alt="Search">
+                    </a>
+                    <div class="search-results"></div>
+                </div>
                 
                 <!-- Wishlist -->
                 <a href="/wishlist">
