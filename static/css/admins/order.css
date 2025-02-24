@@ -172,6 +172,66 @@
     color: #dc2626;
 }
 
+/* Status Badge Styling */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.status-badge.in.progress {
+    background-color: #fef3c7;
+    color: #d97706;
+}
+
+.status-badge.delivered {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.status-badge.cancelled {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+/* Action Buttons Styling */
+.status-btn {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    margin: 0 4px;
+    transition: all 0.2s;
+}
+
+.status-btn.delivered {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.status-btn.delivered:hover {
+    background-color: #bbf7d0;
+}
+
+.status-btn.cancelled {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+.status-btn.cancelled:hover {
+    background-color: #fecaca;
+}
+
+.action-cell {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .stats-container {
@@ -213,6 +273,16 @@
 
     .export-btn {
         width: 100%;
+    }
+
+    .action-cell {
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .status-btn {
+        width: 100%;
+        margin: 2px 0;
     }
 }
 

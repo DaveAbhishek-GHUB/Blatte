@@ -1172,11 +1172,18 @@ def myorders():
 
 @app.route('/admins/dashboard')
 def dashboard():
-    """Admin dashboard with user management."""
+    """Admin dashboard with user management, products, and orders."""
     conn = get_db_connection()
     if not conn:
         flash('Database connection error', 'error')
-        return render_template('admins/dashboard.html')
+        return render_template('admins/dashboard.html', 
+                             users=[], 
+                             total_users=0,
+                             active_carts=0,
+                             total_orders=0,
+                             orders=[],
+                             pending_orders=0,
+                             completed_orders=0)
         
     try:
         with conn.cursor(dictionary=True) as cursor:
@@ -1207,17 +1214,73 @@ def dashboard():
                 ORDER BY created_at DESC
             """)
             users = cursor.fetchall()
-            
+
+            # Get orders data
+            cursor.execute("""
+                SELECT 
+                    u.firstname,
+                    u.lastname,
+                    u.email,
+                    u.ordered
+                FROM users u
+                WHERE JSON_LENGTH(ordered) > 0
+            """)
+            users_with_orders = cursor.fetchall()
+
+            # Process orders
+            orders = []
+            total_orders = 0
+            pending_orders = 0
+            completed_orders = 0
+
+            for user in users_with_orders:
+                user_orders = json.loads(user['ordered'])
+                for order in user_orders:
+                    # Add user info to order
+                    order['firstname'] = user['firstname']
+                    order['lastname'] = user['lastname']
+                    order['email'] = user['email']
+                    
+                    # Ensure total_amount is float
+                    order['total_amount'] = float(str(order['total_amount']).replace(',', ''))
+                    
+                    # Set default status if not present
+                    if 'order_status' not in order:
+                        order['order_status'] = 'In Progress'
+
+                    # Update counters
+                    total_orders += 1
+                    if order['order_status'] == 'In Progress':
+                        pending_orders += 1
+                    elif order['order_status'] == 'Delivered':
+                        completed_orders += 1
+
+                    # Ensure all product prices are float
+                    for product in order['products']:
+                        product['price'] = float(str(product['price']).replace(',', ''))
+
+                    orders.append(order)
+
             return render_template('admins/dashboard.html', 
-                                 users=users,
-                                 total_users=total_users,
-                                 active_carts=active_carts,
-                                 total_orders=total_orders)
+                                users=users,
+                                total_users=total_users,
+                                active_carts=active_carts,
+                                total_orders=total_orders,
+                                orders=orders,
+                                pending_orders=pending_orders,
+                                completed_orders=completed_orders)
                                  
     except mysql.connector.Error as err:
         print(f"Database error: {err}")
-        flash('Error loading user data', 'error')
-        return render_template('admins/dashboard.html')
+        flash('Error loading dashboard data', 'error')
+        return render_template('admins/dashboard.html', 
+                             users=[], 
+                             total_users=0,
+                             active_carts=0,
+                             total_orders=0,
+                             orders=[],
+                             pending_orders=0,
+                             completed_orders=0)
     finally:
         if conn:
             conn.close()
@@ -1573,6 +1636,67 @@ def is_admin(email):
             return user and user['is_admin']
     except mysql.connector.Error:
         return False
+    finally:
+        if conn:
+            conn.close()
+
+@app.route('/admin/update-order-status/<order_id>', methods=['POST'])
+def update_order_status(order_id):
+    """Update order status in the database"""
+    if not request.is_json:
+        return jsonify({'success': False, 'message': 'Invalid request format'}), 400
+
+    new_status = request.json.get('status')
+    if not new_status:
+        return jsonify({'success': False, 'message': 'Missing status data'}), 400
+
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({'success': False, 'message': 'Database connection error'}), 500
+
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Find the user with this order
+            cursor.execute("""
+                SELECT email, ordered 
+                FROM users 
+                WHERE ordered LIKE %s
+            """, (f'%{order_id}%',))
+            
+            user = cursor.fetchone()
+            if not user:
+                return jsonify({'success': False, 'message': 'Order not found'}), 404
+
+            # Parse ordered array and update status
+            orders = json.loads(user['ordered'])
+            order_updated = False
+            
+            for order in orders:
+                if order['order_id'] == order_id:
+                    order['order_status'] = new_status
+                    order_updated = True
+                    break
+
+            if not order_updated:
+                return jsonify({'success': False, 'message': 'Order not found in user orders'}), 404
+
+            # Update the database
+            cursor.execute("""
+                UPDATE users 
+                SET ordered = %s 
+                WHERE email = %s
+            """, (json.dumps(orders), user['email']))
+            
+            conn.commit()
+            
+            return jsonify({
+                'success': True,
+                'message': f'Order status updated to {new_status}'
+            })
+
+    except Exception as err:
+        print(f"Error updating order status: {err}")
+        return jsonify({'success': False, 'message': str(err)}), 500
     finally:
         if conn:
             conn.close()
