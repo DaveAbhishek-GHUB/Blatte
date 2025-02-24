@@ -11,39 +11,63 @@
         <!-- Order Status Filter -->
         <div class="status-filter">
             <div class="filter-buttons">
-                <button class="filter-btn active">All</button>
-                <button class="filter-btn">In Progress</button>
-                <button class="filter-btn">Delivered</button>
-                <button class="filter-btn">Cancelled</button>
+                <a href="{{ url_for('myorders', status='all') }}" 
+                   class="filter-btn {% if active_filter == 'all' %}active{% endif %}">
+                    All
+                </a>
+                <a href="{{ url_for('myorders', status='in progress') }}" 
+                   class="filter-btn {% if active_filter == 'in progress' %}active{% endif %}">
+                    In Progress
+                </a>
+                <a href="{{ url_for('myorders', status='delivered') }}" 
+                   class="filter-btn {% if active_filter == 'delivered' %}active{% endif %}">
+                    Delivered
+                </a>
+                <a href="{{ url_for('myorders', status='cancelled') }}" 
+                   class="filter-btn {% if active_filter == 'cancelled' %}active{% endif %}">
+                    Cancelled
+                </a>
             </div>
         </div>
 
         <!-- Order Items -->
-        {% for order in orders %}
-            <div class="order-item">
-                <div class="order-header">
-                    <div class="status-badge {{ order.status }}">{{ order.status }}</div>
-                    <div class="order-date">{{ order.order_date }}</div>
-                </div>
-                <div class="order-content">
-                    <div class="order-details">
-                        {% for product in order.products %}
-                            <div class="product-item">
-                                <div class="product-image-container">
-                                    <img src="{{ product.image_url }}" alt="{{ product.name }}" class="product-image">
-                                    <div class="item-count">x{{ product.quantity }}</div>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-name">{{ product.name }}</div>
-                                    <div class="price">₹ {{ product.price }}</div>
-                                </div>
-                            </div>
-                        {% endfor %}
+        {% if orders %}
+            {% for order in orders %}
+                <div class="order-item">
+                    <div class="order-header">
+                        <div class="status-badge {{ order.order_status|lower|replace(' ', '-') }}">
+                            {{ order.order_status or 'In Progress' }}
+                        </div>
+                        <div class="order-date">Order ID: {{ order.order_id }}</div>
                     </div>
-                    <div class="total-amount">Total: ₹ {{ order.total_amount }}</div>
+                    <div class="order-content">
+                        <div class="order-details">
+                            {% for product in order.products %}
+                                <a href="{{ url_for('product_details', id=product.product_id) }}" class="product-item-link">
+                                    <div class="product-item">
+                                        <div class="product-image-container">
+                                            <img src="{{ product.image_url|default('/static/images/product-placeholder.jpg') }}" 
+                                                 alt="{{ product.name }}" 
+                                                 class="product-image">
+                                            <div class="item-count">x{{ product.quantity }}</div>
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="product-name">{{ product.name }}</div>
+                                            <div class="price">₹ {{ "%.2f"|format(product.price) }}</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                        <div class="total-amount">Total: ₹ {{ "%.2f"|format(order.total_amount) }}</div>
+                    </div>
                 </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-orders">
+                <p>No orders found for the selected filter.</p>
             </div>
-        {% endfor %}
+        {% endif %}
     </div>
     {% include 'components/yourBenefits.html' %}
     {% include 'utilities/footer.html' %}

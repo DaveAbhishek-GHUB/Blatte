@@ -1107,6 +1107,9 @@ def myorders():
         flash('Please login to view your orders', 'error')
         return redirect(url_for('auth'))
 
+    # Get the status filter from query parameter, default to 'all'
+    status_filter = request.args.get('status', 'all').lower()
+
     conn = get_db_connection()
     if not conn:
         flash('Error connecting to database', 'error')
@@ -1114,23 +1117,55 @@ def myorders():
 
     try:
         with conn.cursor(dictionary=True) as cursor:
-            # Fetch user's orders from the database
             cursor.execute("""
                 SELECT ordered FROM users WHERE email = %s
             """, (user_email,))
             user = cursor.fetchone()
 
             if not user or not user['ordered']:
-                return render_template('myorders.html', orders=[])
+                return render_template('myorders.html', orders=[], active_filter=status_filter)
 
             # Parse the ordered JSON data
-            orders = json.loads(user['ordered']) if user['ordered'] else []
+            all_orders = json.loads(user['ordered']) if user['ordered'] else []
 
-            return render_template('myorders.html', orders=orders)
+            # Collect all product IDs from all orders
+            product_ids = []
+            for order in all_orders:
+                for product in order['products']:
+                    product_ids.append(product['product_id'])
+
+            # Fetch product images for all products at once
+            if product_ids:
+                placeholders = ', '.join(['%s'] * len(product_ids))
+                cursor.execute(f"""
+                    SELECT id, main_product_image 
+                    FROM products 
+                    WHERE id IN ({placeholders})
+                """, product_ids)
+                product_images = {row['id']: row['main_product_image'] for row in cursor.fetchall()}
+
+                # Add image URLs to the order products
+                for order in all_orders:
+                    for product in order['products']:
+                        product['image_url'] = product_images.get(product['product_id'], '/static/images/product-placeholder.jpg')
+
+            # Filter orders based on status
+            filtered_orders = []
+            for order in all_orders:
+                # Add a default order_status if not present
+                if 'order_status' not in order:
+                    order['order_status'] = 'In Progress'
+                
+                if status_filter == 'all' or order.get('order_status', '').lower() == status_filter:
+                    filtered_orders.append(order)
+
+            return render_template('myorders.html', 
+                                orders=filtered_orders, 
+                                active_filter=status_filter)
     except mysql.connector.Error as err:
         print(f"Database error: {err}")
         flash('Error loading orders', 'error')
-        return render_template('myorders.html', orders=[])
+        return render_template('myorders.html', orders=[], active_filter=status_filter)
     finally:
         if conn:
             conn.close()
