@@ -41,6 +41,11 @@
                 <i data-feather="users"></i>
                 <span>users information</span>
             </a>
+
+            <a href="#" class="nav-item" onclick="showContent('order')">
+                <i data-feather="users"></i>
+                <span>order</span>
+            </a>
         </nav>
         
         <!-- Logout Button -->
@@ -75,6 +80,9 @@
         </div>
         <div id="usersInformation-content" style="display: none;">
             {% include 'components/admins/usersinformation.html' %}
+        </div>
+        <div id="order-content" style="display: none;">
+            {% include 'components/admins/order.html' %}
         </div>
     </div>
 

@@ -11,6 +11,7 @@ Maintainer: DevOps Team
 # ========== STANDARD LIBRARY IMPORTS ==========
 from datetime import datetime
 import json
+from decimal import Decimal
 
 # ========== THIRD-PARTY LIBRARY IMPORTS ==========
 from flask import (
@@ -925,7 +926,7 @@ def checkout():
 
 @app.route('/process_checkout', methods=['POST'])
 def process_checkout():
-    """Handle checkout form submission with the new user table structure"""
+    """Handle checkout form submission and store complete order details"""
     user_email = request.cookies.get('user_email')
     if not user_email:
         flash('Please login to complete checkout', 'error')
@@ -938,9 +939,9 @@ def process_checkout():
 
     try:
         with conn.cursor(dictionary=True) as cursor:
-            # Get current user data
+            # Get user details
             cursor.execute("""
-                SELECT carted, payment_methods, addresses, ordered 
+                SELECT id, firstname, lastname, email, carted, ordered 
                 FROM users 
                 WHERE email = %s
             """, (user_email,))
@@ -950,47 +951,68 @@ def process_checkout():
                 flash('User not found', 'error')
                 return redirect(url_for('checkout'))
 
-            # Parse existing JSON data
-            payment_methods = json.loads(user_data['payment_methods']) if user_data['payment_methods'] else []
-            addresses = json.loads(user_data['addresses']) if user_data['addresses'] else []
+            # Get cart items
             cart_items = json.loads(user_data['carted']) if user_data['carted'] else []
-            ordered_items = json.loads(user_data['ordered']) if user_data['ordered'] else []
-
-            # Create new payment method and address from form data
-            payment_method = request.form.get('payment_method', 'card')
-            new_payment_method = create_payment_method(request.form, payment_method, len(payment_methods))
-            new_address = create_address(request.form, len(addresses))
-
-            # Get cart items details
             if not cart_items:
                 flash('Your cart is empty', 'error')
                 return redirect(url_for('cart'))
 
-            # Create new order with fetched product details
-            new_order = create_order(cart_items, new_payment_method, new_address, cursor)
+            print("Cart Items:", cart_items)  # Debugging line
+            placeholders = ', '.join(['%s'] * len(cart_items))
+            query = f"""
+                SELECT id, product_name, price 
+                FROM products 
+                WHERE id IN ({placeholders})
+            """
+            print("SQL Query:", query)  # Debugging line
+            cursor.execute(query, cart_items)
+            products = cursor.fetchall()
+            print("Fetched Products:", products)  # Debugging line
 
-            # Add order status
-            new_order['status'] = 'inProgress'  # Set the order status to "inProgress"
+            # Check if products were fetched
+            if not products:
+                flash('No products found for the items in your cart', 'error')
+                return redirect(url_for('cart'))
 
-            # Update user data
-            payment_methods.append(new_payment_method)
-            addresses.append(new_address)
-            ordered_items.append(new_order)
+            # Calculate total amount
+            total_amount = sum(float(product['price']) for product in products)
 
-            # Update database
+            # Get payment and shipping details from form
+            payment_method = request.form.get('payment_method', 'card')
+            shipping_address = {
+                'house_number': request.form.get('house_number', ''),
+                'street': request.form.get('street', ''),
+                'city': request.form.get('city', ''),
+                'state': request.form.get('state', ''),
+                'pincode': request.form.get('pincode', ''),
+                'country': request.form.get('country', '')
+            }
+
+            # Create order object
+            order = {
+                "order_id": datetime.now().strftime('%Y%m%d%H%M%S'),
+                "products": [{"product_id": product['id'], "name": product['product_name'], "price": float(product['price']), "quantity": 1} for product in products],
+                "total_amount": total_amount,
+                "payment": {
+                    "method_id": 1,  # Assuming a static method ID for simplicity
+                    "type": payment_method
+                },
+                "payment_status": True,
+                "shipping_address": shipping_address
+            }
+
+            # Update user's ordered field
+            ordered_items = json.loads(user_data['ordered']) if user_data['ordered'] else []
+            ordered_items.append(order)
+
+            # Update the user's ordered field in the database
             cursor.execute("""
                 UPDATE users 
-                SET payment_methods = %s,
-                    addresses = %s,
-                    ordered = %s,
-                    carted = '[]'
-                WHERE email = %s
-            """, (
-                json.dumps(payment_methods),
-                json.dumps(addresses),
-                json.dumps(ordered_items),
-                user_email
-            ))
+                SET ordered = %s, carted = '[]'
+                WHERE id = %s
+            """, (json.dumps(ordered_items), user_data['id']))
+
+            # Commit the transaction
             conn.commit()
 
             flash('Order placed successfully!', 'success')
@@ -1041,7 +1063,7 @@ def create_address(form_data, address_id):
         "alt_phone": form_data.get('altPhone', '')
     }
 
-def create_order(cart_items, payment_method, shipping_address, cursor):
+def create_order_object(cart_items, payment_method, shipping_address, cursor):
     """Create an order object with product details"""
     placeholders = ', '.join(['%s'] * len(cart_items))
     cursor.execute(f"""
@@ -1349,7 +1371,7 @@ def add_product():
                     main_product_image, additional_images,
                     availability_status, created_at
                 ) VALUES (
-                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW()
+                    %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW()
                 )
             """
             cursor.execute(insert_query, (
@@ -1428,6 +1450,93 @@ def my_profile():
         print(f"Database error: {err}")
         flash('Error loading profile data', 'error')
         return redirect(url_for('index'))
+    finally:
+        if conn:
+            conn.close()
+
+@app.route('/admin/orders')
+def admin_orders():
+    """Admin order management page with complete order details"""
+    user_email = request.cookies.get('user_email')
+    if not user_email or not is_admin(user_email):
+        flash('Unauthorized access', 'error')
+        return redirect(url_for('auth'))
+        
+    conn = get_db_connection()
+    if not conn:
+        flash('Error connecting to database', 'error')
+        return render_template('components/admins/order.html', 
+                             orders=[], 
+                             total_orders=0,
+                             pending_orders=0,
+                             completed_orders=0)
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Get order statistics
+            cursor.execute("""
+                SELECT 
+                    COUNT(*) as total,
+                    SUM(CASE WHEN JSON_UNQUOTE(JSON_EXTRACT(ordered, '$.payment_status')) = 'true' THEN 1 ELSE 0 END) as completed,
+                    SUM(CASE WHEN JSON_UNQUOTE(JSON_EXTRACT(ordered, '$.payment_status')) = 'false' THEN 1 ELSE 0 END) as pending
+                FROM users
+            """)
+            stats = cursor.fetchone()
+
+            # Get all orders with details
+            cursor.execute("""
+                SELECT 
+                    u.firstname,
+                    u.lastname,
+                    u.email,
+                    JSON_UNQUOTE(JSON_EXTRACT(ordered, '$.order_id')) as order_id,
+                    JSON_UNQUOTE(JSON_EXTRACT(ordered, '$.total_amount')) as total_amount,
+                    JSON_UNQUOTE(JSON_EXTRACT(ordered, '$.payment.method')) as payment_method,
+                    JSON_UNQUOTE(JSON_EXTRACT(ordered, '$.payment.transaction_id')) as transaction_id,
+                    JSON_UNQUOTE(JSON_EXTRACT(ordered, '$.shipping_address')) as shipping_address,
+                    JSON_UNQUOTE(JSON_EXTRACT(ordered, '$.payment_status')) as status,
+                    u.created_at
+                FROM users u
+                WHERE JSON_LENGTH(ordered) > 0
+            """)
+            orders = cursor.fetchall()
+
+            # Process orders for template
+            for order in orders:
+                order['shipping_address'] = json.loads(order['shipping_address'])  # Parse shipping address
+                order['total_amount'] = float(order['total_amount'])  # Convert to float for display
+
+            return render_template('components/admins/order.html',
+                                orders=orders,
+                                total_orders=stats['total'] or 0,
+                                pending_orders=stats['pending'] or 0,
+                                completed_orders=stats['completed'] or 0)
+            
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error loading orders', 'error')
+        return render_template('components/admins/order.html', 
+                             orders=[],
+                             total_orders=0,
+                             pending_orders=0,
+                             completed_orders=0)
+    finally:
+        if conn:
+            conn.close()
+
+def is_admin(email):
+    """Check if user is an admin."""
+    conn = get_db_connection()
+    if not conn:
+        return False
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            cursor.execute("SELECT is_admin FROM users WHERE email = %s", (email,))
+            user = cursor.fetchone()
+            return user and user['is_admin']
+    except mysql.connector.Error:
+        return False
     finally:
         if conn:
             conn.close()
