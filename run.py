@@ -857,26 +857,31 @@ def cart():
             conn.close()
 
 @app.route('/products')
-def products():
-    """Shopping products page with showcase of 16 products from all categories."""
+@app.route('/products/<int:page>')
+def products(page=1):
+    """Shopping products page with showcase of products from all categories."""
+    per_page = 16  # Number of products per page
+    
     conn = get_db_connection()
     if not conn:
         flash('Error connecting to database', 'error')
-        return render_template('products.html', products=[])
+        return render_template('products.html', products=[], pagination=None)
         
     try:
         with conn.cursor(dictionary=True) as cursor:
-            # Fetch 2 products from each category (8 categories × 2 = 16 products)
+            # Get total count of products
+            cursor.execute("SELECT COUNT(*) as count FROM products")
+            total_products = cursor.fetchone()['count']
+            
+            # Calculate offset
+            offset = (page - 1) * per_page
+            
+            # Fetch paginated products
             cursor.execute("""
-                SELECT p.*
-                FROM (
-                    SELECT *,
-                           ROW_NUMBER() OVER (PARTITION BY product_category ORDER BY created_at DESC) as rn
-                    FROM products
-                ) p
-                WHERE p.rn <= 2
-                ORDER BY p.product_category, p.created_at DESC
-            """)
+                SELECT * FROM products
+                ORDER BY created_at DESC
+                LIMIT %s OFFSET %s
+            """, (per_page, offset))
             
             products = cursor.fetchall()
             
@@ -887,12 +892,23 @@ def products():
                 product['ingredients'] = json.loads(product['ingredients']) if product['ingredients'] else []
                 product['brewing_notes'] = json.loads(product['brewing_notes']) if product['brewing_notes'] else []
             
-            return render_template('products.html', products=products)
+            # Calculate pagination info
+            total_pages = (total_products + per_page - 1) // per_page
+            pagination = {
+                'page': page,
+                'total_pages': total_pages,
+                'has_prev': page > 1,
+                'has_next': page < total_pages,
+                'prev_page': page - 1,
+                'next_page': page + 1
+            }
+            
+            return render_template('products.html', products=products, pagination=pagination)
             
     except mysql.connector.Error as err:
         print(f"Database error: {err}")
         flash('Error loading products', 'error')
-        return render_template('products.html', products=[])
+        return render_template('products.html', products=[], pagination=None)
     finally:
         if conn:
             conn.close()
