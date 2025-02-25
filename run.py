@@ -1528,7 +1528,7 @@ def add_product():
         # Get form data
         product_data = {
             'product_name': request.form['product_name'],
-            'price': float(request.form['price']),  # This should remain float
+            'price': float(request.form['price']),
             'weight': request.form.get('weight', ''),  # Make weight optional
             'product_category': request.form['product_category'],
             'description': json.dumps(request.form.getlist('description')),
@@ -1536,8 +1536,9 @@ def add_product():
             'brewing_notes': json.dumps(request.form.getlist('brewing_notes')),
             'main_product_image': request.form['main_product_image'],
             'additional_images': json.dumps(request.form.getlist('additional_images')),
-            'availability_status': request.form['availability_status'],
-            'discount_percentage': request.form.get('discount_percentage', 0)  # Default to 0 if not provided
+            'availability_status': request.form.get('availability_status', 'In Stock'),  # Default to 'In Stock'
+            'discount_percentage': request.form.get('discount_percentage', 0),  # Default to 0 if not provided
+            'dimensions': request.form.get('dimensions', None)  # Handle missing dimensions
         }
 
         conn = get_db_connection()
@@ -1549,26 +1550,29 @@ def add_product():
             # Insert new product
             insert_query = """
                 INSERT INTO products (
-                    product_name, price, weight, product_category,
-                    description, ingredients, brewing_notes,
-                    main_product_image, additional_images,
-                    availability_status, discount_percentage, created_at
+                    product_name, price, description, main_product_image,
+                    additional_images, ingredients, brewing_notes,
+                    product_category, weight, dimensions,
+                    availability_status, discount_percentage, reviews_count, average_rating
                 ) VALUES (
-                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW()
+                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
                 )
             """
             cursor.execute(insert_query, (
                 product_data['product_name'],
                 product_data['price'],
-                product_data['weight'] or None,  # Handle empty weight
-                product_data['product_category'],
                 product_data['description'],
-                product_data['ingredients'],
-                product_data['brewing_notes'],
                 product_data['main_product_image'],
                 product_data['additional_images'],
+                product_data['ingredients'],
+                product_data['brewing_notes'],
+                product_data['product_category'],
+                product_data['weight'] or None,  # Handle empty weight
+                product_data['dimensions'],  # This will be None if not provided
                 product_data['availability_status'],
-                product_data['discount_percentage']
+                product_data['discount_percentage'],
+                0,  # Default reviews_count
+                None  # Default average_rating
             ))
             conn.commit()
 
