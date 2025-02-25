@@ -686,61 +686,61 @@ def shipping_info():
     """Shipping options and payment methods information page."""
     return render_template('ShippingPayment.html')
 
-    @app.route('/wishlist')
-    def wishlist():
-        """User-curated product wishlist management page."""
-        # Check if user is logged in
-        user_email = request.cookies.get('user_email')
-        if not user_email:
-            flash('Please login to view your wishlist', 'error')
-            return redirect(url_for('auth'))
+@app.route('/wishlist')
+def wishlist():
+    """User-curated product wishlist management page."""
+    # Check if user is logged in
+    user_email = request.cookies.get('user_email')
+    if not user_email:
+        flash('Please login to view your wishlist', 'error')
+        return redirect(url_for('auth'))
+        
+    conn = get_db_connection()
+    if not conn:
+        flash('Error connecting to database', 'error')
+        return render_template('wishlist.html', products=[])
+        
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # First get user's wishlist
+            cursor.execute("SELECT wishlist FROM users WHERE email = %s", (user_email,))
+            user = cursor.fetchone()
             
-        conn = get_db_connection()
-        if not conn:
-            flash('Error connecting to database', 'error')
-            return render_template('wishlist.html', products=[])
+            if not user or not user['wishlist']:
+                return render_template('wishlist.html', products=[])
+                
+            # Parse wishlist JSON array
+            wishlist_ids = json.loads(user['wishlist'])
             
-        try:
-            with conn.cursor(dictionary=True) as cursor:
-                # First get user's wishlist
-                cursor.execute("SELECT wishlist FROM users WHERE email = %s", (user_email,))
-                user = cursor.fetchone()
-                
-                if not user or not user['wishlist']:
-                    return render_template('wishlist.html', products=[])
-                    
-                # Parse wishlist JSON array
-                wishlist_ids = json.loads(user['wishlist'])
-                
-                if not wishlist_ids:
-                    return render_template('wishlist.html', products=[])
-                
-                # Fetch products that are in the wishlist
-                placeholders = ', '.join(['%s'] * len(wishlist_ids))
-                cursor.execute(f"""
-                    SELECT * FROM products 
-                    WHERE id IN ({placeholders})
-                    ORDER BY FIELD(id, {placeholders})
-                """, wishlist_ids + wishlist_ids)  # Pass IDs twice for IN and FIELD
-                
-                products = cursor.fetchall()
-                
-                # Parse JSON fields for each product
-                for product in products:
-                    product['description'] = json.loads(product['description']) if product['description'] else []
-                    product['additional_images'] = json.loads(product['additional_images']) if product['additional_images'] else []
-                    product['ingredients'] = json.loads(product['ingredients']) if product['ingredients'] else []
-                    product['brewing_notes'] = json.loads(product['brewing_notes']) if product['brewing_notes'] else []
-                
-                return render_template('wishlist.html', products=products)
-                
-        except mysql.connector.Error as err:
-            print(f"Database error: {err}")
-            flash('Error loading wishlist', 'error')
-            return render_template('wishlist.html', products=[])
-        finally:
-            if conn:
-                conn.close()
+            if not wishlist_ids:
+                return render_template('wishlist.html', products=[])
+            
+            # Fetch products that are in the wishlist
+            placeholders = ', '.join(['%s'] * len(wishlist_ids))
+            cursor.execute(f"""
+                SELECT * FROM products 
+                WHERE id IN ({placeholders})
+                ORDER BY FIELD(id, {placeholders})
+            """, wishlist_ids + wishlist_ids)  # Pass IDs twice for IN and FIELD
+            
+            products = cursor.fetchall()
+            
+            # Parse JSON fields for each product
+            for product in products:
+                product['description'] = json.loads(product['description']) if product['description'] else []
+                product['additional_images'] = json.loads(product['additional_images']) if product['additional_images'] else []
+                product['ingredients'] = json.loads(product['ingredients']) if product['ingredients'] else []
+                product['brewing_notes'] = json.loads(product['brewing_notes']) if product['brewing_notes'] else []
+            
+            return render_template('wishlist.html', products=products)
+            
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        flash('Error loading wishlist', 'error')
+        return render_template('wishlist.html', products=[])
+    finally:
+        if conn:
+            conn.close()
 
 @app.route('/api/cart/<int:product_id>', methods=['GET', 'POST', 'DELETE'])
 def toggle_cart(product_id):
