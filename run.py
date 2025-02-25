@@ -587,6 +587,23 @@ def login_user():
             'password': request.form['password']
         }
 
+        # First check admin table
+        with conn.cursor(dictionary=True) as cursor:
+            cursor.execute("""
+                SELECT * FROM admin 
+                WHERE email = %s AND password = %s
+            """, (credentials['email'], credentials['password']))
+            
+            admin = cursor.fetchone()
+            if admin:  # Direct password comparison for admin
+                response = make_response(redirect(url_for('index')))
+                response.set_cookie('user_email', credentials['email'], httponly=True)
+                response.set_cookie('user_name', admin['name'], httponly=True)
+                response.set_cookie('is_admin', 'true', httponly=True)
+                flash('Admin authentication successful', 'success')
+                return response
+
+        # If not admin, check regular users (with hashed passwords)
         with conn.cursor(dictionary=True) as cursor:
             cursor.execute("""
                 SELECT email, password, firstname, lastname FROM users 
@@ -597,9 +614,7 @@ def login_user():
             if user and check_password_hash(user['password'], credentials['password']):
                 response = make_response(redirect(url_for('index')))
                 response.set_cookie('user_email', credentials['email'], httponly=True)
-                # Set user's full name in a cookie and add debug print
                 full_name = f"{user['firstname']} {user['lastname']}"
-                print(f"Setting user_name cookie to: {full_name}")  # Debug print
                 response.set_cookie('user_name', full_name, httponly=True)
                 flash('Authentication successful: Welcome back', 'success')
                 return response
@@ -617,11 +632,16 @@ def login_user():
 
 @app.route('/user/logout')
 def logout_user():
-    """Terminate user session and clear authentication cookies."""
+    """Terminate user session and clear all authentication cookies."""
     response = make_response(redirect(url_for('index')))
+    
+    # Clear all authentication cookies
     response.delete_cookie('user_email')
-    response.delete_cookie('user_name')  # Also delete the name cookie
-    flash('Session terminated: Successfully logged out', 'success')
+    response.delete_cookie('user_name')
+    response.delete_cookie('is_admin')
+    
+    # Show success message
+    flash('Successfully logged out', 'success')
     return response
 
 # ========== SUPPORTING PAGES ROUTES ==========
@@ -1534,7 +1554,7 @@ def add_product():
                     main_product_image, additional_images,
                     availability_status, discount_percentage, created_at
                 ) VALUES (
-                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW()
+                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW()
                 )
             """
             cursor.execute(insert_query, (
