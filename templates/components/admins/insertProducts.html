@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admins/insertProducts.css') }}">
+    <!-- Feather Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.css">
+    <!-- JavaScript -->
     <script src="{{ url_for('static', filename='javascripts/admins/insertProducts.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 </head>
 <body>
+    <!-- Main Container -->
     <div class="insert-products-container">
         <h2>Add New Product</h2>
+        <!-- Product Form -->
         <form id="productForm" class="product-form" enctype="multipart/form-data" method="POST" action="{{ url_for('add_product') }}">
-            <!-- Basic Information -->
+            <!-- Basic Information Section -->
             <div class="form-section">
                 <h3>Basic Information</h3>
                 <div class="form-group">
@@ -40,7 +47,7 @@
                 </div>
             </div>
     
-            <!-- Product Details -->
+            <!-- Product Details Section -->
             <div class="form-section">
                 <h3>Product Details</h3>
                 <div class="form-group">
@@ -48,10 +55,14 @@
                     <div class="dynamic-inputs" id="description-container">
                         <div class="input-group">
                             <textarea name="description[]" class="description-input" required></textarea>
-                            <button type="button" class="remove-btn" onclick="removeInput(this)">×</button>
+                            <button type="button" class="remove-btn" onclick="removeInput(this)">
+                                <i data-feather="x"></i>
+                            </button>
                         </div>
                     </div>
-                    <button type="button" class="add-btn" onclick="addInput('description-container', 'description')">+ Add Line</button>
+                    <button type="button" class="add-btn" onclick="addInput('description-container', 'description')">
+                        <i data-feather="plus"></i> Add Line
+                    </button>
                 </div>
                 
                 <div class="form-group">
@@ -59,10 +70,14 @@
                     <div class="dynamic-inputs" id="brewing-notes-container">
                         <div class="input-group">
                             <input type="text" name="brewing_notes[]" class="brewing-note-input">
-                            <button type="button" class="remove-btn" onclick="removeInput(this)">×</button>
+                            <button type="button" class="remove-btn" onclick="removeInput(this)">
+                                <i data-feather="x"></i>
+                            </button>
                         </div>
                     </div>
-                    <button type="button" class="add-btn" onclick="addInput('brewing-notes-container', 'brewing_notes')">+ Add Note</button>
+                    <button type="button" class="add-btn" onclick="addInput('brewing-notes-container', 'brewing_notes')">
+                        <i data-feather="plus"></i> Add Note
+                    </button>
                 </div>
                 
                 <div class="form-group">
@@ -70,15 +85,18 @@
                     <div class="dynamic-inputs" id="ingredients-container">
                         <div class="input-group">
                             <input type="text" name="ingredients[]" class="ingredient-input">
-                            <button type="button" class="remove-btn" onclick="removeInput(this)">×</button>
+                            <button type="button" class="remove-btn" onclick="removeInput(this)">
+                                <i data-feather="x"></i>
+                            </button>
                         </div>
                     </div>
-                    <button type="button" class="add-btn" onclick="addInput('ingredients-container', 'ingredients')">+ Add Ingredient</button>
+                    <button type="button" class="add-btn" onclick="addInput('ingredients-container', 'ingredients')">
+                        <i data-feather="plus"></i> Add Ingredient
+                    </button>
                 </div>
-    
             </div>
     
-            <!-- Product Specifications -->
+            <!-- Product Specifications Section -->
             <div class="form-section">
                 <h3>Specifications</h3>
                 <div class="form-group">
@@ -106,7 +124,7 @@
                 </div>
             </div>
     
-            <!-- Images -->
+            <!-- Product Images Section -->
             <div class="form-section">
                 <h3>Product Images</h3>
                 <div class="form-group">
@@ -119,18 +137,32 @@
                     <div class="dynamic-inputs" id="additional-images-container">
                         <div class="input-group">
                             <input type="url" name="additional_images[]" class="additional-image-input">
-                            <button type="button" class="remove-btn" onclick="removeInput(this)">×</button>
+                            <button type="button" class="remove-btn" onclick="removeInput(this)">
+                                <i data-feather="x"></i>
+                            </button>
                         </div>
                     </div>
-                    <button type="button" class="add-btn" onclick="addInput('additional-images-container', 'additional_images')">+ Add Image URL</button>
+                    <button type="button" class="add-btn" onclick="addInput('additional-images-container', 'additional_images')">
+                        <i data-feather="plus"></i> Add Image URL
+                    </button>
                 </div>
             </div>
     
+            <!-- Form Actions -->
             <div class="form-actions">
-                <button type="submit" class="submit-btn">Add Product</button>
-                <button type="reset" class="reset-btn">Reset Form</button>
+                <button type="submit" class="submit-btn">
+                    <i data-feather="check"></i> Add Product
+                </button>
+                <button type="reset" class="reset-btn">
+                    <i data-feather="refresh-cw"></i> Reset Form
+                </button>
             </div>
         </form>
     </div>
+
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+    </script>
 </body>
 </html>

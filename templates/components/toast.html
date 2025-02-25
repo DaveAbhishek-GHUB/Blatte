@@ -1,15 +1,26 @@
-<!-- Toast container to display flash messages -->
+<!-- Toast Container: Displays flash messages in a floating container -->
 <div class="toast-container" id="toastContainer">
-    {# Get flash messages with their categories #}
+    {# Fetch flash messages along with their categories using Flask's get_flashed_messages #}
     {% with messages = get_flashed_messages(with_categories=true) %}
-        {# Check if there are any messages #}
+        {# Render messages only if they exist #}
         {% if messages %}
-            {# Loop through each message and its category #}
+            {# Iterate through each message tuple containing category and content #}
             {% for category, message in messages %}
-                <!-- Individual toast message with dynamic category class -->
+                <!-- Toast Message: Individual notification with contextual styling -->
                 <div class="toast {{ category }}" role="alert">
-                    <!-- Message content -->
-                    <p class="toast-message">{{ message }}</p>
+                    <!-- Message Content with Icon -->
+                    <div class="toast-content">
+                        {% if category == 'success' %}
+                            <i data-feather="check-circle"></i>
+                        {% elif category == 'error' %}
+                            <i data-feather="alert-circle"></i>
+                        {% elif category == 'warning' %}
+                            <i data-feather="alert-triangle"></i>
+                        {% else %}
+                            <i data-feather="info"></i>
+                        {% endif %}
+                        <p class="toast-message">{{ message }}</p>
+                    </div>
                 </div>
             {% endfor %}
         {% endif %}

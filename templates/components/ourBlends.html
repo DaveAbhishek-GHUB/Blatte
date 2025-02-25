@@ -4,54 +4,62 @@
     <!-- Meta tags for character encoding and responsive viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Link to component-specific stylesheet -->
+    
+    <!-- External CSS -->
     <link rel="stylesheet" href="../../static/css/ourBlends.css">
+    
+    <!-- Feather Icons CDN -->
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
     <!-- Our Blends Section Container -->
     <div class="our-blends-section">
-        <!-- Image Container -->
+        <!-- Product Image Container -->
         <div class="blends-image">
             <img src="{{ image_url }}" alt="Tea Blends Collection">
         </div>
 
-        <!-- Content Container -->
+        <!-- Main Content Container -->
         <div class="blends-content">
-            <!-- Section Headers -->
+            <!-- Section Titles -->
             <h2>{{ heading }}</h2>
             <h3>{{ subheading }}</h3>
-            <!-- Description Text -->
+            
+            <!-- Product Description -->
             <p>{{ description }}</p>
-                <!-- guide you to a new world of flavors!</p> -->
 
-            <!-- Features Grid Container -->
+            <!-- Features Grid Layout -->
             <div class="features-grid">
-                <!-- Premium Quality Feature -->
+                <!-- Premium Quality Feature Box -->
                 <div class="feature">
-                    <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Icons/e96cca60-6b20-42cb-9de8-3a7ddd18863c.svg?updatedAt=1738305341233"
-                        alt="Premium Quality">
+                    <i data-feather="award"></i>
                     <span>Premium<br>quality</span>
                 </div>
-                <!-- Organic Feature -->
+                
+                <!-- Organic Certification Feature Box -->
                 <div class="feature">
-                    <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Icons/organic-icon.svg?updatedAt=1738305341250"
-                        alt="Organic">
+                    <i data-feather="check-circle"></i>
                     <span>Certified<br>organic ingredients</span>
                 </div>
-                <!-- Exclusive Feature -->
+                
+                <!-- Exclusive Brand Feature Box -->
                 <div class="feature">
-                    <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Icons/award-icon.svg?updatedAt=1738305341161"
-                        alt="Exclusive">
+                    <i data-feather="star"></i>
                     <span>Exclusive from<br>BLATTÉ</span>
                 </div>
-                <!-- Design Feature -->
+                
+                <!-- Design Feature Box -->
                 <div class="feature">
-                    <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Icons/design-icon.svg?updatedAt=1738305341170"
-                        alt="Design">
+                    <i data-feather="coffee"></i>
                     <span>Unique design</span>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+    </script>
 </body>
 </html>

@@ -11,49 +11,53 @@
         document.title = headersName.dashboard;
     </script>
 
-    <!-- Stylesheets -->
+    <!-- External stylesheets and dependencies -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admins/dashboard.css') }}">
     <!-- Feather Icons CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
     <!-- Sidebar Navigation -->
     <div class="sidebar">
-        <!-- Logo Container -->
+        <!-- Company Logo -->
         <div class="logo">
-            <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/LOGO/clean_canvas_image-removebg.png?updatedAt=1738715178516" alt="Logo">    
+            <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/LOGO/clean_canvas_image-removebg.png?updatedAt=1738715178516" alt="Blatté Logo">    
         </div>
         
         <!-- Main Navigation Menu -->
         <nav class="nav-menu">
+            <!-- Dashboard Link -->
             <a href="#" class="nav-item active" onclick="showContent('dashboard')">
                 <i data-feather="activity"></i>
                 <span>Dashboard</span>
             </a>
             
+            <!-- Product Management Links -->
             <a href="#" class="nav-item" onclick="showContent('insertProducts')">
                 <i data-feather="shopping-bag"></i>
                 <span>Add Products</span>
             </a>
 
+            <!-- User Management Link -->
             <a href="#" class="nav-item" onclick="showContent('usersInformation')">
                 <i data-feather="users"></i>
-                <span>users information</span>
+                <span>Users Information</span>
             </a>
 
+            <!-- Order Management Link -->
             <a href="#" class="nav-item" onclick="showContent('order')">
-                <i data-feather="users"></i>
-                <span>order</span>
+                <i data-feather="package"></i>
+                <span>Orders</span>
             </a>
 
+            <!-- Product Deletion Link -->
             <a href="#" class="nav-item" onclick="showContent('deleteProducts')">
                 <i data-feather="trash-2"></i>
                 <span>Delete Products</span>
             </a>
         </nav>
         
-        <!-- Logout Button -->
+        <!-- Logout Section -->
         <a href="/user/logout" class="logout">
             <i data-feather="log-out"></i>
             <span>Log Out</span>
@@ -62,14 +66,14 @@
 
     <!-- Main Content Area -->
     <div class="main-content">
-        <!-- Header Section -->
+        <!-- Header Section with Navigation -->
         <header class="header">
             <h1 class="header-title">Dashboard</h1>
             <div class="header-actions">
-                <!-- Top Navigation -->
+                <!-- Top Navigation Links -->
                 <nav class="top-nav">
                     <a href="/" class="nav-link">Home</a>
-                    <a href="/products" class="nav-link">products</a>
+                    <a href="/products" class="nav-link">Products</a>
                     <a href="/about" class="nav-link">About</a>
                     <a href="/Contact" class="nav-link">Contact</a>
                 </nav>
@@ -77,6 +81,7 @@
         </header>
 
         <!-- Dynamic Content Sections -->
+        <!-- Each section is loaded conditionally based on navigation -->
         <div id="dashboard-content">
             {% include 'components/admins/dashboard.html' %}
         </div>
@@ -94,7 +99,7 @@
         </div>
     </div>
 
-    <!-- JavaScript Files -->
+    <!-- JavaScript Dependencies -->
     <script src="{{ url_for('static', filename='javascripts/admins/dashboard.js') }}"></script>
     <script>
         // Initialize Feather Icons

@@ -7,6 +7,9 @@
     
     <!-- Link to component-specific stylesheet -->
     <link rel="stylesheet" href="/static/css/storeSection.css">
+    
+    <!-- Feather Icons CDN -->
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
     <!-- Main store locator section container -->
@@ -19,20 +22,31 @@
             <!-- Descriptive text to engage users -->
             <p>Explore a new world of flavor, get inspired, and savor the moment.</p>
             
-            <!-- Call-to-action button for store finder -->
-            <button class="store-finder-btn">Find a store close to me</button>
+            <!-- Call-to-action button with location icon -->
+            <button class="store-finder-btn">
+                <i data-feather="map-pin"></i>
+                Find a store close to me
+            </button>
         </div>
         
         <!-- Right side container for store image and caption -->
         <div class="store-image">
-            <!-- Store front image -->
+            <!-- Store front image - keeping original as it's not an SVG -->
             <img 
                 src="../static/images/blatte.jpeg" 
                 alt="BLATTÉ Store Front"
             >
             <!-- Store location caption -->
-            <div class="store-caption">BLATTÉ - Utrecht</div>
+            <div class="store-caption">
+                <i data-feather="home"></i>
+                BLATTÉ - Utrecht
+            </div>
         </div>
     </div>
+
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+    </script>
 </body>
 </html>

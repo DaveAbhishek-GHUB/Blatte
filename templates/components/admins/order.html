@@ -4,25 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Load CSS styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admins/order.css') }}">
+    <!-- Load Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="../../../static/javascripts/admins/order.js"></script>
 </head>
 
 <body>
+    <!-- Main Dashboard Container -->
     <div class="orders-dashboard">
-        <!-- Stats Cards -->
+        <!-- Stats Cards Section -->
         <div class="stats-container">
+            <!-- Total Orders Card -->
             <div class="stat-card">
                 <h3>Total Orders</h3>
                 <div class="stat-value">
                     <span class="number">{{ total_orders }}</span>
                 </div>
             </div>
+            <!-- Pending Orders Card -->
             <div class="stat-card">
                 <h3>Pending Orders</h3>
                 <div class="stat-value">
                     <span class="number">{{ pending_orders }}</span>
                 </div>
             </div>
+            <!-- Completed Orders Card -->
             <div class="stat-card">
                 <h3>Completed Orders</h3>
                 <div class="stat-value">
@@ -33,16 +41,22 @@
 
         <!-- Orders Table Section -->
         <div class="orders-table-section">
+            <!-- Table Header with Search and Export -->
             <div class="table-header">
                 <h2>Order Management</h2>
                 <div class="table-actions">
                     <div class="search-box">
                         <input type="text" id="orderSearch" placeholder="Search orders..." oninput="searchOrders()">
+                        <i data-feather="search"></i>
                     </div>
-                    <button class="export-btn" onclick="exportOrderData()">Export Data</button>
+                    <button class="export-btn" onclick="exportOrderData()">
+                        <i data-feather="download"></i>
+                        Export Data
+                    </button>
                 </div>
             </div>
 
+            <!-- Orders Data Table -->
             <table class="orders-table">
                 <thead>
                     <tr>
@@ -75,9 +89,11 @@
                         </td>
                         <td class="action-cell">
                             <button class="status-btn delivered" onclick="updateOrderStatus('{{ order.order_id }}', 'Delivered')">
+                                <i data-feather="check-circle"></i>
                                 Delivered
                             </button>
                             <button class="status-btn cancelled" onclick="updateOrderStatus('{{ order.order_id }}', 'Cancelled')">
+                                <i data-feather="x-circle"></i>
                                 Cancelled
                             </button>
                         </td>
@@ -87,98 +103,6 @@
             </table>
         </div>
     </div>
-
-    <script>
-    function searchOrders() {
-        const searchInput = document.getElementById('orderSearch');
-        const filter = searchInput.value.toLowerCase();
-        const rows = document.getElementsByClassName('order-row');
-
-        for (let row of rows) {
-            const orderId = row.querySelector('td:first-child').textContent.toLowerCase();
-            const name = row.querySelector('.user-name').textContent.toLowerCase();
-            const email = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
-            
-            const shouldShow = orderId.includes(filter) || 
-                             name.includes(filter) || 
-                             email.includes(filter);
-            row.style.display = shouldShow ? '' : 'none';
-        }
-    }
-
-    function updateOrderStatus(orderId, newStatus) {
-        fetch(`/admin/update-order-status/${orderId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ status: newStatus })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Update the status badge in the table
-                const row = document.querySelector(`tr[data-order-id="${orderId}"]`);
-                const statusCell = row.querySelector('.status-cell');
-                statusCell.innerHTML = `<span class="status-badge ${newStatus.toLowerCase()}">${newStatus}</span>`;
-                
-                // Update the stats
-                updateOrderStats(newStatus);
-            } else {
-                alert('Error updating order status: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error updating order status. Please try again.');
-        });
-    }
-
-    function updateOrderStats(newStatus) {
-        const totalOrdersElement = document.querySelector('.stat-card:nth-child(1) .number');
-        const pendingOrdersElement = document.querySelector('.stat-card:nth-child(2) .number');
-        const completedOrdersElement = document.querySelector('.stat-card:nth-child(3) .number');
-
-        const pendingCount = parseInt(pendingOrdersElement.textContent);
-        const completedCount = parseInt(completedOrdersElement.textContent);
-
-        if (newStatus === 'Delivered') {
-            pendingOrdersElement.textContent = pendingCount - 1;
-            completedOrdersElement.textContent = completedCount + 1;
-        } else if (newStatus === 'Cancelled') {
-            pendingOrdersElement.textContent = pendingCount - 1;
-        }
-    }
-
-    function exportOrderData() {
-        const table = document.querySelector('.orders-table');
-        const rows = Array.from(table.querySelectorAll('tr'));
-        
-        const csvContent = rows.map(row => {
-            const cells = Array.from(row.querySelectorAll('th, td'));
-            return cells.map(cell => {
-                // Skip the action buttons cell
-                if (!cell.querySelector('.status-btn')) {
-                    let text = cell.textContent.trim().replace(/,/g, '');
-                    return `"${text}"`;
-                }
-                return '';
-            }).join(',');
-        }).join('\n');
-
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a');
-        const url = URL.createObjectURL(blob);
-        
-        link.setAttribute('href', url);
-        link.setAttribute('download', `orders_data_${new Date().toISOString().split('T')[0]}.csv`);
-        link.style.visibility = 'hidden';
-        
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-    </script>
 </body>
 
 </html>

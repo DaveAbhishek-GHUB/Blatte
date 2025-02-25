@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- External Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <!-- Custom JavaScript -->
     <script src="{{ url_for('static', filename='javascripts/admins/dashboardCharts.js') }}"></script>
 </head>
 <body>
-    <h1>Dashboard</h1>
+    <!-- Main Dashboard Container -->
     <div class="dashboard-container">
-        <!-- Quick Stats Section -->
+        <!-- Quick Stats Section - Shows key metrics -->
         <div class="quick-stats">
+            <!-- Products Stats Card -->
             <div class="stat-card">
                 <div class="stat-icon">
                     <i data-feather="shopping-bag"></i>
@@ -23,6 +26,7 @@
                 </div>
             </div>
 
+            <!-- Users Stats Card -->
             <div class="stat-card">
                 <div class="stat-icon">
                     <i data-feather="users"></i>
@@ -34,6 +38,7 @@
                 </div>
             </div>
 
+            <!-- Active Carts Stats Card -->
             <div class="stat-card">
                 <div class="stat-icon">
                     <i data-feather="shopping-cart"></i>
@@ -45,6 +50,7 @@
                 </div>
             </div>
 
+            <!-- Orders Stats Card -->
             <div class="stat-card">
                 <div class="stat-icon">
                     <i data-feather="package"></i>
@@ -57,13 +63,15 @@
             </div>
         </div>
 
-        <!-- Charts Section -->
+        <!-- Analytics Charts Section -->
         <div class="charts-section">
+            <!-- User Growth Chart -->
             <div class="chart-container">
                 <h3>User Growth</h3>
                 <canvas id="userGrowthChart"></canvas>
             </div>
             
+            <!-- Order Growth Chart -->
             <div class="chart-container">
                 <h3>Order Growth</h3>
                 <canvas id="orderGrowthChart"></canvas>
@@ -72,6 +80,7 @@
 
         <!-- Recent Activity Section -->
         <div class="activity-section">
+            <!-- Recent Orders List -->
             <div class="recent-orders">
                 <h3>Recent Orders</h3>
                 <div class="order-list">
@@ -92,6 +101,7 @@
                 </div>
             </div>
 
+            <!-- New Users List -->
             <div class="recent-users">
                 <h3>New Users</h3>
                 <div class="user-list">
@@ -108,7 +118,7 @@
             </div>
         </div>
 
-        <!-- Inventory Status -->
+        <!-- Inventory Status Section -->
         <div class="inventory-section">
             <h3>Low Stock Products</h3>
             <div class="inventory-grid">
@@ -138,5 +148,12 @@
             </div>
         </div>
     </div>
+
+    <!-- Initialize Feather Icons -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            feather.replace();
+        });
+    </script>
 </body>
 </html>

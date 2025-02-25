@@ -4,34 +4,50 @@
     <!-- Meta tags for character encoding and responsive viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Link to component-specific stylesheet -->
+    
+    <!-- Component-specific stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/weLoveWhatWeDo.css') }}">
+    
+    <!-- Feather Icons CDN -->
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
-    <!-- Main About Section -->
+    <!-- Main About Section: Showcases company values and mission -->
     <section class="about-section">
-        <!-- Container for About content -->
+        <!-- Container for About content with image and text --> 
         <div class="about-container">
-            <!-- Image container -->
+            <!-- Image container showing team members -->
             <div class="about-image">
                 <img src="https://www.paperandtea.com/cdn/shop/files/brand-teaser.jpg?v=1723556978&width=1000"
-                    alt="Two women enjoying tea">
+                    alt="Two women enjoying tea"
+                    loading="lazy">
             </div>
-            <!-- Text content container -->
+            
+            <!-- Text content container with heading and description -->
             <div class="about-text">
-                <!-- Section heading -->
+                <!-- Main heading expressing company passion -->
                 <h1>Because we love what we do</h1>
-                <!-- About description -->
+                
+                <!-- Company mission and values description -->
                 <p>
                     At BLATTÉ, we're all about mindful moments that truly matter. We invite you to discover new
                     taste experiences and find the tranquility you seek. Our products are thoughtfully crafted to bring
                     joy. Our team lives for what we do – creating spaces and experiences that inspire and connect.
                     Learn more about what drives us and join us on our journey.
                 </p>
-                <!-- Call-to-action button -->
-                <button class="learn-more-button">Learn more about us</button>
+                
+                <!-- Call-to-action button with arrow icon -->
+                <button class="learn-more-button">
+                    Learn more about us
+                    <i data-feather="arrow-right"></i>
+                </button>
             </div>
         </div>
     </section>
+
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+    </script>
 </body>
 </html>

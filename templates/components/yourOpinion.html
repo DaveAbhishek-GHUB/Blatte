@@ -4,99 +4,84 @@
     <!-- Meta tags for character encoding and responsive viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Link to external CSS stylesheet -->
+    
+    <!-- External CSS stylesheet -->
     <link rel="stylesheet" href="/static/css/yourOpinion.css">
+    
+    <!-- Feather Icons CDN -->
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
     <!-- Main Reviews Section Container -->
     <div class="reviews-section">
-        <!-- Section Title Heading -->
+        <!-- Section Title -->
         <h2 class="reviews-title">Your opinion matters</h2>
 
-        <!-- Overall Rating Statistics Container -->
+        <!-- Reviews Statistics Container -->
         <div class="reviews-stats">
-            <!-- Average Rating Score -->
+            <!-- Average Rating Display -->
             <span class="rating">4.8</span>
-            <!-- Star Rating Display -->
+            <!-- Star Rating Visual -->
             <div class="stars">★★★★★</div>
-            <!-- Total Reviews Count -->
+            <!-- Total Review Count -->
             <span class="review-count">Excellent - 8976 Reviews</span>
         </div>
         
-        <!-- Reviews Grid Container - Displays Multiple Review Cards -->
+        <!-- Reviews Grid - Contains Multiple Review Cards -->
         <div class="reviews-container">
-            <!-- Review Card 1 - Customer: Thomas -->
+            <!-- Review Card - Thomas -->
             <div class="review-card">
-                <!-- Reviewer Information Section -->
                 <div class="reviewer-info">
-                    <!-- Reviewer Name -->
                     <span class="reviewer-name">Thomas</span>
-                    <!-- Verification Badge Container -->
                     <div class="verified-badge">
-                        <!-- Verification Icon -->
-                        <img src="../../static/images/svgs/verify.svg" alt="Verified customer">
-                        <!-- Verification Text -->
+                        <i data-feather="check-circle"></i>
                         <span>Verified customer</span>
                     </div>
                 </div>
-                <!-- Review Content -->
                 <p class="review-text">"Very smooth blended teas with an extraordinarily mellow aromatic and slightly exotic flavor which awaken a beautiful taste sensation in every drop."</p>
             </div>
     
-            <!-- Review Card 2 - Customer: Pamela A. -->
+            <!-- Review Card - Pamela A. -->
             <div class="review-card">
-                <!-- Reviewer Information Section -->
                 <div class="reviewer-info">
-                    <!-- Reviewer Name -->
                     <span class="reviewer-name">Pamela A.</span>
-                    <!-- Verification Badge Container -->
                     <div class="verified-badge">
-                        <!-- Verification Icon -->
-                        <img src="../../static/images/svgs/verify.svg" alt="Verified customer">
-                        <!-- Verification Text -->
+                        <i data-feather="check-circle"></i>
                         <span>Verified customer</span>
                     </div>
                 </div>
-                <!-- Review Content -->
                 <p class="review-text">"This company's products are gorgeous, delicious and very high quality."</p>
             </div>
     
-            <!-- Review Card 3 - Customer: Maria -->
+            <!-- Review Card - Maria -->
             <div class="review-card">
-                <!-- Reviewer Information Section -->
                 <div class="reviewer-info">
-                    <!-- Reviewer Name -->
                     <span class="reviewer-name">Maria</span>
-                    <!-- Verification Badge Container -->
                     <div class="verified-badge">
-                        <!-- Verification Icon -->
-                        <img src="../../static/images/svgs/verify.svg" alt="Verified customer">
-                        <!-- Verification Text -->
+                        <i data-feather="check-circle"></i>
                         <span>Verified customer</span>
                     </div>
                 </div>
-                <!-- Review Content -->
                 <p class="review-text">"I love the quality of their products, they are really outstanding."</p>
             </div>
     
-            <!-- Review Card 4 - Customer: Giulia -->
+            <!-- Review Card - Giulia -->
             <div class="review-card">
-                <!-- Reviewer Information Section -->
                 <div class="reviewer-info">
-                    <!-- Reviewer Name -->
                     <span class="reviewer-name">Giulia</span>
-                    <!-- Verification Badge Container -->
                     <div class="verified-badge">
-                        <!-- Verification Icon -->
-                        <img src="../../static/images/svgs/verify.svg" alt="Verified customer">
-                        <!-- Verification Text -->
+                        <i data-feather="check-circle"></i>
                         <span>Verified customer</span>
                     </div>
                 </div>
-                <!-- Review Content -->
                 <p class="review-text">"Every product they have has very high quality."</p>
             </div>
         </div>
     </div>
+
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+    </script>
 </body>
 </html>

@@ -5,14 +5,19 @@
     <!-- Meta tags for character encoding and responsive viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Link to component-specific stylesheet -->
+    
+    <!-- Component-specific stylesheet -->
     <link rel="stylesheet" href="/static/css/moreAssesories.css">
+    
+    <!-- Feather Icons CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 </head>
 
 <body>
     <!-- Main Accessories Section Container -->
     <div class="accessories-section">
-        <!-- Section Header with Title and Description -->
+        <!-- Section Header -->
         <div class="accessories-header">
             <h1>More accessories at BLATTÉ</h1>
             <p>Everything you need for the perfect tea ritual</p>
@@ -20,7 +25,7 @@
 
         <!-- Grid Container for Accessory Categories -->
         <div class="accessories-categories">
-            <!-- Kettles Category Item -->
+            <!-- Kettles Category -->
             <div class="accessory-item">
                 <div class="accessory-circle">
                     <a href="/teaAccessories">
@@ -29,10 +34,9 @@
                     </a>
                 </div>
                 <span>Kettles</span>
-
             </div>
 
-            <!-- Tea Preparation Tools Category Item -->
+            <!-- Tea Preparation Tools Category -->
             <div class="accessory-item">
                 <div class="accessory-circle">
                     <a href="/teaAccessories">
@@ -43,8 +47,7 @@
                 <span>Preparation</span>
             </div>
 
-
-            <!-- Tea Pots Category Item -->
+            <!-- Tea Pots Category -->
             <div class="accessory-item">
                 <div class="accessory-circle">
                     <a href="/teaAccessories">
@@ -55,8 +58,7 @@
                 <span>Tea Pots</span>
             </div>
 
-
-            <!-- Cups and Mugs Category Item -->
+            <!-- Cups and Mugs Category -->
             <div class="accessory-item">
                 <div class="accessory-circle">
                     <a href="/teaAccessories">
@@ -67,8 +69,7 @@
                 <span>Cups & Mugs</span>
             </div>
 
-
-            <!-- On the Go Products Category Item -->
+            <!-- On the Go Products Category -->
             <div class="accessory-item">
                 <div class="accessory-circle">
                     <a href="/teaAccessories">
@@ -79,8 +80,7 @@
                 <span>On the Go</span>
             </div>
 
-
-            <!-- Matcha Accessories Category Item -->
+            <!-- Matcha Accessories Category -->
             <div class="accessory-item">
                 <div class="accessory-circle">
                     <a href="/teaAccessories">
@@ -90,16 +90,20 @@
                 </div>
                 <span>Matcha<br>Accessories</span>
             </div>
-
         </div>
 
-        <!-- View All Button Container -->
+        <!-- Call-to-action Button Container -->
         <div class="view-all-wrapper">
             <a href="/teaAccessories">
                 <button class="view-all-btn animated-btn">Checkout all</button>
             </a>
         </div>
     </div>
+
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+    </script>
 </body>
 
 </html>
