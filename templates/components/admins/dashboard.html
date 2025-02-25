@@ -3,8 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="{{ url_for('static', filename='javascripts/admins/dashboardCharts.js') }}"></script>
 </head>
 <body>
     <h1>Dashboard</h1>
+    <div class="dashboard-container">
+        <!-- Quick Stats Section -->
+        <div class="quick-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i data-feather="shopping-bag"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Total Products</h3>
+                    <p class="stat-value">{{ products|length }}</p>
+                    <span class="stat-label">Active Products</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i data-feather="users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Total Users</h3>
+                    <p class="stat-value">{{ total_users }}</p>
+                    <span class="stat-label">Registered Users</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i data-feather="shopping-cart"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Active Carts</h3>
+                    <p class="stat-value">{{ active_carts }}</p>
+                    <span class="stat-label">Pending Checkouts</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i data-feather="package"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Total Orders</h3>
+                    <p class="stat-value">{{ total_orders }}</p>
+                    <span class="stat-label">Processed Orders</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-section">
+            <div class="chart-container">
+                <h3>User Growth</h3>
+                <canvas id="userGrowthChart"></canvas>
+            </div>
+            
+            <div class="chart-container">
+                <h3>Order Growth</h3>
+                <canvas id="orderGrowthChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Recent Activity Section -->
+        <div class="activity-section">
+            <div class="recent-orders">
+                <h3>Recent Orders</h3>
+                <div class="order-list">
+                    {% for order in orders[:5] %}
+                    <div class="order-item">
+                        <div class="order-info">
+                            <h4>Order #{{ order.order_id }}</h4>
+                            <p>{{ order.firstname }} {{ order.lastname }}</p>
+                        </div>
+                        <div class="order-details">
+                            <span class="order-amount">${{ "%.2f"|format(order.total_amount) }}</span>
+                            <span class="order-status {{ order.order_status|lower }}">
+                                {{ order.order_status|default('In Progress') }}
+                            </span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="recent-users">
+                <h3>New Users</h3>
+                <div class="user-list">
+                    {% for user in users[:5] %}
+                    <div class="user-item">
+                        <div class="user-info">
+                            <h4>{{ user.firstname }} {{ user.lastname }}</h4>
+                            <p>{{ user.email }}</p>
+                        </div>
+                        <span class="join-date">{{ user.created_at.strftime('%Y-%m-%d') }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Inventory Status -->
+        <div class="inventory-section">
+            <h3>Low Stock Products</h3>
+            <div class="inventory-grid">
+                {% set out_of_stock = [] %}
+                {% for product in products %}
+                    {% if product.availability_status == 'Out of Stock' %}
+                        {% set _ = out_of_stock.append(product) %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if out_of_stock|length > 0 %}
+                    {% for product in out_of_stock %}
+                    <div class="inventory-item">
+                        <img src="{{ product.main_product_image }}" alt="{{ product.product_name }}">
+                        <div class="inventory-info">
+                            <h4>{{ product.product_name }}</h4>
+                            <p class="stock-status out">Out of Stock</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="no-products-message">
+                        <i data-feather="package"></i>
+                        <p>No products are currently out of stock</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </body>
 </html>

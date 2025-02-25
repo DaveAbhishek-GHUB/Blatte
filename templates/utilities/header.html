@@ -37,10 +37,6 @@
                 <a href="/teaBlends">Tea Blends</a>
                 <a href="/giftSets">Gift set</a>
                 <a href="/teaAccessories">Tea accessories</a>
-                <!-- Add Dashboard link for admin users -->
-                {% if request.cookies.get('is_admin') %}
-                <a href="/admins/dashboard" class="admin-link">Dashboard</a>
-                {% endif %}
             </div>
 
             <!-- Secondary navigation icons -->
@@ -54,20 +50,28 @@
                     <div class="search-results"></div>
                 </div>
                 
-                <!-- Wishlist -->
-                <a href="/wishlist">
-                    <img src="../static/images/svgs/wishlist.svg" alt="wishList">
-                </a>
+                <!-- Dashboard for admin users -->
+                {% if request.cookies.get('is_admin') %}
+                    <a href="/admins/dashboard" class="admin-link">Dashboard</a>
+                {% endif %}
                 
-                <!-- Profile -->
-                <a href="/auth">
-                    <img src="../static/images/svgs/profile.svg" alt="profileIcon">
-                </a>
-                
-                <!-- Cart -->
-                <a href="/cart">
-                    <img src="../static/images/svgs/cart.svg" alt="cartIcon">
-                </a>
+                <!-- Regular user icons -->
+                {% if not request.cookies.get('is_admin') %}
+                    <!-- Wishlist -->
+                    <a href="/wishlist">
+                        <img src="../static/images/svgs/wishlist.svg" alt="wishList">
+                    </a>
+                    
+                    <!-- Profile -->
+                    <a href="/auth">
+                        <img src="../static/images/svgs/profile.svg" alt="profileIcon">
+                    </a>
+                    
+                    <!-- Cart -->
+                    <a href="/cart">
+                        <img src="../static/images/svgs/cart.svg" alt="cartIcon">
+                    </a>
+                {% endif %}
             </div>
 
         </div>

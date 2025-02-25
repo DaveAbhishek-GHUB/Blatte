@@ -1855,6 +1855,63 @@ def delete_product(product_id):
         if conn:
             conn.close()
 
+@app.route('/admin/dashboard-data')
+def get_dashboard_data():
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({
+            'userGrowth': {'labels': [], 'data': []},
+            'orderGrowth': {'labels': [], 'data': []}
+        })
+
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Get user growth data (last 12 months)
+            cursor.execute("""
+                SELECT 
+                    DATE_FORMAT(created_at, '%b-%y') as month,
+                    COUNT(*) as count
+                FROM users
+                WHERE created_at >= DATE_SUB(NOW(), INTERVAL 12 MONTH)
+                GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+                ORDER BY created_at
+            """)
+            user_data = cursor.fetchall()
+
+            # Get order growth data (last 12 months)
+            cursor.execute("""
+                SELECT 
+                    DATE_FORMAT(created_at, '%b-%y') as month,
+                    COUNT(DISTINCT JSON_EXTRACT(ordered, '$[*].order_id')) as count
+                FROM users
+                WHERE JSON_LENGTH(ordered) > 0
+                AND created_at >= DATE_SUB(NOW(), INTERVAL 12 MONTH)
+                GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+                ORDER BY created_at
+            """)
+            order_data = cursor.fetchall()
+
+            return jsonify({
+                'userGrowth': {
+                    'labels': [row['month'] for row in user_data],
+                    'data': [row['count'] for row in user_data]
+                },
+                'orderGrowth': {
+                    'labels': [row['month'] for row in order_data],
+                    'data': [row['count'] for row in order_data]
+                }
+            })
+
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        return jsonify({
+            'userGrowth': {'labels': [], 'data': []},
+            'orderGrowth': {'labels': [], 'data': []}
+        })
+    finally:
+        if conn:
+            conn.close()
+
 # ========== APPLICATION ENTRY POINT ==========
 if __name__ == '__main__':
 
