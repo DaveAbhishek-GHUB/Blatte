@@ -37,6 +37,10 @@
                 <a href="/teaBlends">Tea Blends</a>
                 <a href="/giftSets">Gift set</a>
                 <a href="/teaAccessories">Tea accessories</a>
+                <!-- Add Dashboard link for admin users -->
+                {% if request.cookies.get('is_admin') %}
+                <a href="/admins/dashboard" class="admin-link">Dashboard</a>
+                {% endif %}
             </div>
 
             <!-- Secondary navigation icons -->
