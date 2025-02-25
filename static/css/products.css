@@ -40,7 +40,7 @@
 .teas-header {
     padding: 2rem;
     max-width: 1400px;
-    margin: 0 auto;
+    margin: 65px auto 0;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -64,48 +64,13 @@
     margin-top: 1rem;
 }
 
-.search-container {
-    display: flex;
-    gap: 0.5rem;
-    min-width: 300px;
-    margin-top: 0.5rem;
-}
-
-#productSearch {
-    flex: 1;
-    padding: 0.75rem 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-
-#productSearch:focus {
-    outline: none;
-    border-color: #333;
-    box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
-}
-
-#searchButton {
-    background: none;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 0.75rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-#searchButton:hover {
-    background: #f5f5f5;
-    border-color: #333;
-}
-
+.search-container,
+#productSearch,
+#productSearch:focus,
+#searchButton,
+#searchButton:hover,
 #searchButton img {
-    width: 20px;
-    height: 20px;
+    /* Remove these duplicate styles */
 }
 
 .categorySection {
@@ -526,4 +491,9 @@
         width: 100%;
         min-width: unset;
     }
+}
+
+/* Add this to ensure proper spacing below header */
+.mainBodyWrapper {
+    margin-top: 7vw; /* Match header height from header.css */
 }
