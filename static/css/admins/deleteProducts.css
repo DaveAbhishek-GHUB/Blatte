@@ -115,8 +115,8 @@
 }
 
 .product-info {
-    display: flex;
-    align-items: center;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .product-name {
