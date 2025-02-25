@@ -1,5 +1,7 @@
+/* Global styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     margin: 0;
     padding: 0;
     color: #333;
@@ -8,20 +10,27 @@ body {
     flex-direction: column;
 }
 
+/* Main container */
 .container {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 80px auto 0;
     padding: 20px;
     flex: 1;
-    margin-top: 80px;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'serif', serif;
+    font-weight: 400;
 }
 
 h1 {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
     text-align: center;
     margin-bottom: 20px;
 }
 
+/* Store description */
 .description {
     text-align: center;
     margin-bottom: 30px;
@@ -31,6 +40,7 @@ h1 {
     line-height: 1.6;
 }
 
+/* Filter section */
 .filters {
     text-align: center;
     margin-bottom: 40px;
@@ -43,26 +53,29 @@ h1 {
     background-color: #fff;
     cursor: pointer;
     border-radius: 3px;
-    font-size: 14px;
+    font-size: clamp(12px, 2vw, 14px);
+    transition: background-color 0.3s ease;
 }
 
 .filters button:hover {
     background-color: #f0f0f0;
 }
 
+/* Store listing */
 .store-list {
     display: flex;
     flex-direction: column;
-    gap: 60px;
+    gap: clamp(30px, 5vw, 60px);
 }
 
 .store {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 40px;
+    gap: clamp(20px, 4vw, 40px);
 }
 
+/* Store images */
 .store-image {
     flex: 1;
     max-width: 50%;
@@ -72,15 +85,17 @@ h1 {
     width: 100%;
     height: auto;
     display: block;
+    border-radius: 4px;
 }
 
+/* Store information */
 .store-info {
     flex: 1;
     max-width: 45%;
 }
 
 .store-info h2 {
-    font-size: 1.8rem;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
     margin-bottom: 15px;
 }
 
@@ -92,8 +107,14 @@ h1 {
 .store-info a {
     color: #333;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
+.store-info a:hover {
+    color: #666;
+}
+
+/* Store hours */
 .hours {
     margin: 20px 0;
 }
@@ -102,17 +123,27 @@ h1 {
     margin: 5px 0;
 }
 
+/* Route button */
 .route-button {
     padding: 8px 20px;
     border: 1px solid #333;
     background-color: transparent;
     cursor: pointer;
-    font-size: 14px;
+    font-size: clamp(12px, 2vw, 14px);
     margin-top: 10px;
+    transition: all 0.3s ease;
 }
 
 .route-button:hover {
     background-color: #f0f0f0;
+}
+
+/* Responsive design */
+@media (max-width: 992px) {
+    .container {
+        padding: 15px;
+        margin-top: 60px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -123,5 +154,16 @@ h1 {
     .store-image,
     .store-info {
         max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+        margin-top: 40px;
+    }
+    
+    .filters button {
+        width: calc(50% - 10px);
     }
 }

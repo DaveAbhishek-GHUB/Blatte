@@ -1,14 +1,21 @@
+/* Import required fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+
+/* Main product container */
 .product-container {
     display: flex;
     max-width: 1200px;
     margin: 8vw auto 0;
     gap: 5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     font-size: 14px;
     line-height: 1.6;
     position: relative;
     animation: fadeIn 0.6s ease-out;
 }
 
+/* Product gallery section */
 .product-gallery {
     flex: 1;
     width: 60%;
@@ -20,6 +27,7 @@
     padding-left: 0;
 }
 
+/* Thumbnail navigation */
 .thumbnail-list {
     display: flex;
     flex-direction: column;
@@ -52,6 +60,7 @@
     transform: translateY(-2px);
 }
 
+/* Main product image */
 .main-image {
     flex: 1;
     position: relative;
@@ -70,6 +79,7 @@
     transition: opacity 0.4s ease;
 }
 
+/* Product information section */
 .product-info {
     flex: 1;
     width: 40%;
@@ -77,6 +87,7 @@
     padding-right: 1rem;
 }
 
+/* Product badges */
 .badges {
     display: flex;
     gap: 0.75rem;
@@ -93,7 +104,7 @@
 
 .badges img {
     width: 4vw;
-    height: 4fvw;
+    height: 4vw;
 }
 
 .badge.limited {
@@ -106,6 +117,7 @@
     color: #fff;
 }
 
+/* Flavor tags */
 .flavor-tags {
     display: flex;
     flex-wrap: wrap;
@@ -128,6 +140,7 @@
     transform: translateY(-2px);
 }
 
+/* Product features list */
 .features {
     list-style: none;
     padding: 0;
@@ -149,6 +162,7 @@
     color: #000;
 }
 
+/* Product tabs */
 .product-tabs {
     display: flex;
     gap: 2rem;
@@ -162,6 +176,8 @@
     padding: 0.75rem 0;
     cursor: pointer;
     position: relative;
+    font-family: serif;
+    font-weight: 400;
     font-size: 0.9rem;
     color: #666;
     transition: color 0.2s;
@@ -186,6 +202,7 @@
     background: #000;
 }
 
+/* Ingredients dropdown */
 .ingredients-dropdown {
     margin-top: 2.5rem;
     border-top: 1px solid #eaeaea;
@@ -231,6 +248,7 @@
     transform: rotate(180deg);
 }
 
+/* Add to cart section */
 .add-to-cart {
     display: flex;
     gap: 1.25rem;
@@ -277,7 +295,16 @@
     transform: translateY(0);
 }
 
-/* Add responsive styles */
+/* Responsive styles */
+/* Large devices (desktops) */
+@media screen and (max-width: 1400px) {
+    .product-container {
+        margin: 6vw 3rem;
+        gap: 4rem;
+    }
+}
+
+/* Medium-large devices */
 @media screen and (max-width: 1200px) {
     .product-container {
         margin: 4vw 2rem;
@@ -285,6 +312,7 @@
     }
 }
 
+/* Medium devices (tablets) */
 @media screen and (max-width: 992px) {
     .product-container {
         flex-direction: column;
@@ -307,6 +335,7 @@
     }
 }
 
+/* Small devices (landscape phones) */
 @media screen and (max-width: 768px) {
     .product-gallery {
         flex-direction: column-reverse;
@@ -346,6 +375,7 @@
     }
 }
 
+/* Extra small devices (phones) */
 @media screen and (max-width: 480px) {
     .product-container {
         margin: 4vw 1rem;
@@ -362,6 +392,8 @@
     }
 
     h1 {
+        font-family: serif;
+        font-weight: 400;
         font-size: 1.5rem;
     }
 
@@ -370,6 +402,7 @@
     }
 }
 
+/* Animation keyframes */
 @keyframes fadeIn {
     from {
         opacity: 0;

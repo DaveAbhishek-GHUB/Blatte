@@ -1,76 +1,73 @@
-/* ========== GLOBAL STYLES & RESETS ========== */
-/* Import primary fonts from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Neucha&display=swap');
+/* Import Montserrat font for body text */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
 
-/* Base reset for consistent cross-browser styling */
+/* Reset default styles */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Document root element sizing */
+/* Base document styling */
 html, body {
-    width: 100vw;
+    width: 100%;
     min-height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
 }
 
-/* ========== MAIN LAYOUT STRUCTURE ========== */
-/* Wrapper for page content below fixed headers */
+/* Main content wrapper */
 .mainBodyWrapper {
-    margin-top: 3.8vw;
+    margin-top: clamp(40px, 3.8vw, 60px);
 }
 
-/* ========== HERO SECTION STYLES ========== */
-/* Main hero banner section */
+/* Hero section */
 .heroSection {
-    width: 100vw;
-    height: 30vw;
+    width: 100%;
+    height: clamp(200px, 30vw, 600px);
     position: relative;
-    overflow: hidden;  /* Prevent image overflow */
+    overflow: hidden;
 }
 
-/* Hero image styling */
 .heroSection img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.8s ease;  /* Subtle zoom effect */
+    transition: transform 0.8s ease;
 }
 
-/* Hero text content container */
+/* Hero content */
 .infoWrapper {
     position: absolute;
-    top: 5vw;
+    top: clamp(30px, 5vw, 100px);
+    margin-left: clamp(20px, 3vw, 60px);
     display: flex;
     flex-direction: column;
     color: #ffffff;
-    margin-left: 3vw;
-    opacity: 0;  /* Start hidden */
-    animation: fadeInSlide 1s ease forwards;  /* Fade in and slide animation */
+    opacity: 0;
+    animation: fadeInSlide 1s ease forwards;
 }
 
-/* Hero subtitle styling */
 .infoWrapperOne {
-    font-size: 1.5vw;
-    font-family: "Montserrat", sans-serif;
+    font-size: clamp(16px, 1.5vw, 24px);
 }
 
-/* Hero main title styling */
 .infoWrapperTwo {
-    font-size: 5vw;
     font-family: serif;
+    font-weight: 400;
+    font-size: clamp(32px, 5vw, 80px);
 }
 
-/* Hero CTA button container */
+/* Hero CTA button */
 .infoWrapperBTN {
-    margin-top: 1vw;
-    width: 18vw;
-    padding: 1vw;
+    margin-top: clamp(10px, 1vw, 20px);
+    width: clamp(180px, 18vw, 300px);
+    padding: clamp(10px, 1vw, 20px);
     background-color: rgba(255, 255, 255, 0.9);
     color: #000000;
     border: none;
-    border-radius: 0.4vw;
+    border-radius: clamp(4px, 0.4vw, 8px);
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
@@ -84,40 +81,37 @@ html, body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Button text sizing */
 .infoWrapperBTN p {
-    font-size: 1.3vw;
+    font-size: clamp(14px, 1.3vw, 20px);
 }
 
-/* ========== CATEGORY NAVIGATION SECTION ========== */
-/* Horizontal scroll container for categories */
+/* Category navigation */
 .categorySection {
-    width: 100vw;
-    padding: 2vw;
+    width: 100%;
+    padding: clamp(20px, 2vw, 40px);
     display: flex;
     justify-content: center;
-    gap: 2vw;
+    gap: clamp(20px, 2vw, 40px);
     overflow-x: auto;
     background-color: #EEEEEE;
-    scrollbar-width: none;  /* Hide scrollbar Firefox */
-    -ms-overflow-style: none;  /* Hide scrollbar IE/Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .categorySection::-webkit-scrollbar {
-    display: none;  /* Hide scrollbar Chrome/Safari */
+    display: none;
 }
 
-/* Individual category item styling */
+/* Category items */
 .catProductInfo a {
-    width: 10vw;
-    height: 10vw;
+    width: clamp(100px, 10vw, 200px);
+    height: clamp(100px, 10vw, 200px);
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: "Montserrat", sans-serif;
-    font-size: 1.3vw;
-    gap: 0.5vw;
-    margin-bottom: 2vw;
+    font-size: clamp(14px, 1.3vw, 20px);
+    gap: clamp(5px, 0.5vw, 10px);
+    margin-bottom: clamp(20px, 2vw, 40px);
     text-decoration: none;
     color: black;
     transition: transform 0.3s ease;
@@ -127,11 +121,10 @@ html, body {
     transform: translateY(-5px);
 }
 
-/* Circular category image styling */
 .catProductInfo img {
     width: 100%;
     height: 100%;
-    border-radius: 100vw;
+    border-radius: 50%;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
@@ -141,40 +134,36 @@ html, body {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* ========== PRODUCT GRID LAYOUT ========== */
-/* Responsive product grid container */
+/* Product grid */
 .productsWrapper {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2vw;
-    padding: 4vw;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: clamp(20px, 2vw, 40px);
+    padding: clamp(20px, 4vw, 80px);
     background: #fff;
 }
 
-/* Section heading container */
+/* Section headings */
 .headingWrapper {
     width: 100%;
-    margin-bottom: 3vw;
+    margin-bottom: clamp(30px, 3vw, 60px);
     grid-column: 1 / -1;
 }
 
-/* Section title styling */
 .headingWrapper h1 {
-    font-size: 2.5vw;
-    font-family: "Montserrat", serif;
+    font-family: serif;
+    font-weight: 400;
+    font-size: clamp(24px, 2.5vw, 40px);
     color: #333;
-    margin-bottom: 0.5vw;
+    margin-bottom: clamp(5px, 0.5vw, 10px);
 }
 
-/* Section subtitle styling */
 .headingWrapper p {
-    font-size: 1.2vw;
+    font-size: clamp(14px, 1.2vw, 18px);
     color: #666;
-    font-family: "Montserrat", sans-serif;
 }
 
-/* ========== PRODUCT CARD COMPONENTS ========== */
-/* Individual product card container */
+/* Product cards */
 .productWrapper {
     position: relative;
     width: 100%;
@@ -182,7 +171,7 @@ html, body {
     transition: all 0.3s ease;
     cursor: pointer;
     padding: 0;
-    border-radius: 0.8vw;
+    border-radius: clamp(8px, 0.8vw, 16px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
@@ -191,7 +180,7 @@ html, body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
-/* Image container with aspect ratio control */
+/* Product images */
 .productImage {
     position: relative;
     width: 100%;
@@ -199,7 +188,6 @@ html, body {
     overflow: hidden;
 }
 
-/* Product image styling with hover effect */
 .productImage img {
     width: 100%;
     height: 100%;
@@ -207,35 +195,34 @@ html, body {
     transition: transform 0.3s ease;
 }
 
-/* Image zoom effect on card hover */
 .productWrapper:hover .productImage img {
     transform: scale(1.05);
 }
 
-/* ========== PRODUCT BADGES & CONTROLS ========== */
-/* Badge container positioning */
+/* Product badges */
 .tags {
     position: absolute;
-    top: 1vw;
-    left: 1vw;
+    top: clamp(10px, 1vw, 20px);
+    left: clamp(10px, 1vw, 20px);
     z-index: 2;
 }
 
-/* Individual badge styling */
 .tag {
     background: #000;
     color: white;
-    padding: 0.4vw 0.8vw;
-    border-radius: 0.25vw;
-    font-size: 0.8vw;
+    padding: clamp(4px, 0.4vw, 8px) clamp(8px, 0.8vw, 16px);
+    border-radius: clamp(3px, 0.25vw, 5px);
+    font-size: clamp(10px, 0.8vw, 14px);
     font-weight: 500;
 }
 
-/* Wishlist button positioning */
+/* Wishlist button */
 .wishlist-btn {
     position: absolute;
-    top: 1vw;
-    right: 1vw;
+    top: clamp(10px, 1vw, 20px);
+    right: clamp(10px, 1vw, 20px);
+    width: clamp(30px, 3vw, 60px);
+    height: clamp(30px, 3vw, 60px);
     background: none;
     border: none;
     cursor: pointer;
@@ -243,95 +230,84 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 3vw;
-    height: 3vw;
 }
 
-/* Wishlist icon styling */
 .wishlist-btn svg {
-    width: 1.8vw;
-    height: 1.8vw;
+    width: clamp(18px, 1.8vw, 36px);
+    height: clamp(18px, 1.8vw, 36px);
     stroke: #000;
     fill: none;
     transition: fill 0.3s ease;
 }
 
-/* Wishlist hover state */
 .wishlist-btn:hover svg {
     fill: #000;
 }
 
-/* ========== PRODUCT INFORMATION SECTION ========== */
-/* Product details container */
+/* Product information */
 .productInfo {
-    padding: 1.5vw 0;
+    padding: clamp(15px, 1.5vw, 30px) 0;
 }
 
-/* Flavor tags container */
 .flavor-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5vw;
-    margin-bottom: 1vw;
+    gap: clamp(5px, 0.5vw, 10px);
+    margin-bottom: clamp(10px, 1vw, 20px);
 }
 
-/* Individual flavor tag styling */
 .flavor-tag {
-    font-size: 0.9vw;
+    font-size: clamp(12px, 0.9vw, 16px);
     color: #666;
 }
 
-/* Separator for flavor tags */
 .flavor-tag:not(:last-child):after {
     content: "";
-    border-right: 0.1vw solid #666;
-    margin-left: 0.5vw;
-    padding-right: 0.5vw;
+    border-right: 1px solid #666;
+    margin-left: clamp(5px, 0.5vw, 10px);
+    padding-right: clamp(5px, 0.5vw, 10px);
 }
 
-/* Product category label */
 .category {
     color: #666;
-    font-size: 0.9vw;
-    margin-bottom: 0.5vw;
+    font-size: clamp(12px, 0.9vw, 16px);
+    margin-bottom: clamp(5px, 0.5vw, 10px);
 }
 
-/* Product title styling */
 .product-title {
-    font-family: "Montserrat", serif;
-    font-size: 1.5vw;
-    margin-bottom: 0.5vw;
+    font-family: serif;
+    font-weight: 400;
+    font-size: clamp(16px, 1.5vw, 24px);
+    margin-bottom: clamp(5px, 0.5vw, 10px);
     color: #000;
 }
 
-/* Product description text */
 .description {
-    font-size: 0.9vw;
+    font-size: clamp(12px, 0.9vw, 16px);
     color: #666;
-    margin-bottom: 1vw;
+    margin-bottom: clamp(10px, 1vw, 20px);
     line-height: 1.4;
 }
 
-/* Price and cart button container */
+/* Price and cart section */
 .price-cart {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* Price display styling */
 .price {
-    font-size: 1vw;
+    font-size: clamp(14px, 1vw, 18px);
     font-weight: 500;
 }
 
-/* Circular cart button styling */
+/* Cart button */
 .cart-btn {
-    min-width: 3vw;
-    min-height: 3vw;
-    width: 3vw;
-    height: 3vw;
-    border: 0.1vw solid #000;
+    min-width: clamp(30px, 3vw, 60px);
+    min-height: clamp(30px, 3vw, 60px);
+    width: clamp(30px, 3vw, 60px);
+    height: clamp(30px, 3vw, 60px);
+    border: 1px solid #000;
     border-radius: 50%;
     background: none;
     display: flex;
@@ -360,8 +336,8 @@ html, body {
 }
 
 .cart-btn img {
-    width: 1.5vw;
-    height: 1.5vw;
+    width: clamp(15px, 1.5vw, 30px);
+    height: clamp(15px, 1.5vw, 30px);
     object-fit: contain;
     position: relative;
     z-index: 1;
@@ -382,25 +358,4 @@ html, body {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-/* ========== RESPONSIVE BREAKPOINTS ========== */
-/* Medium screens (tablets) */
-@media (max-width: 768px) {
-    .heroSection { height: 50vw; }
-    .productsWrapper { grid-template-columns: repeat(2, 1fr); }
-    /* Adjusted component sizing for medium screens */
-    .cart-btn { min-width: 5vw; min-height: 5vw; }
-    .wishlist-btn { width: 5vw; height: 5vw; }
-    .product-title { font-size: 2.5vw; }
-}
-
-/* Small screens (mobile devices) */
-@media (max-width: 480px) {
-    .heroSection { height: 40vw; }
-    .productsWrapper { grid-template-columns: 1fr; }
-    /* Mobile-optimized component sizing */
-    .cart-btn { min-width: 8vw; min-height: 8vw; }
-    .wishlist-btn { width: 8vw; height: 8vw; }
-    .product-title { font-size: 4vw; }
 }

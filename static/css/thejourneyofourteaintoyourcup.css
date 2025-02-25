@@ -1,3 +1,4 @@
+/* Main container styles */
 .journey-container {
     display: flex;
     max-width: 1200px;
@@ -6,29 +7,35 @@
     gap: 2rem;
 }
 
+/* Text content section */
 .text-content {
     flex: 1;
     padding-right: 2rem;
 }
 
+/* Heading styles */
 h1 {
-    font-size: 3rem;
-    font-family: "Bodoni Moda", serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-family: "serif-400", serif;
     margin-bottom: 2rem;
     line-height: 1.2;
 }
 
 h2 {
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    font-family: "serif-400", serif;
     margin-bottom: 1rem;
 }
 
+/* Paragraph styles */
 p {
-    font-size: 1rem;
+    font-family: "Montserrat-400", sans-serif;
+    font-size: clamp(0.9rem, 2vw, 1rem);
     line-height: 1.6;
     margin-bottom: 2rem;
 }
 
+/* Image slider section */
 .image-slider {
     flex: 1;
     position: relative;
@@ -46,6 +53,7 @@ p {
     object-fit: cover;
 }
 
+/* Navigation arrows */
 .prev-arrow,
 .next-arrow {
     position: absolute;
@@ -54,11 +62,17 @@ p {
     background: rgba(255, 255, 255, 0.8);
     border: none;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
+    width: clamp(30px, 5vw, 40px);
+    height: clamp(30px, 5vw, 40px);
+    font-size: clamp(18px, 3vw, 24px);
     cursor: pointer;
     z-index: 2;
+    transition: background 0.3s ease;
+}
+
+.prev-arrow:hover,
+.next-arrow:hover {
+    background: rgba(255, 255, 255, 0.9);
 }
 
 .prev-arrow {
@@ -69,16 +83,39 @@ p {
     right: 10px;
 }
 
+/* Responsive design */
+@media (max-width: 1024px) {
+    .journey-container {
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+    
+    .text-content {
+        padding-right: 1.5rem;
+    }
+}
+
 @media (max-width: 768px) {
     .journey-container {
         flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
     }
 
     .text-content {
         padding-right: 0;
     }
+}
 
-    h1 {
-        font-size: 2rem;
+@media (max-width: 480px) {
+    .journey-container {
+        padding: 0.8rem;
+    }
+    
+    .prev-arrow,
+    .next-arrow {
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
     }
 }

@@ -1,38 +1,50 @@
+/* Import required fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+
+/* Base styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     line-height: 1.6;
     margin: 0;
     padding: 0;
     background-color: #f9f9f9;
     color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
+/* Main container */
 .container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 2rem;
+    max-width: min(90%, 800px);
+    margin: clamp(1rem, 4vw, 2rem) auto;
+    padding: clamp(1rem, 4vw, 2rem);
     background: #f9f9f9;
+    flex: 1;
 }
 
+/* Heading styles */
 h1,
 h2 {
+    font-family: serif;
+    font-weight: 400;
     color: #222;
 }
 
 h1 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    font-weight: 600;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    margin-bottom: clamp(1.5rem, 4vw, 2rem);
 }
 
 h2 {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    margin-bottom: clamp(0.75rem, 2vw, 1rem);
 }
 
+/* Breadcrumb navigation */
 .breadcrumb {
-    padding: 1rem 2rem;
+    padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 4vw, 2rem);
     background: #f9f9f9;
     margin-top: 80px;
     margin-bottom: 0;
@@ -41,27 +53,33 @@ h2 {
 .breadcrumb a {
     color: #666;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .breadcrumb a:hover {
     text-decoration: underline;
-}
-
-ul {
-    margin: 1rem 0;
-    padding-left: 1.5rem;
-}
-
-.section {
-    margin-bottom: 3rem;
-}
-
-.section p {
-    margin: 1rem 0;
-    line-height: 1.8;
     color: #333;
 }
 
+/* List styles */
+ul {
+    margin: clamp(0.75rem, 2vw, 1rem) 0;
+    padding-left: clamp(1rem, 3vw, 1.5rem);
+}
+
+/* Content sections */
+.section {
+    margin-bottom: clamp(2rem, 6vw, 3rem);
+}
+
+.section p {
+    margin: clamp(0.75rem, 2vw, 1rem) 0;
+    line-height: 1.8;
+    color: #333;
+    font-size: clamp(0.875rem, 2vw, 1rem);
+}
+
 .section ul li {
-    margin-bottom: 0.5rem;
+    margin-bottom: clamp(0.375rem, 1vw, 0.5rem);
+    font-size: clamp(0.875rem, 2vw, 1rem);
 }

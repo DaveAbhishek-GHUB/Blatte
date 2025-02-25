@@ -1,138 +1,145 @@
-/* Main footer container styles */
+/* Import required fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+
+/* Main footer container */
 .footer {
     background-color: #000;
     color: #fff;
-    padding: 4vw 3vw;
+    padding: clamp(2rem, 4vw, 4rem) clamp(1.5rem, 3vw, 3rem);
+    width: 100%;
+    box-sizing: border-box;
 }
 
-/* Grid layout for footer content */
+/* Footer content grid layout */
 .footer__content {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3vw;
-    margin-bottom: 3vw;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: clamp(1.5rem, 3vw, 3rem);
+    margin-bottom: clamp(1.5rem, 3vw, 3rem);
+    width: 100%;
 }
 
-/* Footer section titles */
+/* Section headings */
 .footer__title {
-    font-family: 'ScotchModern', 'Times New Roman', serif;
-    font-size: 1.8vw;
-    margin-bottom: 1.5vw;
-    font-weight: 500;
+    font-family: serif;
+    font-weight: 400;
+    font-size: clamp(1.5rem, 1.8vw, 2rem);
+    margin-bottom: clamp(1rem, 1.5vw, 1.5rem);
 }
 
-/* Footer list container */
+/* Navigation lists */
 .footer__list {
     list-style: none;
     padding: 0;
-    font-family: sans-serif;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
-/* Footer list items */
 .footer__list li {
-    margin-bottom: 0.8vw;
-    font-size: 1.2vw;
+    margin-bottom: clamp(0.5rem, 0.8vw, 1rem);
 }
 
-/* Footer links styling */
+/* Link styling */
 .footer__list a,
 .footer a {
     color: #fff;
     text-decoration: none;
-    transition: opacity 0.3s;
-    font-family: sans-serif;
-    font-size: 1.2vw;
+    transition: opacity 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.875rem, 1.2vw, 1rem);
 }
 
-/* Hover effect for footer links */
 .footer__list a:hover,
 .footer a:hover {
     opacity: 0.8;
 }
 
-/* Contact button styling */
+/* Contact section */
 .contact-button {
     display: inline-block;
     border: 1px solid #fff;
-    padding: 0.8vw 1.5vw;
-    margin: 1.2vw 0;
-    font-family: sans-serif;
-    font-size: 1.2vw;
+    padding: clamp(0.5rem, 0.8vw, 1rem) clamp(1rem, 1.5vw, 1.5rem);
+    margin: clamp(0.75rem, 1.2vw, 1.2rem) 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.875rem, 1.2vw, 1rem);
 }
 
-/* Business hours text styling */
 .business-hours {
-    font-size: 1.1vw;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.75rem, 1.1vw, 0.9rem);
     opacity: 0.8;
-    font-family: sans-serif;
 }
 
-/* Newsletter description text */
+/* Newsletter section */
 .newsletter__text {
-    margin-bottom: 1.5vw;
-    font-family: sans-serif;
-    font-size: 1.2vw;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.875rem, 1.2vw, 1rem);
+    margin-bottom: clamp(1rem, 1.5vw, 1.5rem);
 }
 
-/* Newsletter form container */
 .newsletter__form {
     display: flex;
-    gap: 0.8vw;
-    margin-bottom: 1.5vw;
+    gap: clamp(0.5rem, 0.8vw, 1rem);
+    margin-bottom: clamp(1rem, 1.5vw, 1.5rem);
+    flex-wrap: wrap;
 }
 
-/* Newsletter input field */
 .newsletter__input {
     flex: 1;
-    padding: 1vw;
+    min-width: 200px;
+    padding: clamp(0.75rem, 1vw, 1rem);
     border: none;
     background: #fff;
-    font-family: sans-serif;
-    font-size: 1.2vw;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.875rem, 1.2vw, 1rem);
 }
 
-/* Newsletter submit button */
 .newsletter__button {
-    padding: 1vw 2vw;
+    padding: clamp(0.75rem, 1vw, 1rem) clamp(1.5rem, 2vw, 2rem);
     background: #000;
     color: #fff;
     border: 1px solid #fff;
     cursor: pointer;
-    transition: all 0.3s;
-    font-family: sans-serif;
-    font-size: 1.2vw;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.875rem, 1.2vw, 1rem);
 }
 
-/* Newsletter button hover effect */
 .newsletter__button:hover {
     background: #fff;
     color: #000;
 }
 
-/* Newsletter disclaimer text */
 .newsletter__disclaimer {
-    font-size: 1vw;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.75rem, 1vw, 0.875rem);
     opacity: 0.8;
-    font-family: sans-serif;
 }
 
-/* Social media section container */
+/* Social media section */
 .footer__social {
-    margin-bottom: 3vw;
+    margin-bottom: clamp(1.5rem, 3vw, 3rem);
 }
 
-/* Social media icons container */
 .social-icons {
     display: flex;
-    gap: 1.5vw;
+    gap: clamp(1rem, 1.5vw, 1.5rem);
     flex-wrap: wrap;
+    align-items: center;
 }
 
-/* Individual social media icon */
 .social-icon {
-    font-size: 1.2vw;
-    width: 2vw;
-    height: 2vw;
+    font-size: clamp(1rem, 1.2vw, 1.2rem);
+    width: clamp(1.5rem, 2vw, 2rem);
+    height: clamp(1.5rem, 2vw, 2rem);
     background-size: contain;
     background-repeat: no-repeat;
     display: flex;
@@ -141,131 +148,36 @@
     text-decoration: none;
 }
 
-/* Payment methods icons container */
+/* Payment methods section */
 .payment-icons {
     display: flex;
-    gap: 0.8vw;
+    gap: clamp(0.5rem, 0.8vw, 1rem);
     align-items: center;
     flex-wrap: wrap;
 }
 
-/* Individual payment method icon */
 .payment-icons img {
-    height: 2vw;
+    height: clamp(1.5rem, 2vw, 2rem);
     width: auto;
 }
 
-/* Responsive design for tablet devices */
-@media (max-width: 1024px) {
-    .footer {
-        padding: 6vw 4vw;
-    }
-
-    .footer__content {
-        gap: 4vw;
-    }
-
-    .footer__title {
-        font-size: 2.8vw;
-        margin-bottom: 2vw;
-    }
-    
-    .footer__list li,
-    .footer__list a,
-    .footer a,
-    .contact-button,
-    .newsletter__text,
-    .newsletter__input,
-    .newsletter__button {
-        font-size: 2vw;
-    }
-    
-    .business-hours {
-        font-size: 1.8vw;
-    }
-    
-    .newsletter__disclaimer {
-        font-size: 1.6vw;
-    }
-    
-    .social-icon {
-        font-size: 1.8vw;
-        width: 3.5vw;
-        height: 3.5vw;
-    }
-
-    .payment-icons img {
-        height: 3.5vw;
-    }
-
-    .newsletter__form {
-        gap: 1.2vw;
-    }
-
-    .newsletter__input,
-    .newsletter__button {
-        padding: 1.5vw;
-    }
-}
-
-/* Responsive design for mobile devices */
-@media (max-width: 768px) {
-    .footer {
-        padding: 8vw 5vw;
-    }
-
+/* Responsive adjustments for smaller screens */
+@media screen and (max-width: 768px) {
     .footer__content {
         grid-template-columns: 1fr;
-        gap: 6vw;
     }
 
     .newsletter__form {
         flex-direction: column;
-        gap: 2vw;
-    }
-    
-    .footer__title {
-        font-size: 5vw;
-        margin-bottom: 3vw;
-    }
-    
-    .footer__list li,
-    .footer__list a,
-    .footer a,
-    .contact-button,
-    .newsletter__text,
-    .newsletter__input,
-    .newsletter__button {
-        font-size: 3.8vw;
-    }
-    
-    .business-hours {
-        font-size: 3.5vw;
-    }
-    
-    .newsletter__disclaimer {
-        font-size: 3.2vw;
-    }
-    
-    .social-icon {
-        font-size: 3.5vw;
-        width: 8vw;
-        height: 8vw;
-    }
-
-    .payment-icons img {
-        height: 8vw;
     }
 
     .newsletter__input,
     .newsletter__button {
-        padding: 3vw;
         width: 100%;
     }
 
     .social-icons,
     .payment-icons {
-        gap: 3vw;
         justify-content: center;
     }
 }

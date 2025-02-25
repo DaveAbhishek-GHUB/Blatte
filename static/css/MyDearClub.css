@@ -1,60 +1,96 @@
-/* Reset default margins and padding */
+/* Import required fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+
+/* Reset default styles
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Base styles
+   ========================================================================== */
 body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
+/* Main container
+   ========================================================================== */
 .my-dear-club {
     text-align: center;
-    padding: 60px 20px;  /* Increased padding */
+    padding: clamp(2rem, 4vw, 4rem);
     max-width: 1200px;
-    margin: auto;
+    margin: clamp(2rem, 3vw, 3rem) auto 0;
     position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 3vw;
 }
 
+/* Typography
+   ========================================================================== */
 .club-title {
-    font-size: 3.5rem;  /* Increased font size */
-    font-family: "Old Standard TT", "Times New Roman", serif;  /* Changed font */
-    margin: 0 0 40px 0;  /* Adjusted margin */
+    font-family: serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
     color: #000;
     display: block;
-    font-weight: normal;
     letter-spacing: 0.02em;
 }
 
 .butterfly-divider {
-    width: 100px;  /* Increased width */
-    margin: 0 auto 40px;  /* Adjusted margin */
+    width: clamp(60px, 8vw, 100px);
+    margin: 0 auto clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .club-description {
-    max-width: 800px;  /* Adjusted max-width */
+    max-width: 800px;
     margin: 0 auto;
-    line-height: 1.8;  /* Increased line height */
-    font-size: 1.1rem;  /* Added font size */
-    color: #333;  /* Added text color */
+    line-height: 1.8;
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    color: #333;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
 .highlight {
-    font-weight: 600;  /* Adjusted font weight */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
 .membership-link {
     color: #000;
     text-decoration: underline;
-    font-weight: 600;  /* Added font weight */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    transition: opacity 0.2s ease;
+}
+
+/* Responsive Design
+   ========================================================================== */
+@media (max-width: 768px) {
+    .my-dear-club {
+        padding: clamp(1.5rem, 3vw, 2rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .my-dear-club {
+        padding: 1rem;
+    }
+}
+
+/* Hover States
+   ========================================================================== */
+.membership-link:hover {
+    opacity: 0.7;
 }

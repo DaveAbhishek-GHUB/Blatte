@@ -1,44 +1,56 @@
-/* Accessories Section Styles */
+/* Import required fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+
+/* Main accessories section container */
 .accessories-section {
-    width: 100vw;
-    padding: 2vw 4vw;
+    width: 100%;
+    padding: clamp(2rem, 4vw, 4rem);
     background-color: #ffffff;
+    box-sizing: border-box;
 }
 
+/* Header section styling */
 .accessories-header {
-    margin-bottom: 3vw;
+    margin-bottom: clamp(2rem, 3vw, 3rem);
 }
 
 .accessories-header h1 {
-    font-family: "Montserrat", serif;
-    font-size: 2.8vw;
+    font-family: serif;
+    font-weight: 400;
+    font-size: clamp(1.8rem, 2.8vw, 3rem);
     color: #000000;
-    margin-bottom: 1vw;
+    margin-bottom: clamp(0.75rem, 1vw, 1rem);
 }
 
 .accessories-header p {
-    font-family: "Montserrat", sans-serif;
-    font-size: 1.2vw;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: clamp(1rem, 1.2vw, 1.4rem);
     color: #666666;
 }
 
+/* Categories grid layout */
 .accessories-categories {
-    display: flex;
-    justify-content: center;
-    gap: 3vw;
-    margin-bottom: 3vw;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: clamp(1.5rem, 3vw, 3rem);
+    margin-bottom: clamp(2rem, 3vw, 3rem);
+    justify-items: center;
 }
 
+/* Individual accessory item styling */
 .accessory-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.8vw;
+    gap: clamp(0.5rem, 0.8vw, 1rem);
+    width: 100%;
 }
 
+/* Circular image container */
 .accessory-circle {
-    width: 8vw;
-    height: 8vw;
+    width: clamp(80px, 8vw, 120px);
+    height: clamp(80px, 8vw, 120px);
     border-radius: 50%;
     overflow: hidden;
     background-color: #f5f5f5;
@@ -51,27 +63,33 @@
     transition: transform 0.3s ease;
 }
 
+/* Hover effect for images */
 .accessory-circle:hover img {
     transform: scale(1.1);
 }
 
+/* Category label styling */
 .accessory-item span {
-    font-family: "Montserrat", sans-serif;
-    font-size: 1.1vw;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.9rem, 1.1vw, 1.2rem);
     color: #333333;
     text-align: center;
 }
 
+/* View all button container */
 .view-all-wrapper {
     display: flex;
     justify-content: center;
-    margin-top: 2vw;
+    margin-top: clamp(1.5rem, 2vw, 2.5rem);
 }
 
+/* Button styling */
 .view-all-btn {
-    padding: 0.8vw 2vw;
-    font-family: "Montserrat", sans-serif;
-    font-size: 1vw;
+    padding: clamp(0.6rem, 0.8vw, 1rem) clamp(1.5rem, 2vw, 2.5rem);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.9rem, 1vw, 1.1rem);
     color: #ffffff;
     background-color: #000000;
     border: none;
@@ -85,6 +103,7 @@
     transform: scale(1.05);
 }
 
+/* Button animation */
 .animated-btn {
     animation: fadeIn 0.5s ease;
 }
@@ -100,30 +119,27 @@
     }
 }
 
+/* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
+    .accessories-categories {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+/* Responsive adjustments for mobile devices */
+@media (max-width: 480px) {
     .accessories-section {
-        padding: 6vw 4vw;
-    }
-    
-    .accessories-header h1 {
-        font-size: 4vw;
-    }
-    
-    .accessories-header p {
-        font-size: 2vw;
+        padding: 1.5rem;
     }
     
     .accessories-categories {
-        flex-wrap: wrap;
-        justify-content: center;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
     }
     
     .accessory-circle {
-        width: 20vw;
-        height: 20vw;
-    }
-    
-    .accessory-item span {
-        font-size: 2vw;
+        width: clamp(60px, 20vw, 100px);
+        height: clamp(60px, 20vw, 100px);
     }
 }

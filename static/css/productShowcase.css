@@ -1,10 +1,17 @@
+/* Import required fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+
+/* Main products grid container */
 .productsWrapper {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
-    padding: 2rem;
+    gap: clamp(1rem, 2vw, 2rem);
+    padding: clamp(1rem, 2vw, 2rem);
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
+/* Individual product card wrapper */
 .productWrapper {
     position: relative;
     display: flex;
@@ -12,36 +19,50 @@
     height: 100%;
     border-radius: 8px;
     overflow: hidden;
+    transition: transform 0.3s ease;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.productWrapper:hover {
+    transform: translateY(-4px);
+}
+
+/* Product link styling */
 .productWrapper a {
-    text-decoration: none; /* Remove underlines from links */
+    text-decoration: none;
     color: inherit;
     display: flex;
     flex-direction: column;
     height: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
+/* Product information container */
 .productInfo {
-    padding: 1rem;
+    padding: clamp(0.8rem, 2vw, 1rem);
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     justify-content: space-between;
 }
 
+/* Main product content area */
 .product-content {
     flex-grow: 1;
 }
 
+/* Price and cart button container */
 .price-cart {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 1rem;
+    padding-top: clamp(0.8rem, 2vw, 1rem);
     margin-top: auto;
 }
 
+/* Cart button styling */
 .cart-btn {
     display: inline-flex;
     align-items: center;
@@ -49,17 +70,23 @@
     background: none;
     border: none;
     cursor: pointer;
-    padding: 8px;
-    min-width: 40px;
-    min-height: 40px;
+    padding: clamp(6px, 1.5vw, 8px);
+    min-width: clamp(36px, 5vw, 40px);
+    min-height: clamp(36px, 5vw, 40px);
+    transition: transform 0.2s ease;
+}
+
+.cart-btn:hover {
+    transform: scale(1.1);
 }
 
 .cart-btn img {
-    width: 24px;
-    height: 24px;
+    width: clamp(20px, 3vw, 24px);
+    height: clamp(20px, 3vw, 24px);
     object-fit: contain;
 }
 
+/* Flavor tags container */
 .flavor-tags {
     display: flex;
     gap: 0.5rem;
@@ -67,52 +94,75 @@
     margin-bottom: 0.5rem;
 }
 
+/* Individual flavor tag */
 .flavor-tag {
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 1.2vw, 0.9rem);
     color: #666;
+    font-family: 'Montserrat', sans-serif;
 }
 
+/* Product category */
 .category {
     color: #666;
     margin-bottom: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
 }
 
+/* Product title */
 .product-title {
-    font-size: 1.2rem;
+    font-family: serif;
+    font-weight: 400;
+    font-size: clamp(1.1rem, 1.5vw, 1.2rem);
     margin-bottom: 0.5rem;
+    line-height: 1.4;
 }
 
+/* Product description */
 .description {
     color: #666;
     margin-bottom: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    line-height: 1.6;
 }
 
+/* Price display */
 .price {
     font-weight: 500;
     display: inline-flex;
     align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(0.9rem, 1.3vw, 1.1rem);
 }
 
-/* Remove or comment out the old toast-message styles */
-/* .toast-message {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #333;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 4px;
-    z-index: 1000;
-    animation: fadeIn 0.3s, fadeOut 0.3s 1.7s;
-} */
-
-/* Remove old animations if present */
-/* @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+/* Responsive adjustments for smaller screens */
+@media screen and (max-width: 768px) {
+    .productsWrapper {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
 }
 
-@keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-} */
+@media screen and (max-width: 516px) {
+    .productsWrapper {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+        padding: 0.5rem;
+    }
+    
+    .productInfo {
+        padding: 0.5rem;
+    }
+    
+    .description {
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .product-title {
+        font-size: 0.9rem;
+    }
+    
+    .price {
+        font-size: 0.8rem;
+    }
+}

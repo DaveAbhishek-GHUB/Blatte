@@ -6,6 +6,8 @@
     <meta name="description" content="PAPER & TEA footer containing company information, newsletter signup, social media links and payment options">
     <!-- Link to external CSS file -->
     <link rel="stylesheet" href="../../static/css/footer.css">
+    <!-- Feather Icons CDN -->
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
     <!-- Main Footer Container -->
@@ -26,7 +28,6 @@
                 </nav>
             </div>
 
-    
             <!-- Customer Service Section -->
             <div class="footer__column">
                 <!-- Service Links Navigation -->
@@ -37,9 +38,6 @@
                         <li><a href="/Trackandtrace" aria-label="Track your order">Track and Trace</a></li>
                         <li><a href="/ShippingPayment" aria-label="View shipping and payment information">Shipping & Payment</a></li>
                     </ul>
-
-
-
                 </nav>
     
                 <!-- Customer Service Contact Information -->
@@ -50,7 +48,6 @@
                 </div>
             </div>
 
-    
             <!-- Newsletter Signup Section -->
             <div class="footer__column newsletter">
                 <h2 class="footer__title">Save 10% off your next order</h2>
@@ -80,15 +77,24 @@
             <h2 class="footer__title">Social Media</h2>
             <!-- Social Media Icons/Links -->
             <div class="social-icons">
-                <a href="https://de-de.facebook.com/paperandtea" class="../static/images/facebook.svg" aria-label="Visit our Facebook page">Facebook</a>
-                <a href="https://de.pinterest.com/paperandtea/" class="../static/images/pinterest.png" aria-label="Visit our Pinterest page">Pinterest</a>
-                <a href="https://www.instagram.com/paperandtea/#" class="../static/images/instagram.svg" aria-label="Visit our Instagram page">Instagram</a>
-                <a href="https://vimeo.com/paperandtea" class="../static/images/vimeo.svg" aria-label="Visit our Vimeo page">Vimeo</a>
-                <a href="https://www.youtube.com/channel/UCxap8I-rWwf9e1_8MHvOnuw" class="../static/images/youtube.svg" aria-label="Visit our YouTube channel">YouTube</a>
+                <a href="https://de-de.facebook.com/paperandtea" aria-label="Visit our Facebook page">
+                    <i data-feather="facebook"></i>
+                </a>
+                <a href="https://de.pinterest.com/paperandtea/" aria-label="Visit our Pinterest page">Pinterest</a>
+                <a href="https://www.instagram.com/paperandtea/#" aria-label="Visit our Instagram page">
+                    <i data-feather="instagram"></i>
+                </a>
+                <a href="https://vimeo.com/paperandtea" aria-label="Visit our Vimeo page">
+                    <i data-feather="video"></i>
+                </a>
+                <a href="https://www.youtube.com/channel/UCxap8I-rWwf9e1_8MHvOnuw" aria-label="Visit our YouTube channel">
+                    <i data-feather="youtube"></i>
+                </a>
                 <a href="https://www.linkedin.com/authwall?trk=bf&trkInfo=AQFhpGK6a2Y9cwAAAZTQYUBwIdyBi8JFR_0w0V56fGJykRkYKd7vS02j-6D4uJQXIHaWUYLGTPdP1uDR0x-R7a7pcz8ZsOX5tEEVlbvlh7gXM6L9wNVGgskVyunbsPO6BR_En-8=&original_referer=&sessionRedirect=https%3A%2F%2Fwww.linkedin.com%2Fcompany%2Fp-%26-t---paper-%26-tea-gmbh%2Fabout%2F" 
-                class="../static/images/linkedin.svg" aria-label="Visit our LinkedIn page">LinkedIn</a>
+                aria-label="Visit our LinkedIn page">
+                    <i data-feather="linkedin"></i>
+                </a>
             </div>
-
         </div>
     
         <!-- Payment Methods Display Section -->
@@ -96,17 +102,22 @@
             <h2 class="footer__title">Payment options</h2>
             <!-- Payment Method Icons Container -->
             <div class="payment-icons">
-                <!-- Payment Method Icons with Lazy Loading -->
-                <img src="path-to-amex-icon.png" alt="American Express" loading="lazy">
-                <img src="path-to-apple-pay-icon.png" alt="Apple Pay" loading="lazy">
-                <img src="path-to-google-pay-icon.png" alt="Google Pay" loading="lazy">
-                <img src="path-to-mastercard-icon.png" alt="Mastercard" loading="lazy">
-                <img src="path-to-maestro-icon.png" alt="Maestro" loading="lazy">
-                <img src="path-to-paypal-icon.png" alt="PayPal" loading="lazy">
-                <img src="path-to-shopify-pay-icon.png" alt="Shop Pay" loading="lazy">
-                <img src="path-to-visa-icon.png" alt="Visa" loading="lazy">
+                <!-- Payment Method Icons using Feather Icons -->
+                <i data-feather="credit-card" aria-label="American Express"></i>
+                <i data-feather="smartphone" aria-label="Apple Pay"></i>
+                <i data-feather="smartphone" aria-label="Google Pay"></i>
+                <i data-feather="credit-card" aria-label="Mastercard"></i>
+                <i data-feather="credit-card" aria-label="Maestro"></i>
+                <i data-feather="dollar-sign" aria-label="PayPal"></i>
+                <i data-feather="shopping-bag" aria-label="Shop Pay"></i>
+                <i data-feather="credit-card" aria-label="Visa"></i>
             </div>
         </div>
     </footer>
+
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+    </script>
 </body>
 </html>

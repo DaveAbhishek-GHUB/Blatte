@@ -1,10 +1,14 @@
+/* Toast Container - Fixed position at the top right corner */
 .toast-container {
     position: fixed;
     top: 1rem;
     right: 1rem;
     z-index: 9999;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
+/* Individual Toast Styling */
 .toast {
     background-color: white;
     color: #333;
@@ -16,21 +20,28 @@
     align-items: center;
     animation: slideIn 0.3s ease-in-out;
     max-width: 350px;
+    width: calc(100% - 2rem); /* Responsive width */
 }
 
+/* Success Toast Variant */
 .toast.success {
     border-left: 4px solid #4caf50;
 }
 
+/* Error Toast Variant */
 .toast.error {
     border-left: 4px solid #f44336;
 }
 
+/* Toast Message Text Styling */
 .toast-message {
     margin: 0;
     font-size: 0.9rem;
+    font-family: 'serif', serif;
+    font-weight: 400;
 }
 
+/* Slide In Animation */
 @keyframes slideIn {
     from {
         transform: translateX(100%);
@@ -42,6 +53,7 @@
     }
 }
 
+/* Fade Out Animation */
 @keyframes fadeOut {
     from {
         transform: translateX(0);
@@ -51,4 +63,29 @@
         transform: translateX(100%);
         opacity: 0;
     }
-} 
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+    .toast-container {
+        top: 0.5rem;
+        right: 0.5rem;
+        left: 0.5rem;
+    }
+    
+    .toast {
+        padding: 0.8rem 1.2rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .toast {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+    }
+    
+    .toast-message {
+        font-size: 0.8rem;
+    }
+}

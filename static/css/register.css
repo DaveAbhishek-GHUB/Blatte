@@ -1,5 +1,7 @@
+/* Global styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     background-color: #fff;
     margin: 0;
     padding: 0;
@@ -8,6 +10,7 @@ body {
     flex-direction: column;
 }
 
+/* Main content wrapper */
 .main-content {
     flex: 1;
     width: 100%;
@@ -17,73 +20,109 @@ body {
     padding: 5vw 0;
 }
 
+/* Login container styles */
 .login-container {
     text-align: center;
     max-width: 600px;
-    width: 100%;
+    width: 90%; /* More responsive width */
     margin: 0 auto;
     padding: 20px;
 }
 
+/* Login title styles */
 .login-title {
-    font-size: 48px;
-    font-weight: normal;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: serif;
+    font-weight: 400;
+    font-size: clamp(32px, 5vw, 48px); /* Responsive font size */
     margin-bottom: 20px;
 }
 
+/* Login description styles */
 .login-description {
-    font-size: 16px;
+    font-size: clamp(14px, 2vw, 16px);
     color: #333;
     margin-bottom: 40px;
     max-width: 500px;
     margin-left: auto;
     margin-right: auto;
+    padding: 0 15px;
 }
 
+/* Login form styles */
 .login-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
     max-width: 500px;
+    width: 100%;
     margin: 0 auto;
+    padding: 0 15px;
 }
 
+/* Input field styles */
 .login-input {
     width: 100%;
     padding: 15px;
-    font-size: 16px;
+    font-size: clamp(14px, 2vw, 16px);
     border: none;
     background-color: #f2f2f2;
     border-radius: 0;
+    box-sizing: border-box;
 }
 
+/* Login button styles */
 .login-button {
     width: 100%;
     padding: 15px;
-    font-size: 16px;
+    font-size: clamp(14px, 2vw, 16px);
     color: #fff;
     background-color: #000;
     border: none;
     cursor: pointer;
     margin-top: 10px;
+    transition: background-color 0.3s ease;
 }
 
 .login-button:hover {
     background-color: #333;
 }
 
+/* Register text styles */
 .register-text {
     margin-top: 20px;
-    font-size: 16px;
+    font-size: clamp(14px, 2vw, 16px);
     color: #333;
 }
 
+/* Register link styles */
 .register-link {
     color: #000;
     text-decoration: none;
+    transition: text-decoration 0.3s ease;
 }
 
 .register-link:hover {
     text-decoration: underline;
+}
+
+/* Media Queries for better responsiveness */
+@media screen and (max-width: 480px) {
+    .login-container {
+        padding: 15px;
+    }
+    
+    .login-form {
+        gap: 15px;
+    }
+    
+    .login-input,
+    .login-button {
+        padding: 12px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .login-container {
+        padding: 30px;
+    }
 }

@@ -1,3 +1,7 @@
+/* Import required fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+
+/* Custom font declaration */
 @font-face {
     font-family: 'ScotchModern';
     src: url('/static/fonts/ScotchModern__.woff2') format('woff2');
@@ -5,44 +9,50 @@
     font-style: normal;
 }
 
+/* Main wrapper styles */
 .mainBodyWrapper {
     width: 100%;
-    margin-top: 3.8vw;
+    margin-top: clamp(2rem, 3.8vw, 4rem);
 }
 
 .mainBodyWrapper img {
     width: 100%;
-    height: 50vh;
+    height: clamp(30vh, 50vh, 60vh);
     object-fit: cover;
 }
 
+/* Products grid layout */
 .productsWrapper {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2vw;
-    padding: 4vw;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: clamp(1rem, 2vw, 2.5rem);
+    padding: clamp(2rem, 4vw, 5rem);
     background: #fff;
 }
 
+/* Heading section styles */
 .headingWrapper {
     width: 100%;
-    margin-bottom: 3vw;
+    margin-bottom: clamp(2rem, 3vw, 4rem);
     grid-column: 1 / -1;
 }
 
 .headingWrapper h1 {
-    font-size: 2.5vw;
-    font-family: 'ScotchModern', serif;
+    font-size: clamp(1.8rem, 2.5vw, 3.5rem);
+    font-family: serif;
+    font-weight: 400;
     color: #333;
-    margin-bottom: 0.5vw;
+    margin-bottom: clamp(0.5rem, 0.5vw, 1rem);
 }
 
 .headingWrapper p {
-    font-size: 1.2vw;
+    font-size: clamp(1rem, 1.2vw, 1.4rem);
     color: #666;
-    font-family: sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
+/* Individual product card styles */
 .productWrapper {
     position: relative;
     width: 100%;
@@ -59,6 +69,7 @@
     box-shadow: 0 8px 16px rgba(0,0,0,0.08);
 }
 
+/* Product image container */
 .productImage {
     position: relative;
     width: 100%;
@@ -77,26 +88,29 @@
     transform: scale(1.05);
 }
 
+/* Product tags */
 .tags {
     position: absolute;
-    top: 1vw;
-    left: 1vw;
+    top: clamp(0.5rem, 1vw, 1.5rem);
+    left: clamp(0.5rem, 1vw, 1.5rem);
     z-index: 2;
 }
 
 .tag {
     background: #000;
     color: white;
-    padding: 0.4vw 0.8vw;
-    border-radius: 0.25vw;
-    font-size: 0.8vw;
-    font-weight: 500;
+    padding: clamp(0.3rem, 0.4vw, 0.6rem) clamp(0.6rem, 0.8vw, 1rem);
+    border-radius: 0.25rem;
+    font-size: clamp(0.7rem, 0.8vw, 1rem);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
+/* Wishlist button styles */
 .wishlist-btn {
     position: absolute;
-    top: 1vw;
-    right: 1vw;
+    top: clamp(0.5rem, 1vw, 1.5rem);
+    right: clamp(0.5rem, 1vw, 1.5rem);
     background: none;
     border: none;
     cursor: pointer;
@@ -104,13 +118,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 3vw;
-    height: 3vw;
+    width: clamp(2.5rem, 3vw, 4rem);
+    height: clamp(2.5rem, 3vw, 4rem);
 }
 
 .wishlist-btn svg {
-    width: 1.8vw;
-    height: 1.8vw;
+    width: clamp(1.5rem, 1.8vw, 2.2rem);
+    height: clamp(1.5rem, 1.8vw, 2.2rem);
     stroke: #000;
     fill: none;
     transition: fill 0.3s ease;
@@ -120,49 +134,58 @@
     fill: #000;
 }
 
+/* Product information section */
 .productInfo {
-    padding: 1.5vw 0;
+    padding: clamp(1rem, 1.5vw, 2rem) 0;
 }
 
 .flavor-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5vw;
-    margin-bottom: 1vw;
+    gap: clamp(0.3rem, 0.5vw, 0.8rem);
+    margin-bottom: clamp(0.8rem, 1vw, 1.5rem);
 }
 
 .flavor-tag {
-    font-size: 0.9vw;
+    font-size: clamp(0.8rem, 0.9vw, 1.1rem);
     color: #666;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
 .flavor-tag:not(:last-child):after {
     content: "";
     border-right: 1px solid #666;
-    margin-left: 0.5vw;
-    padding-right: 0.5vw;
+    margin-left: clamp(0.3rem, 0.5vw, 0.8rem);
+    padding-right: clamp(0.3rem, 0.5vw, 0.8rem);
 }
 
 .category {
     color: #666;
-    font-size: 0.9vw;
-    margin-bottom: 0.5vw;
+    font-size: clamp(0.8rem, 0.9vw, 1.1rem);
+    margin-bottom: clamp(0.3rem, 0.5vw, 0.8rem);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
 .product-title {
-    font-family: 'ScotchModern', serif;
-    font-size: 1.5vw;
-    margin-bottom: 0.5vw;
+    font-family: serif;
+    font-weight: 400;
+    font-size: clamp(1.2rem, 1.5vw, 2rem);
+    margin-bottom: clamp(0.3rem, 0.5vw, 0.8rem);
     color: #000;
 }
 
 .description {
-    font-size: 0.9vw;
+    font-size: clamp(0.8rem, 0.9vw, 1.1rem);
     color: #666;
-    margin-bottom: 1vw;
+    margin-bottom: clamp(0.8rem, 1vw, 1.5rem);
     line-height: 1.4;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
+/* Price and cart section */
 .price-cart {
     display: flex;
     justify-content: space-between;
@@ -170,15 +193,16 @@
 }
 
 .price {
-    font-size: 1vw;
+    font-size: clamp(0.9rem, 1vw, 1.2rem);
     font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .cart-btn {
-    min-width: 3vw;
-    min-height: 3vw;
-    width: 3vw;
-    height: 3vw;
+    min-width: clamp(2.5rem, 3vw, 4rem);
+    min-height: clamp(2.5rem, 3vw, 4rem);
+    width: clamp(2.5rem, 3vw, 4rem);
+    height: clamp(2.5rem, 3vw, 4rem);
     border: 1px solid #000;
     border-radius: 50%;
     background: none;
@@ -201,11 +225,12 @@
 }
 
 .cart-btn img {
-    width: 1.5vw;
-    height: 1.5vw;
+    width: clamp(1.2rem, 1.5vw, 2rem);
+    height: clamp(1.2rem, 1.5vw, 2rem);
     object-fit: contain;
 }
 
+/* Hero section styles */
 .hero-section {
     position: relative;
     width: 100%;
@@ -229,54 +254,58 @@
     color: white;
     width: 90%;
     max-width: 1200px;
-    padding: 0 1.5vw;
+    padding: 0 clamp(1rem, 1.5vw, 2rem);
     opacity: 0;
     animation: fadeInUp 0.8s ease forwards;
 }
 
 .hero-content h1 {
-    font-size: 4.5vw;
-    font-weight: 300;
-    margin-bottom: 1vw;
-    font-family: 'ScotchModern', serif;
+    font-size: clamp(2.5rem, 4.5vw, 6rem);
+    font-weight: 400;
+    margin-bottom: clamp(0.8rem, 1vw, 1.5rem);
+    font-family: serif;
 }
 
 .hero-content p {
-    font-size: 1.2vw;
+    font-size: clamp(1rem, 1.2vw, 1.4rem);
     line-height: 1.5;
     max-width: 800px;
-    font-family: sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
+/* Magazine section styles */
 .magazine-section {
-    padding: 4vw 0;
+    padding: clamp(2rem, 4vw, 5rem) 0;
     background-color: rgb(208, 227, 178);
     text-align: left;
-    padding: 3vw 1.5vw;
+    padding: clamp(2rem, 3vw, 4rem) clamp(1rem, 1.5vw, 2rem);
 }
 
 .magazine-section h1 {
-    font-size: 2.5vw;
-    margin-bottom: 0.8vw;
-    font-family: 'ScotchModern', serif;
+    font-size: clamp(2rem, 2.5vw, 3.5rem);
+    margin-bottom: clamp(0.5rem, 0.8vw, 1.2rem);
+    font-family: serif;
+    font-weight: 400;
 }
 
 .subtitle {
-    font-size: 1.2vw;
+    font-size: clamp(1rem, 1.2vw, 1.4rem);
     color: #666;
-    font-family: sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
 .magazine-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5vw;
-    margin-top: 2vw;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: clamp(1rem, 1.5vw, 2rem);
+    margin-top: clamp(1.5rem, 2vw, 3rem);
 }
 
 .magazine-item {
     background-color: rgb(208, 227, 178);
-    padding: 1.5vw;
+    padding: clamp(1rem, 1.5vw, 2rem);
     text-align: left;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
@@ -290,7 +319,7 @@
 
 .magazine-item img {
     width: 100%;
-    height: 22vw;
+    height: clamp(200px, 22vw, 400px);
     object-fit: cover;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -300,240 +329,21 @@
 }
 
 .magazine-item h3 {
-    font-size: 1.2vw;
-    margin-bottom: 0.8vw;
-    font-family: 'ScotchModern', serif;
+    font-size: clamp(1rem, 1.2vw, 1.6rem);
+    margin-bottom: clamp(0.5rem, 0.8vw, 1.2rem);
+    font-family: serif;
+    font-weight: 400;
 }
 
 .magazine-item p {
-    font-size: 0.9vw;
+    font-size: clamp(0.8rem, 0.9vw, 1.1rem);
     line-height: 1.5;
     color: #555;
-    font-family: sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
-@media screen and (max-width: 968px) {
-    .cart-btn {
-        min-width: 4vw;
-        min-height: 4vw;
-        width: 4vw;
-        height: 4vw;
-    }
-
-    .cart-btn img {
-        width: 2vw;
-        height: 2vw;
-    }
-
-    .wishlist-btn {
-        width: 4vw;
-        height: 4vw;
-    }
-
-    .wishlist-btn svg {
-        width: 2.2vw;
-        height: 2.2vw;
-    }
-
-    .magazine-section {
-        padding: 3.5vw 2vw;
-    }
-
-    .magazine-section h1 {
-        font-size: 3vw;
-    }
-
-    .subtitle {
-        font-size: 1.5vw;
-    }
-
-    .magazine-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2vw;
-    }
-
-    .magazine-item {
-        padding: 2vw;
-    }
-
-    .magazine-item img {
-        height: 30vw;
-    }
-
-    .magazine-item h3 {
-        font-size: 2vw;
-    }
-
-    .magazine-item p {
-        font-size: 1.5vw;
-    }
-
-    .product-title {
-        font-size: 2.2vw;
-    }
-
-    .description {
-        font-size: 1.5vw;
-    }
-
-    .price {
-        font-size: 1.8vw;
-    }
-
-    .tag {
-        font-size: 1.4vw;
-    }
-
-    .flavor-tag {
-        font-size: 1.4vw;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .mainBodyWrapper {
-        margin-top: 5vw;
-    }
-
-    .hero-content h1 {
-        font-size: 5vw;
-    }
-
-    .hero-content p {
-        font-size: 2vw;
-    }
-
-    .magazine-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .productsWrapper {
-        grid-template-columns: repeat(2, 1fr);
-        padding: 3vw;
-    }
-
-    .cart-btn {
-        min-width: 5vw;
-        min-height: 5vw;
-        width: 5vw;
-        height: 5vw;
-    }
-
-    .cart-btn img {
-        width: 2.5vw;
-        height: 2.5vw;
-    }
-
-    .wishlist-btn {
-        width: 5vw;
-        height: 5vw;
-    }
-
-    .wishlist-btn svg {
-        width: 2.8vw;
-        height: 2.8vw;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .mainBodyWrapper {
-        margin-top: 7vw;
-    }
-
-    .mainBodyWrapper img {
-        height: 30vh;
-    }
-
-    .hero-content h1 {
-        font-size: 7vw;
-    }
-
-    .hero-content p {
-        font-size: 3vw;
-    }
-
-    .magazine-section {
-        padding: 5vw 3vw;
-    }
-
-    .magazine-section h1 {
-        font-size: 6vw;
-    }
-
-    .subtitle {
-        font-size: 3vw;
-    }
-
-    .magazine-grid {
-        grid-template-columns: 1fr;
-        gap: 4vw;
-    }
-
-    .magazine-item {
-        padding: 3vw;
-    }
-
-    .magazine-item img {
-        height: 50vw;
-    }
-
-    .magazine-item h3 {
-        font-size: 4vw;
-        margin-bottom: 2vw;
-    }
-
-    .magazine-item p {
-        font-size: 3vw;
-    }
-
-    .productsWrapper {
-        grid-template-columns: 1fr;
-        padding: 4vw;
-    }
-
-    .cart-btn {
-        min-width: 8vw;
-        min-height: 8vw;
-        width: 8vw;
-        height: 8vw;
-    }
-
-    .cart-btn img {
-        width: 4vw;
-        height: 4vw;
-    }
-
-    .wishlist-btn {
-        width: 8vw;
-        height: 8vw;
-    }
-
-    .wishlist-btn svg {
-        width: 4.5vw;
-        height: 4.5vw;
-    }
-
-    .product-title {
-        font-size: 5vw;
-    }
-
-    .description {
-        font-size: 3.5vw;
-    }
-
-    .price {
-        font-size: 4vw;
-    }
-
-    .tag {
-        font-size: 3vw;
-        padding: 1vw 2vw;
-    }
-
-    .flavor-tag {
-        font-size: 3vw;
-    }
-}
-
+/* Animation keyframes */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -545,6 +355,7 @@
     }
 }
 
+/* Global styles */
 html {
     scroll-behavior: smooth;
 }

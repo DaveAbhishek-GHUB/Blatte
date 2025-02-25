@@ -4,25 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    {# ========== HEAD SECTION CONFIGURATION ========== #}
-    {# Set dynamic page title using centralized header names #}
+    <!-- Dynamic page title configuration -->
     <script type="module">
         import { headersName } from '../static/javascripts/headersName.js';
         document.title = headersName.auth;
     </script>
     
-    {# Login page specific stylesheet #}
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="../static/css/login.css">
     <link rel="stylesheet" href="../static/css/toast.css">
+    
+    <!-- Feather Icons CDN -->
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 
 <body>
-    {# ========== NOTIFICATION SYSTEM ========== #}
+    <!-- Toast notification component -->
     {% include 'components/toast.html' %}
 
-    {# ========== AUTHENTICATION INTERFACE ========== #}
+    <!-- Main authentication container -->
     <div class="login-container">
-        {# ------ Authentication Header ------ #}
+        <!-- Authentication header section -->
         <header class="auth-header">
             <h1 class="login-title">Login</h1>
             <p class="login-description">
@@ -30,9 +32,9 @@
             </p>
         </header>
 
-        {# ------ Authentication Form ------ #}
+        <!-- Login form with validation -->
         <form action="/user/login" method="POST" class="login-form" onsubmit="return validateForm()">
-            {# Email input with built-in validation #}
+            <!-- Email input field -->
             <input 
                 type="email"
                 class="login-input"
@@ -44,7 +46,7 @@
                 required
             >
 
-            {# Password input with complexity requirements #}
+            <!-- Password input field with security requirements -->
             <div class="password-input-wrapper">
                 <input 
                     type="password"
@@ -58,13 +60,13 @@
                 >
             </div>
 
-            {# Primary form submission control #}
+            <!-- Submit button -->
             <button type="submit" class="login-button">
                 Login
             </button>
         </form>
 
-        {# ------ Registration CTA ------ #}
+        <!-- Registration call-to-action -->
         <p class="register-text">
             Not yet a member of the BLATTÉ?
             <a href="/register" class="register-link" aria-label="Account creation">
@@ -73,7 +75,12 @@
         </p>
     </div>
 
-    {# ========== CLIENT-SIDE VALIDATION ========== #}
+    <!-- Form validation script -->
     <script src="../static/javascripts/login.js"></script>
+    
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+    </script>
 </body>
 </html>

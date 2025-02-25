@@ -3,34 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import and set page title dynamically -->
     <script type="module">
         import { headersName } from '../static/javascripts/headersName.js';
         document.title = headersName.register;
     </script>
+    <!-- Stylesheet imports -->
     <link rel="stylesheet" href="../static/css/register.css">
     <link rel="stylesheet" href="../static/css/header.css">
     <link rel="stylesheet" href="../static/css/footer.css">
+    <!-- Feather Icons CDN -->
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
-    {# Include header component #}
+    <!-- Header Component -->
     {% include 'utilities/header.html' %}
 
-    {# Include toast notification component #}
+    <!-- Toast Notification Component -->
     {% include 'components/toast.html' %}
 
-    {# Main content wrapper #}
+    <!-- Main Content Section -->
     <div class="main-content">
-        {# Main registration container #}
+        <!-- Registration Container -->
         <div class="login-container">
-            {# Registration header section #}
+            <!-- Registration Header -->
             <h1 class="login-title">Register</h1>
             <p class="login-description">
                 To register for the MY DEAR CLUB, please fill in the fields below:
             </p>
 
-            {# Registration form #}
+            <!-- Registration Form -->
             <form action="/user/register" method="POST" class="login-form" onsubmit="return validateForm()">
-                {# First name input field #}
+                <!-- First Name Input -->
                 <input 
                     type="text"
                     class="login-input" 
@@ -42,7 +46,7 @@
                     id="firstname"
                 >
 
-                {# Last name input field #}
+                <!-- Last Name Input -->
                 <input 
                     type="text"
                     class="login-input" 
@@ -54,7 +58,7 @@
                     id="lastname"
                 >
 
-                {# Email input field #}
+                <!-- Email Input -->
                 <input 
                     type="email"
                     class="login-input" 
@@ -66,7 +70,7 @@
                     id="email"
                 >
 
-                {# Password input field wrapper #}
+                <!-- Password Input Container -->
                 <div class="password-wrapper">
                     <input 
                         type="password"
@@ -80,7 +84,7 @@
                     >
                 </div>
 
-                {# Confirm password input field wrapper #}
+                <!-- Confirm Password Input Container -->
                 <div class="password-wrapper">
                     <input 
                         type="password"
@@ -92,22 +96,29 @@
                     >
                 </div>
 
-                {# Submit button #}
+                <!-- Submit Button -->
                 <button type="submit" class="login-button">Create account</button>
             </form>
 
-            {# Login prompt for existing users #}
+            <!-- Login Link Section -->
             <p class="register-text">
                 Already have an account? <a href="/auth" class="register-link">Login</a>
             </p>
         </div>
     </div>
+
+    <!-- Additional Components -->
     {% include 'components/weLovewhatWeDo.html' %}
     {% include 'components/yourBenefits.html' %}
-    {# Include footer component #}
+    
+    <!-- Footer Component -->
     {% include 'utilities/footer.html' %}
     
-    {# Include register page specific JavaScript #}
+    <!-- JavaScript Imports -->
     <script src="../static/javascripts/register.js"></script>
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+    </script>
 </body>
 </html>

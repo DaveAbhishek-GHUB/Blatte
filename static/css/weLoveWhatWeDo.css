@@ -1,22 +1,18 @@
 /* Import custom font */
 @font-face {
-    font-family: 'ScotchModern';
+    font-family: 'serif-400';
     src: url('/static/fonts/ScotchModern__.woff2') format('woff2');
-    font-weight: normal;
+    font-weight: 400;
     font-style: normal;
 }
 
-/* Main about section styles */
+/* Main section styling */
 .about-section {
     background-color: #f9f9f9;
-    padding: 2vw 0;
+    padding: 4vw 2vw; /* Consistent padding */
 }
 
-.about-section {
-    padding: 4vw 2vw;
-}
-
-/* Container for about content */
+/* Flex container for content alignment */
 .about-container {
     display: flex;
     align-items: center;
@@ -24,46 +20,52 @@
     gap: 4vw;
     max-width: 1800px;
     margin: 0 auto;
+    padding: 0 15px; /* Added padding for smaller screens */
 }
 
-/* Image styles */
+/* Responsive image styling */
 .about-image img {
     width: 100%;
     max-width: 700px;
     height: auto;
     border-radius: 5px;
+    object-fit: cover; /* Ensures proper image scaling */
 }
 
-/* Text content styles */
+/* Text content container */
 .about-text {
     max-width: 450px;
+    width: 100%; /* Added for better responsiveness */
 }
 
-/* Heading styles using ScotchModern font */
+/* Heading typography */
 .about-text h1 {
-    font-family: "ScotchModern", "Times New Roman", serif;
-    font-size: 3vw;
+    font-family: "serif-400", serif;
+    font-size: clamp(24px, 3vw, 48px); /* Responsive font sizing */
     margin-bottom: 3vw;
-    font-weight: bold;
+    font-weight: 400;
     width: 100%;
     word-wrap: break-word;
+    line-height: 1.2;
 }
 
-/* Paragraph styles */
+/* Paragraph typography */
 .about-text p {
-    font-family: sans-serif;
-    font-size: 1.2vw;
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(16px, 1.2vw, 20px); /* Responsive font sizing */
     line-height: 1.6;
     margin-bottom: 2vw;
     color: #555;
+    font-weight: 400;
 }
 
-/* Button styles */
+/* Button styling */
 .learn-more-button {
-    display: flex;
-    padding: 1vw 2vw;
-    font-size: 1.2vw;
-    font-family: sans-serif;
+    display: inline-flex; /* Changed to inline-flex for better centering */
+    padding: clamp(10px, 1vw, 20px) clamp(20px, 2vw, 40px);
+    font-size: clamp(14px, 1.2vw, 18px);
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
     color: #676666;
     background-color: transparent;
     border: 2px solid #605f5f;
@@ -77,37 +79,26 @@
     color: #fff;
 }
 
-/* Tablet styles */
+/* Large screens (1200px and up) */
+@media (min-width: 1200px) {
+    .about-container {
+        padding: 0 30px;
+    }
+}
+
+/* Tablet devices (768px to 1024px) */
 @media (max-width: 1024px) {
     .about-container {
-        padding: 2vw;
         gap: 3vw;
-    }
-
-    .about-text h1 {
-        font-size: 3.5vw;
-        min-width: auto;
     }
 
     .about-text {
         max-width: 400px;
     }
-
-    .about-text p {
-        font-size: 1.8vw;
-    }
-
-    .learn-more-button {
-        font-size: 1.8vw;
-    }
 }
 
-/* Mobile styles */
+/* Mobile devices (480px to 767px) */
 @media (max-width: 768px) {
-    .about-section {
-        padding: 4vw 2vw;
-    }
-
     .about-container {
         flex-direction: column;
         text-align: center;
@@ -119,34 +110,30 @@
         max-width: 100%;
     }
 
-    .about-text h1 {
-        font-size: 5vw;
-        margin-bottom: 3vw;
-    }
-
-    .about-text p {
-        font-size: 2.5vw;
-        margin-bottom: 2vw;
-    }
-
     .learn-more-button {
         margin: 0 auto;
-        padding: 1.5vw 3vw;
-        font-size: 2.5vw;
     }
 }
 
-/* Small mobile styles */
+/* Extra small devices (under 480px) */
 @media (max-width: 480px) {
     .about-section {
         padding: 5vw 2vw;
     }
-
-    .about-text h1 {
-        font-size: 6vw;
+    
+    .about-container {
+        padding: 0 10px;
     }
+}
 
-    .about-text p {
-        font-size: 3vw;
+/* Print styles */
+@media print {
+    .about-section {
+        background: none;
+        padding: 20px;
+    }
+    
+    .learn-more-button {
+        display: none;
     }
 }

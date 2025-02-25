@@ -1,5 +1,9 @@
+/* ==========================================================================
+   Variables & Root Settings
+   ========================================================================== */
+
 :root {
-  --primary-color: #2563eb;
+  --primary-color: #000000;
   --success-color: #10b981;
   --error-color: #ef4444;
   --text-primary: #1f2937;
@@ -10,11 +14,28 @@
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
 }
 
+/* ==========================================================================
+   Base Styles & Typography
+   ========================================================================== */
+
+/* Import required fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&family=Serif:wght@400&display=swap');
+
 body {
   background-color: var(--background-light);
   color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: serif;
+  font-weight: 400;
+}
+
+/* ==========================================================================
+   Layout & Container Styles
+   ========================================================================== */
 
 .checkout-container {
   max-width: 1200px;
@@ -205,13 +226,14 @@ body {
   font-size: 1rem;
   color: var(--text-primary);
   background: white;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
 }
 
 .form-group input::placeholder,
@@ -232,7 +254,7 @@ textarea {
   border-radius: 8px;
   min-height: 100px;
   resize: vertical;
-  font-family: inherit;
+  font-family: 'Montserrat', sans-serif;
   line-height: 1.5;
 }
 
@@ -252,18 +274,6 @@ textarea {
   transform: translateY(-50%);
   color: var(--text-secondary);
   pointer-events: none;
-}
-
-/* Responsive adjustments */
-@media (max-width: 640px) {
-  .form-row {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .payment-details {
-    padding: 1rem;
-  }
 }
 
 /* Error state */
@@ -375,81 +385,49 @@ textarea {
   color: var(--primary-color);
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-  .checkout-content {
-    grid-template-columns: 1fr;
-  }
-  
-  .order-summary {
-    order: -1;
-    height: 800px;
-  }
-}
-
-@media (max-width: 640px) {
-  .progress-line {
-    width: 50px;
-  }
-  
-  .payment-method {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .method-info {
-    margin: 1rem 0;
-  }
-
-  .order-summary {
-    height: 600px;
-  }
-}
-
 /* Phone input customization */
 .iti {
-    width: 100%;
+  width: 100%;
 }
 
 .iti__flag {
-    background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/img/flags.png");
+  background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/img/flags.png");
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .iti__flag {
-        background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/img/flags@2x.png");
-    }
+  .iti__flag {
+    background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/img/flags@2x.png");
+  }
 }
 
-/* Update the suggestions container styles */
+/* Suggestions container */
 .suggestions-container {
-    position: absolute;
-    width: 100%;
-    max-height: 200px;
-    overflow-y: auto;
-    background: white;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    margin-top: 4px;
-    box-shadow: var(--shadow-md);
-    z-index: 1000;
+  position: absolute;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-top: 4px;
+  box-shadow: var(--shadow-md);
+  z-index: 1000;
 }
 
 .suggestion-item {
-    padding: 8px 16px;
-    cursor: pointer;
+  padding: 8px 16px;
+  cursor: pointer;
 }
 
 .suggestion-item:hover {
-    background-color: var(--background-light);
+  background-color: var(--background-light);
 }
 
 .autocomplete-input {
-    padding-right: 35px; /* Make room for loading indicator */
+  padding-right: 35px;
 }
 
-/* Add these styles to your existing checkout.css */
-
+/* Saved Data Section */
 .saved-data-section {
   margin-top: 2rem;
   display: grid;
@@ -506,8 +484,85 @@ textarea {
   font-size: 0.875rem;
 }
 
-@media (max-width: 768px) {
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .checkout-container {
+    padding: 0 2rem;
+  }
+}
+
+/* Large devices (desktops, 992px to 1199px) */
+@media (max-width: 1199px) {
+  .checkout-content {
+    grid-template-columns: 1fr 350px;
+  }
+}
+
+/* Medium devices (tablets, 768px to 991px) */
+@media (max-width: 991px) {
+  .checkout-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .order-summary {
+    order: -1;
+    height: 800px;
+  }
+  
   .saved-data-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Small devices (landscape phones, 576px to 767px) */
+@media (max-width: 767px) {
+  .progress-line {
+    width: 70px;
+  }
+  
+  .order-summary {
+    height: 700px;
+  }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575px) {
+  .checkout-container {
+    margin: 4rem auto;
+    padding: 0 0.5rem;
+  }
+  
+  .progress-line {
+    width: 50px;
+  }
+  
+  .payment-method {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .method-info {
+    margin: 1rem 0;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .payment-details {
+    padding: 1rem;
+  }
+  
+  .order-summary {
+    height: 600px;
+  }
+  
+  .order-security {
     grid-template-columns: 1fr;
   }
 }

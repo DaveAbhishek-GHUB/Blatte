@@ -1,18 +1,21 @@
+/* Import required fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+
 /* Main section container for our blends */
 .our-blends-section {
     display: flex;
     align-items: center;
     min-height: 500px;
     background-color: white;
-    margin: 4vw 0;
-    padding: 2vw;
+    margin: clamp(2rem, 4vw, 4rem) 0;
+    padding: clamp(1rem, 2vw, 2rem);
 }
 
 /* Image container styles */
 .blends-image {
     flex: 1;
-    height: 500px;
-    padding: 1vw;
+    height: clamp(300px, 50vh, 500px);
+    padding: clamp(0.5rem, 1vw, 1rem);
 }
 
 /* Image styling */
@@ -20,47 +23,48 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 1vw;
+    border-radius: clamp(0.5rem, 1vw, 1rem);
 }
 
 /* Content container styles */
 .blends-content {
     flex: 1;
-    padding: 4vw 6vw;
+    padding: clamp(2rem, 4vw, 4rem) clamp(3rem, 6vw, 6rem);
 }
 
 /* Main heading styles */
 .blends-content h2 {
-    font-family: 'ScotchModern', serif;
-    font-size: 3.5vw;
+    font-family: serif;
     font-weight: 400;
-    margin-bottom: 1vw;
+    font-size: clamp(2rem, 3.5vw, 3.5rem);
+    margin-bottom: clamp(0.5rem, 1vw, 1rem);
     color: #333;
 }
 
 /* Subheading styles */
 .blends-content h3 {
-    font-family: 'ScotchModern', serif;
-    font-size: 1.5vw;
-    font-weight: 500;
-    margin-bottom: 1.5vw;
+    font-family: serif;
+    font-weight: 400;
+    font-size: clamp(1.2rem, 1.5vw, 1.8rem);
+    margin-bottom: clamp(0.75rem, 1.5vw, 1.5rem);
     color: #333;
 }
 
 /* Paragraph text styles */
 .blends-content p {
-    font-family: sans-serif;
-    font-size: 1.1vw;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: clamp(1rem, 1.1vw, 1.2rem);
     line-height: 1.6;
     color: #666;
-    margin-bottom: 3vw;
+    margin-bottom: clamp(1.5rem, 3vw, 3rem);
 }
 
 /* Features grid container */
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2vw;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: clamp(1rem, 2vw, 2rem);
 }
 
 /* Individual feature styles */
@@ -73,118 +77,77 @@
 
 /* Feature icon styles */
 .feature img {
-    width: 2.5vw;
-    height: 2.5vw;
-    margin-bottom: 1vw;
+    width: clamp(2rem, 2.5vw, 3rem);
+    height: clamp(2rem, 2.5vw, 3rem);
+    margin-bottom: clamp(0.5rem, 1vw, 1rem);
     object-fit: contain;
 }
 
 /* Feature text styles */
 .feature span {
-    font-family: sans-serif;
-    font-size: 1vw;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.9rem, 1vw, 1.1rem);
     color: #333;
     line-height: 1.4;
 }
 
-/* Tablet responsive styles */
+/* Responsive Design - Tablet */
 @media screen and (max-width: 1024px) {
     .our-blends-section {
-        min-height: 400px;
-        padding: 3vw;
+        padding: clamp(1.5rem, 3vw, 3rem);
     }
 
-    .blends-image {
-        height: 400px;
-        padding: 1.5vw;
-    }
-
-    .blends-content h2 {
-        font-size: 4.5vw;
-    }
-
-    .blends-content h3 {
-        font-size: 2.5vw;
-    }
-
-    .blends-content p {
-        font-size: 2vw;
-    }
-
-    .feature img {
-        width: 3.5vw;
-        height: 3.5vw;
-    }
-
-    .feature span {
-        font-size: 1.8vw;
+    .blends-content {
+        padding: clamp(2rem, 4vw, 4rem);
     }
 }
 
-/* Mobile responsive styles */
+/* Responsive Design - Mobile */
 @media screen and (max-width: 768px) {
     .our-blends-section {
         flex-direction: column;
         min-height: auto;
-        padding: 4vw;
     }
 
     .blends-image {
         width: 100%;
-        height: 200px;
-        padding: 2vw;
+        height: clamp(200px, 30vh, 300px);
     }
 
     .blends-content {
-        padding: 6vw 4vw;
+        padding: clamp(2rem, 6vw, 4rem) clamp(1rem, 4vw, 2rem);
     }
 
-    .blends-content h2 {
-        font-size: 6vw;
-    }
-
-    .blends-content h3 {
-        font-size: 3.5vw;
-    }
-
-    .blends-content p {
-        font-size: 3vw;
-        margin-bottom: 5vw;
-    }
-
-    .feature img {
-        width: 5vw;
-        height: 5vw;
-        margin-bottom: 2vw;
-    }
-
-    .feature span {
-        font-size: 2.5vw;
+    .features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
 }
 
-/* Small mobile responsive styles */
+/* Responsive Design - Small Mobile */
 @media screen and (max-width: 480px) {
     .our-blends-section {
-        padding: 5vw;
+        padding: clamp(1rem, 5vw, 2rem);
     }
 
     .blends-image {
-        height: 150px;
-        padding: 2.5vw;
+        height: clamp(150px, 25vh, 200px);
     }
 
     .features-grid {
         grid-template-columns: 1fr;
-        gap: 4vw;
+        gap: clamp(1.5rem, 4vw, 2rem);
     }
 
-    .feature img {
-        width: 7vw;
-        height: 7vw;
+    .blends-content h2 {
+        font-size: clamp(1.8rem, 6vw, 2.2rem);
     }
 
-    .feature span {
-        font-size: 3.5vw;
+    .blends-content h3 {
+        font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+    }
+
+    .blends-content p {
+        font-size: clamp(0.9rem, 3vw, 1rem);
     }
 }

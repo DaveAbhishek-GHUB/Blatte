@@ -1,4 +1,4 @@
-/* Start of Selection */
+/* Main container styles */
 .insert-products-container {
     max-width: 800px;
     margin: 2rem auto;
@@ -6,20 +6,25 @@
     border-radius: 10px;
 }
 
+/* Main heading styles */
 h2 {
+    font-family: 'serif-400', serif;
     color: #2c3e50;
     margin-bottom: 2rem;
     text-align: center;
     font-size: 2rem;
 }
 
+/* Sub heading styles */
 h3 {
+    font-family: 'serif-400', serif;
     color: #34495e;
     margin: 1.5rem 0;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid #ddd;
 }
 
+/* Form section container */
 .form-section {
     margin-bottom: 2rem;
     padding: 1.5rem;
@@ -27,21 +32,27 @@ h3 {
     border-radius: 8px;
 }
 
+/* Form group wrapper */
 .form-group {
     margin-bottom: 1.5rem;
 }
 
+/* Label styles */
 label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     display: block;
     margin-bottom: 0.5rem;
     color: #2c3e50;
-    font-weight: 500;
 }
 
+/* Input field styles */
 input[type="text"],
 input[type="number"],
 textarea,
 select {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     width: 100%;
     padding: 0.8rem;
     border: 1px solid #ccc;
@@ -50,7 +61,10 @@ select {
     transition: border-color 0.3s ease;
 }
 
+/* URL input specific styles */
 input[type="url"] {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     width: 100%;
     padding: 0.8rem;
     border: 1px solid #ccc;
@@ -60,6 +74,7 @@ input[type="url"] {
     background: #f8f9fa;
 }
 
+/* URL input focus state */
 input[type="url"]:focus {
     outline: none;
     border-color: #3498db;
@@ -67,19 +82,27 @@ input[type="url"]:focus {
     background: #fff;
 }
 
+/* URL input placeholder */
 input[type="url"]::placeholder {
     color: #95a5a6;
 }
 
+/* File input styles */
 input[type="file"] {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     padding: 0.5rem 0;
 }
 
+/* Textarea styles */
 textarea {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     min-height: 100px;
     resize: vertical;
 }
 
+/* Focus states for form elements */
 input:focus,
 textarea:focus,
 select:focus {
@@ -88,11 +111,15 @@ select:focus {
     box-shadow: 0 0 0 2px rgba(41, 128, 185, 0.2);
 }
 
+/* Dynamic input container */
 .dynamic-inputs {
     margin-bottom: 10px;
 }
 
+/* Add button styles */
 .add-btn {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     background: #2ecc71;
     color: white;
     border: none;
@@ -107,6 +134,7 @@ select:focus {
     background: #27ae60;
 }
 
+/* Image preview container */
 .image-preview {
     margin-top: 1rem;
     display: flex;
@@ -114,6 +142,7 @@ select:focus {
     flex-wrap: wrap;
 }
 
+/* Form action buttons container */
 .form-actions {
     display: flex;
     gap: 1rem;
@@ -121,8 +150,11 @@ select:focus {
     margin-top: 2rem;
 }
 
+/* Submit and Reset button styles */
 .submit-btn,
 .reset-btn {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     padding: 1rem 2rem;
     border: none;
     border-radius: 4px;
@@ -149,6 +181,7 @@ select:focus {
     background: #c0392b;
 }
 
+/* Input group container */
 .input-group {
     display: flex;
     gap: 10px;
@@ -165,6 +198,7 @@ select:focus {
     padding-right: 35px;
 }
 
+/* Remove button styles */
 .remove-btn {
     background: #ff4444;
     color: white;
@@ -184,7 +218,7 @@ select:focus {
     transform: scale(1.1);
 }
 
-/* Image URL specific styles */
+/* Image URL input styles */
 .additional-image-input {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%23666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>');
     background-repeat: no-repeat;
@@ -193,6 +227,23 @@ select:focus {
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+    .insert-products-container {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 992px) {
+    .insert-products-container {
+        max-width: 95%;
+        margin: 1.5rem auto;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+}
+
 @media (max-width: 768px) {
     .insert-products-container {
         margin: 1rem;
@@ -207,5 +258,34 @@ select:focus {
     .reset-btn {
         width: 100%;
     }
+    
+    h2 {
+        font-size: 1.6rem;
+    }
+    
+    .form-section {
+        padding: 1rem;
+    }
 }
-/* End of Selection */
+
+@media (max-width: 480px) {
+    .insert-products-container {
+        margin: 0.5rem;
+        padding: 0.5rem;
+    }
+    
+    h2 {
+        font-size: 1.4rem;
+    }
+    
+    .input-group {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .remove-btn {
+        position: absolute;
+        right: 0;
+        top: -30px;
+    }
+}

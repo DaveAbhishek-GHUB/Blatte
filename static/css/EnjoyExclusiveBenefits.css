@@ -1,3 +1,7 @@
+/* Import required fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&family=Serif:wght@400&display=swap');
+
+/* Main container styles */
 .enjoy-exclusive-benefits {
     width: 100%;
     max-width: 100%;
@@ -6,24 +10,28 @@
     box-sizing: border-box;
 }
 
+/* Benefits section container */
 .benefits-container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: clamp(2rem, 5vw, 4rem) 0;
-    font-family: serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
+/* Benefits title styling */
 .benefits-title {
     text-align: center;
     font-size: clamp(2rem, 8vw, 3.5rem);
     margin-bottom: 1.5rem;
-    font-family: 'Times New Roman', serif;
+    font-family: serif;
     font-weight: 400;
     line-height: 1.2;
     padding: 0 5%;
 }
 
+/* Benefits description text */
 .benefits-description {
     text-align: center;
     width: 90%;
@@ -32,8 +40,11 @@
     line-height: 1.6;
     font-size: clamp(1rem, 2vw, 1.1rem);
     padding: 0 5%;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
+/* Benefits comparison table */
 .benefits-table {
     width: 100%;
     max-width: 1000px;
@@ -41,21 +52,28 @@
     overflow-x: auto;
 }
 
+/* Table row layout */
 .table-row {
     display: grid;
     grid-template-columns: repeat(4, minmax(120px, 1fr));
     align-items: center;
     padding: 1rem 5%;
     min-width: 500px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
+/* Table header row */
 .table-row.header {
-    display: none; /* Hidden on mobile, shown on tablet/desktop */
+    display: none;
     text-align: center;
     font-weight: 700;
     padding: 0 5% 1rem;
+    font-family: serif;
+    font-weight: 400;
 }
 
+/* Benefit name cell */
 .benefit-name {
     padding-right: 1rem;
     font-size: clamp(0.9rem, 2vw, 1.1rem);
@@ -63,6 +81,7 @@
     word-break: break-word;
 }
 
+/* Checkmark styling */
 .check {
     display: flex;
     justify-content: center;
@@ -72,10 +91,11 @@
 
 .check::before {
     content: "•";
-    font-size: clamp(2rem, 5vw, 3rem); /* Increased dot size */
+    font-size: clamp(2rem, 5vw, 3rem);
     line-height: 1;
 }
 
+/* Checkmark colors */
 .check.purple::before {
     color: #E6E6FA;
 }
@@ -92,6 +112,7 @@
     content: "";
 }
 
+/* Footnotes section */
 .footnotes {
     font-size: clamp(0.8rem, 2vw, 0.9rem);
     color: #666;
@@ -101,12 +122,15 @@
     max-width: 1000px;
     margin: 0 auto;
     padding: 2rem 5%;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
 .footnotes p {
     margin-bottom: 1rem;
 }
 
+/* Tablet and desktop styles */
 @media (min-width: 768px) {
     .table-row {
         grid-template-columns: 2.5fr 1fr 1fr 1fr;
@@ -123,6 +147,7 @@
     }
 }
 
+/* Desktop styles */
 @media (min-width: 1024px) {
     .enjoy-exclusive-benefits {
         padding: 0;
@@ -137,6 +162,7 @@
     }
 }
 
+/* Mobile styles */
 @media (max-width: 480px) {
     .table-row {
         grid-template-columns: repeat(4, 1fr);
@@ -150,5 +176,20 @@
         font-weight: 600;
         font-size: 0.8rem;
         margin-bottom: 0.5rem;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 320px) {
+    .benefits-title {
+        font-size: clamp(1.5rem, 6vw, 2rem);
+    }
+    
+    .benefits-description {
+        font-size: 0.9rem;
+    }
+    
+    .table-row {
+        padding: 0.5rem 2%;
     }
 }

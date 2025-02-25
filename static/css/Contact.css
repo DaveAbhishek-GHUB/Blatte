@@ -1,41 +1,60 @@
+/* ==========================================================================
+   Base Styles & Typography
+   ========================================================================== */
+
+/* Import required fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&family=Serif:wght@400&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     margin: 0;
     padding: 0;
     color: #000;
     line-height: 1.4;
 }
 
+/* ==========================================================================
+   Layout & Container Styles
+   ========================================================================== */
+
 .container {
+    width: 90%;
     max-width: 500px;
     margin: 0 auto;
     padding: 20px;
-    padding-top: 80px;
+    padding-top: clamp(40px, 10vw, 80px); /* Responsive top padding */
     text-align: left;
 }
 
+/* ==========================================================================
+   Typography Styles
+   ========================================================================== */
 
 h1 {
+    font-family: serif;
+    font-weight: 400;
     text-align: left;
-    font-size: 24px;
+    font-size: clamp(20px, 5vw, 24px); /* Responsive font size */
     margin-bottom: 15px;
-    font-weight: normal;
 }
-
 
 .intro {
     margin-bottom: 20px;
-    font-size: 14px;
+    font-size: clamp(12px, 3vw, 14px); /* Responsive font size */
 }
+
+/* ==========================================================================
+   Contact Section Styles
+   ========================================================================== */
 
 .contact-section {
     margin-bottom: 30px;
 }
 
-
 .contact-section p {
     margin: 5px 0;
-    font-size: 14px;
+    font-size: clamp(12px, 3vw, 14px); /* Responsive font size */
 }
 
 .phone-numbers {
@@ -46,20 +65,31 @@ h1 {
     margin: 3px 0;
 }
 
+/* WhatsApp Section */
 .whatsapp-section {
     margin: 20px 0;
 }
 
 .whatsapp-section img {
-    width: 150px;
-    height: 150px;
+    width: clamp(100px, 30vw, 150px); /* Responsive image size */
+    height: clamp(100px, 30vw, 150px); /* Responsive image size */
     margin: 10px 0;
 }
 
+/* Links */
 a {
     color: #000;
     text-decoration: underline;
+    transition: color 0.3s ease; /* Smooth transition for hover effect */
 }
+
+a:hover {
+    color: #333;
+}
+
+/* ==========================================================================
+   Form Styles
+   ========================================================================== */
 
 .form-container {
     margin-top: 20px;
@@ -71,20 +101,25 @@ form {
     gap: 10px;
 }
 
-input, select, textarea {
+/* Form Elements */
+input, 
+select, 
+textarea {
     width: 100%;
     padding: 12px;
     border: none;
     background-color: #f0f0f0;
-    font-size: 14px;
+    font-size: clamp(12px, 3vw, 14px); /* Responsive font size */
     box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
 }
 
 textarea {
-    height: 100px;
+    height: clamp(80px, 20vw, 100px); /* Responsive height */
     resize: vertical;
 }
 
+/* Custom Select Styling */
 select {
     appearance: none;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
@@ -93,6 +128,7 @@ select {
     background-size: 15px;
 }
 
+/* Button Styles */
 button {
     width: 100%;
     padding: 12px;
@@ -100,10 +136,36 @@ button {
     color: #fff;
     border: none;
     cursor: pointer;
-    font-size: 14px;
+    font-size: clamp(12px, 3vw, 14px); /* Responsive font size */
     margin-top: 5px;
+    font-family: 'Montserrat', sans-serif;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
 }
 
 button:hover {
     background-color: #333;
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    
+    input, 
+    select, 
+    textarea,
+    button {
+        padding: 10px;
+    }
 }

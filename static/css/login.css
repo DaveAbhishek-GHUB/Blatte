@@ -1,13 +1,18 @@
-/* ========== CORE LAYOUT ========== */
+/* ==========================================================================
+   Login Page Styles
+   ========================================================================== */
+
+/* Core Layout
+   ========================================================================== */
 body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
     margin: 0;
-    /* padding: 2rem 1rem; */
     background-color: #FFFFFF;
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
     box-sizing: border-box;
 }
 
@@ -15,92 +20,121 @@ body {
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: clamp(1rem, 4vw, 2rem);
     text-align: center;
     box-sizing: border-box;
 }
 
-/* ========== HEADER FIX ========== */
+/* Header Section
+   ========================================================================== */
 .auth-header {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
-/* ========== TYPOGRAPHY ========== */
+/* Typography
+   ========================================================================== */
 .login-title {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: clamp(1.75rem, 5vw, 3rem);
+    font-family: serif;
     font-weight: 400;
-    margin-bottom: 1rem;
+    font-size: clamp(1.75rem, 5vw, 3rem);
+    margin-bottom: clamp(0.75rem, 2vw, 1rem);
     width: 100%;
 }
 
 .login-description {
-    font-size: clamp(0.9rem, 3vw, 1rem);
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(0.85rem, 2vw, 1rem);
     color: #333333;
-    margin: 0 auto 2rem;
+    margin: 0 auto clamp(1.5rem, 4vw, 2rem);
     max-width: 100%;
-    line-height: 1.4;
-    padding: 0 1rem;
+    line-height: 1.5;
+    padding: 0 clamp(0.5rem, 2vw, 1rem);
 }
 
 .register-text {
-    font-size: 0.9rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
     color: #333333;
-    margin-top: 2rem;
+    padding-top: clamp(1.5rem, 4vw, 2rem);
+    clear: both;
 }
 
 .register-link {
+    font-family: 'Montserrat', sans-serif;
     color: #333333;
     text-decoration: underline;
     font-weight: 400;
     display: inline-block;
     margin-top: 0.5rem;
+    transition: opacity 0.2s ease;
 }
 
-/* ========== FORM COMPONENTS ========== */
+/* Form Components
+   ========================================================================== */
 .login-form {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: clamp(1rem, 2vw, 1.2rem);
     max-width: 100%;
-    margin: 0 auto;
-    margin-top: 2rem; 
+    margin: clamp(2rem, 5vw, 5vw) auto 0; /* Increased top margin */
 }
 
 .login-input {
     width: 100%;
-    padding: 1rem;
-    font-size: 1rem;
+    padding: clamp(0.8rem, 2vw, 1rem);
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    font-family: 'Montserrat', sans-serif;
     background-color: #F2F2F2;
     border: none;
     border-radius: 0;
     box-sizing: border-box;
+    transition: background-color 0.2s ease;
 }
 
 .forgot-password {
     display: block;
     text-align: right;
-    font-size: 0.875rem;
+    font-size: clamp(0.8rem, 1.5vw, 0.875rem);
+    font-family: 'Montserrat', sans-serif;
     color: #333333;
     text-decoration: none;
     margin: 0.5rem 0 1rem;
+    transition: color 0.2s ease;
 }
 
 .login-button {
     width: 100%;
-    padding: 1rem;
-    font-size: 1rem;
+    padding: clamp(0.8rem, 2vw, 1rem);
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    font-family: 'Montserrat', sans-serif;
     background-color: #000000;
     color: #FFFFFF;
     border: none;
     cursor: pointer;
-    transition: opacity 0.2s ease;
+    transition: all 0.2s ease;
 }
 
-/* ========== MOBILE OPTIMIZATIONS ========== */
+/* Responsive Design
+   ========================================================================== */
+/* Large Screens (1200px and up) */
+@media (min-width: 1200px) {
+    .login-container {
+        max-width: 700px;
+    }
+}
+
+/* Tablet Screens (768px to 1199px) */
+@media (max-width: 1199px) {
+    body {
+        align-items: center;
+    }
+}
+
+/* Mobile Screens (480px and down) */
 @media (max-width: 480px) {
     body {
         padding: 1rem;
@@ -114,34 +148,31 @@ body {
     .auth-header {
         text-align: center;
     }
+}
 
-    .login-title {
-        font-size: 1.5rem;
-        margin-bottom: 0.75rem;
+/* Small Mobile Screens (320px and down) */
+@media (max-width: 320px) {
+    .login-container {
+        padding: 0.5rem;
     }
-
-    .login-description {
-        font-size: 0.85rem;
-        margin-bottom: 1.5rem;
-        padding: 0;
-        width: 100%;
-    }
-
+    
     .login-form {
-        gap: 1rem;
+        gap: 0.8rem;
     }
+}
 
-    .login-input {
-        padding: 0.8rem;
-    }
+/* Hover States and Interactions
+   ========================================================================== */
+.login-button:hover {
+    opacity: 0.9;
+}
 
-    .login-button {
-        padding: 0.8rem;
-        margin-top: 0.5rem;
-    }
+.register-link:hover,
+.forgot-password:hover {
+    opacity: 0.7;
+}
 
-    .register-text {
-        margin-top: 1.5rem;
-        font-size: 0.8rem;
-    }
+.login-input:focus {
+    background-color: #E8E8E8;
+    outline: none;
 }

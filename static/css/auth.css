@@ -1,22 +1,75 @@
-/* ========== GLOBAL RESET ========== */
-/* Reset all elements to ensure consistent cross-browser baseline */
+/* ==========================================================================
+   Global Reset & Base Styles
+   ========================================================================== */
+
+/* Reset default browser styles for consistency */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Use border-box model for intuitive sizing */
+    box-sizing: border-box;
 }
 
-/* ========== BODY LAYER MANAGEMENT ========== */
-/* Establish base stacking context for positioned elements */
+/* Import required fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&family=Serif:wght@400&display=swap');
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+/* Set base font for body text */
 body {
-    z-index: 10; /* Ensure body content renders above potential pseudo-elements */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    z-index: 10;
+    line-height: 1.6;
 }
 
-/* ========== MAIN CONTAINER LAYOUT ========== */
-/* Primary container for authentication interface components */
+/* Set serif font for headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: serif;
+    font-weight: 400;
+}
+
+/* ==========================================================================
+   Layout & Container Styles  
+   ========================================================================== */
+
 .auth-container {
-    width: 100%; /* Full viewport width */
-    min-height: 100vh; /* Minimum viewport height for vertical fill */
-    overflow-x: hidden; /* Prevent horizontal scroll artifacts */
-    position: relative; /* Establish positioning context for child elements */
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    padding: 1rem;
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+/* Small devices (phones, 576px and down) */
+@media only screen and (max-width: 576px) {
+    .auth-container {
+        padding: 0.5rem;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .auth-container {
+        padding: 1.5rem;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .auth-container {
+        padding: 2rem;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .auth-container {
+        padding: 2.5rem;
+    }
 }

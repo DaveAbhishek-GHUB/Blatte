@@ -1,11 +1,14 @@
+/* Main container styles */
 .orders-dashboard {
     padding: 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
-/* Stats Cards Styling */
+/* Stats Cards Section */
 .stats-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 24px;
     margin-bottom: 32px;
 }
@@ -23,48 +26,57 @@
 }
 
 .stat-card h3 {
+    font-family: 'serif', serif;
+    font-weight: 400;
     color: #4b5563;
-    font-size: 0.875rem;
+    font-size: clamp(0.875rem, 2vw, 1rem);
     margin-bottom: 12px;
-    font-weight: 500;
 }
 
 .stat-value .number {
-    font-size: 1.875rem;
+    font-size: clamp(1.5rem, 3vw, 1.875rem);
     font-weight: 600;
     color: #1f2937;
 }
 
-/* Table Section Styling */
+/* Orders Table Section */
 .orders-table-section {
     background: white;
     border-radius: 12px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    width: 100%;
 }
 
 .table-header {
-    padding: 24px;
+    padding: clamp(16px, 3vw, 24px);
     border-bottom: 1px solid #e5e7eb;
 }
 
 .table-header h2 {
-    font-size: 1.25rem;
+    font-family: 'serif', serif;
+    font-weight: 400;
+    font-size: clamp(1.125rem, 2.5vw, 1.25rem);
     color: #1f2937;
     margin-bottom: 16px;
 }
 
+/* Table Actions */
 .table-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
 }
 
 .search-box input {
     padding: 8px 16px;
     border: 1px solid #e5e7eb;
     border-radius: 6px;
-    width: 300px;
+    width: 100%;
+    min-width: 200px;
+    max-width: 300px;
     font-size: 0.875rem;
 }
 
@@ -77,28 +89,37 @@
     cursor: pointer;
     font-size: 0.875rem;
     transition: background-color 0.2s;
+    white-space: nowrap;
 }
 
 .export-btn:hover {
     background: #5849c4;
 }
 
-/* Table Styling */
+/* Orders Table */
 .orders-table {
     width: 100%;
     border-collapse: collapse;
+    overflow-x: auto;
+    display: block;
+}
+
+@supports (display: grid) {
+    .orders-table {
+        display: table;
+    }
 }
 
 .orders-table th,
 .orders-table td {
-    padding: 16px 24px;
+    padding: clamp(12px, 2vw, 16px) clamp(16px, 3vw, 24px);
     text-align: left;
     border-bottom: 1px solid #e5e7eb;
 }
 
 .orders-table th:first-child,
 .orders-table td:first-child {
-    width: 80px;
+    width: clamp(60px, 10vw, 80px);
     text-align: center;
     color: #6b7280;
     font-weight: 500;
@@ -108,12 +129,16 @@
     background: #f9fafb;
     color: #4b5563;
     font-weight: 500;
-    font-size: 0.875rem;
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+    font-family: 'serif', serif;
 }
 
+/* User Information */
 .user-info {
     display: flex;
     align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .user-name {
@@ -121,15 +146,17 @@
     font-weight: 500;
 }
 
-/* Status Select Styling */
+/* Status Controls */
 .status-select {
     padding: 6px 12px;
     border: 1px solid #e5e7eb;
     border-radius: 6px;
-    font-size: 0.875rem;
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
     background-color: white;
     color: #4b5563;
     cursor: pointer;
+    width: 100%;
+    max-width: 200px;
 }
 
 .status-select:focus {
@@ -142,14 +169,16 @@
 .action-buttons {
     display: flex;
     gap: 8px;
+    flex-wrap: wrap;
 }
 
-.view-btn, .delete-btn {
+.view-btn, 
+.delete-btn {
     padding: 6px 12px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 0.75rem;
+    font-size: clamp(0.7rem, 1.5vw, 0.75rem);
     transition: all 0.2s;
 }
 
@@ -172,12 +201,13 @@
     color: #dc2626;
 }
 
-/* Status Badge Styling */
+/* Status Indicators */
 .status-badge {
     padding: 4px 8px;
     border-radius: 4px;
-    font-size: 0.75rem;
+    font-size: clamp(0.7rem, 1.5vw, 0.75rem);
     font-weight: 500;
+    white-space: nowrap;
 }
 
 .status-badge.in.progress {
@@ -195,16 +225,17 @@
     color: #dc2626;
 }
 
-/* Action Buttons Styling */
+/* Status Action Buttons */
 .status-btn {
     padding: 4px 8px;
     border-radius: 4px;
-    font-size: 0.75rem;
+    font-size: clamp(0.7rem, 1.5vw, 0.75rem);
     font-weight: 500;
     cursor: pointer;
     border: none;
     margin: 0;
     transition: all 0.2s;
+    width: 100%;
 }
 
 .status-btn.delivered {
@@ -233,61 +264,51 @@
     flex-wrap: wrap;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
+/* Responsive Breakpoints */
+@media screen and (max-width: 1200px) {
     .stats-container {
         grid-template-columns: repeat(2, 1fr);
     }
-
-    .orders-table {
-        display: block;
-        overflow-x: auto;
-    }
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .stats-container {
         grid-template-columns: 1fr;
     }
     
-    .search-box input {
-        width: 200px;
-    }
-    
-    .orders-table th,
-    .orders-table td {
-        padding: 12px 16px;
-    }
-
     .table-actions {
         flex-direction: column;
-        gap: 12px;
-    }
-
-    .search-box {
-        width: 100%;
-    }
-
-    .search-box input {
-        width: 100%;
-    }
-
-    .export-btn {
-        width: 100%;
-    }
-
-    .action-cell {
-        flex-direction: column;
-        gap: 4px;
+        align-items: stretch;
     }
     
+    .search-box input {
+        max-width: none;
+    }
+    
+    .action-cell {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .view-btn,
+    .delete-btn,
     .status-btn {
         width: 100%;
-        margin: 2px 0;
+        text-align: center;
     }
 }
 
-/* Additional Utility Classes */
+@media screen and (max-width: 480px) {
+    .orders-dashboard {
+        padding: 16px;
+    }
+    
+    .stat-card {
+        padding: 16px;
+    }
+}
+
+/* Utility Classes */
 .text-center {
     text-align: center;
 }

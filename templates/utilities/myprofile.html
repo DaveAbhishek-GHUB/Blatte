@@ -4,22 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile - My Dear Club</title>
+    <!-- Main stylesheet -->
     <link rel="stylesheet" href="/static/css/myprofile.css">
+    <!-- Feather Icons CDN -->
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
+    <!-- Main profile container -->
     <div class="profile-container">
+        <!-- Club title header -->
         <h1 class="club-title">My Dear Club</h1>
         
-        <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Icons/leaves%20login?updatedAt=1740141880800" 
-        alt="Tea Leaves Logo" class="logo-image">
+        <!-- Logo section -->
+        <div class="logo-wrapper">
+            <i data-feather="leaf" class="logo-image"></i>
+        </div>
         
+        <!-- Welcome message with dynamic user name -->
         <p class="welcome-message">Welcome {{ user.name }}!</p>
         
+        <!-- Tea leaves status information -->
         <p class="tea-leaves-info">
             You have already collected 25 tea leaves. Learn below how you can redeem your tea leaves.
         </p>
         
+        <!-- Logout link -->
         <a href="/user/logout" class="logout-link">Logout</a>
     </div>
+
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+    </script>
 </body>
 </html>

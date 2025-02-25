@@ -1,11 +1,14 @@
+/* Main container styles */
 .products-dashboard {
     padding: 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
-/* Stats Cards Styling */
+/* Stats Cards Section */
 .stats-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 24px;
     margin-bottom: 32px;
 }
@@ -15,7 +18,7 @@
     padding: 24px;
     border-radius: 12px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
+    transition: transform 0.2s ease;
 }
 
 .stat-card:hover {
@@ -27,44 +30,53 @@
     font-size: 0.875rem;
     margin-bottom: 12px;
     font-weight: 500;
+    font-family: 'serif', serif;
+    font-weight: 400;
 }
 
 .stat-value .number {
-    font-size: 1.875rem;
+    font-size: clamp(1.5rem, 2vw, 1.875rem);
     font-weight: 600;
     color: #1f2937;
 }
 
-/* Table Section Styling */
+/* Products Table Section */
 .products-table-section {
     background: white;
     border-radius: 12px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    margin: 0 auto;
+    max-width: 100%;
 }
 
 .table-header {
-    padding: 24px;
+    padding: clamp(16px, 3vw, 24px);
     border-bottom: 1px solid #e5e7eb;
 }
 
 .table-header h2 {
-    font-size: 1.25rem;
+    font-size: clamp(1.125rem, 2vw, 1.25rem);
     color: #1f2937;
     margin-bottom: 16px;
+    font-family: 'serif', serif;
+    font-weight: 400;
 }
 
+/* Table Actions */
 .table-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
 }
 
 .search-box input {
     padding: 8px 16px;
     border: 1px solid #e5e7eb;
     border-radius: 6px;
-    width: 300px;
+    width: clamp(200px, 100%, 300px);
     font-size: 0.875rem;
 }
 
@@ -76,22 +88,24 @@
     border-radius: 6px;
     cursor: pointer;
     font-size: 0.875rem;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s ease;
 }
 
 .export-btn:hover {
     background: #5849c4;
 }
 
-/* Table Styling */
+/* Products Table */
 .products-table {
     width: 100%;
     border-collapse: collapse;
+    overflow-x: auto;
+    display: block;
 }
 
 .products-table th,
 .products-table td {
-    padding: 16px 24px;
+    padding: clamp(12px, 2vw, 16px) clamp(16px, 3vw, 24px);
     text-align: left;
     border-bottom: 1px solid #e5e7eb;
 }
@@ -101,19 +115,24 @@
     color: #4b5563;
     font-weight: 500;
     font-size: 0.875rem;
+    font-family: 'serif', serif;
+    font-weight: 400;
+    white-space: nowrap;
 }
 
+/* Product Image Styles */
 .product-image {
-    width: 80px;
+    width: clamp(60px, 8vw, 80px);
 }
 
 .product-image img {
-    width: 60px;
-    height: 60px;
+    width: clamp(40px, 6vw, 60px);
+    height: clamp(40px, 6vw, 60px);
     object-fit: cover;
     border-radius: 4px;
 }
 
+/* Product Information */
 .product-info {
     display: table-cell;
     vertical-align: middle;
@@ -124,9 +143,11 @@
     font-weight: 500;
 }
 
+/* Action Buttons */
 .action-buttons {
     display: flex;
     gap: 8px;
+    flex-wrap: wrap;
 }
 
 .delete-btn {
@@ -136,40 +157,61 @@
     padding: 0;
     cursor: pointer;
     font-size: 0.875rem;
-    transition: color 0.2s;
+    transition: color 0.2s ease;
 }
 
 .delete-btn:hover {
     color: darkred;
 }
 
-/* Responsive Design */
+/* Responsive Design - Large Screens */
+@media (min-width: 1441px) {
+    .products-dashboard {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+}
+
+/* Responsive Design - Medium Screens */
 @media (max-width: 1024px) {
     .stats-container {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
+/* Responsive Design - Small Screens */
 @media (max-width: 768px) {
     .stats-container {
         grid-template-columns: 1fr;
     }
     
+    .table-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-box {
+        width: 100%;
+    }
+    
     .search-box input {
-        width: 200px;
+        width: 100%;
+    }
+}
+
+/* Responsive Design - Extra Small Screens */
+@media (max-width: 480px) {
+    .products-dashboard {
+        padding: 16px;
+    }
+    
+    .stat-card {
+        padding: 16px;
     }
     
     .products-table th,
     .products-table td {
-        padding: 12px 16px;
+        padding: 8px 12px;
+        font-size: 0.875rem;
     }
-    
-    .product-image {
-        width: 60px;
-    }
-    
-    .product-image img {
-        width: 40px;
-        height: 40px;
-    }
-} 
+}

@@ -1,165 +1,207 @@
 /* Import custom font */
 @font-face {
-    font-family: 'ScotchModern';
+    font-family: 'serif-400';
     src: url('/static/fonts/ScotchModern__.woff2') format('woff2');
-    font-weight: normal;
+    font-weight: 400;
     font-style: normal;
 }
 
-/* Main benefits container */
+/* Main container for benefits section */
 .benefits-container {
-    padding: 4vw 8vw;
+    padding: 40px 80px; /* Fixed padding instead of viewport units */
     background-color: #D0E2B2;
     text-align: left;
+    max-width: 1920px; /* Maximum width for ultra-wide screens */
+    margin: 0 auto;
 }
 
-/* Benefits section title */
+/* Benefits section title styling */
 .benefits-title {
-    font-size: 3vw;
-    margin-bottom: 3vw;
+    font-size: 36px;
+    margin-bottom: 30px;
     color: #333;
-    font-family: 'ScotchModern', 'Times New Roman', serif;
+    font-family: 'serif-400', serif;
     text-align: left;
+    font-weight: 400;
 }
 
-/* Grid container for benefit items */
+/* Grid layout for benefit items */
 .benefits-grid {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    gap: 2vw;
+    gap: 24px;
     max-width: 1400px;
     margin: 0 auto;
 }
 
-/* Individual benefit item container */
+/* Individual benefit item styling */
 .benefit-item {
     display: flex;
     align-items: flex-start;
-    gap: 1vw;
-    flex: 1;
+    gap: 16px;
+    flex: 1 1 calc(33.333% - 24px); /* Three columns by default */
+    min-width: 280px; /* Minimum width before wrapping */
 }
 
-/* Benefit icon styles */
+/* Benefit icon container */
 .benefit-icon {
-    width: 2vw;
-    height: 2vw;
+    width: 24px;
+    height: 24px;
     flex-shrink: 0;
 }
 
+/* SVG icon styling */
 .benefit-icon svg {
     width: 100%;
     height: 100%;
     color: #333;
 }
 
-/* Benefit text content container */
+/* Benefit text content wrapper */
 .benefit-content {
     text-align: left;
 }
 
-/* Benefit heading styles */
+/* Benefit heading typography */
 .benefit-item h3 {
-    font-size: 1.5vw;
-    margin: 0 0 0.5vw 0;
+    font-size: 20px;
+    margin: 0 0 8px 0;
     color: #333;
-    font-weight: 500;
-    font-family: 'ScotchModern', 'Times New Roman', serif;
+    font-weight: 400;
+    font-family: 'serif-400', serif;
 }
 
-/* Benefit paragraph styles */
+/* Benefit paragraph typography */
 .benefit-item p {
-    font-size: 1.2vw;
+    font-size: 16px;
     margin: 0;
     color: #666;
-    line-height: 1.4;
-    font-family: sans-serif;
+    line-height: 1.5;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
-/* Tablet Responsive Design */
-@media (max-width: 1024px) {
-    .benefits-grid {
-        flex-wrap: wrap;
+/* Large Desktop Screens (1440px and above) */
+@media (min-width: 1441px) {
+    .benefits-title {
+        font-size: 42px;
     }
     
-    .benefit-item {
-        flex: 0 0 calc(50% - 2vw);
+    .benefit-item h3 {
+        font-size: 24px;
     }
     
+    .benefit-item p {
+        font-size: 18px;
+    }
+}
+
+/* Desktop and Small Laptop Screens (1024px to 1440px) */
+@media (max-width: 1440px) {
     .benefits-container {
-        padding: 4vw;
-    }
-
-    .benefits-title {
-        font-size: 4vw;
-    }
-
-    .benefit-item h3 {
-        font-size: 2.2vw;
-    }
-
-    .benefit-item p {
-        font-size: 1.8vw;
-    }
-
-    .benefit-icon {
-        width: 3vw;
-        height: 3vw;
+        padding: 32px 64px;
     }
 }
 
-/* Mobile Responsive Design */
-@media (max-width: 768px) {
-    .benefits-title {
-        font-size: 6vw;
-        text-align: center;
-        margin-bottom: 4vw;
+/* Tablet Landscape (768px to 1024px) */
+@media (max-width: 1024px) {
+    .benefits-container {
+        padding: 28px 40px;
     }
     
-    .benefits-grid {
-        flex-direction: column;
-        gap: 4vw;
+    .benefits-title {
+        font-size: 32px;
     }
     
     .benefit-item {
-        flex: 1 1 100%;
+        flex: 1 1 calc(50% - 20px); /* Two columns */
     }
-
-    .benefit-item h3 {
-        font-size: 3.5vw;
-        margin-bottom: 1vw;
-    }
-
-    .benefit-item p {
-        font-size: 2.8vw;
-    }
-
+    
     .benefit-icon {
-        width: 5vw;
-        height: 5vw;
+        width: 20px;
+        height: 20px;
     }
 }
 
-/* Small Mobile Responsive Design */
+/* Tablet Portrait (481px to 768px) */
+@media (max-width: 768px) {
+    .benefits-container {
+        padding: 24px 32px;
+    }
+    
+    .benefits-title {
+        font-size: 28px;
+        text-align: center;
+        margin-bottom: 24px;
+    }
+    
+    .benefits-grid {
+        gap: 20px;
+    }
+    
+    .benefit-item {
+        flex: 1 1 100%; /* Single column */
+    }
+    
+    .benefit-item h3 {
+        font-size: 18px;
+    }
+    
+    .benefit-item p {
+        font-size: 14px;
+    }
+}
+
+/* Mobile Devices (320px to 480px) */
 @media (max-width: 480px) {
     .benefits-container {
-        padding: 6vw;
+        padding: 20px 16px;
     }
     
     .benefits-title {
-        font-size: 8vw;
-        margin-bottom: 5vw;
+        font-size: 24px;
+        margin-bottom: 20px;
     }
-
-    .benefit-item h3 {
-        font-size: 4.5vw;
+    
+    .benefits-grid {
+        gap: 16px;
     }
-
-    .benefit-item p {
-        font-size: 3.8vw;
+    
+    .benefit-item {
+        gap: 12px;
     }
-
+    
     .benefit-icon {
-        width: 6vw;
-        height: 6vw;
+        width: 18px;
+        height: 18px;
+    }
+    
+    .benefit-item h3 {
+        font-size: 16px;
+        margin-bottom: 4px;
+    }
+    
+    .benefit-item p {
+        font-size: 13px;
+    }
+}
+
+/* Small Mobile Devices (Below 320px) */
+@media (max-width: 320px) {
+    .benefits-container {
+        padding: 16px 12px;
+    }
+    
+    .benefits-title {
+        font-size: 20px;
+    }
+    
+    .benefit-item h3 {
+        font-size: 15px;
+    }
+    
+    .benefit-item p {
+        font-size: 12px;
     }
 }

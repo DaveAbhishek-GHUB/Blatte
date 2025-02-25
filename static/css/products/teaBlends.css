@@ -29,7 +29,7 @@
    ========================================================================== */
 .productsWrapper {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
     gap: 2vw;
     padding: 4vw;
     background: #fff;
@@ -45,7 +45,7 @@
 }
 
 .headingWrapper h1 {
-    font-size: 2.5vw;
+    font-size: clamp(24px, 2.5vw, 48px); /* Responsive font size */
     font-family: 'serif-400', serif;
     font-weight: 400;
     color: #333;
@@ -53,7 +53,7 @@
 }
 
 .headingWrapper p {
-    font-size: 1.2vw;
+    font-size: clamp(14px, 1.2vw, 24px);
     color: #666;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
@@ -100,25 +100,25 @@
 /* Product Tags */
 .tags {
     position: absolute;
-    top: 1vw;
-    left: 1vw;
+    top: clamp(8px, 1vw, 16px);
+    left: clamp(8px, 1vw, 16px);
     z-index: 2;
 }
 
 .tag {
     background: #000;
     color: white;
-    padding: 0.4vw 0.8vw;
-    border-radius: 0.25vw;
-    font-size: 0.8vw;
+    padding: clamp(4px, 0.4vw, 8px) clamp(8px, 0.8vw, 16px);
+    border-radius: 4px;
+    font-size: clamp(10px, 0.8vw, 16px);
     font-weight: 500;
 }
 
 /* Wishlist Button */
 .wishlist-btn {
     position: absolute;
-    top: 1vw;
-    right: 1vw;
+    top: clamp(8px, 1vw, 16px);
+    right: clamp(8px, 1vw, 16px);
     background: none;
     border: none;
     cursor: pointer;
@@ -126,13 +126,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 3vw;
-    height: 3vw;
+    width: clamp(24px, 3vw, 48px);
+    height: clamp(24px, 3vw, 48px);
 }
 
 .wishlist-btn svg {
-    width: 1.8vw;
-    height: 1.8vw;
+    width: clamp(16px, 1.8vw, 32px);
+    height: clamp(16px, 1.8vw, 32px);
     stroke: #000;
     fill: none;
     transition: fill 0.3s ease;
@@ -144,18 +144,18 @@
 
 /* Product Information */
 .productInfo {
-    padding: 1.5vw 0;
+    padding: clamp(16px, 1.5vw, 32px) 0;
 }
 
 .flavor-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5vw;
-    margin-bottom: 1vw;
+    gap: clamp(4px, 0.5vw, 8px);
+    margin-bottom: clamp(8px, 1vw, 16px);
 }
 
 .flavor-tag {
-    font-size: 0.9vw;
+    font-size: clamp(12px, 0.9vw, 18px);
     color: #666;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
@@ -164,14 +164,14 @@
 .flavor-tag:not(:last-child):after {
     content: "";
     border-right: 1px solid #666;
-    margin-left: 0.5vw;
-    padding-right: 0.5vw;
+    margin-left: clamp(4px, 0.5vw, 8px);
+    padding-right: clamp(4px, 0.5vw, 8px);
 }
 
 .category {
     color: #666;
-    font-size: 0.9vw;
-    margin-bottom: 0.5vw;
+    font-size: clamp(12px, 0.9vw, 18px);
+    margin-bottom: clamp(4px, 0.5vw, 8px);
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
 }
@@ -179,15 +179,15 @@
 .product-title {
     font-family: 'serif-400', serif;
     font-weight: 400;
-    font-size: 1.5vw;
-    margin-bottom: 0.5vw;
+    font-size: clamp(18px, 1.5vw, 32px);
+    margin-bottom: clamp(4px, 0.5vw, 8px);
     color: #000;
 }
 
 .description {
-    font-size: 0.9vw;
+    font-size: clamp(12px, 0.9vw, 18px);
     color: #666;
-    margin-bottom: 1vw;
+    margin-bottom: clamp(8px, 1vw, 16px);
     line-height: 1.4;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
@@ -201,16 +201,16 @@
 }
 
 .price {
-    font-size: 1vw;
+    font-size: clamp(14px, 1vw, 20px);
     font-weight: 500;
     font-family: 'Montserrat', sans-serif;
 }
 
 .cart-btn {
-    min-width: 3vw;
-    min-height: 3vw;
-    width: 3vw;
-    height: 3vw;
+    min-width: clamp(24px, 3vw, 48px);
+    min-height: clamp(24px, 3vw, 48px);
+    width: clamp(24px, 3vw, 48px);
+    height: clamp(24px, 3vw, 48px);
     border: 1px solid #000;
     border-radius: 50%;
     background: none;
@@ -233,8 +233,8 @@
 }
 
 .cart-btn img {
-    width: 1.5vw;
-    height: 1.5vw;
+    width: clamp(12px, 1.5vw, 24px);
+    height: clamp(12px, 1.5vw, 24px);
     object-fit: contain;
 }
 
@@ -264,20 +264,20 @@
     color: white;
     width: 90%;
     max-width: 1200px;
-    padding: 0 1.5vw;
+    padding: 0 clamp(12px, 1.5vw, 24px);
     opacity: 0;
     animation: fadeInUp 0.8s ease forwards;
 }
 
 .hero-content h1 {
-    font-size: 4.5vw;
+    font-size: clamp(32px, 4.5vw, 72px);
     font-weight: 400;
-    margin-bottom: 1vw;
+    margin-bottom: clamp(8px, 1vw, 16px);
     font-family: 'serif-400', serif;
 }
 
 .hero-content p {
-    font-size: 1.2vw;
+    font-size: clamp(14px, 1.2vw, 24px);
     line-height: 1.5;
     max-width: 800px;
     font-family: 'Montserrat', sans-serif;
@@ -288,21 +288,21 @@
    Magazine Section
    ========================================================================== */
 .magazine-section {
-    padding: 4vw 0;
+    padding: clamp(24px, 4vw, 64px) 0;
     background-color: rgb(208, 227, 178);
     text-align: left;
-    padding: 3vw 1.5vw;
+    padding: clamp(24px, 3vw, 48px) clamp(12px, 1.5vw, 24px);
 }
 
 .magazine-section h1 {
-    font-size: 2.5vw;
-    margin-bottom: 0.8vw;
+    font-size: clamp(24px, 2.5vw, 48px);
+    margin-bottom: clamp(8px, 0.8vw, 16px);
     font-family: 'serif-400', serif;
     font-weight: 400;
 }
 
 .subtitle {
-    font-size: 1.2vw;
+    font-size: clamp(14px, 1.2vw, 24px);
     color: #666;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
@@ -310,14 +310,14 @@
 
 .magazine-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5vw;
-    margin-top: 2vw;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: clamp(12px, 1.5vw, 24px);
+    margin-top: clamp(16px, 2vw, 32px);
 }
 
 .magazine-item {
     background-color: rgb(208, 227, 178);
-    padding: 1.5vw;
+    padding: clamp(12px, 1.5vw, 24px);
     text-align: left;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
@@ -331,7 +331,7 @@
 
 .magazine-item img {
     width: 100%;
-    height: 22vw;
+    height: clamp(180px, 22vw, 350px);
     object-fit: cover;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -341,249 +341,18 @@
 }
 
 .magazine-item h3 {
-    font-size: 1.2vw;
-    margin-bottom: 0.8vw;
+    font-size: clamp(16px, 1.2vw, 24px);
+    margin-bottom: clamp(8px, 0.8vw, 16px);
     font-family: 'serif-400', serif;
     font-weight: 400;
 }
 
 .magazine-item p {
-    font-size: 0.9vw;
+    font-size: clamp(12px, 0.9vw, 18px);
     line-height: 1.5;
     color: #555;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
-}
-
-/* ==========================================================================
-   Responsive Design - Tablet (max-width: 968px)
-   ========================================================================== */
-@media screen and (max-width: 968px) {
-    .cart-btn {
-        min-width: 4vw;
-        min-height: 4vw;
-        width: 4vw;
-        height: 4vw;
-    }
-
-    .cart-btn img {
-        width: 2vw;
-        height: 2vw;
-    }
-
-    .wishlist-btn {
-        width: 4vw;
-        height: 4vw;
-    }
-
-    .wishlist-btn svg {
-        width: 2.2vw;
-        height: 2.2vw;
-    }
-
-    .magazine-section {
-        padding: 3.5vw 2vw;
-    }
-
-    .magazine-section h1 {
-        font-size: 3vw;
-    }
-
-    .subtitle {
-        font-size: 1.5vw;
-    }
-
-    .magazine-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2vw;
-    }
-
-    .magazine-item {
-        padding: 2vw;
-    }
-
-    .magazine-item img {
-        height: 30vw;
-    }
-
-    .magazine-item h3 {
-        font-size: 2vw;
-    }
-
-    .magazine-item p {
-        font-size: 1.5vw;
-    }
-
-    .product-title {
-        font-size: 2.2vw;
-    }
-
-    .description {
-        font-size: 1.5vw;
-    }
-
-    .price {
-        font-size: 1.8vw;
-    }
-
-    .tag {
-        font-size: 1.4vw;
-    }
-
-    .flavor-tag {
-        font-size: 1.4vw;
-    }
-}
-
-/* ==========================================================================
-   Responsive Design - Mobile Landscape (max-width: 768px)
-   ========================================================================== */
-@media screen and (max-width: 768px) {
-    .mainBodyWrapper {
-        margin-top: 5vw;
-    }
-
-    .hero-content h1 {
-        font-size: 5vw;
-    }
-
-    .hero-content p {
-        font-size: 2vw;
-    }
-
-    .magazine-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .productsWrapper {
-        grid-template-columns: repeat(2, 1fr);
-        padding: 3vw;
-    }
-
-    .cart-btn {
-        min-width: 5vw;
-        min-height: 5vw;
-        width: 5vw;
-        height: 5vw;
-    }
-
-    .cart-btn img {
-        width: 2.5vw;
-        height: 2.5vw;
-    }
-
-    .wishlist-btn {
-        width: 5vw;
-        height: 5vw;
-    }
-
-    .wishlist-btn svg {
-        width: 2.8vw;
-        height: 2.8vw;
-    }
-}
-
-/* ==========================================================================
-   Responsive Design - Mobile Portrait (max-width: 480px)
-   ========================================================================== */
-@media screen and (max-width: 480px) {
-    .mainBodyWrapper {
-        margin-top: 7vw;
-    }
-
-    .mainBodyWrapper img {
-        height: 30vh;
-    }
-
-    .hero-content h1 {
-        font-size: 7vw;
-    }
-
-    .hero-content p {
-        font-size: 3vw;
-    }
-
-    .magazine-section {
-        padding: 5vw 3vw;
-    }
-
-    .magazine-section h1 {
-        font-size: 6vw;
-    }
-
-    .subtitle {
-        font-size: 3vw;
-    }
-
-    .magazine-grid {
-        grid-template-columns: 1fr;
-        gap: 4vw;
-    }
-
-    .magazine-item {
-        padding: 3vw;
-    }
-
-    .magazine-item img {
-        height: 50vw;
-    }
-
-    .magazine-item h3 {
-        font-size: 4vw;
-        margin-bottom: 2vw;
-    }
-
-    .magazine-item p {
-        font-size: 3vw;
-    }
-
-    .productsWrapper {
-        grid-template-columns: 1fr;
-        padding: 4vw;
-    }
-
-    .cart-btn {
-        min-width: 8vw;
-        min-height: 8vw;
-        width: 8vw;
-        height: 8vw;
-    }
-
-    .cart-btn img {
-        width: 4vw;
-        height: 4vw;
-    }
-
-    .wishlist-btn {
-        width: 8vw;
-        height: 8vw;
-    }
-
-    .wishlist-btn svg {
-        width: 4.5vw;
-        height: 4.5vw;
-    }
-
-    .product-title {
-        font-size: 5vw;
-    }
-
-    .description {
-        font-size: 3.5vw;
-    }
-
-    .price {
-        font-size: 4vw;
-    }
-
-    .tag {
-        font-size: 3vw;
-        padding: 1vw 2vw;
-    }
-
-    .flavor-tag {
-        font-size: 3vw;
-    }
 }
 
 /* Animation Keyframes */

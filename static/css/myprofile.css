@@ -1,40 +1,82 @@
+/* Import required fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+
+/* Main container styles
+   ========================================================================== */
 .profile-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 20px;
+    padding: clamp(2rem, 4vw, 4rem) clamp(1rem, 2vw, 2rem);
     text-align: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.logout-link {
-    margin-top: 40px;
-    text-decoration: none;
-    color: #333;
-    font-size: 16px;
-}
-
-.club-title {
-    font-family: 'Bodoni MT', 'Times New Roman', serif;
-    font-size: 48px;
-    margin: 30px 0;
-    letter-spacing: 1px;
-}
-
+/* Logo styles
+   ========================================================================== */
 .logo-image {
-    width: 100px;
-    margin: 30px 0;
+    width: clamp(60px, 10vw, 100px);
+    margin: clamp(1.5rem, 3vw, 3rem) 0;
+}
+
+/* Typography
+   ========================================================================== */
+.club-title {
+    font-family: serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin: clamp(1.5rem, 3vw, 3rem) 0;
+    letter-spacing: 0.02em;
+    color: #000;
 }
 
 .welcome-message {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    margin-bottom: clamp(1rem, 2vw, 2rem);
     color: #333;
 }
 
 .tea-leaves-info {
-    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.9rem, 1.8vw, 1.125rem);
     color: #555;
     max-width: 600px;
-    line-height: 1.5;
+    line-height: 1.6;
     margin: 0 auto;
+    padding: 0 clamp(1rem, 2vw, 2rem);
+}
+
+.logout-link {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    margin-top: clamp(2rem, 4vw, 4rem);
+    text-decoration: none;
+    color: #333;
+    font-size: clamp(0.875rem, 1.6vw, 1rem);
+    transition: opacity 0.2s ease;
+}
+
+/* Hover states
+   ========================================================================== */
+.logout-link:hover {
+    opacity: 0.7;
+}
+
+/* Responsive Design
+   ========================================================================== */
+@media (max-width: 768px) {
+    .profile-container {
+        padding: clamp(1.5rem, 3vw, 3rem) clamp(0.75rem, 1.5vw, 1.5rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-container {
+        padding: 1rem;
+    }
 }
