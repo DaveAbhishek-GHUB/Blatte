@@ -47,7 +47,6 @@
                 <div class="table-actions">
                     <div class="search-box">
                         <input type="text" id="orderSearch" placeholder="Search orders..." oninput="searchOrders()">
-                        <i data-feather="search"></i>
                     </div>
                     <button class="export-btn" onclick="exportOrderData()">
                         <i data-feather="download"></i>
@@ -89,11 +88,9 @@
                         </td>
                         <td class="action-cell">
                             <button class="status-btn delivered" onclick="updateOrderStatus('{{ order.order_id }}', 'Delivered')">
-                                <i data-feather="check-circle"></i>
                                 Delivered
                             </button>
                             <button class="status-btn cancelled" onclick="updateOrderStatus('{{ order.order_id }}', 'Cancelled')">
-                                <i data-feather="x-circle"></i>
                                 Cancelled
                             </button>
                         </td>

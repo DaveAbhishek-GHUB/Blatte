@@ -136,14 +136,20 @@
 }
 
 .user-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: block;
+    margin-bottom: 8px;
 }
 
 .user-name {
+    display: block;
     color: #1f2937;
     font-weight: 500;
+}
+
+/* Ensure that the table cells are displayed as block elements */
+.users-table td {
+    display: table-cell;
+    vertical-align: top;
 }
 
 /* Action Buttons */
