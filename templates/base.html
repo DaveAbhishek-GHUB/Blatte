@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tea Shop - Your destination for premium teas">
     
     <!-- Title Block -->
     <!-- This block can be overridden by child templates to set custom page titles -->
@@ -14,6 +15,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <!-- Toast notification specific styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/toast.css') }}">
+    <!-- Feather Icons CDN -->
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 
 <body>
@@ -23,10 +26,17 @@
         <!-- This block will be populated by child templates with page-specific content -->
         {% block content %}{% endblock %}
     </main>
+
+    <!-- Notification System -->
+    {% include 'components/toast.html' %}      {# Notification system #}
     
     <!-- Scripts -->
     <!-- Toast notification JavaScript loaded at end of body for better page load performance -->
     <script src="{{ url_for('static', filename='javascripts/toast.js') }}"></script>
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+    </script>
 </body>
 
 </html>

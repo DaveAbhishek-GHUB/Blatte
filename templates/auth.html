@@ -5,38 +5,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    {# ========== EXTERNAL RESOURCES ========== #}
+    <!-- Feather Icons CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
     {# ========== PAGE-SPECIFIC STYLESHEET ========== #}
     <link rel="stylesheet" href="../static/css/auth.css">
+    
+    {# ========== PAGE TITLE ========== #}
+    <title>Authentication - BLATTÉ</title>
 </head>
 
 <body>
-    {# ========== AUTHENTICATION CONTAINER ========== #}
+    {# ========== MAIN CONTAINER ========== #}
     <div class="auth-container">
-        {# ------ Global Header Inclusion ------ #}
+        {# ------ Global Header Component ------ #}
         {% include 'utilities/header.html' %}
+        
+        {# ------ Notification System Component ------ #}
+        {% include 'components/toast.html' %}
         
         {# ========== CONDITIONAL CONTENT RENDERING ========== #}
         {% if request.cookies.get('user_email') %}
             {# ------ Authenticated User View ------ #}
+            {# Displays user profile and account information #}
             {% include 'utilities/myprofile.html' %}
         {% else %}
             {# ------ Guest User View ------ #}
-            {# Membership promotion component #}
+            {# Membership promotion and benefits #}
             {% include 'components/MyDearClub.html' %}
             
-            {# Authentication form container #}
+            {# Authentication form for login/signup #}
             {% include 'utilities/login.html' %}
         {% endif %}
         
-        {# ========== COMMON MARKETING COMPONENTS ========== #}
-        {# Benefits promotion section #}
+        {# ========== MARKETING AND PROMOTIONAL SECTIONS ========== #}
+        {# Benefits showcase section #}
         {% include 'components/EnjoyExclusiveBenefits.html' %}
         
-        {# Brand ethos display #}
+        {# Company values and mission statement #}
         {% include 'components/weLovewhatWeDo.html' %}
         
-        {# ------ Global Footer Inclusion ------ #}
+        {# ------ Global Footer Component ------ #}
         {% include 'utilities/footer.html' %}
     </div>
+
+    {# ========== INITIALIZE FEATHER ICONS ========== #}
+    <script>
+        // Initialize Feather Icons after DOM content loads
+        document.addEventListener('DOMContentLoaded', function() {
+            feather.replace();
+        });
+    </script>
 </body>
 </html>

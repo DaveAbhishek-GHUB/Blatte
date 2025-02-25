@@ -3,15 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="../static/css/products.css">
     <link rel="stylesheet" href="../static/css/productShowcase.css">
     <link rel="stylesheet" href="../static/css/toast.css">
+    <!-- JavaScript -->
     <script src="../static/javascripts/productShowcase.js"></script>
     <script src="../static/javascripts/toast.js"></script>
     <script src="{{ url_for('static', filename='javascripts/productSearch.js') }}"></script>
+    <!-- Feather Icons CDN -->
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
+    {# Header Component #}
     {% include 'utilities/header.html' %}
+
+    {# Notification System #}
+    {% include 'components/toast.html' %}
 
     {# ------ PRODUCT CATEGORIES GRID ------ #}
     <section class="categorySection" aria-label="Product categories">
@@ -73,6 +81,7 @@
         </div>
     </section>
 
+    {# ------ HEADER SECTION ------ #}
     <div class="teas-header">
         <div class="header-content">
             <h1>Teas</h1>
@@ -82,12 +91,12 @@
         <div class="search-container">
             <input type="text" id="productSearch" placeholder="Search products..." aria-label="Search products">
             <button id="searchButton" aria-label="Search">
-                <img src="../static/images/svgs/search.svg" alt="Search icon">
+                <i data-feather="search"></i>
             </button>
         </div>
     </div>
 
-    <!-- Replace the existing products section with productShowcase include -->
+    {# ------ PRODUCT SHOWCASE SECTION ------ #}
     {% with 
         heading="Our Products",
         subheading="Discover our carefully curated selection of premium teas and accessories",
@@ -96,7 +105,7 @@
     {% include 'utilities/productShowcase.html' %}
     {% endwith %}
 
-    {# Add pagination controls #}
+    {# ------ PAGINATION CONTROLS ------ #}
     {% if pagination %}
     <div class="pagination">
         {% if pagination.has_prev %}
@@ -111,6 +120,7 @@
     </div>
     {% endif %}
 
+    {# ------ OUR BLENDS SECTION ------ #}
     {% with
     image_url="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Blends/Untitled%20design%20(2).png?updatedAt=1738694788819",
     heading="Our Blends",
@@ -122,6 +132,7 @@
     {% include 'components/ourBlends.html' %}
     {% endwith %}
 
+    {# ------ MAGAZINE SECTION ------ #}
     <section class="magazine-section">
         <h1>BLATTÉ Magazine</h1>
         <p class="subtitle">Teas & more</p>
@@ -153,9 +164,14 @@
         </div>
     </section>
 
+    {# ------ COMPONENTS ------ #}
     {% include '/components/weLoveWhatWeDo.html' %}
     {% include '/components/yourBenefits.html' %}
     {% include '/utilities/footer.html' %}
     
+    {# Initialize Feather Icons #}
+    <script>
+        feather.replace();
+    </script>
 </body>
 </html>

@@ -2,19 +2,33 @@
 <html lang="en">
 
 <head>
+    {# ========== ESSENTIAL META TAGS ========== #}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {# ========== STYLESHEETS ========== #}
     <link rel="stylesheet" href="../static/css/career.css">
+    
+    {# ========== FEATHER ICONS CDN ========== #}
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 </head>
 
 <body>
+    {# ========== HEADER COMPONENT ========== #}
     {% include 'utilities/header.html' %}
+
+    {# ========== NOTIFICATION SYSTEM ========== #}
+    {% include 'components/toast.html' %}      {# Notification system #}
+
+    {# ========== MAIN CONTENT ========== #}
     <h1>Join the BLATTÉ team</h1>
     <p>Shape the future with us and experience how hospitality makes a difference.</p>
+
     <div class="container">
+        {# ------ ABOUT US SECTION ------ #}
         <div class="section">
             <img src="https://www.paperandtea.com/cdn/shop/files/karriere-ueber-uns.jpg?v=1725625521&width=600" 
-            alt="Team">
+                 alt="Team">
             <div class="text">
                 <h2>About us</h2>
                 <p>At BLATTÉ, we offer more than just products—we create a space to experience community, share ideas, 
@@ -25,6 +39,8 @@
                 We aim to become Europe's leading premium tea brand while making a sustainable impact on the world.</p>
             </div>
         </div>
+
+        {# ------ MISSION SECTION ------ #}
         <div class="section">
             <div class="text">
                 <h2>Our mission</h2>
@@ -34,19 +50,25 @@
                 tea brand, step by step.</p>
             </div>
             <img src="https://www.paperandtea.com/cdn/shop/files/karriere-unsere-mission.jpg?v=1725625526&width=600" 
-            alt="Mission">
+                 alt="Mission">
         </div>
+
+        {# ------ VALUES SECTION ------ #}
         <div class="section">
             <img src="https://www.paperandtea.com/cdn/shop/files/karriere-unsere-werte.jpg?v=1725625554&width=600" 
-            alt="Values">
+                 alt="Values">
             <div class="text">
                 <h2>Our values</h2>
                 <p>BE CURIOUS.<br>BE RESPONSIBLE.<br>TAKE GOOD CARE.<br>BE YOURSELF.<br>AND HAVE FUN TOGETHER.</p>
             </div>
         </div>
+
+        {# ------ BELIEF STATEMENT ------ #}
         <div class="full-width">
             WE BELIEVE PEOPLE CAN MAKE A DIFFERENCE.
         </div>
+
+        {# ------ CALL TO ACTION SECTION ------ #}
         <div class="section">
             <div class="text cta">
                 <h2>That sounds just like you?</h2>
@@ -54,12 +76,19 @@
                 <button>Apply now</button>
             </div>
             <img src="https://www.paperandtea.com/cdn/shop/files/karriere-das-klingt-nach-dir.jpg?v=1725625535&width=600" 
-            alt="Join Us">
+                 alt="Join Us">
         </div>
     </div>
+
+    {# ========== MARKETING COMPONENTS ========== #}
     {% include 'components/weLoveWhatWeDo.html' %}
     {% include 'components/yourBenefits.html' %}
     {% include 'utilities/footer.html' %}
+
+    {# ========== INITIALIZE FEATHER ICONS ========== #}
+    <script>
+        feather.replace();
+    </script>
 </body>
 
 </html>

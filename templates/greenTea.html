@@ -7,16 +7,20 @@
     <!-- Main stylesheet for green tea page -->
     <link rel="stylesheet" href="../static/css/products/greenTea.css">
     <!-- Feather Icons CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.css">
+    <script src="https://unpkg.com/feather-icons"></script>
     <title>Green Tea</title>
 </head>
 
 <body>
-    <!-- Include header component -->
+    {# Header Component #}
     {% include 'utilities/header.html' %}
+
+    {# Notification System #}
+    {% include 'components/toast.html' %}
     
+    {# Main Content Wrapper #}
     <div class="mainBodyWrapper">
-        <!-- Hero Section -->
+        {# Hero Section - Banner image with text overlay #}
         <div class="hero-section">
             <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Banners/header-gruener_tee.jpeg?updatedAt=1738516801581"
                 alt="Tea Blends Header Image">
@@ -26,10 +30,10 @@
             </div>
         </div>
 
-        <!-- Featured Products Section -->
+        {# Featured Products Section - Dynamic product showcase #}
         {% include 'utilities/productShowcase.html' %}
         
-        <!-- Featured Products Section -->
+        {# Origins Collection Section with dynamic content #}
         {% with
         image_url="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Blends/GreenTeaBlend.webp?updatedAt=1738516637323",
         heading="Origins Collection",
@@ -40,33 +44,33 @@
         {% include 'components/ourBlends.html' %}
         {% endwith %}
         
-        <!-- Magazine Section -->
+        {# Magazine Section - Curated articles about green tea #}
         <section class="magazine-section">
             <h1>BLATTÉ Magazine</h1>
             <p class="subtitle">Tea Blends & more</p>
             <div class="magazine-grid">
-                <!-- Magazine Article 1 -->
+                {# Magazine Article 1 - Green Tea Guide #}
                 <div class="magazine-item">
                     <img src="../static/images/magazines/greenTea/Magazine_01.webp"
                         alt="The secrets of tea blending">
                     <h3>Our Guide to Green Tea</h3>
                     <p>We introduce you to the different types of tea. This time: green tea.</p>
                 </div>
-                <!-- Magazine Article 2 -->
+                {# Magazine Article 2 - Caffeine in Green Tea #}
                 <div class="magazine-item">
                     <img src="../static/images/magazines/greenTea/Magazine_02.webp"
                         alt="The Art of Blending">
                     <h3>Caffeine in Green Tea: A Small Discovery Journey</h3>
                     <p>Drink green tea for a boost in the morning? Get to know the effects of caffeine.</p>
                 </div>
-                <!-- Magazine Article 3 -->
+                {# Magazine Article 3 - Genmaicha #}
                 <div class="magazine-item">
                     <img src="../static/images/magazines/greenTea/Magazine_03.webp"
                         alt="Fresh up your Mocktail">
                     <h3>Genmaicha: Fascinating Japanese Tea with Rice Flavor</h3>
                     <p>All about Genmaicha: Japan's exciting popcorn tea.</p>
                 </div>
-                <!-- Magazine Article 4 -->
+                {# Magazine Article 4 - Mindfulness #}
                 <div class="magazine-item">
                     <img src="../static/images/magazines/greenTea/Magazine_04.webp"
                         alt="Attention, Mindfulness">
@@ -76,16 +80,15 @@
             </div>
         </section>
 
-        <!-- Include Additional Components -->
+        {# Additional Components #}
         {% include 'components/weLoveWhatWeDo.html' %}
         {% include 'components/yourBenefits.html' %}
     </div>
 
-    <!-- Include Footer Component -->
+    {# Footer Component #}
     {% include '/utilities/footer.html' %}
 
-    <!-- Initialize Feather Icons -->
-    <script src="https://unpkg.com/feather-icons"></script>
+    {# Initialize Feather Icons #}
     <script>
         feather.replace();
     </script>

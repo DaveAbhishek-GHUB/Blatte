@@ -4,13 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="../static/css/products/herbalTea.css">
+    <!-- Feather Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.css">
     <title>Herbal Tea</title>
 </head>
 
 <body>
+    {# Header Component #}
     {% include 'utilities/header.html' %}
+
+    {# Notification System #}
+    {% include 'components/toast.html' %}
+
     <div class="mainBodyWrapper">
+        <!-- Hero Section -->
         <div class="hero-section">
             <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Banners/header-kraeutertee.jpg?updatedAt=1738688462020"
                 alt="Tea Blends Header Image">
@@ -20,10 +29,10 @@
             </div>
         </div>
 
-        <!-- Featured Products Section -->
+        {# Product Showcase Component #}
         {% include 'utilities/productShowcase.html' %}
 
-        <!-- Featured Products Section -->
+        <!-- Our Blends Section -->
         {% with
         image_url="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Blends/Untitled%20design%20(2).png?updatedAt=1738694788819",
         heading="Our Blends",
@@ -35,42 +44,51 @@
         {% include 'components/ourBlends.html' %}
         {% endwith %}
         
+        <!-- Magazine Section -->
         <section class="magazine-section">
             <h1>BLATTÉ Magazine</h1>
             <p class="subtitle">Herbal Tea & more</p>
             <div class="magazine-grid">
+                <!-- Magazine Item 1 -->
                 <div class="magazine-item">
-                    <img src="../static/images/magazines/herbalTea/01.webp"
-                        alt="The secrets of tea blending">
-                    <h3>Our Guide to Herbal Tea - Varieties, Preparation & More
-                    </h3>
+                    <i data-feather="book-open" class="magazine-icon"></i>
+                    <h3>Our Guide to Herbal Tea - Varieties, Preparation & More</h3>
                     <p>For a soothing break at any time of day, there is a perfect herbal tea blend for you, here you will find everything you need to know about herbal teas.</p>
                 </div>
+                <!-- Magazine Item 2 -->
                 <div class="magazine-item">
-                    <img src="../static/images/magazines/herbalTea/02.webp"
-                        alt="The Art of Blending">
-                    <h3>Our Guide to Fruit Tea – Discover Exceptional Fruit Infusions
-                    </h3>
+                    <i data-feather="coffee" class="magazine-icon"></i>
+                    <h3>Our Guide to Fruit Tea – Discover Exceptional Fruit Infusions</h3>
                     <p>We help you discover the popular fruit tea and what makes it so irresistible.</p>
                 </div>
+                <!-- Magazine Item 3 -->
                 <div class="magazine-item">
-                    <img src="../static/images/magazines/herbalTea/03.webp"
-                        alt="Fresh up your Mocktail">
+                    <i data-feather="map" class="magazine-icon"></i>
                     <h3>Greek Mountain Tea – A Delight from the Highlands</h3>
                     <p>A special herbal tea is Greek mountain tea. Together with you, we would like to explore this Mediterranean herbal tea!</p>
                 </div>
+                <!-- Magazine Item 4 -->
                 <div class="magazine-item">
-                    <img src="../static/images/magazines/herbalTea/04.webp"
-                        alt="Attention, Mindfulness">
+                    <i data-feather="heart" class="magazine-icon"></i>
                     <h3>Attention, Mindfulness: is it all hype or is there something to it?</h3>
                     <p>Mindfulness is often hailed as a miracle cure - but what's really behind it?</p>
                 </div>
             </div>
         </section>
+
+        {# Additional Components #}
         {% include 'components/weLoveWhatWeDo.html' %}
         {% include 'components/yourBenefits.html' %}
     </div>
+
+    {# Footer Component #}
+    {% include '/utilities/footer.html' %}
+
+    <!-- Feather Icons JavaScript -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        feather.replace();
+    </script>
 </body>
-{% include '/utilities/footer.html' %}
 
 </html>

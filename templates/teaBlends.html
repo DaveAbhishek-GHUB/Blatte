@@ -15,9 +15,12 @@
     <!-- Header Component -->
     {% include 'utilities/header.html' %}
 
+    <!-- Notification System -->
+    {% include 'components/toast.html' %}      {# Notification system #}
+
     <!-- Main Content Wrapper -->
     <div class="mainBodyWrapper">
-        <!-- Hero Section -->
+        <!-- Hero Section - Displays main banner and introductory content -->
         <div class="hero-section">
             <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Banners/Untitled%20design%20(1).png?updatedAt=1738519827164"
                 alt="Tea Blends Header Image">
@@ -28,13 +31,13 @@
             </div>
         </div>
 
-        <!-- Featured Products Component -->
+        <!-- Featured Products Component - Displays showcase products -->
         {% include 'utilities/productShowcase.html' %}
         
-        <!-- Tea Journey Component -->
+        <!-- Tea Journey Component - Shows the tea preparation process -->
         {% include 'components/thejourneyofourteaintoyourcup.html' %}
 
-        <!-- Our Blends Section -->
+        <!-- Our Blends Section - Highlights special tea blends -->
         {% with
         image_url="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Blends/Untitled%20design%20(2).png?updatedAt=1738694788819",
         heading="Our Blends",
@@ -45,7 +48,7 @@
         {% include 'components/ourBlends.html' %}
         {% endwith %}
         
-        <!-- Magazine Section -->
+        <!-- Magazine Section - Features articles about tea culture -->
         <section class="magazine-section">
             <h1>BLATTÉ Magazine</h1>
             <p class="subtitle">Tea Blends & more</p>

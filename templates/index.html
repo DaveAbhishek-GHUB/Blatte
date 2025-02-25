@@ -3,12 +3,10 @@
 {% block content %}
 {# ========== HEADER CONFIGURATION ========== #}
 <script type="module">
+    // Import and set page title from configuration
     import { headersName } from '../static/javascripts/headersName.js';
     document.title = headersName.home;
 </script>
-<!-- <head>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-</head> -->
 
 {# ========== PAGE COMPONENTS ========== #}
 {% include 'utilities/header.html' %}      {# Main navigation header #}
@@ -20,19 +18,20 @@
     {# ------ HERO SECTION ------ #}
     <section class="heroSection" aria-label="Main promotional banner">
         <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Banners/FinalHomepage.png?updatedAt=1738420363800" 
-             alt="heroSectoin" 
+             alt="Hero Section Banner" 
              class="hero-image">
         <div class="infoWrapper">
             <span class="infoWrapperOne">Start into the new year fully energized. With moments that are yours alone.</span>
             <span class="infoWrapperTwo">Tea Time, Me Time.</span>
             <button class="infoWrapperBTN">
                 <p>Discover now</p>
+            </button>
         </div>
     </section>
 
     {# ------ PRODUCT CATEGORIES GRID ------ #}
     <section class="categorySection" aria-label="Product categories">
-        {# Individual category cards with accessible links #}
+        {# Tea Blends Category #}
         <div class="catProductInfo">
             <a href="/teaBlends" aria-label="Browse Tea Blends">
                 <img src="../static/images/teaBlends-Category.jpg" alt="Tea Blends Category">
@@ -40,6 +39,7 @@
             </a>
         </div>
 
+        {# Green Tea Category #}
         <div class="catProductInfo">
             <a href="/greenTea" aria-label="Browse Green Tea">
                 <img src="../static/images/greenTea-Category.jpg" alt="Green Tea Category">
@@ -47,6 +47,7 @@
             </a>
         </div>
 
+        {# Herbal Tea Category #}
         <div class="catProductInfo">
             <a href="/herbalTea" aria-label="Browse Herbal Tea">
                 <img src="../static/images/blackTea-Category.jpg" alt="Herbal Tea Category">
@@ -54,6 +55,7 @@
             </a>
         </div>
 
+        {# Black Tea Category #}
         <div class="catProductInfo">
             <a href="blackTea" aria-label="Browse Black Tea">
                 <img src="../static/images/BlackTea.jpg" alt="Black Tea Category">
@@ -61,6 +63,7 @@
             </a>
         </div>
 
+        {# Oolong Tea Category #}
         <div class="catProductInfo">
             <a href="oolongTea" aria-label="Browse Oolong Tea">
                 <img src="../static/images/oolongTea-Category.jpg" alt="Oolong Tea Category">
@@ -68,6 +71,7 @@
             </a>
         </div>
 
+        {# Fruit Tea Category #}
         <div class="catProductInfo">
             <a href="fruitTea" aria-label="Browse Fruit Tea">
                 <img src="../static/images/fruitTea.jpg" alt="Fruit Tea Category">
@@ -75,6 +79,7 @@
             </a>
         </div>
 
+        {# Gift Sets Category #}
         <div class="catProductInfo">
             <a href="/giftSets" aria-label="Browse Gift Sets">
                 <img src="../static/images/giftSet-Category.jpg" alt="Gift Set Category">
@@ -82,6 +87,7 @@
             </a>
         </div>
 
+        {# Tea Accessories Category #}
         <div class="catProductInfo">
             <a href="/teaAccessories" aria-label="Browse Tea Accessories">
                 <img src="../static/images/Tea-accessories-Category.jpg" alt="Tea Accessories Category">
@@ -112,6 +118,7 @@
 {# ========== MARKETING COMPONENTS ========== #}
 {% include '/components/teaShowcase.html' %}    {# Product showcase carousel #}
 {% include '/components/moreAssesories.html' %} {# Accessories promotion #}
+
 {# ------ TEA ACCESSORIES SECTION ------ #}
 {% with 
     heading="Our new Stoneware",
@@ -120,9 +127,18 @@
 %}
 {% include 'utilities/productShowcase.html' %}
 {% endwith %}
+
+{# ========== FOOTER COMPONENTS ========== #}
 {% include '/components/storeSection.html' %}   {# Physical store information #}
-{% include '/components/yourOpinion.html' %}   {# Testimonials section #}
-{% include '/components/yourBenefits.html' %}  {# Membership benefits #}
-{% include '/utilities/footer.html' %}         {# Main page footer #}
+{% include '/components/yourOpinion.html' %}    {# Testimonials section #}
+{% include '/components/yourBenefits.html' %}   {# Membership benefits #}
+{% include '/utilities/footer.html' %}          {# Main page footer #}
+
+<script>
+    // Ensure toast.js is only loaded once
+    if (!window.toastInitialized) {
+        window.toastInitialized = true;
+    }
+</script>
 
 {% endblock %}

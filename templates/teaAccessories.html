@@ -1,67 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="../static/css/products/teaAccessories.css">
+    <!-- Feather Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.css">
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 
 <body>
-    {% include 'utilities/header.html' %}
-    <!-- <div class="mainBodyWrapper">
-        <div class="category-navigation">
-            <a href="/Teapots" class="category-item">
-                <div class="category-icon">
-                    <img src="https://www.paperandtea.com/cdn/shop/files/icon-kannen.jpg?v=1721139547&width=175" alt="Tea Pots">
-                </div>
-                <span>Tea Pots</span>
-            </a>
-            <a href="/Cups-and-Mugs" class="category-item">
-                <div class="category-icon">
-                    <img src="https://www.paperandtea.com/cdn/shop/files/Bilder_Startseite_Stoneware_2.jpg?v=1729582539&width=175" alt="Cups & Mugs">
-                </div>
-                <span>Cups & Mugs</span>
-            </a>
-            <a href="/Preparation" class="category-item">
-                <div class="category-icon">
-                    <img src="https://www.paperandtea.com/cdn/shop/files/icon-zubereitung.jpg?v=1721139547&width=175" alt="Preparation">
-                </div>
-                <span>Preparation</span>
-            </a>
-            <a href="/Kettles" class="category-item">
-                <div class="category-icon">
-                    <img src="https://www.paperandtea.com/cdn/shop/files/icon-wasserkocher.jpg?v=1721139547&width=175" alt="Kettles">
-                </div>
-                <span>Kettles</span>
-            </a>
-            <a href="/MatchaAccessories" class="category-item">
-                <div class="category-icon">
-                    <img src="https://www.paperandtea.com/cdn/shop/files/icon-matchazubehoer.jpg?v=1721139547&width=175" alt="Matcha Accessories">
-                </div>
-                <span>Matcha<br>Accessories</span>
-            </a>
-            <a href="/OnTheGo" class="category-item">
-                <div class="category-icon">
-                    <img src="https://www.paperandtea.com/cdn/shop/files/icon-fuerunterwegs.jpg?v=1721139547&width=175" alt="On the Go">
-                </div>
-                <span>On the Go</span>
-            </a>
-        </div> -->
+    {# ========== COMPONENTS ========== #}
+    {% include 'utilities/header.html' %}      {# Header component #}
+    {% include 'components/toast.html' %}      {# Notification system #}
 
-        <div class="mainBodyWrapper">
-            <div class="hero-section">
-                <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Banners/content-pixie-m-gqDRzbJLQ-unsplash.jpg?updatedAt=1739167881106"
-                    alt="Tea Accessories Header Image">
-                <div class="hero-content">
-                    <h1>Tea Accessories</h1>
-                    <p>It is all about the little things: Here you can find all the accessories you need to prepare your cup of tea at home.</p>
-                </div>
+    <div class="mainBodyWrapper">
+        {# Hero Section #}
+        <div class="hero-section">
+            <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Banners/content-pixie-m-gqDRzbJLQ-unsplash.jpg?updatedAt=1739167881106"
+                alt="Tea Accessories Header Image"
+                loading="lazy">
+            <div class="hero-content">
+                <h1>Tea Accessories</h1>
+                <p>It is all about the little things: Here you can find all the accessories you need to prepare your cup of tea at home.</p>
             </div>
+        </div>
 
-        <!-- Featured Products Section -->
+        {# Featured Products Section #}
         {% include 'utilities/productShowcase.html' %}
         
+        {# Our Blends Section #}
         {% with 
             image_url="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Blends/Category_USP_accessories.webp?updatedAt=1738695359098",
             heading="For the perfect brew",
@@ -71,40 +40,53 @@
             {% include 'components/ourBlends.html' %}
         {% endwith %}
         
+        {# Magazine Section #}
         <section class="magazine-section">
             <h1>BLATTÉ Magazine</h1>
             <p class="subtitle">Tea Blends & more</p>
             <div class="magazine-grid">
                 <div class="magazine-item">
                     <img src="../static/images/magazines/teaAccessories/01.webp"
-                        alt="The secrets of tea blending">
+                        alt="The secrets of tea blending"
+                        loading="lazy">
                     <h3>The Perfect Tea Preparation: What Factors Really Matter!</h3>
                     <p>This is why the water quality, brewing time, quantity, temperature and infusion space are so important when making tea.</p>
                 </div>
                 <div class="magazine-item">
                     <img src="../static/images/magazines/teaAccessories/02.webp"
-                        alt="The Art of Blending">
+                        alt="The Art of Blending"
+                        loading="lazy">
                     <h3>Caffeine in Green Tea: A Small Discovery Journey</h3>
                     <p>Drink green tea for a boost in the morning? Get to know the effects of caffeine.</p>
                 </div>
                 <div class="magazine-item">
                     <img src="../static/images/magazines/teaAccessories/03.webp"
-                        alt="Fresh up your Mocktail">
+                        alt="Fresh up your Mocktail"
+                        loading="lazy">
                     <h3>Tea Bags vs. Loose-Leaf Tea Compared – Is There a Winner?</h3>
                     <p>There are a few myths surrounding tea bags and loose tea, which we will get to the bottom of here.</p>
                 </div>
                 <div class="magazine-item">
                     <img src="../static/images/magazines/TeaBlends/04.webp"
-                        alt="Attention, Mindfulness">
+                        alt="Attention, Mindfulness"
+                        loading="lazy">
                     <h3>Attention, Mindfulness: is it all hype or is there something to it?</h3>
                     <p>Mindfulness is often hailed as a miracle cure - but what's really behind it?</p>
                 </div>
             </div>
         </section>
+
+        {# Additional Components #}
         {% include 'components/weLoveWhatWeDo.html' %}
         {% include 'components/yourBenefits.html' %}
     </div>
-</body>
-{% include '/utilities/footer.html' %}
 
+    {# Footer Component #}
+    {% include '/utilities/footer.html' %}
+
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+    </script>
+</body>
 </html>

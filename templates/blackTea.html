@@ -4,13 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {# ========== STYLESHEETS ========== #}
     <link rel="stylesheet" href="../static/css/products/blackTea.css">
-    <title>Herbal Tea</title>
+    {# ========== FEATHER ICONS CDN ========== #}
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <title>Black Tea - BLATTÉ</title>
 </head>
 
 <body>
+    {# ========== HEADER COMPONENT ========== #}
     {% include 'utilities/header.html' %}
+
+    {# ========== NOTIFICATION SYSTEM ========== #}
+    {% include 'components/toast.html' %}      {# Notification system #}
+
+    {# ========== MAIN CONTENT ========== #}
     <div class="mainBodyWrapper">
+        {# ------ HERO SECTION ------ #}
         <div class="hero-section">
             <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Banners/pixelcut-export.png?updatedAt=1738691691746"
                 alt="Tea Blends Header Image">
@@ -20,8 +30,10 @@
             </div>
         </div>
 
-        <!-- Featured Products Section -->
+        {# ------ FEATURED PRODUCTS SECTION ------ #}
         {% include 'utilities/productShowcase.html' %}
+
+        {# ------ MAGAZINE SECTION ------ #}
         <section class="magazine-section">
             <h1>BLATTÉ Magazine</h1>
             <p class="subtitle">Tea Blends & more</p>
@@ -54,10 +66,21 @@
                 </div>
             </div>
         </section>
+
+        {# ========== MARKETING COMPONENTS ========== #}
         {% include 'components/weLoveWhatWeDo.html' %}
         {% include 'components/yourBenefits.html' %}
     </div>
+
+    {# ========== INITIALIZE FEATHER ICONS ========== #}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            feather.replace();
+        });
+    </script>
 </body>
+
+{# ========== FOOTER COMPONENT ========== #}
 {% include '/utilities/footer.html' %}
 
 </html>

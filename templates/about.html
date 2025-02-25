@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="/static/css/about.css">
+    <!-- Feather Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.css">
     <title>About Us - BLATTÉ</title>
 </head>
 <body>
+    {# Header component #}
     {% include 'utilities/header.html' %}
+
+    {# Notification system #}
+    {% include 'components/toast.html' %}
+
+    <!-- Main content container -->
     <div class="about-container">
+        <!-- About Us Section -->
         <section class="about-section">
             <div class="about-image">
                 <img src="https://www.paperandtea.com/cdn/shop/files/ueber-uns-ueber-uns.jpg?v=1725625363&width=600" 
@@ -21,6 +31,7 @@
             </div>
         </section>
 
+        <!-- Our Values Section -->
         <section class="about-section text-right">
             <div class="about-image">
                 <img src="https://www.paperandtea.com/cdn/shop/files/ueber-uns-unsere-werte.jpg?v=1725625575&width=600" 
@@ -36,6 +47,7 @@
             </div>
         </section>
 
+        <!-- Our Culture Section -->
         <section class="about-section">
             <div class="about-image">
                 <img src="https://www.paperandtea.com/cdn/shop/files/ueber-uns-unsere-kultur.jpg?v=1725625437&width=600" 
@@ -48,6 +60,7 @@
             </div>
         </section>
 
+        <!-- Our Ambition Section -->
         <section class="about-section text-right">
             <div class="about-image">
                 <img src="https://www.paperandtea.com/cdn/shop/files/ueber-uns-unsere-ambition.jpg?v=1725625488&width=600" 
@@ -61,10 +74,20 @@
             </div>
         </section>
     </div>
+
+    {# Benefits component #}
     {% include 'components/yourBenefits.html' %}
     
+    {# Footer component #}
     <footer>
         {% include 'utilities/footer.html' %}
     </footer>
+
+    <!-- Feather Icons JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script>
+        // Initialize Feather Icons
+        feather.replace();
+    </script>
 </body>
 </html>

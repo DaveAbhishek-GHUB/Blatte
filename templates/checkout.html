@@ -3,479 +3,493 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="/static/css/Checkout.css">
-    <script src="https://unpkg.com/feather-icons"></script>
-    <!-- Add loading animation library -->
+    <!-- Feather Icons -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <!-- Animation Library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- International Telephone Input Library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 </head>
 <body>
+    {# Include header component #}
     {% include 'utilities/header.html' %}
+
+    {# Include notification system #}
+    {% include 'components/toast.html' %}
+
     <div class="checkout-container">
-      <!-- Progress Bar -->
-      <div class="checkout-progress">
-        <div class="progress-step active">
-          <div class="step-icon"><i data-feather="shopping-cart"></i></div>
-          <span>Cart</span>
-        </div>
-        <div class="progress-line active"></div>
-        <div class="progress-step active">
-          <div class="step-icon"><i data-feather="credit-card"></i></div>
-          <span>Payment</span>
-        </div>
-        <div class="progress-line"></div>
-        <div class="progress-step">
-          <div class="step-icon"><i data-feather="check-circle"></i></div>
-          <span>Confirmation</span>
-        </div>
-      </div>
-
-      <div class="checkout-content">
-        <!-- Left Section: Payment Form -->
-        <div class="payment-section">
-          <div class="section-header">
-            <h2><i data-feather="lock" class="section-icon"></i> Secure Payment</h2>
-            <p class="subtitle">Complete your purchase securely with your preferred payment method.</p>
-          </div>
-
-          <!-- Payment Methods Section -->
-          <div class="payment-methods">
-            <div class="payment-method" data-method="card">
-              <div class="method-icon">
-                <i data-feather="credit-card"></i>
-              </div>
-              <div class="method-info">
-                <span class="method-title">Credit Card</span>
-                <span class="method-description">Pay securely with your credit card</span>
-              </div>
-              <div class="method-check">
-                <i data-feather="check-circle"></i>
-              </div>
+        <!-- Progress Bar Section -->
+        <div class="checkout-progress">
+            <div class="progress-step active">
+                <div class="step-icon"><i data-feather="shopping-cart"></i></div>
+                <span>Cart</span>
             </div>
-
-            <div class="payment-method" data-method="bank">
-              <div class="method-icon">
-                <i data-feather="landmark"></i>
-              </div>
-              <div class="method-info">
-                <span class="method-title">Bank Transfer</span>
-                <span class="method-description">Pay directly from your bank account</span>
-              </div>
-              <div class="method-check">
-                <i data-feather="check-circle"></i>
-              </div>
+            <div class="progress-line active"></div>
+            <div class="progress-step active">
+                <div class="step-icon"><i data-feather="credit-card"></i></div>
+                <span>Payment</span>
             </div>
-
-            <div class="payment-method" data-method="cod">
-              <div class="method-icon">
-                <i data-feather="truck"></i>
-              </div>
-              <div class="method-info">
-                <span class="method-title">Cash on Delivery</span>
-                <span class="method-description">Pay when you receive your order</span>
-              </div>
-              <div class="method-check">
-                <i data-feather="check-circle"></i>
-              </div>
+            <div class="progress-line"></div>
+            <div class="progress-step">
+                <div class="step-icon"><i data-feather="check-circle"></i></div>
+                <span>Confirmation</span>
             </div>
-          </div>
-
-          <!-- Payment Details Forms -->
-          <div class="payment-details card-details">
-            <form class="payment-form" action="/process_checkout" method="POST">
-              <input type="hidden" name="payment_method" value="card">
-              <div class="form-group">
-                <label>Card Number</label>
-                <div class="input-with-icon">
-                  <input type="text" 
-                         name="cardNumber"
-                         placeholder="Card Number" 
-                         maxlength="19"
-                         required>
-                  <i data-feather="credit-card" class="input-icon"></i>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label>Expiry Date</label>
-                  <input type="text" 
-                         name="expiryDate"
-                         placeholder="MM / YY" 
-                         maxlength="7"
-                         required>
-                </div>
-                <div class="form-group">
-                  <label>CVV</label>
-                  <div class="input-with-icon">
-                    <input type="text" 
-                           name="cvv"
-                           placeholder="CVV" 
-                           pattern="[0-9]{3}" 
-                           maxlength="3"
-                           required>
-                    <i data-feather="help-circle" class="input-icon"></i>
-                  </div>
-                  <div class="error-message"></div>
-                </div>
-              </div>
-              <!-- Address Fields -->
-              <div class="address-section">
-                <div class="form-group">
-                  <label>House/Flat No.</label>
-                  <input type="text" 
-                         name="houseNo" 
-                         placeholder="Enter house/flat/apartment number" 
-                         required>
-                  <div class="error-message"></div>
-                </div>
-                <div class="form-group">
-                  <label>Street Address</label>
-                  <input type="text" 
-                         name="street" 
-                         placeholder="Enter street address" 
-                         required>
-                  <div class="error-message"></div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label>Pincode</label>
-                    <input type="text" 
-                           name="pincode" 
-                           placeholder="Enter pincode" 
-                           pattern="[0-9]{6}" 
-                           required>
-                    <div class="error-message"></div>
-                  </div>
-                  <div class="form-group">
-                    <label>City</label>
-                    <input type="text" 
-                           name="city" 
-                           class="autocomplete-input"
-                           data-type="city"
-                           placeholder="Enter city" 
-                           required>
-                    <div class="suggestions-container"></div>
-                    <div class="error-message"></div>
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label>Country</label>
-                    <input type="text" 
-                           name="country" 
-                           class="autocomplete-input"
-                           data-type="country"
-                           placeholder="Enter country" 
-                           required>
-                    <div class="suggestions-container"></div>
-                    <div class="error-message"></div>
-                  </div>
-                  <div class="form-group">
-                    <label>State</label>
-                    <input type="text" 
-                           name="state" 
-                           class="autocomplete-input"
-                           data-type="state"
-                           placeholder="Enter state" 
-                           required>
-                    <div class="suggestions-container"></div>
-                    <div class="error-message"></div>
-                  </div>
-                </div>
-              </div>
-              <button type="submit" class="pay-button">
-                <span class="button-content">
-                  <i data-feather="lock" class="button-icon"></i>
-                  <span class="button-text">Pay Securely</span>
-                  <span class="button-amount">$ 399.89</span>
-                </span>
-                <div class="button-loader">
-                  <i data-feather="loader"></i>
-                </div>
-              </button>
-            </form>
-          </div>
-
-          <div class="payment-details bank-details">
-            <form class="payment-form" action="/process_checkout" method="POST">
-              <div class="form-group">
-                <label>Bank Name</label>
-                <input type="text" 
-                       name="bankName" 
-                       placeholder="Enter your bank name" 
-                       pattern="[A-Za-z\s]+" 
-                       required>
-                <div class="error-message"></div>
-              </div>
-              <div class="form-group">
-                <label>Account Number</label>
-                <input type="text" 
-                       name="accountNumber" 
-                       placeholder="Enter your account number" 
-                       pattern="[0-9]+" 
-                       required>
-                <div class="error-message"></div>
-              </div>
-              <div class="form-group">
-                <label>IFSC Code</label>
-                <div class="input-with-icon">
-                  <input type="text" 
-                         name="ifscCode" 
-                         placeholder="Enter IFSC code" 
-                         pattern="^[A-Z]{4}[0-9]{7}$"
-                         maxlength="11" 
-                         required>
-                  <i data-feather="info" class="input-icon" title="Bank's IFSC code"></i>
-                </div>
-                <div class="error-message"></div>
-              </div>
-              <div class="form-group">
-                <label>Account Holder Name</label>
-                <input type="text" 
-                       name="accountHolder" 
-                       placeholder="Enter account holder name" 
-                       pattern="[A-Za-z\s]+" 
-                       required>
-                <div class="error-message"></div>
-              </div>
-              <!-- Address Fields -->
-              <div class="address-section">
-                <div class="form-group">
-                  <label>House/Flat No.</label>
-                  <input type="text" 
-                         name="houseNo" 
-                         placeholder="Enter house/flat/apartment number" 
-                         required>
-                  <div class="error-message"></div>
-                </div>
-                <div class="form-group">
-                  <label>Street Address</label>
-                  <input type="text" 
-                         name="street" 
-                         placeholder="Enter street address" 
-                         required>
-                  <div class="error-message"></div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label>Pincode</label>
-                    <input type="text" 
-                           name="pincode" 
-                           placeholder="Enter pincode" 
-                           pattern="[0-9]{6}" 
-                           required>
-                    <div class="error-message"></div>
-                  </div>
-                  <div class="form-group">
-                    <label>City</label>
-                    <input type="text" 
-                           name="city" 
-                           class="autocomplete-input"
-                           data-type="city"
-                           placeholder="Enter city" 
-                           required>
-                    <div class="suggestions-container"></div>
-                    <div class="error-message"></div>
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label>Country</label>
-                    <input type="text" 
-                           name="country" 
-                           class="autocomplete-input"
-                           data-type="country"
-                           placeholder="Enter country" 
-                           required>
-                    <div class="suggestions-container"></div>
-                    <div class="error-message"></div>
-                  </div>
-                  <div class="form-group">
-                    <label>State</label>
-                    <input type="text" 
-                           name="state" 
-                           class="autocomplete-input"
-                           data-type="state"
-                           placeholder="Enter state" 
-                           required>
-                    <div class="suggestions-container"></div>
-                    <div class="error-message"></div>
-                  </div>
-                </div>
-              </div>
-              <button type="submit" class="pay-button">
-                <span class="button-content">
-                  <i data-feather="lock" class="button-icon"></i>
-                  <span class="button-text">Pay Securely</span>
-                  <span class="button-amount">$ 399.89</span>
-                </span>
-                <div class="button-loader">
-                  <i data-feather="loader"></i>
-                </div>
-              </button>
-            </form>
-          </div>
-
-          <div class="payment-details cod-details">
-            <form class="payment-form" action="/process_checkout" method="POST">
-              <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" 
-                       name="fullName" 
-                       placeholder="Enter your full name" 
-                       pattern="[A-Za-z\s]+" 
-                       required>
-                <div class="error-message"></div>
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label>Contact Number</label>
-                  <input type="tel" 
-                         name="phone" 
-                         class="phone-input" 
-                         required>
-                  <div class="error-message"></div>
-                </div>
-                <div class="form-group">
-                  <label>Alternate Number</label>
-                  <input type="tel" 
-                         name="altPhone" 
-                         class="phone-input">
-                  <div class="error-message"></div>
-                </div>
-              </div>
-              <!-- Address Fields -->
-              <div class="address-section">
-                <div class="form-group">
-                  <label>House/Flat No.</label>
-                  <input type="text" 
-                         name="houseNo" 
-                         placeholder="Enter house/flat/apartment number" 
-                         required>
-                  <div class="error-message"></div>
-                </div>
-                <div class="form-group">
-                  <label>Street Address</label>
-                  <input type="text" 
-                         name="street" 
-                         placeholder="Enter street address" 
-                         required>
-                  <div class="error-message"></div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label>Pincode</label>
-                    <input type="text" 
-                           name="pincode" 
-                           placeholder="Enter pincode" 
-                           pattern="[0-9]{6}" 
-                           required>
-                    <div class="error-message"></div>
-                  </div>
-                  <div class="form-group">
-                    <label>City</label>
-                    <input type="text" 
-                           name="city" 
-                           class="autocomplete-input"
-                           data-type="city"
-                           placeholder="Enter city" 
-                           required>
-                    <div class="suggestions-container"></div>
-                    <div class="error-message"></div>
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label>Country</label>
-                    <input type="text" 
-                           name="country" 
-                           class="autocomplete-input"
-                           data-type="country"
-                           placeholder="Enter country" 
-                           required>
-                    <div class="suggestions-container"></div>
-                    <div class="error-message"></div>
-                  </div>
-                  <div class="form-group">
-                    <label>State</label>
-                    <input type="text" 
-                           name="state" 
-                           class="autocomplete-input"
-                           data-type="state"
-                           placeholder="Enter state" 
-                           required>
-                    <div class="suggestions-container"></div>
-                    <div class="error-message"></div>
-                  </div>
-                </div>
-              </div>
-              <button type="submit" class="pay-button">
-                <span class="button-content">
-                  <i data-feather="lock" class="button-icon"></i>
-                  <span class="button-text">Pay Securely</span>
-                  <span class="button-amount">$ 399.89</span>
-                </span>
-                <div class="button-loader">
-                  <i data-feather="loader"></i>
-                </div>
-              </button>
-            </form>
-          </div>
         </div>
 
-        <!-- Right Section: Order Summary -->
-        <div class="order-summary">
-          <div class="section-header">
-            <h2><i data-feather="shopping-bag" class="section-icon"></i> Order Summary</h2>
-          </div>
-          
-          <div class="order-items">
-            {% for item in cart_items %}
-            <div class="order-item">
-              <img src="{{ item.main_product_image }}" alt="{{ item.product_name }}" class="item-image">
-              <div class="item-details">
-                <h4 class="item-name">{{ item.product_name }}</h4>
-                <p class="item-variant">{{ item.product_category }}{% if item.weight %} | {{ item.weight }}{% endif %}</p>
-                <div class="item-quantity">Qty: 1</div>
-              </div>
-              <div class="item-price">€{{ "%.2f"|format(item.price) }}</div>
-            </div>
-            {% endfor %}
-          </div>
+        <div class="checkout-content">
+            <!-- Left Section: Payment Form -->
+            <div class="payment-section">
+                <div class="section-header">
+                    <h2><i data-feather="lock" class="section-icon"></i> Secure Payment</h2>
+                    <p class="subtitle">Complete your purchase securely with your preferred payment method.</p>
+                </div>
 
-          <div class="price-breakdown">
-            <div class="price-row">
-              <span>Subtotal</span>
-              <span>€{{ "%.2f"|format(subtotal) }}</span>
-            </div>
-            <div class="price-row">
-              <span>Shipping</span>
-              <span>Free</span>
-            </div>
-            <div class="price-row total">
-              <span>Total</span>
-              <span>€{{ "%.2f"|format(total) }}</span>
-            </div>
-          </div>
+                <!-- Payment Methods Selection -->
+                <div class="payment-methods">
+                    <div class="payment-method" data-method="card">
+                        <div class="method-icon">
+                            <i data-feather="credit-card"></i>
+                        </div>
+                        <div class="method-info">
+                            <span class="method-title">Credit Card</span>
+                            <span class="method-description">Pay securely with your credit card</span>
+                        </div>
+                        <div class="method-check">
+                            <i data-feather="check-circle"></i>
+                        </div>
+                    </div>
 
-          <div class="order-security">
-            <div class="security-item">
-              <i data-feather="shield" class="security-icon"></i>
-              <span>Secure Payment</span>
+                    <div class="payment-method" data-method="bank">
+                        <div class="method-icon">
+                            <i data-feather="briefcase"></i>
+                        </div>
+                        <div class="method-info">
+                            <span class="method-title">Bank Transfer</span>
+                            <span class="method-description">Pay directly from your bank account</span>
+                        </div>
+                        <div class="method-check">
+                            <i data-feather="check-circle"></i>
+                        </div>
+                    </div>
+
+                    <div class="payment-method" data-method="cod">
+                        <div class="method-icon">
+                            <i data-feather="truck"></i>
+                        </div>
+                        <div class="method-info">
+                            <span class="method-title">Cash on Delivery</span>
+                            <span class="method-description">Pay when you receive your order</span>
+                        </div>
+                        <div class="method-check">
+                            <i data-feather="check-circle"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Credit Card Payment Form -->
+                <div class="payment-details card-details">
+                    <form class="payment-form" action="/process_checkout" method="POST">
+                        <input type="hidden" name="payment_method" value="card">
+                        <div class="form-group">
+                            <label>Card Number</label>
+                            <div class="input-with-icon">
+                                <input type="text" 
+                                       name="cardNumber"
+                                       placeholder="Card Number" 
+                                       maxlength="19"
+                                       required>
+                                <i data-feather="credit-card" class="input-icon"></i>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Expiry Date</label>
+                                <input type="text" 
+                                       name="expiryDate"
+                                       placeholder="MM / YY" 
+                                       maxlength="7"
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <label>CVV</label>
+                                <div class="input-with-icon">
+                                    <input type="text" 
+                                           name="cvv"
+                                           placeholder="CVV" 
+                                           pattern="[0-9]{3}" 
+                                           maxlength="3"
+                                           required>
+                                    <i data-feather="help-circle" class="input-icon"></i>
+                                </div>
+                                <div class="error-message"></div>
+                            </div>
+                        </div>
+                        <!-- Address Fields -->
+                        <div class="address-section">
+                            <div class="form-group">
+                                <label>House/Flat No.</label>
+                                <input type="text" 
+                                       name="houseNo" 
+                                       placeholder="Enter house/flat/apartment number" 
+                                       required>
+                                <div class="error-message"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Street Address</label>
+                                <input type="text" 
+                                       name="street" 
+                                       placeholder="Enter street address" 
+                                       required>
+                                <div class="error-message"></div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Pincode</label>
+                                    <input type="text" 
+                                           name="pincode" 
+                                           placeholder="Enter pincode" 
+                                           pattern="[0-9]{6}" 
+                                           required>
+                                    <div class="error-message"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label>City</label>
+                                    <input type="text" 
+                                           name="city" 
+                                           class="autocomplete-input"
+                                           data-type="city"
+                                           placeholder="Enter city" 
+                                           required>
+                                    <div class="suggestions-container"></div>
+                                    <div class="error-message"></div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Country</label>
+                                    <input type="text" 
+                                           name="country" 
+                                           class="autocomplete-input"
+                                           data-type="country"
+                                           placeholder="Enter country" 
+                                           required>
+                                    <div class="suggestions-container"></div>
+                                    <div class="error-message"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label>State</label>
+                                    <input type="text" 
+                                           name="state" 
+                                           class="autocomplete-input"
+                                           data-type="state"
+                                           placeholder="Enter state" 
+                                           required>
+                                    <div class="suggestions-container"></div>
+                                    <div class="error-message"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="pay-button">
+                            <span class="button-content">
+                                <i data-feather="lock" class="button-icon"></i>
+                                <span class="button-text">Pay Securely</span>
+                                <span class="button-amount">$ 399.89</span>
+                            </span>
+                            <div class="button-loader">
+                                <i data-feather="loader"></i>
+                            </div>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Bank Transfer Payment Form -->
+                <div class="payment-details bank-details">
+                    <form class="payment-form" action="/process_checkout" method="POST">
+                        <div class="form-group">
+                            <label>Bank Name</label>
+                            <input type="text" 
+                                   name="bankName" 
+                                   placeholder="Enter your bank name" 
+                                   pattern="[A-Za-z\s]+" 
+                                   required>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Account Number</label>
+                            <input type="text" 
+                                   name="accountNumber" 
+                                   placeholder="Enter your account number" 
+                                   pattern="[0-9]+" 
+                                   required>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>IFSC Code</label>
+                            <div class="input-with-icon">
+                                <input type="text" 
+                                       name="ifscCode" 
+                                       placeholder="Enter IFSC code" 
+                                       pattern="^[A-Z]{4}[0-9]{7}$"
+                                       maxlength="11" 
+                                       required>
+                                <i data-feather="info" class="input-icon" title="Bank's IFSC code"></i>
+                            </div>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Account Holder Name</label>
+                            <input type="text" 
+                                   name="accountHolder" 
+                                   placeholder="Enter account holder name" 
+                                   pattern="[A-Za-z\s]+" 
+                                   required>
+                            <div class="error-message"></div>
+                        </div>
+                        <!-- Address Fields -->
+                        <div class="address-section">
+                            <div class="form-group">
+                                <label>House/Flat No.</label>
+                                <input type="text" 
+                                       name="houseNo" 
+                                       placeholder="Enter house/flat/apartment number" 
+                                       required>
+                                <div class="error-message"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Street Address</label>
+                                <input type="text" 
+                                       name="street" 
+                                       placeholder="Enter street address" 
+                                       required>
+                                <div class="error-message"></div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Pincode</label>
+                                    <input type="text" 
+                                           name="pincode" 
+                                           placeholder="Enter pincode" 
+                                           pattern="[0-9]{6}" 
+                                           required>
+                                    <div class="error-message"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label>City</label>
+                                    <input type="text" 
+                                           name="city" 
+                                           class="autocomplete-input"
+                                           data-type="city"
+                                           placeholder="Enter city" 
+                                           required>
+                                    <div class="suggestions-container"></div>
+                                    <div class="error-message"></div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Country</label>
+                                    <input type="text" 
+                                           name="country" 
+                                           class="autocomplete-input"
+                                           data-type="country"
+                                           placeholder="Enter country" 
+                                           required>
+                                    <div class="suggestions-container"></div>
+                                    <div class="error-message"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label>State</label>
+                                    <input type="text" 
+                                           name="state" 
+                                           class="autocomplete-input"
+                                           data-type="state"
+                                           placeholder="Enter state" 
+                                           required>
+                                    <div class="suggestions-container"></div>
+                                    <div class="error-message"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="pay-button">
+                            <span class="button-content">
+                                <i data-feather="lock" class="button-icon"></i>
+                                <span class="button-text">Pay Securely</span>
+                                <span class="button-amount">$ 399.89</span>
+                            </span>
+                            <div class="button-loader">
+                                <i data-feather="loader"></i>
+                            </div>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Cash on Delivery Payment Form -->
+                <div class="payment-details cod-details">
+                    <form class="payment-form" action="/process_checkout" method="POST">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" 
+                                   name="fullName" 
+                                   placeholder="Enter your full name" 
+                                   pattern="[A-Za-z\s]+" 
+                                   required>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Contact Number</label>
+                                <input type="tel" 
+                                       name="phone" 
+                                       class="phone-input" 
+                                       required>
+                                <div class="error-message"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Alternate Number</label>
+                                <input type="tel" 
+                                       name="altPhone" 
+                                       class="phone-input">
+                                <div class="error-message"></div>
+                            </div>
+                        </div>
+                        <!-- Address Fields -->
+                        <div class="address-section">
+                            <div class="form-group">
+                                <label>House/Flat No.</label>
+                                <input type="text" 
+                                       name="houseNo" 
+                                       placeholder="Enter house/flat/apartment number" 
+                                       required>
+                                <div class="error-message"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Street Address</label>
+                                <input type="text" 
+                                       name="street" 
+                                       placeholder="Enter street address" 
+                                       required>
+                                <div class="error-message"></div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Pincode</label>
+                                    <input type="text" 
+                                           name="pincode" 
+                                           placeholder="Enter pincode" 
+                                           pattern="[0-9]{6}" 
+                                           required>
+                                    <div class="error-message"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label>City</label>
+                                    <input type="text" 
+                                           name="city" 
+                                           class="autocomplete-input"
+                                           data-type="city"
+                                           placeholder="Enter city" 
+                                           required>
+                                    <div class="suggestions-container"></div>
+                                    <div class="error-message"></div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Country</label>
+                                    <input type="text" 
+                                           name="country" 
+                                           class="autocomplete-input"
+                                           data-type="country"
+                                           placeholder="Enter country" 
+                                           required>
+                                    <div class="suggestions-container"></div>
+                                    <div class="error-message"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label>State</label>
+                                    <input type="text" 
+                                           name="state" 
+                                           class="autocomplete-input"
+                                           data-type="state"
+                                           placeholder="Enter state" 
+                                           required>
+                                    <div class="suggestions-container"></div>
+                                    <div class="error-message"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="pay-button">
+                            <span class="button-content">
+                                <i data-feather="lock" class="button-icon"></i>
+                                <span class="button-text">Pay Securely</span>
+                                <span class="button-amount">$ 399.89</span>
+                            </span>
+                            <div class="button-loader">
+                                <i data-feather="loader"></i>
+                            </div>
+                        </button>
+                    </form>
+                </div>
             </div>
-            <div class="security-item">
-              <i data-feather="refresh-cw" class="security-icon"></i>
-              <span>Free Returns</span>
+
+            <!-- Right Section: Order Summary -->
+            <div class="order-summary">
+                <div class="section-header">
+                    <h2><i data-feather="shopping-bag" class="section-icon"></i> Order Summary</h2>
+                </div>
+                
+                <!-- Order Items List -->
+                <div class="order-items">
+                    {% for item in cart_items %}
+                    <div class="order-item">
+                        <img src="{{ item.main_product_image }}" alt="{{ item.product_name }}" class="item-image">
+                        <div class="item-details">
+                            <h4 class="item-name">{{ item.product_name }}</h4>
+                            <p class="item-variant">{{ item.product_category }}{% if item.weight %} | {{ item.weight }}{% endif %}</p>
+                            <div class="item-quantity">Qty: 1</div>
+                        </div>
+                        <div class="item-price">€{{ "%.2f"|format(item.price) }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Price Breakdown -->
+                <div class="price-breakdown">
+                    <div class="price-row">
+                        <span>Subtotal</span>
+                        <span>€{{ "%.2f"|format(subtotal) }}</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Shipping</span>
+                        <span>Free</span>
+                    </div>
+                    <div class="price-row total">
+                        <span>Total</span>
+                        <span>€{{ "%.2f"|format(total) }}</span>
+                    </div>
+                </div>
+
+                <!-- Security Features -->
+                <div class="order-security">
+                    <div class="security-item">
+                        <i data-feather="shield" class="security-icon"></i>
+                        <span>Secure Payment</span>
+                    </div>
+                    <div class="security-item">
+                        <i data-feather="refresh-cw" class="security-icon"></i>
+                        <span>Free Returns</span>
+                    </div>
+                    <div class="security-item">
+                        <i data-feather="clock" class="security-icon"></i>
+                        <span>24/7 Support</span>
+                    </div>
+                </div>
             </div>
-            <div class="security-item">
-              <i data-feather="clock" class="security-icon"></i>
-              <span>24/7 Support</span>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
+    {# Include footer component #}
     {% include 'utilities/footer.html' %}
     <script src="/static/javascripts/checkout.js"></script>
 </body>

@@ -4,21 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="../static/css/wishlist.css">
+    <!-- Feather Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.css">
+    <!-- JavaScript -->
+    <script src="../static/javascripts/wishlist.js"></script>
+    <!-- Feather Icons JS -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 </head>
 
 <body>
+    <!-- Page Wrapper -->
     <div class="page-wrapper">
+        <!-- Header -->
         <header>
             {% include 'utilities/header.html' %}
         </header>
 
+        <!-- Notification System -->
+        {% include 'components/toast.html' %}      {# Notification system #}
+
+        <!-- Main Content -->
         <main>
+            <!-- Wishlist Section -->
             <div class="wishlist-container">
                 <h1 class="wishlist-title">Wishlist</h1>
                 <div class="wishlist-items">
                     {% if products %}
                         {% for product in products %}
+                        <!-- Individual Wishlist Item -->
                         <div class="wishlist-item" data-product-id="{{ product.id }}">
                             <a href="{{ url_for('product_details', id=product.id) }}" class="product-link">
                                 <img src="{{ product.main_product_image }}" alt="{{ product.product_name }}" class="product-image">
@@ -26,22 +41,30 @@
                             <div class="product-details">
                                 <h3 class="product-name">{{ product.product_name }}</h3>
                                 <p class="product-price">€{{ "%.2f"|format(product.price) }}</p>
-                                <button class="add-to-cart-btn" onclick="addToCart('{{ product.id }}')">Add to Cart</button>
-                                <button class="remove-btn" onclick="removeFromWishlist('{{ product.id }}')">Remove</button>
+                                <button class="add-to-cart-btn" onclick="addToCart('{{ product.id }}')">
+                                    <i data-feather="shopping-cart"></i> Add to Cart
+                                </button>
+                                <button class="remove-btn" onclick="removeFromWishlist('{{ product.id }}')">
+                                    <i data-feather="trash-2"></i> Remove
+                                </button>
                             </div>
                         </div>
                         {% endfor %}
                     {% else %}
+                        <!-- Empty Wishlist Message -->
                         <div class="empty-wishlist">
                             <p class="empty-text">Your wishlist is empty</p>
                             <a href="/products">
-                                <button class="discover-btn">Discover Products</button>
+                                <button class="discover-btn">
+                                    <i data-feather="compass"></i> Discover Products
+                                </button>
                             </a>
                         </div>
                     {% endif %}
                 </div>
             </div>
 
+            <!-- Additional Sections -->
             <div class="additional-sections">
                 <div class="section">
                     {% include 'components/yourBenefits.html' %}
@@ -52,59 +75,15 @@
             </div>
         </main>
 
+        <!-- Footer -->
         <footer>
             {% include 'utilities/footer.html' %}
         </footer>
     </div>
 
+    <!-- Initialize Feather Icons -->
     <script>
-    function addToCart(productId) {
-        fetch(`/api/cart/${productId}`, {
-            method: 'POST',
-            credentials: 'same-origin'
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Remove product from wishlist
-                removeFromWishlist(productId);
-            } else {
-                alert(data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error adding to cart');
-        });
-    }
-
-    function removeFromWishlist(productId) {
-        fetch(`/api/wishlist/${productId}`, {
-            method: 'POST',
-            credentials: 'same-origin'
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Remove product from DOM
-                const item = document.querySelector(`.wishlist-item[data-product-id="${productId}"]`);
-                item.remove();
-                
-                // Check if wishlist is empty
-                const items = document.querySelectorAll('.wishlist-item');
-                if (items.length === 0) {
-                    location.reload(); // Reload to show empty state
-                }
-            } else {
-                alert(data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error updating wishlist');
-        });
-    }
+        feather.replace();
     </script>
 </body>
-
 </html>

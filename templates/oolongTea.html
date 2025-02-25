@@ -4,13 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Main stylesheet -->
     <link rel="stylesheet" href="../static/css/products/herbalTea.css">
+    <!-- Feather Icons CDN -->
+    <script src="https://unpkg.com/feather-icons"></script>
     <title>Herbal Tea</title>
 </head>
 
 <body>
+    {# Header Component #}
     {% include 'utilities/header.html' %}
+
+    {# Notification System #}
+    {% include 'components/toast.html' %}
+
     <div class="mainBodyWrapper">
+        {# Hero Section #}
         <div class="hero-section">
             <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Banners/header-kraeutertee.jpg?updatedAt=1738688462020"
                 alt="Tea Blends Header Image">
@@ -20,18 +29,20 @@
             </div>
         </div>
 
-        <!-- Featured Products Section -->
+        {# Featured Products Section #}
         {% include 'utilities/productShowcase.html' %}
 
+        {# Our Blends Section #}
         {% with 
             image_url="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/Blends/GreenTeaBlend.webp?updatedAt=1738516637323",
             heading="Origins Collection",
             subheading="Premium whole leaf and herbal teas",
-            description="Our Origins bring the variety of our handcrafted premium whole-leaf teas and herbs. A flavorful journey through the world’s best tea-growing regions."
+            description="Our Origins bring the variety of our handcrafted premium whole-leaf teas and herbs. A flavorful journey through the world's best tea-growing regions."
         %}
             {% include 'components/ourBlends.html' %}
         {% endwith %}
         
+        {# Magazine Section #}
         <section class="magazine-section">
             <h1>BLATTÉ Magazine</h1>
             <p class="subtitle">Oolong Tea & more</p>
@@ -39,15 +50,13 @@
                 <div class="magazine-item">
                     <img src="../static/images/magazines/oolongTea/01.webp"
                         alt="The secrets of tea blending">
-                    <h3>Our Guide to Oolong Tea
-                    </h3>
+                    <h3>Our Guide to Oolong Tea</h3>
                     <p>We introduce you to the different types of tea. This time: Oolong tea.</p>
                 </div>
                 <div class="magazine-item">
                     <img src="../static/images/magazines/oolongTea/02.webp"
                         alt="The Art of Blending">
-                    <h3>Tie Guan Yin
-                    </h3>
+                    <h3>Tie Guan Yin</h3>
                     <p>Tie Guan Yin refers to both a specific variety of the Camellia sinensis tea plant and the Chinese Oolong tea made from it. Originally, this tea variety comes from the Anxi region in the renowned tea province of Fujian. However, it's increasingly being grown in Taiwan as well. This floral Oolong variety is one of the most popular teas in China.</p>
                 </div>
                 <div class="magazine-item">
@@ -64,10 +73,19 @@
                 </div>
             </div>
         </section>
+
+        {# Additional Components #}
         {% include 'components/weLoveWhatWeDo.html' %}
         {% include 'components/yourBenefits.html' %}
     </div>
+
+    {# Initialize Feather Icons #}
+    <script>
+        feather.replace();
+    </script>
 </body>
+
+{# Footer Component #}
 {% include '/utilities/footer.html' %}
 
 </html>

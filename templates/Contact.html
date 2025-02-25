@@ -4,17 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- External CSS -->
     <link rel="stylesheet" href="static/css/Contact.css">
+    <!-- Feather Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.css">
 </head>
 
 <body>
+    {# Header component #}
     {% include 'utilities/header.html' %}
+
+    {# Notification system #}
+    {% include 'components/toast.html' %}
+
+    <!-- Main content container -->
     <div class="container">
         <h1>Contact</h1>
         <p class="intro">You can reach us via phone, WhatsApp, email or by using the contact form below.</p>
 
+        <!-- Contact information section -->
         <div class="contact-section">
             <p>Phone:</p>
+            <!-- Phone numbers list -->
             <div class="phone-numbers">
                 <p>DE <a href="tel:+4930255597333">+49 30 2555 9733</a></p>
                 <p>AT <a href="tel:+4314350412">+43 1 4350 412</a></p>
@@ -25,6 +36,7 @@
                 <p>NO <a href="tel:+4723507968">+47 2 350 7968</a></p>
             </div>
 
+            <!-- WhatsApp section -->
             <div class="whatsapp-section">
                 <p>WhatsApp: <a href="#">Start a chat</a> or scan QR code via smartphone:</p>
                 <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/LOGO/Qr%20code.jpg?updatedAt=1740465046586"
@@ -32,10 +44,12 @@
                 <p>(Mo - Fr 10am – 6pm CEST)</p>
             </div>
 
+            <!-- Email and contact form links -->
             <p>Email: <a href="mailto:wecare@systemcrafters.com">wecare@systemcrafters.com</a></p>
             <p>Contact form: See below</p>
         </div>
 
+        <!-- Contact form section -->
         <div class="form-container">
             <form action="#" method="post">
                 <input type="text" placeholder="Your name" required>
@@ -58,9 +72,17 @@
             </form>
         </div>
     </div>
+
+    {# Additional components #}
     {% include 'components/weLoveWhatWeDo.html' %}
     {% include 'components/yourBenefits.html' %}
     {% include 'utilities/footer.html' %}
+
+    <!-- Initialize Feather Icons -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script>
+        feather.replace();
+    </script>
 </body>
 
 </html>

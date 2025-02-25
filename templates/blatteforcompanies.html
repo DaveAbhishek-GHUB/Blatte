@@ -1,21 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {# ========== ESSENTIAL META TAGS ========== #}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {# ========== STYLESHEETS ========== #}
     <link rel="stylesheet" href="../static/css/blatteforcompanies.css">
+    
+    {# ========== FEATHER ICONS CDN ========== #}
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+    <title>BLATTÉ for Companies</title>
 </head>
+
 <body>
+    {# ========== HEADER COMPONENT ========== #}
     {% include 'utilities/header.html' %}
+    
+    {# ========== NOTIFICATION SYSTEM ========== #}
+    {% include 'components/toast.html' %}      {# Notification system #}
+
+    {# ========== HERO SECTION ========== #}
     <header class="hero-section">
         <img src="https://www.paperandtea.com/cdn/shop/files/P_T_Amsterdam-Opening-42_1.jpg?v=1725540139&width=2000" 
-        alt="Business Scene">
+             alt="Business Scene">
         <div class="hero-content">
             <h1>BLATTÉ for businesses</h1>
             <p>Learn more about our services for business customers.</p>
         </div>
     </header>
     
+    {# ========== MAIN CONTENT SECTIONS ========== #}
     <section class="section">
         <div class="text">
             <h2>Who is our B2B online store for?</h2>
@@ -25,12 +41,13 @@
             <a href="#" class="btn">Find our more</a>
         </div>
         <img src="https://www.paperandtea.com/cdn/shop/files/P_T-Berlin-Steglitz-Opening-90_1.jpg?v=1725540741&width=600" 
-        alt="Woman preparing tea">
+             alt="Woman preparing tea">
     </section>
     
+    {# ------ BENEFITS SECTION ------ #}
     <section class="section">
         <img src="https://www.paperandtea.com/cdn/shop/files/P_T_Opening-Kudamm-51_1_1.jpg?v=1725540736&width=600" 
-        alt="Tea preparation">
+             alt="Tea preparation">
         <div class="text">
             <h2>Your benefits.</h2>
             <p>✔ Secure B2B prices & conditions<br>
@@ -42,7 +59,7 @@
         </div>
     </section>
 
-
+    {# ------ PROCESS SECTION ------ #}
     <section class="green-section">
         <h2>How do I become a B2B customer?</h2>
         <div class="process">
@@ -64,6 +81,7 @@
         </div>
     </section>
 
+    {# ------ CONTACT SECTION ------ #}
     <section class="contact">
         <div class="contact-content">
             <div class="contact-text">
@@ -74,12 +92,22 @@
             </div>
             <div class="contact-image">
                 <img src="https://www.paperandtea.com/cdn/shop/files/P_T_Opening-Kudamm-68_1.jpg?v=1725540735&width=600" 
-                alt="Explore the beauty of life">
+                     alt="Explore the beauty of life">
             </div>
         </div>
     </section>
+
+    {# ========== MARKETING COMPONENTS ========== #}
     {% include 'components/weLoveWhatWeDo.html' %}
     {% include 'components/yourBenefits.html' %}
     {% include 'utilities/footer.html' %}
+
+    {# ========== INITIALIZE FEATHER ICONS ========== #}
+    <script>
+        // Initialize Feather Icons after DOM content loads
+        document.addEventListener('DOMContentLoaded', function() {
+            feather.replace();
+        });
+    </script>
 </body>
 </html>

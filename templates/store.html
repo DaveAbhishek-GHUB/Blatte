@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="../static/css/store.css">
+    <!-- Feather Icons CDN -->
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
-    {% include 'utilities/header.html' %}
+    {# ========== COMPONENTS ========== #}
+    {% include 'utilities/header.html' %}      {# Header component #}
+    {% include 'components/toast.html' %}      {# Notification system #}
+
+    {# ========== MAIN CONTENT ========== #}
     <div class="container">
+        {# Page Header #}
         <h1>Our Stores</h1>
         <div class="description">
             <p>BLATTÉ is a space where everyone is invited to celebrate togetherness, share ideas, and discover the
@@ -16,6 +24,7 @@
             <p>We are continuously growing and opening new spaces throughout Europe. Maybe soon in your neighborhood?</p>
         </div>
     
+        {# Filter Buttons #}
         <div class="filters">
             <button>Show all</button>
             <button>Germany</button>
@@ -27,9 +36,9 @@
             <button>Denmark</button>
         </div>
     
-        <!-- Store list -->
+        {# Store Listings #}
         <div class="store-list">
-            <!-- Store 1 -->
+            {# Store 1 - Utrecht #}
             <div class="store">
                 <div class="store-image">
                     <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/shop/09.jpeg?updatedAt=1740464932207" 
@@ -53,11 +62,10 @@
                 </div>
             </div>
 
-            <!-- Store 2 -->
+            {# Store 2 - Bruges #}
             <div class="store">
                 <div class="store-info">
                     <h2>Bruges</h2>
-
                     <p>Steenstraat 30<br>8000 Bruges</p>
                     <p>Phone: <a href="tel:+32470886539">+32 470 88 65 39</a></p>
                     <p>E-Mail: <a href="mailto:wecare@paperandtea.com">wecare@paperandtea.com</a></p>
@@ -78,7 +86,7 @@
                 </div>
             </div>
 
-            <!-- Store 3 -->
+            {# Store 3 - Hannover #}
             <div class="store">
                 <div class="store-image">
                     <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/shop/07.jpeg?updatedAt=1740464932505"
@@ -102,7 +110,7 @@
                 </div>
             </div>
 
-            <!-- Store 4 -->
+            {# Store 4 - Vienna #}
             <div class="store">
                 <div class="store-info">
                     <h2>Vienna</h2>
@@ -126,7 +134,7 @@
                 </div>
             </div>
 
-            <!-- Store 5 -->
+            {# Store 5 - Zurich #}
             <div class="store">
                 <div class="store-image">
                     <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/shop/15.jpeg?updatedAt=1740464937963"
@@ -150,7 +158,7 @@
                 </div>
             </div>
 
-            <!-- Store 6 -->
+            {# Store 6 - Bonn #}
             <div class="store">
                 <div class="store-info">
                     <h2>Bonn</h2>
@@ -174,7 +182,7 @@
                 </div>
             </div>
 
-            <!-- store 7 -->
+            {# Store 7 - Leipzig #}
             <div class="store">
                 <div class="store-image">
                     <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/shop/03.jpeg?updatedAt=1740464931975"
@@ -198,7 +206,7 @@
                 </div>
             </div>
             
-            <!-- Store 8 -->
+            {# Store 8 - Stuttgart #}
             <div class="store">
                 <div class="store-info">
                     <h2>Stuttgart</h2>
@@ -223,8 +231,15 @@
             </div>
         </div>
     </div>
+
+    {# ========== ADDITIONAL COMPONENTS ========== #}
     {% include 'components/weLoveWhatWeDo.html' %}
     {% include 'components/yourBenefits.html' %}
     {% include 'utilities/footer.html' %}
+
+    {# Initialize Feather Icons #}
+    <script>
+        feather.replace();
+    </script>
 </body>
 </html>

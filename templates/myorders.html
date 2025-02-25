@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Main stylesheet -->
     <link rel="stylesheet" href="/static/css/myorders.css">
+    <!-- Feather Icons CDN -->
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
+
 <body>
+    {# Header Component #}
     {% include 'utilities/header.html' %}
+
+    {# Notification System #}
+    {% include 'components/toast.html' %}
+
+    {# Main Orders Container #}
     <div class="orders-container">
-        <!-- Order Status Filter -->
+        {# Order Status Filter Section #}
         <div class="status-filter">
             <div class="filter-buttons">
                 <a href="{{ url_for('myorders', status='all') }}" 
@@ -30,16 +40,19 @@
             </div>
         </div>
 
-        <!-- Order Items -->
+        {# Orders List Section #}
         {% if orders %}
             {% for order in orders %}
                 <div class="order-item">
+                    {# Order Header with Status and ID #}
                     <div class="order-header">
                         <div class="status-badge {{ order.order_status|lower|replace(' ', '-') }}">
                             {{ order.order_status or 'In Progress' }}
                         </div>
                         <div class="order-date">Order ID: {{ order.order_id }}</div>
                     </div>
+                    
+                    {# Order Content with Products #}
                     <div class="order-content">
                         <div class="order-details">
                             {% for product in order.products %}
@@ -59,17 +72,26 @@
                                 </a>
                             {% endfor %}
                         </div>
+                        {# Order Total Amount #}
                         <div class="total-amount">Total: ₹ {{ "%.2f"|format(order.total_amount) }}</div>
                     </div>
                 </div>
             {% endfor %}
         {% else %}
+            {# No Orders Message #}
             <div class="no-orders">
                 <p>No orders found for the selected filter.</p>
             </div>
         {% endif %}
     </div>
+
+    {# Additional Components #}
     {% include 'components/yourBenefits.html' %}
     {% include 'utilities/footer.html' %}
+
+    {# Initialize Feather Icons #}
+    <script>
+        feather.replace();
+    </script>
 </body>
 </html>

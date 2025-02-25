@@ -2,19 +2,32 @@
 <html lang="en">
 
 <head>
+    <!-- Essential Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="/static/css/cart.css">
+    
+    <!-- Feather Icons CDN -->
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
 
 <body>
+    <!-- Header Component -->
     {% include 'utilities/header.html' %}
+
+    <!-- Notification System -->
+    {% include 'components/toast.html' %}      {# Notification system #}
+
+    <!-- Main Container -->
     <div class="container">
+        <!-- Cart Header -->
         <div class="header">My Cart</div>
 
-        <!-- Progress Bar -->
+        <!-- Checkout Progress Bar -->
         <div class="checkout-progress">
+            <!-- Cart Step -->
             <div class="progress-step active">
                 <div class="step-icon">
                     <i data-feather="shopping-cart"></i>
@@ -22,6 +35,8 @@
                 <span>Cart</span>
             </div>
             <div class="progress-line"></div>
+            
+            <!-- Payment Step -->
             <div class="progress-step">
                 <div class="step-icon">
                     <i data-feather="credit-card"></i>
@@ -29,6 +44,8 @@
                 <span>Payment</span>
             </div>
             <div class="progress-line"></div>
+            
+            <!-- Confirmation Step -->
             <div class="progress-step">
                 <div class="step-icon">
                     <i data-feather="check-circle"></i>
@@ -37,6 +54,7 @@
             </div>
         </div>
 
+        <!-- Cart Items Section -->
         {% if products %}
             {% for product in products %}
             <div class="cart-item" data-product-id="{{ product.id }}" class="fade-in">
@@ -67,58 +85,23 @@
             </div>
             {% endfor %}
 
+            <!-- Checkout Button Section -->
             <div class="checkout">
                 <button type="button" class="animated-button" onclick="proceedToCheckout()">Proceed to Checkout</button>
             </div>
         {% else %}
+            <!-- Empty Cart Message -->
             <div class="empty-cart">
                 <p>Your cart is empty</p>
                 <a href="/" class="continue-shopping">Continue Shopping</a>
             </div>
         {% endif %}
     </div>
+
+    <!-- Footer Component -->
     {% include 'utilities/footer.html' %}
-
-    <script>
-        function removeFromCart(productId) {
-            fetch(`/api/cart/${productId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    location.reload();
-                }
-            });
-        }
-
-        function addToWishlist(productId) {
-            fetch(`/api/wishlist/${productId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    removeFromCart(productId);
-                }
-            });
-        }
-
-        function proceedToCheckout() {
-            // Redirect to the checkout page without removing items from the cart
-            window.location.href = '/checkout'; // Redirect to checkout page
-        }
-
-        // Initialize Feather Icons after DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            feather.replace();
-        });
-    </script>
+    
+    <!-- Scripts -->
+    <script src="/static/javascripts/cart.js"></script>
 </body>
 </html>

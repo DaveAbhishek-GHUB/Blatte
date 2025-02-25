@@ -4,14 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipping & Payment - Blatté</title>
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="../static/css/ShippingPayment.css">
+    <!-- Feather Icons CDN -->
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 
 <body>
-    {% include 'utilities/header.html' %}
-    <div class="breadcrumb"><a href="/">Home</a> / Shipping & Payment</div>
+    {# ========== COMPONENTS ========== #}
+    {% include 'utilities/header.html' %}      {# Header component #}
+    {% include 'components/toast.html' %}      {# Notification system #}
+
+    {# ========== MAIN CONTENT ========== #}
+    <div class="breadcrumb">
+        <a href="/">Home</a> / Shipping & Payment
+    </div>
+
     <div class="container">
         <h1>Shipping & Payment</h1>
+
+        {# Shipping Section - Germany, Austria, Switzerland, etc #}
         <div class="section">
             <h2>Shipping to Germany, Austria, Switzerland, Netherlands, Belgium, Denmark, Norway</h2>
             <p>
@@ -36,6 +49,7 @@
             </p>
         </div>
 
+        {# Shipping Section - EU and UK #}
         <div class="section">
             <h2>Shipping within EU and UK</h2>
             <p>
@@ -55,6 +69,7 @@
                 is used.
         </div>
 
+        {# Shipping Times Section #}
         <div class="section">
             <h2>Shipping times</h2>
             <ul>
@@ -66,20 +81,22 @@
             </ul>
         </div>
 
+        {# Payment Options Section #}
         <div class="section">
             <h2>Payment options</h2>
             <ul>
-                <li>Credit Card</li>
-                <li>PayPal</li>
-                <li>Apple Pay</li>
-                <li>Google Pay</li>
-                <li>Shop Pay (Shopify)</li>
-                <li>Sofort bank transfer</li>
-                <li>Pay later with Klarna</li>
-                <li>Pay now with Klarna</li>
+                <li><i data-feather="credit-card"></i> Credit Card</li>
+                <li><i data-feather="dollar-sign"></i> PayPal</li>
+                <li><i data-feather="smartphone"></i> Apple Pay</li>
+                <li><i data-feather="smartphone"></i> Google Pay</li>
+                <li><i data-feather="shopping-bag"></i> Shop Pay (Shopify)</li>
+                <li><i data-feather="refresh-cw"></i> Sofort bank transfer</li>
+                <li><i data-feather="clock"></i> Pay later with Klarna</li>
+                <li><i data-feather="check-circle"></i> Pay now with Klarna</li>
             </ul>
         </div>
 
+        {# Returns Section #}
         <div class="section returns">
             <h2>Returns</h2>
             <p>
@@ -92,9 +109,16 @@
             </p>
         </div>
     </div>
+
+    {# ========== ADDITIONAL COMPONENTS ========== #}
     {% include 'components/weLoveWhatWeDo.html' %}
     {% include 'components/yourBenefits.html' %}
     {% include 'utilities/footer.html' %}
+
+    {# ========== FEATHER ICONS INITIALIZATION ========== #}
+    <script>
+        feather.replace();
+    </script>
 </body>
 
 </html>

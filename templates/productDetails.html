@@ -4,14 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ product.product_name }} - Product Details</title>
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="/static/css/productDetails.css">
+    <!-- JavaScript -->
     <script src="/static/javascripts/productDetails.js"></script>
+    <!-- Feather Icons CDN -->
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
+
 <body>
+    {# Header Component #}
     {% include 'utilities/header.html' %}
+
+    {# Notification System #}
+    {% include 'components/toast.html' %}
     
     {% if product %}
+    {# Main Product Container #}
     <div class="product-container">
+        {# Product Gallery Section #}
         <div class="product-gallery">
             <div class="thumbnail-list">
                 {% if product.main_product_image %}
@@ -28,7 +39,9 @@
             </div>
         </div>
         
+        {# Product Information Section #}
         <div class="product-info">
+            {# Product Badges #}
             <div class="badges">
                 {% if product.availability_status != 'In Stock' %}
                     <span class="badge limited">{{ product.availability_status }}</span>
@@ -42,14 +55,16 @@
             
             <div class="product-type">{{ product.product_category }}</div>
             
+            {# Product Rating #}
             {% if product.average_rating %}
             <div class="rating">
-                <span class="stars">★★★★★</span>
+                <i data-feather="star"></i>
                 <span class="rating-score">{{ "%.2f"|format(product.average_rating) }}</span>
                 <span class="review-count">({{ product.reviews_count }})</span>
             </div>
             {% endif %}
             
+            {# Flavor Tags #}
             {% if product.brewing_notes %}
             <div class="flavor-tags">
                 {% for note in product.brewing_notes[:3] %}
@@ -58,6 +73,7 @@
             </div>
             {% endif %}
             
+            {# Product Features #}
             {% if product.description %}
             <ul class="features">
                 {% for desc in product.description %}
@@ -66,10 +82,10 @@
             </ul>
             {% endif %}
             
+            {# Product Purchase Form #}
             <div class="product-form">
                 <div class="price-section">
-                    <div class="main-price">₹
-                        {{ "%.2f"|format(product.price) }}</div>
+                    <div class="main-price">₹{{ "%.2f"|format(product.price) }}</div>
                     <div class="weight">{{ product.weight }}</div>
                     {% set price_per_kg = product.price|price_per_kg(product.weight) %}
                     {% if price_per_kg is not none %}
@@ -78,6 +94,7 @@
                     <div class="shipping">incl. VAT, plus shipping</div>
                 </div>
                 
+                {# Availability Status #}
                 <div class="availability">
                     {% if product.availability_status == 'In Stock' %}
                         Available, with you in 2 – 5 days
@@ -86,10 +103,14 @@
                     {% endif %}
                 </div>
                 
+                {# Add to Cart Section #}
                 <a href="/cart">
                 <div class="add-to-cart">
                     <input type="number" value="1" min="1" class="quantity">
-                    <button class="add-to-cart-btn">Add to cart</button>
+                    <button class="add-to-cart-btn">
+                        <i data-feather="shopping-cart"></i>
+                        Add to cart
+                    </button>
                 </div>
                 </a>
 
@@ -98,16 +119,15 @@
                 </div>
             </div>
             
+            {# Ingredients Dropdown #}
             {% if product.ingredients %}
             <div class="ingredients-dropdown">
                 <button class="dropdown-btn">
                     Ingredients
-                    <span class="arrow">▼</span>
+                    <i data-feather="chevron-down"></i>
                 </button>
                 <div class="dropdown-content">
-                    
                     <h3 class="ingredient-title">{{ product.product_name }}</h3>
-                    
                     <p class="ingredient-list">
                         {{ product.ingredients|join(', ') }}
                     </p>
@@ -122,9 +142,15 @@
     </div>
     {% endif %}
 
+    {# Additional Components #}
     {% include 'components/thejourneyofourteaintoyourcup.html' %}
     {% include 'components/weLoveWhatWeDo.html' %}
     {% include 'components/yourBenefits.html' %}
     {% include 'utilities/footer.html' %}
+
+    {# Initialize Feather Icons #}
+    <script>
+        feather.replace();
+    </script>
 </body>
 </html>
