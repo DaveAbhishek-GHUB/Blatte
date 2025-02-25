@@ -1511,12 +1511,13 @@ def add_product():
             'price': float(request.form['price']),  # This should remain float
             'weight': request.form.get('weight', ''),  # Make weight optional
             'product_category': request.form['product_category'],
-            'description': json.dumps(request.form.getlist('description[]')),
-            'ingredients': json.dumps(request.form.getlist('ingredients[]')),
-            'brewing_notes': json.dumps(request.form.getlist('brewing_notes[]')),
+            'description': json.dumps(request.form.getlist('description')),
+            'ingredients': json.dumps(request.form.getlist('ingredients')),
+            'brewing_notes': json.dumps(request.form.getlist('brewing_notes')),
             'main_product_image': request.form['main_product_image'],
-            'additional_images': json.dumps(request.form.getlist('additional_images[]')),
-            'availability_status': request.form['availability_status']
+            'additional_images': json.dumps(request.form.getlist('additional_images')),
+            'availability_status': request.form['availability_status'],
+            'discount_percentage': request.form.get('discount_percentage', 0)  # Default to 0 if not provided
         }
 
         conn = get_db_connection()
@@ -1531,9 +1532,9 @@ def add_product():
                     product_name, price, weight, product_category,
                     description, ingredients, brewing_notes,
                     main_product_image, additional_images,
-                    availability_status, created_at
+                    availability_status, discount_percentage, created_at
                 ) VALUES (
-                    %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW()
+                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW()
                 )
             """
             cursor.execute(insert_query, (
@@ -1546,16 +1547,21 @@ def add_product():
                 product_data['brewing_notes'],
                 product_data['main_product_image'],
                 product_data['additional_images'],
-                product_data['availability_status']
+                product_data['availability_status'],
+                product_data['discount_percentage']
             ))
             conn.commit()
 
         flash('Product added successfully', 'success')
         return redirect(url_for('dashboard'))
 
+    except mysql.connector.Error as db_error:
+        print(f"Database error: {db_error}")  # Print the error for debugging
+        flash('Error adding product: ' + str(db_error), 'error')  # Provide specific error message
+        return redirect(url_for('dashboard'))
     except Exception as e:
-        print(f"Error adding product: {e}")
-        flash('Error adding product', 'error')
+        print(f"Unexpected error: {e}")  # Print any unexpected errors
+        flash('An unexpected error occurred: ' + str(e), 'error')
         return redirect(url_for('dashboard'))
     finally:
         if conn:
