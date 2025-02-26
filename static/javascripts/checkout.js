@@ -2,6 +2,308 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize Feather icons
     feather.replace();
 
+    // Add bank list array at the top
+    let bankList = [];
+    let selectedBank = ''; // Track the selected bank
+
+    // Validation patterns
+    const validationPatterns = {
+        cardNumber: /^(\d{4}\s){3}\d{4}$/, // 16 digits in groups of 4
+        cvv: /^\d{3}$/, // 3 digits
+        expiryDate: /^(0[1-9]|1[0-2])\s\/\s([0-9]{2})$/, // MM / YY format
+        ifscCode: /^[A-Z]{4}0[A-Z0-9]{6}$/, // 4 chars, 0, 6 alphanumeric
+        accountNumber: /^\d{9,18}$/, // 9-18 digits
+        pincode: /^\d{6}$/, // 6 digits
+        phone: /^\+?[\d\s-]{8,}$/, // At least 8 digits, can have +, spaces, -
+        fullName: /^[A-Za-z\s]{2,50}$/, // 2-50 characters, letters and spaces
+        houseNo: /^[A-Za-z0-9\s\-\/\\,.]{1,50}$/, // Alphanumeric with some special chars
+        street: /^[A-Za-z0-9\s\-\/\\,.]{5,100}$/, // Alphanumeric with some special chars
+        city: /^[A-Za-z\s]{2,50}$/, // Letters and spaces
+        state: /^[A-Za-z\s]{2,50}$/, // Letters and spaces
+        country: /^[A-Za-z\s]{2,50}$/ // Letters and spaces
+    };
+
+    // Validation messages
+    const validationMessages = {
+        cardNumber: 'Please enter a valid 16-digit card number',
+        cvv: 'Please enter a valid 3-digit CVV',
+        expiryDate: 'Please enter a valid expiry date (MM / YY)',
+        ifscCode: 'Please enter a valid 11-character IFSC code',
+        accountNumber: 'Please enter a valid account number (9-18 digits)',
+        bankName: 'Please select a valid bank from the suggestions',
+        pincode: 'Please enter a valid 6-digit pincode',
+        phone: 'Please enter a valid phone number',
+        fullName: 'Please enter a valid name (2-50 characters)',
+        accountHolder: 'Please enter a valid account holder name (2-50 characters)',
+        houseNo: 'Please enter a valid house/flat number',
+        street: 'Please enter a valid street address (minimum 5 characters)',
+        city: 'Please enter a valid city name',
+        state: 'Please enter a valid state name',
+        country: 'Please enter a valid country name'
+    };
+
+    // Function to validate expiry date
+    function isValidExpiryDate(value) {
+        if (!validationPatterns.expiryDate.test(value)) return false;
+        
+        const [month, year] = value.split(' / ');
+        const expiry = new Date(2000 + parseInt(year), parseInt(month) - 1);
+        const today = new Date();
+        
+        return expiry > today;
+    }
+
+    // Update the validateInput function with comprehensive validation
+    function validateInput(input) {
+        const errorMsg = input.closest('.form-group').querySelector('.error-message');
+        let isValid = true;
+        let errorText = '';
+
+        // Clear previous errors
+        input.classList.remove('error');
+        errorMsg.textContent = '';
+
+        // Required field validation
+        if (input.required && !input.value) {
+            errorText = 'This field is required';
+            isValid = false;
+        } else {
+            switch (input.name) {
+                case 'cardNumber':
+                    if (!validationPatterns.cardNumber.test(input.value)) {
+                        errorText = validationMessages.cardNumber;
+                        isValid = false;
+                    }
+                    break;
+
+                case 'cvv':
+                    if (!validationPatterns.cvv.test(input.value)) {
+                        errorText = validationMessages.cvv;
+                        isValid = false;
+                    }
+                    break;
+
+                case 'expiryDate':
+                    if (!isValidExpiryDate(input.value)) {
+                        errorText = validationMessages.expiryDate;
+                        isValid = false;
+                    }
+                    break;
+
+                case 'ifscCode':
+                    if (!validationPatterns.ifscCode.test(input.value.toUpperCase())) {
+                        errorText = validationMessages.ifscCode;
+                        isValid = false;
+                    }
+                    break;
+
+                case 'accountNumber':
+                    if (!validationPatterns.accountNumber.test(input.value)) {
+                        errorText = validationMessages.accountNumber;
+                        isValid = false;
+                    }
+                    break;
+
+                case 'bankName':
+                    if (input.value !== selectedBank || !bankList.includes(input.value)) {
+                        errorText = validationMessages.bankName;
+                        isValid = false;
+                    }
+                    break;
+
+                case 'pincode':
+                    if (!validationPatterns.pincode.test(input.value)) {
+                        errorText = validationMessages.pincode;
+                        isValid = false;
+                    }
+                    break;
+
+                case 'phone':
+                case 'altPhone':
+                    if (input.value && !validationPatterns.phone.test(input.value)) {
+                        errorText = validationMessages.phone;
+                        isValid = false;
+                    }
+                    break;
+
+                case 'fullName':
+                case 'accountHolder':
+                    if (!validationPatterns.fullName.test(input.value)) {
+                        errorText = validationMessages[input.name];
+                        isValid = false;
+                    }
+                    break;
+
+                case 'houseNo':
+                    if (!validationPatterns.houseNo.test(input.value)) {
+                        errorText = validationMessages.houseNo;
+                        isValid = false;
+                    }
+                    break;
+
+                case 'street':
+                    if (!validationPatterns.street.test(input.value)) {
+                        errorText = validationMessages.street;
+                        isValid = false;
+                    }
+                    break;
+
+                case 'city':
+                    if (!validationPatterns.city.test(input.value)) {
+                        errorText = validationMessages.city;
+                        isValid = false;
+                    }
+                    break;
+
+                case 'state':
+                    if (!validationPatterns.state.test(input.value)) {
+                        errorText = validationMessages.state;
+                        isValid = false;
+                    }
+                    break;
+
+                case 'country':
+                    if (!validationPatterns.country.test(input.value)) {
+                        errorText = validationMessages.country;
+                        isValid = false;
+                    }
+                    break;
+            }
+        }
+
+        if (!isValid) {
+            input.classList.add('error');
+            errorMsg.textContent = errorText;
+        }
+
+        return isValid;
+    }
+
+    // Add input formatters for specific fields
+    function setupInputFormatters() {
+        // Card number formatter
+        const cardNumberInput = document.querySelector('input[name="cardNumber"]');
+        if (cardNumberInput) {
+            cardNumberInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                value = value.replace(/(\d{4})/g, '$1 ').trim();
+                e.target.value = value.substring(0, 19);
+                validateInput(this);
+            });
+        }
+
+        // Expiry date formatter
+        const expiryInput = document.querySelector('input[name="expiryDate"]');
+        if (expiryInput) {
+            expiryInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length >= 2) {
+                    value = value.substring(0, 2) + ' / ' + value.substring(2);
+                }
+                e.target.value = value.substring(0, 7);
+                validateInput(this);
+            });
+        }
+
+        // IFSC code formatter
+        const ifscInput = document.querySelector('input[name="ifscCode"]');
+        if (ifscInput) {
+            ifscInput.addEventListener('input', function(e) {
+                let value = e.target.value.toUpperCase();
+                e.target.value = value.substring(0, 11);
+                validateInput(this);
+            });
+        }
+
+        // Account number formatter
+        const accountInput = document.querySelector('input[name="accountNumber"]');
+        if (accountInput) {
+            accountInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                e.target.value = value.substring(0, 18);
+                validateInput(this);
+            });
+        }
+
+        // Pincode formatter
+        const pincodeInput = document.querySelector('input[name="pincode"]');
+        if (pincodeInput) {
+            pincodeInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                e.target.value = value.substring(0, 6);
+                validateInput(this);
+            });
+        }
+    }
+
+    // Setup form submission validation
+    document.querySelectorAll('.payment-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let isFormValid = true;
+            const inputs = this.querySelectorAll('input[required]');
+            
+            inputs.forEach(input => {
+                if (!validateInput(input)) {
+                    isFormValid = false;
+                }
+            });
+
+            if (isFormValid) {
+                const button = this.querySelector('.pay-button');
+                const buttonContent = button.querySelector('.button-content');
+                const buttonLoader = button.querySelector('.button-loader');
+                
+                // Show loading state
+                if (buttonContent && buttonLoader) {
+                    buttonContent.style.display = 'none';
+                    buttonLoader.style.display = 'block';
+                    button.disabled = true;
+                }
+
+                // Submit the form
+                this.submit();
+            }
+        });
+    });
+
+    // Initialize all formatters and validators
+    setupInputFormatters();
+
+    // Real-time validation for all inputs
+    document.querySelectorAll('input').forEach(input => {
+        if (!input.classList.contains('phone-input')) {
+            input.addEventListener('blur', () => {
+                validateInput(input);
+            });
+        }
+    });
+
+    // Fetch bank list from API
+    fetch('https://ifsc.razorpay.com/banks')
+        .then(response => response.json())
+        .then(data => {
+            bankList = data.map(bank => bank.name);
+            console.log('Banks loaded:', bankList.length);
+        })
+        .catch(error => {
+            console.error('Error fetching banks:', error);
+            // Fallback to some major banks if API fails
+            bankList = [
+                "State Bank of India",
+                "HDFC Bank",
+                "ICICI Bank",
+                "Punjab National Bank",
+                "Bank of Baroda",
+                "Canara Bank",
+                "Axis Bank",
+                "Union Bank of India",
+                "Bank of India",
+                "Indian Bank"
+            ];
+        });
+
     // Get all payment methods and details
     const paymentMethods = document.querySelectorAll('.payment-method');
     const paymentDetails = document.querySelectorAll('.payment-details');
@@ -62,27 +364,6 @@ document.addEventListener('DOMContentLoaded', function() {
             input.value = 'card'; // Default value
             form.appendChild(input);
         }
-    });
-
-    // Form submission handling
-    document.querySelectorAll('.payment-form').forEach(form => {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const button = this.querySelector('.pay-button');
-            const buttonContent = button.querySelector('.button-content');
-            const buttonLoader = button.querySelector('.button-loader');
-            
-            // Show loading state
-            if (buttonContent && buttonLoader) {
-                buttonContent.style.display = 'none';
-                buttonLoader.style.display = 'block';
-                button.disabled = true;
-            }
-
-            // Submit the form
-            this.submit();
-        });
     });
 
     // Initialize phone inputs
@@ -193,86 +474,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Update the validateInput function
-    function validateInput(input) {
-        const errorMsg = input.closest('.form-group').querySelector('.error-message');
-        let isValid = true;
-        let errorText = '';
-
-        // Clear previous errors
-        input.classList.remove('error');
-        errorMsg.textContent = '';
-
-        // Required field validation
-        if (input.required && !input.value) {
-            errorText = 'This field is required';
-            isValid = false;
-        }
-        // Pattern validation
-        else if (input.pattern && !new RegExp(input.pattern).test(input.value)) {
-            switch (input.name) {
-                case 'cvv':
-                    errorText = 'Please enter a valid 3-digit CVV';
-                    break;
-                case 'accountNumber':
-                    errorText = 'Please enter a valid numeric account number';
-                    break;
-                case 'ifscCode':
-                    errorText = 'Please enter a valid 11-character IFSC code';
-                    break;
-                case 'bankName':
-                case 'accountHolder':
-                case 'fullName':
-                case 'city':
-                    errorText = 'Please enter valid alphabetic characters only';
-                    break;
-                case 'pincode':
-                    errorText = 'Please enter a valid 6-digit pincode';
-                    break;
-                default:
-                    errorText = 'Please enter a valid value';
-            }
-            isValid = false;
-        }
-
-        if (!isValid) {
-            input.classList.add('error');
-            errorMsg.textContent = errorText;
-        }
-
-        return isValid;
-    }
-
-    // Real-time validation
-    document.querySelectorAll('input').forEach(input => {
-        input.addEventListener('input', () => {
-            if (!input.classList.contains('phone-input')) {
-                validateInput(input);
-            }
-        });
-    });
-
-    // Input validation and formatting
-    const cardNumberInput = document.querySelector('input[placeholder="Card Number"]');
-    if (cardNumberInput) {
-        cardNumberInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            value = value.replace(/(\d{4})/g, '$1 ').trim();
-            e.target.value = value.substring(0, 19);
-        });
-    }
-
-    const expiryInput = document.querySelector('input[placeholder="MM / YY"]');
-    if (expiryInput) {
-        expiryInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length >= 2) {
-                value = value.substring(0, 2) + ' / ' + value.substring(2);
-            }
-            e.target.value = value.substring(0, 7);
-        });
-    }
-
     setupAutocomplete();
 
     // Update all pay button amounts with the total from the server
@@ -282,6 +483,73 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     loadSavedData();
+
+    // Add bank name specific handling
+    const bankNameInput = document.querySelector('input[name="bankName"]');
+    if (bankNameInput) {
+        const suggestionsContainer = document.createElement('div');
+        suggestionsContainer.className = 'suggestions-container';
+        bankNameInput.parentNode.insertBefore(suggestionsContainer, bankNameInput.nextSibling);
+
+        // Prevent direct typing/pasting in the input
+        bankNameInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Backspace' || e.key === 'Delete') {
+                selectedBank = '';
+            }
+        });
+
+        bankNameInput.addEventListener('input', function() {
+            const inputValue = this.value.toLowerCase();
+            const suggestions = bankList.filter(bank => 
+                bank.toLowerCase().includes(inputValue)
+            ).slice(0, 10); // Limit to 10 suggestions
+
+            displayBankSuggestions(suggestions, suggestionsContainer, this);
+            
+            // If the input value doesn't match the selected bank, mark as invalid
+            if (this.value !== selectedBank) {
+                this.classList.add('error');
+                const errorMsg = this.closest('.form-group').querySelector('.error-message');
+                errorMsg.textContent = 'Please select a bank from the suggestions';
+            }
+        });
+
+        // Prevent pasting invalid values
+        bankNameInput.addEventListener('paste', function(e) {
+            e.preventDefault();
+        });
+
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!bankNameInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+                suggestionsContainer.innerHTML = '';
+                // Validate the input when clicking outside
+                if (bankNameInput.value !== selectedBank) {
+                    bankNameInput.value = selectedBank; // Reset to last valid selection
+                }
+            }
+        });
+    }
+
+    function displayBankSuggestions(suggestions, container, input) {
+        container.innerHTML = '';
+        if (suggestions.length > 0 && input.value.length > 0) {
+            suggestions.forEach(suggestion => {
+                const div = document.createElement('div');
+                div.className = 'suggestion-item';
+                div.textContent = suggestion;
+                div.addEventListener('click', () => {
+                    input.value = suggestion;
+                    selectedBank = suggestion; // Update selected bank
+                    container.innerHTML = '';
+                    input.classList.remove('error');
+                    const errorMsg = input.closest('.form-group').querySelector('.error-message');
+                    errorMsg.textContent = '';
+                });
+                container.appendChild(div);
+            });
+        }
+    }
 });
 
 function loadSavedData() {
