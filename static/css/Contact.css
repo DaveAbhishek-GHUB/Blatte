@@ -169,3 +169,31 @@ button:hover {
         padding: 10px;
     }
 }
+
+/* Form Validation Styles */
+.error {
+    border: 1px solid #ff0000;
+}
+
+.error-message {
+    color: #ff0000;
+    font-size: 12px;
+    margin-top: -5px;
+    margin-bottom: 5px;
+}
+
+/* Focus styles for better accessibility */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 2px solid #000;
+    outline-offset: -1px;
+}
+
+/* Remove invalid field styling */
+input:not(:placeholder-shown):invalid,
+textarea:not(:placeholder-shown):invalid,
+select:invalid {
+    border: none;
+    background-color: #f0f0f0;  /* Keep consistent with your original input styling */
+}

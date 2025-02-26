@@ -18,7 +18,7 @@ from flask import (
     Flask,
     render_template,
     request,
-    redirect,
+    redirect,   
     url_for,
     flash,
     make_response,
@@ -671,9 +671,68 @@ def press_inquiries():
     """Media and press relations contact page."""
     return render_template('Pressinquiries.html')
 
-@app.route('/Contact')
+@app.route('/Contact', methods=['GET', 'POST'])
 def contact():
-    """General customer support contact page."""
+    """General customer support contact page with form handling."""
+    if request.method == 'POST':
+        try:
+            # Get form data with proper validation
+            form_data = {
+                'name': request.form.get('name', '').strip(),
+                'email': request.form.get('email', '').strip(),
+                'phone_number': request.form.get('phone_number', '').strip() or '',
+                'subject': request.form.get('subject', '').strip(),
+                'order_number': request.form.get('order_number', '').strip() or None,
+                'message': request.form.get('message', '').strip()
+            }
+            
+            # Basic validation
+            if not form_data['name'] or not form_data['email'] or not form_data['subject'] or not form_data['message']:
+                flash('Please fill in all required fields', 'error')
+                return redirect(url_for('contact'))
+            
+            conn = get_db_connection()
+            if not conn:
+                flash('System error: Unable to submit form', 'error')
+                return redirect(url_for('contact'))
+            
+            try:
+                with conn.cursor() as cursor:
+                    # Convert order_number to integer if present
+                    order_number = int(form_data['order_number']) if form_data['order_number'] and form_data['order_number'].isdigit() else None
+                    
+                    # Insert form data into contact_forms table
+                    cursor.execute("""
+                        INSERT INTO contact_forms 
+                        (name, email, phone_number, subject, order_number, message)
+                        VALUES (%s, %s, %s, %s, %s, %s)
+                    """, (
+                        form_data['name'],
+                        form_data['email'],
+                        form_data['phone_number'],
+                        form_data['subject'],
+                        order_number,
+                        form_data['message']
+                    ))
+                    conn.commit()
+                    
+                flash('Message sent successfully', 'success')
+                return redirect(url_for('contact'))
+                
+            except mysql.connector.Error as err:
+                print(f"Database error: {err}")
+                flash('Error submitting form', 'error')
+                return redirect(url_for('contact'))
+            finally:
+                if conn:
+                    conn.close()
+                    
+        except Exception as e:
+            print(f"Error: {e}")
+            flash('Error submitting form', 'error')
+            return redirect(url_for('contact'))
+    
+    # GET request - display the form
     return render_template('Contact.html')
 
 @app.route('/Trackandtrace')
@@ -1555,7 +1614,7 @@ def add_product():
                     product_category, weight, dimensions,
                     availability_status, discount_percentage, reviews_count, average_rating
                 ) VALUES (
-                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
                 )
             """
             cursor.execute(insert_query, (

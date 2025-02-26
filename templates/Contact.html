@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="static/css/Contact.css">
     <!-- Feather Icons CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.css">
+
+    <script src="{{ url_for('static', filename='js/contact-validation.js') }}"></script>
 </head>
 
 <body>
@@ -51,12 +53,37 @@
 
         <!-- Contact form section -->
         <div class="form-container">
-            <form action="#" method="post">
-                <input type="text" placeholder="Your name" required>
-                <input type="email" placeholder="Your E-mail address" required>
-                <input type="tel" placeholder="Your phone number (optional)">
-                <select required>
-                    <option value="" selected>Subject</option>
+            <form action="{{ url_for('contact') }}" method="post" novalidate>
+                <!-- Name field -->
+                <input type="text" 
+                       name="name" 
+                       placeholder="Your name" 
+                       pattern="^[A-Za-z\s]{2,100}$"
+                       title="Please enter a valid name (2-100 characters, letters only)"
+                       minlength="2"
+                       maxlength="100"
+                       required>
+
+                <!-- Email field -->
+                <input type="email" 
+                       name="email" 
+                       placeholder="Your E-mail address"
+                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                       title="Please enter a valid email address"
+                       maxlength="255"
+                       required>
+
+                <!-- Phone number field -->
+                <input type="tel" 
+                       name="phone_number" 
+                       placeholder="Your phone number (optional)"
+                       pattern="^\+?[0-9\s-]{10,15}$"
+                       title="Please enter a valid phone number (10-15 digits, may include +, spaces, or hyphens)"
+                       maxlength="15">
+
+                <!-- Subject dropdown -->
+                <select name="subject" required>
+                    <option value="" selected disabled>Subject</option>
                     <option value="order">Order/return</option>
                     <option value="payment">Payment/Invoice</option>
                     <option value="cooperations">Cooperations</option>
@@ -66,8 +93,23 @@
                     <option value="events">Events</option>
                     <option value="other">Other</option>
                 </select>
-                <input type="text" placeholder="Order number (optional)">
-                <textarea placeholder="Your message" required></textarea>
+
+                <!-- Order number field -->
+                <input type="text" 
+                       name="order_number" 
+                       placeholder="Order number (optional)"
+                       pattern="^[0-9]{1,10}$"
+                       title="Please enter a valid order number (numbers only, max 10 digits)">
+
+                <!-- Message field -->
+                <textarea name="message" 
+                          placeholder="Your message"
+                          minlength="10"
+                          maxlength="1000"
+                          title="Please enter a message between 10 and 1000 characters"
+                          required></textarea>
+
+                <!-- Submit button -->
                 <button type="submit">Submit message</button>
             </form>
         </div>
@@ -80,9 +122,9 @@
 
     <!-- Initialize Feather Icons -->
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="{{ url_for('static', filename='js/contact-validation.js') }}"></script>
     <script>
         feather.replace();
     </script>
 </body>
-
 </html>
