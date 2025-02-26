@@ -43,6 +43,27 @@
             window.location.href = '/checkout';
         }
 
+        /**
+         * Updates the quantity of a product in the cart
+         * @param {string} productId - The ID of the product to update
+         * @param {number} quantity - The new quantity
+         */
+        function updateQuantity(productId, quantity) {
+            fetch(`/api/cart/${productId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ quantity: parseInt(quantity) })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                }
+            });
+        }
+
         // Initialize Feather Icons after DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
             feather.replace();

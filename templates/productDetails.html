@@ -104,15 +104,13 @@
                 </div>
                 
                 {# Add to Cart Section #}
-                <a href="/cart">
                 <div class="add-to-cart">
-                    <input type="number" value="1" min="1" class="quantity">
-                    <button class="add-to-cart-btn">
+                    <input type="number" value="1" min="1" class="quantity" id="product-quantity">
+                    <button class="add-to-cart-btn" onclick="addToCart('{{ product.id }}', document.getElementById('product-quantity').value)">
                         <i data-feather="shopping-cart"></i>
                         Add to cart
                     </button>
                 </div>
-                </a>
 
                 <div class="payment-methods">
                     <!-- Payment method icons will go here -->

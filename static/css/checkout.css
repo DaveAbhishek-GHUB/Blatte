@@ -597,3 +597,40 @@ input[name="bankName"] {
     grid-template-columns: 1fr;
   }
 }
+
+/* Update the pay button styles */
+.pay-button {
+    width: 100%;
+    padding: 0.75rem 2rem;
+    background: #000;
+    border: 2px solid #000;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pay-button:hover {
+    background: #fff;
+    color: #000;
+}
+
+.pay-button:hover .button-icon {
+    color: #000;
+}
+
+.button-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.button-icon {
+    transition: color 0.3s ease;
+}

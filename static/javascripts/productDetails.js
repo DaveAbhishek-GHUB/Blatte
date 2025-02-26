@@ -20,3 +20,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Add new function for cart handling
+function addToCart(productId) {
+    const quantity = document.getElementById('product-quantity').value;
+    
+    fetch(`/api/cart/${productId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ quantity: parseInt(quantity) })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = '/cart';
+        } else {
+            // Handle error case
+            alert(data.message || 'Error adding to cart');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error adding to cart');
+    });
+}
