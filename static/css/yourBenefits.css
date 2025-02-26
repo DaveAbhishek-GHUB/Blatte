@@ -28,11 +28,12 @@
 /* Grid layout for benefit items */
 .benefits-grid {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: space-between;
     gap: 24px;
     max-width: 1400px;
     margin: 0 auto;
+    overflow-x: auto;
 }
 
 /* Individual benefit item styling */
@@ -40,8 +41,8 @@
     display: flex;
     align-items: flex-start;
     gap: 16px;
-    flex: 1 1 calc(33.333% - 24px); /* Three columns by default */
-    min-width: 280px; /* Minimum width before wrapping */
+    flex: 1;
+    min-width: auto;
 }
 
 /* Benefit icon container */
@@ -115,7 +116,7 @@
     }
     
     .benefit-item {
-        flex: 1 1 calc(50% - 20px); /* Two columns */
+        flex: 1;
     }
     
     .benefit-icon {
@@ -141,7 +142,7 @@
     }
     
     .benefit-item {
-        flex: 1 1 100%; /* Single column */
+        flex: 1;
     }
     
     .benefit-item h3 {
