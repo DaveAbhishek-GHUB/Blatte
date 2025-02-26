@@ -33,12 +33,6 @@ main {
     min-height: 60vh;
 }
 
-.wishlist-title {
-    margin-bottom: clamp(20px, 4vw, 40px);
-    font-family: 'serif-400', serif;
-    letter-spacing: 1px;
-}
-
 /* Grid layout for wishlist items */
 .wishlist-items {
     display: grid;
