@@ -825,10 +825,20 @@ def toggle_cart(product_id):
             current_cart = user['carted'] if user['carted'] else '[]'
             cart = json.loads(current_cart)
             
+            # Helper function to find product in cart
+            def find_product_in_cart(cart, product_id):
+                for i, item in enumerate(cart):
+                    if isinstance(item, dict) and item['product_id'] == product_id:
+                        return i
+                    elif item == product_id:
+                        return i
+                return -1
+            
             if request.method == 'DELETE':
                 # Remove product from cart
-                if product_id in cart:
-                    cart.remove(product_id)
+                index = find_product_in_cart(cart, product_id)
+                if index != -1:
+                    cart.pop(index)
                     message = 'Product removed from cart'
                 else:
                     message = 'Product not in cart'
@@ -848,8 +858,9 @@ def toggle_cart(product_id):
             
             elif request.method == 'POST':
                 # Add product to cart if not already present
-                if product_id not in cart:
-                    cart.append(product_id)
+                index = find_product_in_cart(cart, product_id)
+                if index == -1:
+                    cart.append({'product_id': product_id, 'quantity': 1})
                     message = 'Product added to cart'
                     in_cart = True
                     
@@ -864,7 +875,7 @@ def toggle_cart(product_id):
                     message = 'Product already in cart'
                     in_cart = True
             else:  # GET request
-                in_cart = product_id in cart
+                in_cart = find_product_in_cart(cart, product_id) != -1
                 message = 'Cart status checked'
             
             return jsonify({
