@@ -1119,8 +1119,18 @@ def process_checkout():
                 flash('Your cart is empty', 'error')
                 return redirect(url_for('cart'))
 
+            # Create a map of product_id to quantity from cart items
+            quantities = {}
+            product_ids = []
+            for item in cart_items:
+                if isinstance(item, dict):
+                    product_ids.append(item['product_id'])
+                    quantities[str(item['product_id'])] = item.get('quantity', 1)
+                else:
+                    product_ids.append(item)
+                    quantities[str(item)] = 1
+
             # Get product details for cart items
-            product_ids = [item['product_id'] if isinstance(item, dict) else item for item in cart_items]
             placeholders = ', '.join(['%s'] * len(product_ids))
             cursor.execute(f"""
                 SELECT id, product_name, price 
@@ -1133,8 +1143,8 @@ def process_checkout():
                 flash('No products found for the items in your cart', 'error')
                 return redirect(url_for('cart'))
 
-            # Calculate total amount
-            total_amount = sum(float(product['price']) for product in products)
+            # Calculate total amount with quantities
+            total_amount = sum(float(product['price']) * quantities[str(product['id'])] for product in products)
 
             # Get payment and shipping details from form
             payment_method = request.form.get('payment_method', 'card')
@@ -1147,13 +1157,13 @@ def process_checkout():
                 'country': request.form.get('country', '')
             }
 
-            # Create order object
+            # Create order object with correct quantities
             order = {
                 "order_id": datetime.now().strftime('%Y%m%d%H%M%S'),
                 "products": [{"product_id": str(product['id']), 
                             "name": product['product_name'], 
                             "price": float(product['price']), 
-                            "quantity": 1} for product in products],
+                            "quantity": quantities[str(product['id'])]} for product in products],
                 "total_amount": float(total_amount),
                 "payment": {
                     "method_id": "1",  # Convert to string
