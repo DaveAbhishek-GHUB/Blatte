@@ -6,8 +6,10 @@
     <title>{{ product.product_name }} - Product Details</title>
     <!-- Stylesheets -->
     <link rel="stylesheet" href="/static/css/productDetails.css">
+    <link rel="stylesheet" href="/static/css/toast.css">
     <!-- JavaScript -->
     <script src="/static/javascripts/productDetails.js"></script>
+    <script src="/static/javascripts/toast.js"></script>
     <!-- Feather Icons CDN -->
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
@@ -104,15 +106,13 @@
                 </div>
                 
                 {# Add to Cart Section #}
-                <a href="/cart">
                 <div class="add-to-cart">
-                    <input type="number" value="1" min="1" class="quantity">
-                    <button class="add-to-cart-btn">
+                    <input type="number" value="1" min="1" class="quantity" id="product-quantity">
+                    <button class="add-to-cart-btn" data-product-id="{{ product.id }}">
                         <i data-feather="shopping-cart"></i>
                         Add to cart
                     </button>
                 </div>
-                </a>
 
                 <div class="payment-methods">
                     <!-- Payment method icons will go here -->
