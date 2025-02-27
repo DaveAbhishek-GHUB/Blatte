@@ -1119,22 +1119,37 @@ def process_checkout():
                 flash('Your cart is empty', 'error')
                 return redirect(url_for('cart'))
 
+            # Create a map of product_id to quantity from cart items
+            quantities = {}
+            product_ids = []
+            for item in cart_items:
+                if isinstance(item, dict):
+                    product_ids.append(item['product_id'])
+                    quantities[str(item['product_id'])] = item.get('quantity', 1)
+                else:
+                    product_ids.append(item)
+                    quantities[str(item)] = 1
+
             # Get product details for cart items
-            product_ids = [item['product_id'] if isinstance(item, dict) else item for item in cart_items]
             placeholders = ', '.join(['%s'] * len(product_ids))
             cursor.execute(f"""
-                SELECT id, product_name, price 
+                SELECT id, product_name, price, main_product_image 
                 FROM products 
                 WHERE id IN ({placeholders})
             """, product_ids)
             products = cursor.fetchall()
 
+            # Debug: Print products data
+            print("DEBUG - Products from database:")
+            for product in products:
+                print(f"Product ID: {product['id']}, Image: {product['main_product_image']}")
+
             if not products:
                 flash('No products found for the items in your cart', 'error')
                 return redirect(url_for('cart'))
 
-            # Calculate total amount
-            total_amount = sum(float(product['price']) for product in products)
+            # Calculate total amount with quantities
+            total_amount = sum(float(product['price']) * quantities[str(product['id'])] for product in products)
 
             # Get payment and shipping details from form
             payment_method = request.form.get('payment_method', 'card')
@@ -1147,13 +1162,14 @@ def process_checkout():
                 'country': request.form.get('country', '')
             }
 
-            # Create order object
+            # Create order object with correct quantities
             order = {
                 "order_id": datetime.now().strftime('%Y%m%d%H%M%S'),
                 "products": [{"product_id": str(product['id']), 
                             "name": product['product_name'], 
                             "price": float(product['price']), 
-                            "quantity": 1} for product in products],
+                            "quantity": quantities[str(product['id'])],
+                            "image_url": product['main_product_image']} for product in products],
                 "total_amount": float(total_amount),
                 "payment": {
                     "method_id": "1",  # Convert to string
@@ -1164,6 +1180,11 @@ def process_checkout():
                 "order_status": "In Progress",
                 "order_date": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             }
+
+            # Debug: Print order data
+            print("DEBUG - Created order object:")
+            for product in order['products']:
+                print(f"Product in order: {product['name']}, Image URL: {product['image_url']}")
 
             # Convert the entire order to a JSON string
             order_json = json.dumps(order)
@@ -1299,26 +1320,12 @@ def myorders():
             # Parse the ordered JSON data
             all_orders = json.loads(user['ordered']) if user['ordered'] else []
 
-            # Collect all product IDs from all orders
-            product_ids = []
+            # Debug: Print orders data
+            print("DEBUG - Orders from database:")
             for order in all_orders:
+                print(f"Order ID: {order['order_id']}")
                 for product in order['products']:
-                    product_ids.append(product['product_id'])
-
-            # Fetch product images for all products at once
-            if product_ids:
-                placeholders = ', '.join(['%s'] * len(product_ids))
-                cursor.execute(f"""
-                    SELECT id, main_product_image 
-                    FROM products 
-                    WHERE id IN ({placeholders})
-                """, product_ids)
-                product_images = {row['id']: row['main_product_image'] for row in cursor.fetchall()}
-
-                # Add image URLs to the order products
-                for order in all_orders:
-                    for product in order['products']:
-                        product['image_url'] = product_images.get(product['product_id'], '/static/images/product-placeholder.jpg')
+                    print(f"Product: {product['name']}, Image URL: {product.get('image_url', 'No image URL')}")
 
             # Filter orders based on status
             filtered_orders = []
@@ -1326,6 +1333,12 @@ def myorders():
                 # Add a default order_status if not present
                 if 'order_status' not in order:
                     order['order_status'] = 'In Progress'
+                
+                # Ensure each product has an image_url, use placeholder if missing
+                for product in order['products']:
+                    if 'image_url' not in product or not product['image_url']:
+                        print(f"DEBUG - Missing image_url for product: {product['name']}")
+                        product['image_url'] = '/static/images/product-placeholder.jpg'
                 
                 if status_filter == 'all' or order.get('order_status', '').lower() == status_filter:
                     filtered_orders.append(order)
@@ -1661,7 +1674,7 @@ def add_product():
                     product_category, weight, dimensions,
                     availability_status, discount_percentage, reviews_count, average_rating
                 ) VALUES (
-                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+                    %s, %s, %s, %s, %s, %s, %s, %s
                 )
             """
             cursor.execute(insert_query, (
