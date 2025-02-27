@@ -73,13 +73,11 @@
                     </div>
                 </div>
                 <div class="price-section">
-                    <p>₹{{ "%.2f"|format(product.price) }}</p>
+                    <p data-base-price="{{ "%.2f"|format(product.price) }}">₹{{ "%.2f"|format(product.price * product.quantity) }}</p>
                     <select onchange="updateQuantity('{{ product.id }}', this.value)">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
+                        {% for i in range(1, 6) %}
+                            <option value="{{ i }}" {% if product.quantity == i %}selected{% endif %}>{{ i }}</option>
+                        {% endfor %}
                     </select>
                 </div>
             </div>

@@ -903,33 +903,45 @@ def cart():
                 return render_template('cart.html', products=[])
                 
             # Parse cart JSON array
-            cart_ids = json.loads(user['carted'])
+            cart_data = json.loads(user['carted'])
             
-            if not cart_ids:
+            if not cart_data:
                 return render_template('cart.html', products=[])
             
+            # Extract product IDs and quantities
+            product_ids = []
+            quantities = {}
+            for item in cart_data:
+                if isinstance(item, dict):
+                    product_ids.append(item['product_id'])
+                    quantities[item['product_id']] = item['quantity']
+                else:
+                    product_ids.append(item)
+                    quantities[item] = 1
+            
             # Fetch products that are in the cart
-            placeholders = ', '.join(['%s'] * len(cart_ids))
+            placeholders = ', '.join(['%s'] * len(product_ids))
             cursor.execute(f"""
                 SELECT * FROM products 
                 WHERE id IN ({placeholders})
                 ORDER BY FIELD(id, {placeholders})
-            """, cart_ids + cart_ids)  # Pass IDs twice for IN and FIELD
+            """, product_ids + product_ids)
             
             products = cursor.fetchall()
             
-            # Parse JSON fields for each product
+            # Parse JSON fields for each product and add quantity
             for product in products:
                 product['description'] = json.loads(product['description']) if product['description'] else []
                 product['additional_images'] = json.loads(product['additional_images']) if product['additional_images'] else []
                 product['ingredients'] = json.loads(product['ingredients']) if product['ingredients'] else []
                 product['brewing_notes'] = json.loads(product['brewing_notes']) if product['brewing_notes'] else []
+                product['quantity'] = quantities.get(product['id'], 1)
             
             return render_template('cart.html', products=products)
             
     except mysql.connector.Error as err:
         print(f"Database error: {err}")
-        flash('Error loading cart', 'error')
+        flash('Error loading cart items', 'error')
         return render_template('cart.html', products=[])
     finally:
         if conn:
@@ -1015,25 +1027,40 @@ def checkout():
                 return render_template('checkout.html', cart_items=[])
                 
             # Parse cart JSON array
-            cart_ids = json.loads(user['carted'])
+            cart_data = json.loads(user['carted'])
             
-            if not cart_ids:
+            if not cart_data:
                 return render_template('checkout.html', cart_items=[])
             
+            # Extract product IDs and quantities
+            product_ids = []
+            quantities = {}
+            for item in cart_data:
+                if isinstance(item, dict):
+                    product_ids.append(item['product_id'])
+                    quantities[item['product_id']] = item['quantity']
+                else:
+                    product_ids.append(item)
+                    quantities[item] = 1
+            
             # Fetch products in cart
-            placeholders = ', '.join(['%s'] * len(cart_ids))
+            placeholders = ', '.join(['%s'] * len(product_ids))
             cursor.execute(f"""
                 SELECT id, product_name, price, main_product_image, 
                        product_category, weight, availability_status 
                 FROM products 
                 WHERE id IN ({placeholders})
                 ORDER BY FIELD(id, {placeholders})
-            """, cart_ids + cart_ids)
+            """, product_ids + product_ids)
             
             cart_items = cursor.fetchall()
             
-            # Calculate total
-            subtotal = sum(item['price'] for item in cart_items)
+            # Add quantities to cart items
+            for item in cart_items:
+                item['quantity'] = quantities.get(item['id'], 1)
+            
+            # Calculate total with quantities
+            subtotal = sum(item['price'] * item['quantity'] for item in cart_items)
             
             return render_template('checkout.html', 
                                  cart_items=cart_items,
@@ -1383,7 +1410,7 @@ def dashboard():
                     
                     # Ensure total_amount is float
                     order['total_amount'] = float(str(order['total_amount']).replace(',', ''))
-                    
+
                     # Set default status if not present
                     if 'order_status' not in order:
                         order['order_status'] = 'In Progress'
@@ -1614,7 +1641,7 @@ def add_product():
                     product_category, weight, dimensions,
                     availability_status, discount_percentage, reviews_count, average_rating
                 ) VALUES (
-                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
                 )
             """
             cursor.execute(insert_query, (
@@ -1971,6 +1998,60 @@ def get_dashboard_data():
             'userGrowth': {'labels': [], 'data': []},
             'orderGrowth': {'labels': [], 'data': []}
         })
+    finally:
+        if conn:
+            conn.close()
+
+@app.route('/api/cart/<int:product_id>/quantity', methods=['POST'])
+def update_cart_quantity(product_id):
+    """Update the quantity of a product in the cart"""
+    user_email = request.cookies.get('user_email')
+    if not user_email:
+        return jsonify({'success': False, 'message': 'Please login first'})
+
+    try:
+        quantity = request.json.get('quantity', 1)
+        conn = get_db_connection()
+        
+        with conn.cursor(dictionary=True) as cursor:
+            # Get user's cart
+            cursor.execute("SELECT carted FROM users WHERE email = %s", (user_email,))
+            user = cursor.fetchone()
+            
+            if not user or not user['carted']:
+                return jsonify({'success': False, 'message': 'Cart not found'})
+            
+            # Parse current cart data
+            cart_data = json.loads(user['carted'])
+            
+            # Update or add quantity information
+            updated_cart = []
+            for item in cart_data:
+                if isinstance(item, dict):
+                    # If item is already a dict with quantity
+                    if item['product_id'] == product_id:
+                        item['quantity'] = quantity
+                    updated_cart.append(item)
+                else:
+                    # If item is just a product ID
+                    if item == product_id:
+                        updated_cart.append({'product_id': product_id, 'quantity': quantity})
+                    else:
+                        updated_cart.append({'product_id': item, 'quantity': 1})
+            
+            # Update cart in database
+            cursor.execute("""
+                UPDATE users 
+                SET carted = %s 
+                WHERE email = %s
+            """, (json.dumps(updated_cart), user_email))
+            conn.commit()
+            
+            return jsonify({'success': True, 'message': 'Quantity updated successfully'})
+            
+    except Exception as e:
+        print(f"Error updating quantity: {e}")
+        return jsonify({'success': False, 'message': 'Error updating quantity'})
     finally:
         if conn:
             conn.close()

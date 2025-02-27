@@ -443,9 +443,9 @@
                         <div class="item-details">
                             <h4 class="item-name">{{ item.product_name }}</h4>
                             <p class="item-variant">{{ item.product_category }}{% if item.weight %} | {{ item.weight }}{% endif %}</p>
-                            <div class="item-quantity">Qty: 1</div>
+                            <div class="item-quantity">Qty: {{ item.quantity }}</div>
                         </div>
-                        <div class="item-price">₹{{ "%.2f"|format(item.price) }}</div>
+                        <div class="item-price">₹{{ "%.2f"|format(item.price * item.quantity) }}</div>
                     </div>
                     {% endfor %}
                 </div>
