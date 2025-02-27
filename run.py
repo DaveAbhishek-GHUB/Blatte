@@ -1119,19 +1119,16 @@ def process_checkout():
                 flash('Your cart is empty', 'error')
                 return redirect(url_for('cart'))
 
-            print("Cart Items:", cart_items)  # Debugging line
-            placeholders = ', '.join(['%s'] * len(cart_items))
-            query = f"""
+            # Get product details for cart items
+            product_ids = [item['product_id'] if isinstance(item, dict) else item for item in cart_items]
+            placeholders = ', '.join(['%s'] * len(product_ids))
+            cursor.execute(f"""
                 SELECT id, product_name, price 
                 FROM products 
                 WHERE id IN ({placeholders})
-            """
-            print("SQL Query:", query)  # Debugging line
-            cursor.execute(query, cart_items)
+            """, product_ids)
             products = cursor.fetchall()
-            print("Fetched Products:", products)  # Debugging line
 
-            # Check if products were fetched
             if not products:
                 flash('No products found for the items in your cart', 'error')
                 return redirect(url_for('cart'))
@@ -1153,27 +1150,35 @@ def process_checkout():
             # Create order object
             order = {
                 "order_id": datetime.now().strftime('%Y%m%d%H%M%S'),
-                "products": [{"product_id": product['id'], "name": product['product_name'], "price": float(product['price']), "quantity": 1} for product in products],
-                "total_amount": total_amount,
+                "products": [{"product_id": str(product['id']), 
+                            "name": product['product_name'], 
+                            "price": float(product['price']), 
+                            "quantity": 1} for product in products],
+                "total_amount": float(total_amount),
                 "payment": {
-                    "method_id": 1,  # Assuming a static method ID for simplicity
+                    "method_id": "1",  # Convert to string
                     "type": payment_method
                 },
-                "payment_status": True,
+                "payment_status": "completed",  # Convert boolean to string
                 "shipping_address": shipping_address,
-                "order_status": "In Progress"
+                "order_status": "In Progress",
+                "order_date": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             }
+
+            # Convert the entire order to a JSON string
+            order_json = json.dumps(order)
 
             # Update user's ordered field
             ordered_items = json.loads(user_data['ordered']) if user_data['ordered'] else []
             ordered_items.append(order)
+            ordered_json = json.dumps(ordered_items)
 
-            # Update the user's ordered field in the database
+            # Update the user's ordered field in the database and clear cart
             cursor.execute("""
                 UPDATE users 
                 SET ordered = %s, carted = '[]'
                 WHERE id = %s
-            """, (json.dumps(ordered_items), user_data['id']))
+            """, (ordered_json, user_data['id']))
 
             # Commit the transaction
             conn.commit()
@@ -1181,6 +1186,10 @@ def process_checkout():
             flash('Order placed successfully!', 'success')
             return redirect(url_for('order'))
 
+    except json.JSONDecodeError as e:
+        print(f"JSON decode error: {e}")
+        flash('Error processing order data', 'error')
+        return redirect(url_for('checkout'))
     except mysql.connector.Error as err:
         print(f"Database error: {err}")
         flash('Error processing order', 'error')
@@ -1652,7 +1661,7 @@ def add_product():
                     product_category, weight, dimensions,
                     availability_status, discount_percentage, reviews_count, average_rating
                 ) VALUES (
-                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
                 )
             """
             cursor.execute(insert_query, (

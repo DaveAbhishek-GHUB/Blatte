@@ -1,9 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize Feather icons
-    feather.replace();
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+    }
 
-    // Add bank list array at the top
-    let bankList = [];
+    // Add bank list array at the top with default values since API is not working
+    let bankList = [
+        "State Bank of India",
+        "HDFC Bank",
+        "ICICI Bank",
+        "Punjab National Bank",
+        "Bank of Baroda",
+        "Canara Bank",
+        "Axis Bank",
+        "Union Bank of India",
+        "Bank of India",
+        "Indian Bank"
+    ];
     let selectedBank = ''; // Track the selected bank
 
     // Validation patterns
@@ -55,7 +68,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Update the validateInput function with comprehensive validation
     function validateInput(input) {
-        const errorMsg = input.closest('.form-group').querySelector('.error-message');
+        const formGroup = input.closest('.form-group');
+        if (!formGroup) return true; // Skip validation if form group not found
+        
+        let errorMsg = formGroup.querySelector('.error-message');
+        if (!errorMsg) {
+            // Create error message element if it doesn't exist
+            errorMsg = document.createElement('div');
+            errorMsg.className = 'error-message';
+            formGroup.appendChild(errorMsg);
+        }
+        
         let isValid = true;
         let errorText = '';
 
@@ -238,6 +261,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Setup form submission validation
     document.querySelectorAll('.payment-form').forEach(form => {
+        if (!form) return; // Skip if form not found
+        
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -252,6 +277,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (isFormValid) {
                 const button = this.querySelector('.pay-button');
+                if (!button) return; // Skip if button not found
+                
                 const buttonContent = button.querySelector('.button-content');
                 const buttonLoader = button.querySelector('.button-loader');
                 
@@ -279,30 +306,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-
-    // Fetch bank list from API
-    fetch('https://ifsc.razorpay.com/banks')
-        .then(response => response.json())
-        .then(data => {
-            bankList = data.map(bank => bank.name);
-            console.log('Banks loaded:', bankList.length);
-        })
-        .catch(error => {
-            console.error('Error fetching banks:', error);
-            // Fallback to some major banks if API fails
-            bankList = [
-                "State Bank of India",
-                "HDFC Bank",
-                "ICICI Bank",
-                "Punjab National Bank",
-                "Bank of Baroda",
-                "Canara Bank",
-                "Axis Bank",
-                "Union Bank of India",
-                "Bank of India",
-                "Indian Bank"
-            ];
-        });
 
     // Get all payment methods and details
     const paymentMethods = document.querySelectorAll('.payment-method');
@@ -444,7 +447,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     );
                 }
                 
-                displaySuggestions(suggestions, suggestionsContainer, input);
+                displaySuggestions(suggestions, suggestionsContainer, this);
             });
             
             // Hide suggestions when clicking outside
@@ -477,10 +480,15 @@ document.addEventListener('DOMContentLoaded', function() {
     setupAutocomplete();
 
     // Update all pay button amounts with the total from the server
-    const totalAmount = document.querySelector('.price-row.total span:last-child').textContent;
-    document.querySelectorAll('.button-amount').forEach(amount => {
-        amount.textContent = totalAmount;
-    });
+    const totalAmountElement = document.querySelector('.price-row.total span:last-child');
+    if (totalAmountElement) {
+        const totalAmount = totalAmountElement.textContent;
+        document.querySelectorAll('.button-amount').forEach(amount => {
+            if (amount) {
+                amount.textContent = totalAmount;
+            }
+        });
+    }
 
     loadSavedData();
 
@@ -554,16 +562,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function loadSavedData() {
     fetch('/api/user/saved-data')
-        .then(response => response.json())
-        .then(data => {
-            populateSavedAddresses(data.addresses);
-            populateSavedPaymentMethods(data.payment_methods);
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
         })
-        .catch(error => console.error('Error loading saved data:', error));
+        .then(data => {
+            if (data && typeof data === 'object') {
+                populateSavedAddresses(data.addresses || []);
+                populateSavedPaymentMethods(data.payment_methods || []);
+            }
+        })
+        .catch(error => {
+            console.warn('Error loading saved data:', error);
+            // Initialize with empty data instead of failing
+            populateSavedAddresses([]);
+            populateSavedPaymentMethods([]);
+        });
 }
 
 function populateSavedAddresses(addresses) {
     const container = document.querySelector('.saved-addresses-list');
+    if (!container) return; // Add null check
+    
+    if (!addresses || !Array.isArray(addresses)) {
+        addresses = []; // Provide empty array if addresses is invalid
+    }
+    
     container.innerHTML = addresses.map(address => `
         <div class="saved-item" data-address-id="${address.id}">
             <div class="saved-item-header">
@@ -578,7 +604,9 @@ function populateSavedAddresses(addresses) {
     `).join('');
     
     // Initialize Feather icons
-    feather.replace();
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+    }
     
     // Add click handlers
     container.querySelectorAll('.saved-item').forEach(item => {
@@ -588,22 +616,30 @@ function populateSavedAddresses(addresses) {
 
 function populateSavedPaymentMethods(methods) {
     const container = document.querySelector('.saved-payment-methods-list');
+    if (!container) return; // Add null check
+    
+    if (!methods || !Array.isArray(methods)) {
+        methods = []; // Provide empty array if methods is invalid
+    }
+    
     container.innerHTML = methods.map(method => `
-        <div class="saved-item" data-method-id="${method.id}">
+        <div class="saved-item" data-method-id="${method.id || ''}">
             <div class="saved-item-header">
                 <span class="saved-item-title">${method.type === 'card' ? 'Card' : 'Bank Account'}</span>
                 <i data-feather="check-circle" class="check-icon"></i>
             </div>
             <div class="saved-item-details">
                 ${method.type === 'card' 
-                    ? `${method.card_number}<br>Expires: ${method.expiry}`
-                    : `${method.bank_name}<br>Account: ${method.account_number}<br>IFSC: ${method.ifsc}`}
+                    ? `${method.card_number || ''}<br>Expires: ${method.expiry || ''}`
+                    : `${method.bank_name || ''}<br>Account: ${method.account_number || ''}<br>IFSC: ${method.ifsc || ''}`}
             </div>
         </div>
     `).join('');
     
     // Initialize Feather icons
-    feather.replace();
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+    }
     
     // Add click handlers
     container.querySelectorAll('.saved-item').forEach(item => {
