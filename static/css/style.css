@@ -90,7 +90,7 @@ html, body {
     width: 100%;
     padding: clamp(20px, 2vw, 40px);
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     gap: clamp(20px, 2vw, 40px);
     overflow-x: auto;
     background-color: #EEEEEE;
@@ -103,7 +103,8 @@ html, body {
 }
 
 /* Category items */
-.catProductInfo a {
+.catProductInfo {
+    flex: 0 0 auto;
     width: clamp(100px, 10vw, 200px);
     height: clamp(100px, 10vw, 200px);
     display: flex;
@@ -115,6 +116,14 @@ html, body {
     text-decoration: none;
     color: black;
     transition: transform 0.3s ease;
+}
+
+.catProductInfo a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: black;
 }
 
 .catProductInfo a:hover {
@@ -357,5 +366,58 @@ html, body {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Media Queries for additional responsiveness */
+@media (max-width: 1024px) {
+    .infoWrapper {
+        top: 40px; /* Adjust position for medium screens */
+    }
+
+    .infoWrapperBTN {
+        width: 90%; /* Make button width responsive */
+    }
+
+    .catProductInfo {
+        width: 120px; /* Set a fixed width for medium screens */
+        height: 120px; /* Set a fixed height for medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .categorySection {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .catProductInfo {
+        width: 150px; /* Set a fixed width for smaller screens */
+        height: 150px; /* Set a fixed height for smaller screens */
+    }
+
+    .infoWrapperOne, .infoWrapperTwo {
+        font-size: clamp(14px, 2vw, 20px); /* Adjust font size for smaller screens */
+    }
+
+    .infoWrapperBTN {
+        width: 80%; /* Make button width responsive */
+    }
+}
+
+@media (max-width: 576px) {
+    .infoWrapper {
+        top: 20px; /* Adjust position for smaller screens */
+    }
+
+    .infoWrapperBTN {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .product-title {
+        font-size: clamp(14px, 1.2vw, 20px); /* Adjust title size for smaller screens */
+    }
+
+    .description {
+        font-size: clamp(10px, 0.8vw, 16px); /* Adjust description size for smaller screens */
     }
 }

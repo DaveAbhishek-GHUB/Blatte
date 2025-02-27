@@ -17,7 +17,7 @@
 
 /* Benefits section title styling */
 .benefits-title {
-    font-size: 36px;
+    font-size: clamp(24px, 3vw, 36px); /* Responsive font size */
     margin-bottom: 30px;
     color: #333;
     font-family: 'serif-400', serif;
@@ -28,7 +28,7 @@
 /* Grid layout for benefit items */
 .benefits-grid {
     display: flex;
-    flex-wrap: nowrap; /* Prevent wrapping to keep items on the same line */
+    flex-wrap: wrap; /* Allow wrapping to keep items responsive */
     justify-content: space-between; /* Distribute space between items */
     gap: 24px; /* Space between items */
     max-width: 100%; /* Allow full width */
@@ -40,7 +40,7 @@
     display: flex;
     align-items: flex-start;
     gap: 16px;
-    flex: 0 1 auto; /* Allow items to fit in one line */
+    flex: 1 1 calc(20% - 24px); /* Default to five columns */
     min-width: 200px; /* Set a minimum width for better responsiveness */
 }
 
@@ -65,7 +65,7 @@
 
 /* Benefit heading typography */
 .benefit-item h3 {
-    font-size: 20px;
+    font-size: clamp(16px, 2vw, 20px); /* Responsive font size */
     margin: 0 0 8px 0;
     color: #333;
     font-weight: 400;
@@ -74,7 +74,7 @@
 
 /* Benefit paragraph typography */
 .benefit-item p {
-    font-size: 16px;
+    font-size: clamp(14px, 1.5vw, 16px); /* Responsive font size */
     margin: 0;
     color: #666;
     line-height: 1.5;
@@ -84,18 +84,6 @@
 
 /* Large Desktop Screens (1440px and above) */
 @media (min-width: 1441px) {
-    .benefits-title {
-        font-size: 42px;
-    }
-    
-    .benefit-item h3 {
-        font-size: 24px;
-    }
-    
-    .benefit-item p {
-        font-size: 18px;
-    }
-    
     .benefit-item {
         flex: 1 1 calc(20% - 24px); /* Five columns on large desktops */
     }
@@ -119,7 +107,7 @@
     }
     
     .benefits-title {
-        font-size: 32px;
+        font-size: clamp(24px, 3vw, 32px); /* Adjust title size */
     }
     
     .benefit-item {
@@ -139,8 +127,8 @@
     }
     
     .benefits-title {
-        font-size: 28px;
-        text-align: center;
+        font-size: clamp(20px, 3vw, 28px); /* Adjust title size */
+        text-align: center; /* Center title */
         margin-bottom: 24px;
     }
     
@@ -153,11 +141,11 @@
     }
     
     .benefit-item h3 {
-        font-size: 18px;
+        font-size: clamp(16px, 2vw, 18px); /* Adjust heading size */
     }
     
     .benefit-item p {
-        font-size: 14px;
+        font-size: clamp(12px, 1.5vw, 14px); /* Adjust paragraph size */
     }
 }
 
@@ -168,7 +156,7 @@
     }
     
     .benefits-title {
-        font-size: 24px;
+        font-size: clamp(18px, 3vw, 24px); /* Adjust title size */
         margin-bottom: 20px;
     }
     
@@ -187,12 +175,12 @@
     }
     
     .benefit-item h3 {
-        font-size: 16px;
+        font-size: clamp(14px, 2vw, 16px); /* Adjust heading size */
         margin-bottom: 4px;
     }
     
     .benefit-item p {
-        font-size: 13px;
+        font-size: clamp(10px, 1.5vw, 13px); /* Adjust paragraph size */
     }
 }
 

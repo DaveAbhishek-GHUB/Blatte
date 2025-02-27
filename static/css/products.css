@@ -75,17 +75,20 @@
 }
 
 /* Category section */
-.categorySection {
+.categorySection {  
     width: 100%;
     margin: 65px auto 0;
     padding: clamp(1rem, 2vw, 2rem);
     display: flex;
     gap: clamp(1rem, 2vw, 2rem);
     background-color: #EEEEEE;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .catProductInfo {
-    width: 100%;
+    flex: 0 0 auto;
+    width: clamp(100px, 15vw, 120px);
 }
 
 .catProductInfo a {
