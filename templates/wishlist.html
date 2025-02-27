@@ -29,7 +29,6 @@
         <main>
             <!-- Wishlist Section -->
             <div class="wishlist-container">
-                <h1 class="wishlist-title">Wishlist</h1>
                 <div class="wishlist-items">
                     {% if products %}
                         {% for product in products %}
@@ -40,7 +39,7 @@
                             </a>
                             <div class="product-details">
                                 <h3 class="product-name">{{ product.product_name }}</h3>
-                                <p class="product-price">€{{ "%.2f"|format(product.price) }}</p>
+                                <p class="product-price">₹{{ "%.2f"|format(product.price) }}</p>
                                 <button class="add-to-cart-btn" onclick="addToCart('{{ product.id }}')">
                                     <i data-feather="shopping-cart"></i> Add to Cart
                                 </button>

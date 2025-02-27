@@ -73,7 +73,7 @@
                     </div>
                 </div>
                 <div class="price-section">
-                    <p>€{{ "%.2f"|format(product.price) }}</p>
+                    <p>₹{{ "%.2f"|format(product.price) }}</p>
                     <select onchange="updateQuantity('{{ product.id }}', this.value)">
                         <option value="1">1</option>
                         <option value="2">2</option>

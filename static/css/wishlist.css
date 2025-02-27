@@ -58,6 +58,7 @@ main {
     overflow: hidden;
     position: relative;
     animation: fadeIn 0.5s ease-out forwards;
+    margin-top: 4vw;
 }
 
 .wishlist-item:hover {
@@ -113,7 +114,9 @@ main {
 }
 
 /* Button styles */
-.add-to-cart-btn, .remove-btn, .discover-btn {
+.add-to-cart-btn,
+.remove-btn,
+.discover-btn {
     padding: clamp(8px, 2vw, 10px) clamp(15px, 3vw, 20px);
     border-radius: 4px;
     font-weight: 500;
@@ -122,6 +125,17 @@ main {
     position: relative;
     overflow: hidden;
     font-family: 'Montserrat-400', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.add-to-cart-btn svg,
+.remove-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2;
 }
 
 .add-to-cart-btn {

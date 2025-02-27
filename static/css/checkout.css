@@ -296,9 +296,33 @@ textarea {
   border-color: var(--success-color);
 }
 
-/* Pay button adjustments */
 .payment-form .pay-button {
   margin-top: 1rem;
+  display: flex;
+  /* Ensure the button content is aligned properly */
+  align-items: center;
+  /* Center the content vertically */
+  justify-content: center;
+  /* Center the content horizontally */
+  padding: 0.75rem 1.5rem;
+  /* Add padding for better click area */
+  background-color: var(--primary-color);
+  /* Set background color */
+  color: white;
+  /* Set text color */
+  border: none;
+  /* Remove default border */
+  border-radius: 8px;
+  /* Add border radius for rounded corners */
+  cursor: pointer;
+  /* Change cursor to pointer */
+  transition: background-color 0.3s ease;
+  /* Smooth transition for hover effect */
+}
+
+.payment-form .pay-button:hover {
+  background-color: darken(var(--primary-color), 10%);
+  /* Darken on hover */
 }
 
 /* Order Summary */

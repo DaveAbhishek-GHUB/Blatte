@@ -28,10 +28,10 @@
 /* Grid layout for benefit items */
 .benefits-grid {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 24px;
-    max-width: 1400px;
+    flex-wrap: nowrap; /* Prevent wrapping to keep items on the same line */
+    justify-content: space-between; /* Distribute space between items */
+    gap: 24px; /* Space between items */
+    max-width: 100%; /* Allow full width */
     margin: 0 auto;
 }
 
@@ -40,8 +40,8 @@
     display: flex;
     align-items: flex-start;
     gap: 16px;
-    flex: 1 1 calc(33.333% - 24px); /* Three columns by default */
-    min-width: 280px; /* Minimum width before wrapping */
+    flex: 0 1 auto; /* Allow items to fit in one line */
+    min-width: 200px; /* Set a minimum width for better responsiveness */
 }
 
 /* Benefit icon container */
@@ -95,12 +95,20 @@
     .benefit-item p {
         font-size: 18px;
     }
+    
+    .benefit-item {
+        flex: 1 1 calc(20% - 24px); /* Five columns on large desktops */
+    }
 }
 
 /* Desktop and Small Laptop Screens (1024px to 1440px) */
 @media (max-width: 1440px) {
     .benefits-container {
         padding: 32px 64px;
+    }
+    
+    .benefit-item {
+        flex: 1 1 calc(25% - 20px); /* Four columns on small laptops */
     }
 }
 
@@ -115,7 +123,7 @@
     }
     
     .benefit-item {
-        flex: 1 1 calc(50% - 20px); /* Two columns */
+        flex: 1 1 calc(33.333% - 16px); /* Three columns on larger tablets */
     }
     
     .benefit-icon {
@@ -141,7 +149,7 @@
     }
     
     .benefit-item {
-        flex: 1 1 100%; /* Single column */
+        flex: 1 1 calc(50% - 20px); /* Two columns on tablets */
     }
     
     .benefit-item h3 {
@@ -169,7 +177,8 @@
     }
     
     .benefit-item {
-        gap: 12px;
+        flex: 1 1 100%; /* Single column on mobile */
+        margin-bottom: 16px; /* Space between items */
     }
     
     .benefit-icon {
