@@ -4,11 +4,12 @@
 /* Tea category section */
 .tea-categories {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: clamp(1rem, 2vw, 2rem);
+    justify-content: flex-start; /* Changed to flex-start for better alignment */
+    flex-wrap: nowrap; /* Prevent wrapping to allow horizontal scrolling */
+    gap: 1rem; /* Adjusted gap */
     padding: clamp(1rem, 2vw, 2rem);
-    max-width: 1400px;
+    max-width: 100%; /* Allow full width for responsiveness */
+    overflow-x: auto; /* Enable horizontal scrolling */
     margin: 0 auto;
 }
 
@@ -80,15 +81,18 @@
     margin: 65px auto 0;
     padding: clamp(1rem, 2vw, 2rem);
     display: flex;
-    gap: clamp(1rem, 2vw, 2rem);
+    justify-content: flex-start; /* Changed to flex-start for better alignment */
+    flex-wrap: nowrap; /* Prevent wrapping to allow horizontal scrolling */
     background-color: #EEEEEE;
-    overflow-x: auto;
+    overflow-x: auto; /* Enable horizontal scrolling */
     overflow-y: hidden;
+    gap: 4rem; /* Adjusted gap */
 }
 
 .catProductInfo {
     flex: 0 0 auto;
     width: clamp(100px, 15vw, 120px);
+    gap: 1rem; /* Added gap for catProductInfo */
 }
 
 .catProductInfo a {
@@ -100,7 +104,6 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     font-size: clamp(0.875rem, 1.2vw, 1rem);
-    gap: 1rem;
     text-decoration: none;
     color: black;
     transition: transform 0.3s ease;
