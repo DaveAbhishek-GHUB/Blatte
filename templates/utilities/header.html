@@ -78,6 +78,16 @@
                         >
                     </a>
                     
+                    <!-- My Orders link -->
+                    {% if request.cookies.get('user_email') %}
+                    <a href="/myorders">
+                        <img 
+                            src="../static/images/svgs/package.svg" 
+                            alt="My Orders"
+                        >
+                    </a>
+                    {% endif %}
+                    
                     <!-- User profile link -->
                     <a href="/auth">
                         <img 

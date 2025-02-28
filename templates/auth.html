@@ -9,8 +9,9 @@
     <!-- Feather Icons CDN -->
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     
-    {# ========== PAGE-SPECIFIC STYLESHEET ========== #}
+    {# ========== STYLESHEETS ========== #}
     <link rel="stylesheet" href="../static/css/auth.css">
+    <link rel="stylesheet" href="../static/css/toast.css">
     
     {# ========== PAGE TITLE ========== #}
     <title>Authentication - BLATTÉ</title>
@@ -50,7 +51,8 @@
         {% include 'utilities/footer.html' %}
     </div>
 
-    {# ========== INITIALIZE FEATHER ICONS ========== #}
+    {# ========== SCRIPTS ========== #}
+    <script src="../static/javascripts/toast.js"></script>
     <script>
         // Initialize Feather Icons after DOM content loads
         document.addEventListener('DOMContentLoaded', function() {

@@ -8,13 +8,14 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: #fafafa;
 }
 
 /* Main container */
 .container {
-    max-width: 1200px;
-    margin: 80px auto 0;
-    padding: 20px;
+    max-width: 1400px;
+    margin: 100px auto 0;
+    padding: 40px;
     flex: 1;
 }
 
@@ -25,54 +26,72 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-size: clamp(2rem, 5vw, 3rem);
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    letter-spacing: 0.5px;
+    color: #1a1a1a;
 }
 
 /* Store description */
 .description {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    line-height: 1.6;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    color: #666;
 }
 
 /* Filter section */
 .filters {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
 }
 
 .filters button {
-    padding: 8px 15px;
-    margin: 5px;
-    border: 1px solid #ccc;
+    padding: 12px 24px;
+    margin: 8px;
+    border: 1px solid #e0e0e0;
     background-color: #fff;
     cursor: pointer;
-    border-radius: 3px;
-    font-size: clamp(12px, 2vw, 14px);
-    transition: background-color 0.3s ease;
+    border-radius: 4px;
+    font-size: clamp(14px, 2vw, 16px);
+    transition: all 0.3s ease;
+    color: #333;
+    letter-spacing: 0.5px;
 }
 
 .filters button:hover {
-    background-color: #f0f0f0;
+    background-color: #f8f8f8;
+    border-color: #ccc;
+    transform: translateY(-1px);
 }
 
 /* Store listing */
 .store-list {
     display: flex;
     flex-direction: column;
-    gap: clamp(30px, 5vw, 60px);
+    gap: clamp(60px, 8vw, 100px);
 }
 
 .store {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: clamp(20px, 4vw, 40px);
+    gap: clamp(40px, 6vw, 80px);
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.store:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.06);
 }
 
 /* Store images */
@@ -85,85 +104,127 @@ h1 {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 4px;
+    border-radius: 6px;
+    transition: transform 0.3s ease;
+}
+
+.store-image img:hover {
+    transform: scale(1.02);
 }
 
 /* Store information */
 .store-info {
     flex: 1;
     max-width: 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .store-info h2 {
-    font-size: clamp(1.3rem, 3vw, 1.8rem);
-    margin-bottom: 15px;
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    margin-bottom: 20px;
+    color: #1a1a1a;
+    letter-spacing: 0.5px;
 }
 
 .store-info p {
     margin: 8px 0;
-    line-height: 1.5;
+    line-height: 1.6;
+    color: #666;
 }
 
 .store-info a {
     color: #333;
     text-decoration: none;
     transition: color 0.3s ease;
+    font-weight: 500;
 }
 
 .store-info a:hover {
-    color: #666;
+    color: #000;
 }
 
 /* Store hours */
 .hours {
-    margin: 20px 0;
+    margin: 30px 0;
+    padding: 20px;
+    border-radius: 6px;
 }
 
 .hours p {
-    margin: 5px 0;
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    color: #555;
 }
 
 /* Route button */
 .route-button {
-    padding: 8px 20px;
+    padding: 14px 28px;
     border: 1px solid #333;
     background-color: transparent;
     cursor: pointer;
-    font-size: clamp(12px, 2vw, 14px);
-    margin-top: 10px;
+    font-size: clamp(14px, 2vw, 16px);
+    margin-top: 20px;
     transition: all 0.3s ease;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    width: fit-content;
 }
 
 .route-button:hover {
-    background-color: #f0f0f0;
+    background-color: #333;
+    color: #fff;
+    transform: translateY(-1px);
 }
 
 /* Responsive design */
 @media (max-width: 992px) {
     .container {
-        padding: 15px;
-        margin-top: 60px;
+        padding: 20px;
+        margin-top: 80px;
+    }
+    
+    .store {
+        padding: 30px;
     }
 }
 
 @media (max-width: 768px) {
     .store {
         flex-direction: column;
+        padding: 25px;
     }
 
     .store-image,
     .store-info {
         max-width: 100%;
     }
+    
+    .description {
+        margin-bottom: 40px;
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
     .container {
-        padding: 10px;
-        margin-top: 40px;
+        padding: 15px;
+        margin-top: 60px;
     }
     
     .filters button {
-        width: calc(50% - 10px);
+        width: calc(50% - 16px);
+    }
+    
+    .store {
+        padding: 20px;
+    }
+    
+    .hours {
+        padding: 15px;
     }
 }

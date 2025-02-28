@@ -12,6 +12,7 @@ Maintainer: DevOps Team
 from datetime import datetime
 import json
 from decimal import Decimal
+from functools import wraps
 
 # ========== THIRD-PARTY LIBRARY IMPORTS ========== 
 from flask import (
@@ -1015,14 +1016,53 @@ def products(page=1):
         if conn:
             conn.close()
 
+def cart_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        user_email = request.cookies.get('user_email')
+        
+        # Check if user is logged in
+        if not user_email:
+            flash('Please login to proceed with checkout', 'error')
+            return redirect(url_for('auth'))
+            
+        conn = get_db_connection()
+        if not conn:
+            flash('System error: Unable to verify cart', 'error')
+            return redirect(url_for('cart'))
+            
+        try:
+            with conn.cursor(dictionary=True) as cursor:
+                # Get user's cart
+                cursor.execute("SELECT carted FROM users WHERE email = %s", (user_email,))
+                user = cursor.fetchone()
+                
+                if not user or not user['carted']:
+                    flash('Your cart is empty', 'error')
+                    return redirect(url_for('cart'))
+                    
+                cart_items = json.loads(user['carted'])
+                if not cart_items:
+                    flash('Your cart is empty', 'error')
+                    return redirect(url_for('cart'))
+                    
+                return f(*args, **kwargs)
+                
+        except Exception as e:
+            print(f"Cart verification error: {e}")
+            flash('Error verifying cart contents', 'error')
+            return redirect(url_for('cart'))
+        finally:
+            if conn:
+                conn.close()
+                
+    return decorated_function
+
 @app.route('/checkout')
+@cart_required
 def checkout():
     """Shopping checkout page with dynamic cart items."""
     user_email = request.cookies.get('user_email')
-    if not user_email:
-        flash('Please login to proceed with checkout', 'error')
-        return redirect(url_for('auth'))
-        
     conn = get_db_connection()
     if not conn:
         flash('Error connecting to database', 'error')
@@ -1076,7 +1116,7 @@ def checkout():
             return render_template('checkout.html', 
                                  cart_items=cart_items,
                                  subtotal=subtotal,
-                                 total=subtotal)  # Remove VAT, total equals subtotal
+                                 total=subtotal)
             
     except mysql.connector.Error as err:
         print(f"Database error: {err}")
@@ -1087,6 +1127,7 @@ def checkout():
             conn.close()
 
 @app.route('/process_checkout', methods=['POST'])
+@cart_required
 def process_checkout():
     """Handle checkout form submission and store complete order details"""
     user_email = request.cookies.get('user_email')
@@ -1354,7 +1395,20 @@ def myorders():
         if conn:
             conn.close()
 
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        user_email = request.cookies.get('user_email')
+        is_admin_cookie = request.cookies.get('is_admin')
+        
+        if not user_email or not is_admin_cookie or is_admin_cookie != 'true':
+            flash('Unauthorized access. Admin privileges required.', 'error')
+            return redirect(url_for('auth'))
+        return f(*args, **kwargs)
+    return decorated_function
+
 @app.route('/admins/dashboard')
+@admin_required
 def dashboard():
     """Admin dashboard with user management, products, and orders."""
     conn = get_db_connection()
@@ -1540,6 +1594,7 @@ def price_per_kg_filter(price, weight):
         return None
 
 @app.route('/admin/delete-user/<int:user_id>', methods=['DELETE'])
+@admin_required
 def delete_user(user_id):
     """Delete a user and return JSON response."""
     conn = get_db_connection()
@@ -1766,6 +1821,7 @@ def my_profile():
             conn.close()
 
 @app.route('/admin/orders')
+@admin_required
 def admin_orders():
     """Admin order management page with complete order details"""
     user_email = request.cookies.get('user_email')
@@ -1979,6 +2035,7 @@ def delete_product(product_id):
             conn.close()
 
 @app.route('/admin/dashboard-data')
+@admin_required
 def get_dashboard_data():
     conn = get_db_connection()
     if not conn:
