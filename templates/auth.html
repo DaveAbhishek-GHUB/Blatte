@@ -1,3 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+{# ========== HEADER CONFIGURATION ========== #}
+<script type="module">
+    import { headersName } from '../static/javascripts/headersName.js';
+    document.title = headersName.auth;
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +17,9 @@
     {# ========== EXTERNAL RESOURCES ========== #}
     <!-- Feather Icons CDN -->
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
     
     {# ========== STYLESHEETS ========== #}
     <link rel="stylesheet" href="../static/css/auth.css">
@@ -61,3 +73,4 @@
     </script>
 </body>
 </html>
+{% endblock %}

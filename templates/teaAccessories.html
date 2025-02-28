@@ -1,3 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+{# ========== HEADER CONFIGURATION ========== #}
+<script type="module">
+    import { headersName } from '../static/javascripts/headersName.js';
+    document.title = headersName.teaAccessories;
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +17,9 @@
     <!-- Feather Icons CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.css">
     <script src="https://unpkg.com/feather-icons"></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 </head>
 
 <body>
@@ -90,3 +102,4 @@
     </script>
 </body>
 </html>
+{% endblock %}

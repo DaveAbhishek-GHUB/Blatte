@@ -1,3 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+{# ========== HEADER CONFIGURATION ========== #}
+<script type="module">
+    import { headersName } from '../static/javascripts/headersName.js';
+    document.title = headersName.shippingPayment;
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -122,3 +131,4 @@
 </body>
 
 </html>
+{% endblock %}

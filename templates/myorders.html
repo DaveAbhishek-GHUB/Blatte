@@ -1,8 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+{# ========== HEADER CONFIGURATION ========== #}
+<script type="module">
+    import { headersName } from '../static/javascripts/headersName.js';
+    document.title = headersName.myOrders;
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    
     <!-- Main stylesheet -->
     <link rel="stylesheet" href="/static/css/myorders.css">
     <!-- Feather Icons CDN -->
@@ -95,3 +108,4 @@
     </script>
 </body>
 </html>
+{% endblock %}

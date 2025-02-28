@@ -21,6 +21,7 @@ export const headersName = {
     checkout: "BLATTÉ | Checkout",
     orderHistory: "BLATTÉ | Order History",
     profile: "BLATTÉ | My Profile",
+    myOrders: "BLATTÉ | My Orders",
     
     // Admin Pages
     dashboard: "BLATTÉ | Admin Dashboard",
@@ -36,5 +37,13 @@ export const headersName = {
     privacyPolicy: "BLATTÉ | Privacy Policy",
     termsConditions: "BLATTÉ | Terms & Conditions",
     shipping: "BLATTÉ | Shipping Information",
-    returns: "BLATTÉ | Returns & Refunds"
+    returns: "BLATTÉ | Returns & Refunds",
+    store: "BLATTÉ | Our Stores",
+    productDetails: "BLATTÉ | Product Details",
+    error404: "BLATTÉ | Page Not Found",
+    career: "BLATTÉ | Careers",
+    blatteForCompanies: "BLATTÉ | For Companies",
+    pressInquiries: "BLATTÉ | Press Inquiries",
+    trackAndTrace: "BLATTÉ | Track Your Order",
+    shippingPayment: "BLATTÉ | Shipping & Payment"
 };

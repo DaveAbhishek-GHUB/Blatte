@@ -1,3 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+{# ========== HEADER CONFIGURATION ========== #}
+<script type="module">
+    import { headersName } from '../static/javascripts/headersName.js';
+    document.title = headersName.cart;
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,6 +14,9 @@
     <!-- Essential Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="/static/css/cart.css">
@@ -107,3 +119,4 @@
     <script src="/static/javascripts/cart.js"></script>
 </body>
 </html>
+{% endblock %}

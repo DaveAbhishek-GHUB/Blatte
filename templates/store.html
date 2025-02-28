@@ -1,6 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+{# ========== HEADER CONFIGURATION ========== #}
+<script type="module">
+    import { headersName } from '../static/javascripts/headersName.js';
+    document.title = headersName.store;
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Stylesheets -->
@@ -8,10 +20,11 @@
     <!-- Feather Icons CDN -->
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
+
 <body>
     {# ========== COMPONENTS ========== #}
-    {% include 'utilities/header.html' %}      {# Header component #}
-    {% include 'components/toast.html' %}      {# Notification system #}
+    {% include 'utilities/header.html' %} {# Header component #}
+    {% include 'components/toast.html' %} {# Notification system #}
 
     {# ========== MAIN CONTENT ========== #}
     <div class="container">
@@ -21,16 +34,17 @@
             <p>BLATTÉ is a space where everyone is invited to celebrate togetherness, share ideas, and discover the
                 beauty of life. Through our commitment to quality, limitless aesthetics, mindfulness, and artistry, we
                 strive to offer products, experiences, and services that bring a smile to your face.</p>
-            <p>We are continuously growing and opening new spaces throughout Europe. Maybe soon in your neighborhood?</p>
+            <p>We are continuously growing and opening new spaces throughout Europe. Maybe soon in your neighborhood?
+            </p>
         </div>
-    
+
         {# Store Listings #}
         <div class="store-list">
             {# Store 1 - Utrecht #}
             <div class="store">
                 <div class="store-image">
-                    <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/shop/09.jpeg?updatedAt=1740464932207" 
-                    alt="Utrecht Store">
+                    <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/shop/09.jpeg?updatedAt=1740464932207"
+                        alt="Utrecht Store">
                 </div>
                 <div class="store-info">
                     <h2>Utrecht</h2>
@@ -67,8 +81,8 @@
                     </div>
                 </div>
                 <div class="store-image">
-                    <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/shop/12.jpeg?updatedAt=1740464937123" 
-                    alt="Bruges Store">
+                    <img src="https://ik.imagekit.io/5emcramny/Blatt%C3%A9/shop/12.jpeg?updatedAt=1740464937123"
+                        alt="Bruges Store">
                 </div>
             </div>
 
@@ -186,7 +200,7 @@
                     </div>
                 </div>
             </div>
-            
+
             {# Store 8 - Stuttgart #}
             <div class="store">
                 <div class="store-info">
@@ -222,4 +236,6 @@
         feather.replace();
     </script>
 </body>
+
 </html>
+{% endblock %}

@@ -1,3 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+{# ========== HEADER CONFIGURATION ========== #}
+<script type="module">
+    import { headersName } from '../static/javascripts/headersName.js';
+    document.title = headersName.blatteForCompanies;
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +20,9 @@
     {# ========== FEATHER ICONS CDN ========== #}
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+
     <title>BLATTÉ for Companies</title>
 </head>
 
@@ -111,3 +123,4 @@
     </script>
 </body>
 </html>
+{% endblock %}

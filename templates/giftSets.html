@@ -1,3 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+{# ========== HEADER CONFIGURATION ========== #}
+<script type="module">
+    import { headersName } from '../static/javascripts/headersName.js';
+    document.title = headersName.giftSets;
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +18,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/products/giftSets.css') }}">
     <!-- Feather Icons CDN -->
     <script src="https://unpkg.com/feather-icons"></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+
     <title>Gift sets</title>
 </head>
 
@@ -99,3 +112,4 @@
 </body>
 
 </html>
+{% endblock %}
