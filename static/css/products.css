@@ -47,7 +47,7 @@
 .teas-header {
     padding: clamp(1rem, 2vw, 2rem);
     max-width: 1400px;
-    margin: 65px auto 0;
+    margin: clamp(40px, 3.8vw, 60px) auto 0;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -75,18 +75,73 @@
     margin-top: 1rem;
 }
 
-/* Category section */
+/* Category container and scroll buttons */
+.category-container {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    background-color: #EEEEEE;
+    margin-top: clamp(40px, 3.8vw, 60px);
+}
+
+.scroll-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.scroll-arrow:hover {
+    background-color: #f8f8f8;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.scroll-left {
+    left: 10px;
+}
+
+.scroll-right {
+    right: 10px;
+}
+
+.scroll-arrow svg {
+    width: 20px;
+    height: 20px;
+    color: #333;
+}
+
+/* Category navigation */
 .categorySection {  
     width: 100%;
-    margin: 65px auto 0;
     padding: clamp(1rem, 2vw, 2rem);
     display: flex;
-    justify-content: flex-start; /* Changed to flex-start for better alignment */
-    flex-wrap: nowrap; /* Prevent wrapping to allow horizontal scrolling */
+    justify-content: flex-start;
+    flex-wrap: nowrap;
     background-color: #EEEEEE;
-    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-x: auto;
     overflow-y: hidden;
-    gap: 4rem; /* Adjusted gap */
+    gap: 4rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+    margin: 0;
+}
+
+.categorySection::-webkit-scrollbar {
+    display: none;
 }
 
 .catProductInfo {
