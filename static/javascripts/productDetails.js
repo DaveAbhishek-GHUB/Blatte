@@ -25,42 +25,111 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add to cart functionality
     const addToCartBtn = document.querySelector('.add-to-cart-btn');
     if (addToCartBtn) {
-        addToCartBtn.addEventListener('click', function(event) {
-            event.preventDefault();
-            const productId = this.getAttribute('data-product-id');
-            const quantity = parseInt(document.getElementById('product-quantity').value) || 1;
+        addToCartBtn.addEventListener('click', function() {
+            const productId = this.dataset.productId;
+            const quantity = document.getElementById('product-quantity').value;
             
             fetch(`/api/cart/${productId}`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'Content-Type': 'application/json'
                 },
-                credentials: 'same-origin',
                 body: JSON.stringify({ quantity: quantity })
             })
             .then(response => response.json())
             .then(data => {
-                const category = data.success ? 'success' : 'error';
-                if (window.showToast) {
-                    window.showToast(data.message || 'Added to cart successfully', category);
-                }
-                
                 if (data.success) {
-                    // Update quantity in cart if needed
-                    fetch(`/api/cart/${productId}/quantity`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ quantity: quantity })
-                    });
+                    if (window.showToast) {
+                        window.showToast('Added to cart');
+                    }
+                } else {
+                    if (window.showToast) {
+                        window.showToast(data.message, 'error');
+                    }
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
                 if (window.showToast) {
-                    window.showToast('Error adding to cart. Please try again.', 'error');
+                    window.showToast('Error adding to cart', 'error');
+                }
+            });
+        });
+    }
+
+    // Wishlist functionality
+    const wishlistBtn = document.querySelector('.wishlist-btn');
+    if (wishlistBtn) {
+        const productId = wishlistBtn.dataset.productId;
+
+        // Check initial wishlist state
+        fetch(`/api/wishlist/${productId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.in_wishlist) {
+                wishlistBtn.classList.add('in-wishlist');
+                wishlistBtn.innerHTML = `
+                    <i data-feather="heart"></i>
+                    Remove from Wishlist
+                `;
+                feather.replace();
+            }
+        })
+        .catch(error => console.error('Error checking wishlist state:', error));
+
+        // Add click event listener
+        wishlistBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            
+            fetch(`/api/wishlist/${productId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                credentials: 'same-origin'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    this.classList.toggle('in-wishlist');
+                    if (data.in_wishlist) {
+                        this.innerHTML = `
+                            <i data-feather="heart"></i>
+                            Remove from Wishlist
+                        `;
+                        if (window.showToast) {
+                            window.showToast('Added to wishlist');
+                        }
+                    } else {
+                        this.innerHTML = `
+                            <i data-feather="heart"></i>
+                            Add to Wishlist
+                        `;
+                        if (window.showToast) {
+                            window.showToast('Removed from wishlist');
+                        }
+                    }
+                    feather.replace();
+                } else {
+                    if (data.message === 'Please login first') {
+                        window.location.href = '/auth';
+                    } else if (window.showToast) {
+                        window.showToast(data.message, 'error');
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                if (window.showToast) {
+                    window.showToast('Error updating wishlist. Please try again.', 'error');
                 }
             });
         });
