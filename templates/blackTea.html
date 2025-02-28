@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+<script type="module">
+    import { headersName } from '../static/javascripts/headersName.js';
+    document.title = headersName.blackTea;
+</script>
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 <!DOCTYPE html>
 <html lang="en">
 

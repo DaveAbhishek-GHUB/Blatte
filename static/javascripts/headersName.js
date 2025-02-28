@@ -22,7 +22,7 @@ export const headersName = {
     orderHistory: "BLATTÉ | Order History",
     profile: "BLATTÉ | My Profile",
     myOrders: "BLATTÉ | My Orders",
-    
+    products: "BLATTÉ | Products",
     // Admin Pages
     dashboard: "BLATTÉ | Admin Dashboard",
     insertProducts: "BLATTÉ | Insert Products",
