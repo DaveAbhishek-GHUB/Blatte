@@ -25,8 +25,8 @@
                    class="filter-btn {% if active_filter == 'all' %}active{% endif %}">
                     All
                 </a>
-                <a href="{{ url_for('myorders', status='in progress') }}" 
-                   class="filter-btn {% if active_filter == 'in progress' %}active{% endif %}">
+                <a href="{{ url_for('myorders', status='progress') }}" 
+                   class="filter-btn {% if active_filter == 'progress' %}active{% endif %}">
                     In Progress
                 </a>
                 <a href="{{ url_for('myorders', status='delivered') }}" 

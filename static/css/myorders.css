@@ -63,11 +63,13 @@ body {
     border-color: transparent;
 }
 
-.filter-btn.active[href*="status=all"],
-.filter-btn.active[href*="status=in progress"] {
+.filter-btn.active[href*="status=all"]
+{
+    background-color: #333;
+}
+.filter-btn.active[href*="status=progress"] {
     background-color: #ff9800;
 }
-
 .filter-btn.active[href*="status=delivered"] {
     background-color: #4CAF50;
 }

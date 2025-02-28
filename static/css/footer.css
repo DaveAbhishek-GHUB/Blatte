@@ -74,54 +74,24 @@
     opacity: 0.8;
 }
 
-/* Newsletter section */
-.newsletter__text {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
+/* Tea Quotes section */
+.tea-quote {
+    margin-bottom: clamp(1.5rem, 2vw, 2rem);
+    padding-left: clamp(1rem, 1.5vw, 1.5rem);
+    border-left: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.quote-text {
     font-size: clamp(0.875rem, 1.2vw, 1rem);
-    margin-bottom: clamp(1rem, 1.5vw, 1.5rem);
-}
-
-.newsletter__form {
-    display: flex;
-    gap: clamp(0.5rem, 0.8vw, 1rem);
-    margin-bottom: clamp(1rem, 1.5vw, 1.5rem);
-    flex-wrap: wrap;
-}
-
-.newsletter__input {
-    flex: 1;
-    min-width: 200px;
-    padding: clamp(0.75rem, 1vw, 1rem);
-    border: none;
-    background: #fff;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: clamp(0.875rem, 1.2vw, 1rem);
-}
-
-.newsletter__button {
-    padding: clamp(0.75rem, 1vw, 1rem) clamp(1.5rem, 2vw, 2rem);
-    background: #000;
+    margin-bottom: clamp(0.5rem, 0.8vw, 0.8rem);
+    line-height: 1.6;
     color: #fff;
-    border: 1px solid #fff;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: clamp(0.875rem, 1.2vw, 1rem);
 }
 
-.newsletter__button:hover {
-    background: #fff;
-    color: #000;
-}
-
-.newsletter__disclaimer {
+.quote-author {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
     font-size: clamp(0.75rem, 1vw, 0.875rem);
-    opacity: 0.8;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 /* Social media section */
@@ -165,15 +135,6 @@
 @media screen and (max-width: 768px) {
     .footer__content {
         grid-template-columns: 1fr;
-    }
-
-    .newsletter__form {
-        flex-direction: column;
-    }
-
-    .newsletter__input,
-    .newsletter__button {
-        width: 100%;
     }
 
     .social-icons,
