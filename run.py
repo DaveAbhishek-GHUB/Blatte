@@ -33,6 +33,12 @@ app = Flask(__name__)
 # TODO: Move secret key to environment variable in production
 app.secret_key = 'BlatteADP'
 
+# ========== ERROR HANDLERS ==========
+@app.errorhandler(404)
+def page_not_found(e):
+    """Custom 404 error page handler"""
+    return render_template('404.html'), 404
+
 # ========== DATABASE CONFIGURATION ==========
 DB_CONFIG = {
     'host': 'localhost',
