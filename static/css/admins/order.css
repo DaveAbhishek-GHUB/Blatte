@@ -126,8 +126,7 @@
 /* Orders Table */
 .orders-table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
+    border-collapse: collapse;
     margin-top: 1px;
 }
 
@@ -148,6 +147,41 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     padding: 12px 20px;
+}
+
+.orders-table th:nth-child(1),
+.orders-table td:nth-child(1) {
+    width: 15%;
+}
+
+.orders-table th:nth-child(2),
+.orders-table td:nth-child(2) {
+    width: 20%;
+}
+
+.orders-table th:nth-child(3),
+.orders-table td:nth-child(3) {
+    width: 20%;
+}
+
+.orders-table th:nth-child(4),
+.orders-table td:nth-child(4) {
+    width: 15%;
+}
+
+.orders-table th:nth-child(5),
+.orders-table td:nth-child(5) {
+    width: 25%;
+}
+
+.orders-table th:nth-child(6),
+.orders-table td:nth-child(6) {
+    width: 10%;
+}
+
+.orders-table th:nth-child(7),
+.orders-table td:nth-child(7) {
+    width: 15%;
 }
 
 .orders-table tbody tr {
@@ -199,6 +233,7 @@
     gap: 8px;
     justify-content: flex-start;
     align-items: center;
+    margin-top: 15px;
 }
 
 .status-btn {

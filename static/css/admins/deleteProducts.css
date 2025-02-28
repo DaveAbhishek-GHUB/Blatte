@@ -99,25 +99,63 @@
 .products-table {
     width: 100%;
     border-collapse: collapse;
-    overflow-x: auto;
-    display: block;
+    margin-top: 1px;
 }
 
 .products-table th,
 .products-table td {
-    padding: clamp(12px, 2vw, 16px) clamp(16px, 3vw, 24px);
+    padding: 16px 20px;
     text-align: left;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 0.875rem;
+    line-height: 1.5;
 }
 
+/* Ensure headers have a consistent width */
 .products-table th {
-    background: #f9fafb;
+    background: #f8f9fa;
     color: #4b5563;
-    font-weight: 500;
-    font-size: 0.875rem;
-    font-family: 'serif', serif;
-    font-weight: 400;
-    white-space: nowrap;
+    font-weight: 600;
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 20px;
+}
+
+/* Adjust the width of specific columns */
+.products-table th:nth-child(1), /* Image */
+.products-table td:nth-child(1) {
+    width: 15%; /* Adjust width as needed */
+}
+
+.products-table th:nth-child(2), /* Name */
+.products-table td:nth-child(2) {
+    width: 25%; /* Adjust width as needed */
+}
+
+.products-table th:nth-child(3), /* Category */
+.products-table td:nth-child(3) {
+    width: 15%; /* Adjust width as needed */
+}
+
+.products-table th:nth-child(4), /* Price */
+.products-table td:nth-child(4) {
+    width: 15%; /* Adjust width as needed */
+}
+
+.products-table th:nth-child(5), /* Status */
+.products-table td:nth-child(5) {
+    width: 10%; /* Adjust width as needed */
+}
+
+.products-table th:nth-child(6), /* Added Date */
+.products-table td:nth-child(6) {
+    width: 10%; /* Adjust width as needed */
+}
+
+.products-table th:nth-child(7), /* Actions */
+.products-table td:nth-child(7) {
+    width: 10%; /* Adjust width as needed */
 }
 
 /* Product Image Styles */
@@ -147,7 +185,8 @@
 .action-buttons {
     display: flex;
     gap: 8px;
-    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .delete-btn {
@@ -196,6 +235,18 @@
     
     .search-box input {
         width: 100%;
+    }
+
+    .products-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .products-table th,
+    .products-table td {
+        padding: 12px 16px;
+        font-size: 0.875rem;
     }
 }
 
