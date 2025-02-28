@@ -91,7 +91,7 @@
 
 .check::before {
     content: "•";
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: clamp(4rem, 4rem, 4rem);
     line-height: 1;
 }
 
