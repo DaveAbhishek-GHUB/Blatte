@@ -73,7 +73,7 @@
                             <span class="product-name">{{ product.product_name }}</span>
                         </td>
                         <td>{{ product.product_category }}</td>
-                        <td>${{ "%.2f"|format(product.price) }}</td>
+                        <td>₹{{ "%.2f"|format(product.price) }}</td>
                         <td>{{ product.availability_status }}</td>
                         <td>{{ product.created_at.strftime('%Y-%m-%d') }}</td>
                         <td>

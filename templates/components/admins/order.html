@@ -74,7 +74,7 @@
                         <td>{{ order.order_id }}</td>
                         <td class="user-name">{{ order.firstname }} {{ order.lastname }}</td>
                         <td>{{ order.email }}</td>
-                        <td>${{ "%.2f"|format(order.total_amount) }}</td>
+                        <td>₹{{ "%.2f"|format(order.total_amount) }}</td>
                         <td>
                             {{ order.shipping_address.street }}, 
                             {{ order.shipping_address.city }}, 
